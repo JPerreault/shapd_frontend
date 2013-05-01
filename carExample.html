@@ -67,6 +67,8 @@
 
 			var STATS_ENABLED = false;
 
+			var mlib;
+
 			var CARS = {
 
 				"veyron": 	{
@@ -237,7 +239,7 @@
 
 				// common materials
 
-				var mlib = {
+				mlib = {
 
 				"Orange": 	new THREE.MeshLambertMaterial( { color: 0xff6600, ambient: 0xff2200, envMap: textureCube, combine: THREE.MixOperation, reflectivity: 0.3 } ),
 				"Blue": 	new THREE.MeshLambertMaterial( { color: 0x001133, ambient: 0x001133, envMap: textureCube, combine: THREE.MixOperation, reflectivity: 0.3 } ),
@@ -566,20 +568,83 @@
 
 			}
 
+			// "veyron": 	{
+
+			// 		name:	"Bugatti Veyron",
+			// 		url: 	"obj/veyron/VeyronNoUv_bin.js",
+			// 		author: '<a href="http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1129" target="_blank">Troyano</a>',
+			// 		init_rotation: [ 0, 0, 0 ],
+			// 		scale: 5.5,
+			// 		init_material: 4,
+			// 		body_materials: [ 2 ],
+
+			// 		object: null,
+			// 		buttons: null,
+			// 		materials: null
+
+			// 	}
+
+			// CARS[ "veyron" ].materials = {
+
+			// 		body: [
+
+			// 			[ "Orange metal", 	mlib[ "Orange metal" ] ],
+			// 			[ "Blue metal", 	mlib[ "Blue metal" ] ],
+			// 			[ "Red metal", 		mlib[ "Red metal" ] ],
+			// 			[ "Green metal",	mlib[ "Green metal" ] ],
+			// 			[ "Black metal", 	mlib[ "Black metal" ] ],
+
+			// 			[ "Gold", 		mlib[ "Gold" ] ],
+			// 			[ "Bronze", 	mlib[ "Bronze" ] ],
+			// 			[ "Chrome", 	mlib[ "Chrome" ] ]
+
+			// 		],
+
+			// 	}
+
 			function createScene( geometry, car ) {
 
 				loader.statusDomElement.innerHTML = "Creating model ...";
 
+				var veyronMaterials = {
+					body: [
+
+						[ "Orange metal", 	mlib[ "Orange metal" ] ],
+						[ "Blue metal", 	mlib[ "Blue metal" ] ],
+						[ "Red metal", 		mlib[ "Red metal" ] ],
+						[ "Green metal",	mlib[ "Green metal" ] ],
+						[ "Black metal", 	mlib[ "Black metal" ] ],
+
+						[ "Gold", 		mlib[ "Gold" ] ],
+						[ "Bronze", 	mlib[ "Bronze" ] ],
+						[ "Chrome", 	mlib[ "Chrome" ] ]
+
+					]
+				}
+
 				var m = new THREE.MeshFaceMaterial(),
-					s = CARS[ car ].scale * 1,
-					r = CARS[ car ].init_rotation,
-					materials = CARS[ car ].materials,
-					mi = CARS[ car ].init_material,
-					bm = CARS[ car ].body_materials;
+					s = 5.5 * 1, //scale
+					r = [ 0, 0, 0 ], //inital rotation			
+					materials = veyronMaterials,
+					mi = 4, // initial material_indices
+					bm = [ 2 ]; //body materials
 
-				for ( var i in CARS[ car ].mmap ) {
+				materialsMap = {
 
-					m.materials[ i ] = CARS[ car ].mmap[ i ];
+					0: mlib[ "Black rough" ],		// tires + inside
+					1: mlib[ "Pure chrome" ],		// wheels + extras chrome
+					2: veyronMaterials.body[ mi ][ 1 ], 			// back / top / front torso
+					3: mlib[ "Dark glass" ],		// glass
+					4: mlib[ "Pure chrome" ],		// sides torso
+					5: mlib[ "Pure chrome" ],		// engine
+					6: mlib[ "Red glass 50" ],		// backlights
+					7: mlib[ "Orange glass 50" ]	// backsignals
+
+				}
+
+				for ( var i in materialsMap ) {
+
+					m.materials[ i ] = materialsMap[ i ];
 
 				}
 
@@ -593,7 +658,7 @@
 
 				scene.add( mesh );
 
-				CARS[ car ].object = mesh;
+				// CARS[ car ].object = mesh;
 
 				CARS[ car ].buttons = createButtons( materials.body, car );
 				attachButtonMaterials( materials.body, m, bm, car );
