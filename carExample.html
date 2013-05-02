@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js webgl - materials - cube reflection [cars]</title>
+		<title>Shapedom Prototype</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -21,45 +21,13 @@
 
 			#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
 
-			.bwrap { margin:0.5em 0 0 0 }
-			button { font-family:georgia; border:0; background:#000; color:#fff; padding:0.2em 0.5em; cursor:pointer; border-radius:3px; }
-			button:hover { background:#333 }
-			#buttons_cars button { color:#fa0 }
-
-			#car_info { text-align:center; }
-			#car_name { font-size:1em }
-			#car_author { font-size:1em }
-
-			#oldie { background:rgb(50,0,0) !important; color:#fff !important; margin-top:7em!important }
 		</style>
 	</head>
 
 	<body>
-		<div id="d">
-			<div id="info">
-				<a href="http://threejs.org" target="_blank">three.js</a> webgl demo :
-				texture by <a href="http://www.humus.name/index.php?page=Textures" target="_blank">Humus</a> :
-				<span id="car_info">
-					<span id="car_name">Bugatti Veyron model</span>
-					by <span id="car_author"><a href="http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1129" target="_blank">Troyano</a></span>
-				</span>
-
-			</div>
-
-			<div id="buttons_cars" class="bwrap">
-				<button id="veyron">Bugatti Veyron</button>
-				<button id="gallardo">Lamborghini Gallardo</button>
-				<button id="f50">Ferrari F50</button>
-				<button id="camaro">Chevrolet Camaro</button>
-			</div>
-
-			<div id="buttons_materials" class="bwrap"></div>
-		</div>
-
 		<script src="js/libs/three.min.js"></script>
 		<script src="js/libs/BinaryLoader.js"></script>
 		<script src="js/libs/Detector.js"></script>
-		<script src="js/libs/stats.min.js"></script>
 		<script src="CurveExtras.js"></script>
 		<script src="tubeMesh.js"></script>
 		<script src="sceneCubeWrapper.js"></script>
@@ -70,18 +38,15 @@
 
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			var STATS_ENABLED = false;
 			var materialsLibrary;
-			var container, stats;
-			var camera, scene, renderer;
-			var cameraCube, sceneCube;
+			var container;
+			var renderer, sceneWrapper;
+			var sceneCube;
 			var m, mi;
 			var directionalLight, pointLight;
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
-			var loader = new THREE.BinaryLoader( true );
-			document.body.appendChild( loader.statusDomElement );
 
 			init();
 			animate();
@@ -91,17 +56,10 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				// CAMERAS
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
-				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
-
 				// SCENE
 				materialsLibrary = new MaterialsLibrary();				
-				var sceneWrapper = new SceneWrapper();
-				scene = sceneWrapper.scene;
+				sceneWrapper = new SceneWrapper();
 				sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
-
-				// LIGHTS
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -109,16 +67,6 @@
 				renderer.autoClear = false;
 
 				container.appendChild( renderer.domElement );
-
-				if ( STATS_ENABLED ) {
-
-					stats = new Stats();
-					stats.domElement.style.position = 'absolute';
-					stats.domElement.style.top = '0px';
-					stats.domElement.style.zIndex = 100;
-					container.appendChild( stats.domElement );
-
-				}
 
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				createScene();
@@ -130,12 +78,9 @@
 				windowHalfX = window.innerWidth / 2;
 				windowHalfY = window.innerHeight / 2;
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				cameraCube.aspect = window.innerWidth / window.innerHeight;
-				cameraCube.updateProjectionMatrix();
-
+				sceneWrapper.updateCameraOnWindowResize();
+				sceneCube.updateCameraOnWindowResize();
+				
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 			}
@@ -145,8 +90,6 @@
 			function button_name( car, index ) { return "m_" + car  + "_" + index }
 
 			function createScene() {
-
-				loader.statusDomElement.innerHTML = "Creating model ...";
 
 				var m = new THREE.MeshFaceMaterial(),
 					s = 5.5 * 1, //scale
@@ -202,42 +145,24 @@
 
 				mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
 
-				scene.add( mesh );
-
+				sceneWrapper.addMesh( mesh );
 			}
 
 			function onDocumentMouseMove(event) {
-
 				mouseY = ( event.clientY - window.innerHeight );
-
 			}
 
-			//
-
 			function animate() {
-
 				requestAnimationFrame( animate );
-
 				render();
-
 			}
 
 			function render() {
+				sceneWrapper.renderCamera();
+				sceneCube.renderCamera(sceneWrapper.camera.rotation);
 
-				var timer = -0.0002 * Date.now();
-
-				camera.position.x = 1000 * Math.cos( timer );
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
-				camera.position.z = 1000 * Math.sin( timer );
-
-				camera.lookAt( scene.position );
-				cameraCube.rotation.copy( camera.rotation );
-
-				renderer.render( sceneCube.scene, cameraCube );
-				renderer.render( scene, camera );
-
-				if ( STATS_ENABLED ) stats.update();
-
+				renderer.render( sceneCube.scene, sceneCube.camera );
+				renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 			}
 
 		</script>
