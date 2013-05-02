@@ -63,6 +63,7 @@
 		<script src="CurveExtras.js"></script>
 		<script src="tubeMesh.js"></script>
 		<script src="sceneCubeWrapper.js"></script>
+		<script src="sceneWrapper.js"></script>
 		<script src="materialsLibrary.js"></script>
 
 		<script>
@@ -91,33 +92,16 @@
 				document.body.appendChild( container );
 
 				// CAMERAS
-
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 
 				// SCENE
-
-
 				materialsLibrary = new MaterialsLibrary();				
-				scene = new THREE.Scene();
+				var sceneWrapper = new SceneWrapper();
+				scene = sceneWrapper.scene;
 				sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
 				// LIGHTS
-
-				var ambient = new THREE.AmbientLight( 0x050505 );
-				scene.add( ambient );
-
-				directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-				directionalLight.position.set( 2, 1.2, 10 ).normalize();
-				scene.add( directionalLight );
-
-				directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-				directionalLight.position.set( -2, 1.2, -10 ).normalize();
-				scene.add( directionalLight );
-
-				pointLight = new THREE.PointLight( 0xffaa00, 2 );
-				pointLight.position.set( 2000, 1200, 10000 );
-				scene.add( pointLight );
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
