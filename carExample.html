@@ -70,92 +70,15 @@
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			var STATS_ENABLED = false;
-
 			var materialsLibrary;
-
-			var CARS = {
-
-				"veyron": 	{
-
-					name:	"Bugatti Veyron",
-					url: 	"obj/veyron/VeyronNoUv_bin.js",
-					author: '<a href="http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1129" target="_blank">Troyano</a>',
-					init_rotation: [ 0, 0, 0 ],
-					scale: 5.5,
-					init_material: 4,
-					body_materials: [ 2 ],
-
-					object: null,
-					buttons: null,
-					materials: null
-
-				},
-
-				"gallardo": {
-
-					name: 	"Lamborghini Gallardo",
-					url:	"obj/gallardo/GallardoNoUv_bin.js",
-					author: '<a href="http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1711" target="_blank">machman_3d</a>',
-					init_rotation: [ 0, 0, 0 ],
-					scale: 3.7,
-					init_material: 9,
-					body_materials: [ 3 ],
-
-					object:	null,
-					buttons: null,
-					materials: null
-
-				},
-
-				"f50": {
-
-					name: 	"Ferrari F50",
-					url:	"obj/f50/F50NoUv_bin.js",
-					author: '<a href="http://artist-3d.com/free_3d_models/dnm/model_disp.php?uid=1687" target="_blank">daniel sathya</a>',
-					init_rotation: [ 0, 0, 0 ],
-					scale: 0.175,
-					init_material: 2,
-					body_materials: [ 3, 6, 7, 8, 9, 10, 23, 24 ],
-
-					object:	null,
-					buttons: null,
-					materials: null
-
-				},
-
-				"camaro": {
-
-					name: 	"Chevrolet Camaro",
-					url:	"obj/camaro/CamaroNoUv_bin.js",
-					author: '<a href="http://www.turbosquid.com/3d-models/blender-camaro/411348" target="_blank">dskfnwn</a>',
-					init_rotation: [ 0.0, 0.0, 0.0 /*0, 1, 0*/ ],
-					scale: 75,
-					init_material: 0,
-					body_materials: [ 0 ],
-
-					object:	null,
-					buttons: null,
-					materials: null
-
-				}
-
-			};
-
-
 			var container, stats;
-
 			var camera, scene, renderer;
 			var cameraCube, sceneCube;
-
 			var m, mi;
-
 			var directionalLight, pointLight;
-
 			var mouseX = 0, mouseY = 0;
-
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
-
 			var loader = new THREE.BinaryLoader( true );
 			document.body.appendChild( loader.statusDomElement );
 
@@ -214,21 +137,8 @@
 				}
 
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
-				// common materials
-
-				
-
-
-
-				loader.load( "obj/veyron/VeyronNoUv_bin.js", function( geometry ) { createScene( geometry, "veyron" ) } );
-
-				for( var c in CARS ) initCarButton( c );
-
-				//
-
+				createScene();
 				window.addEventListener( 'resize', onWindowResize, false );
-
 			}
 
 			function onWindowResize() {
@@ -246,87 +156,11 @@
 
 			}
 
-			function initCarButton( car ) {
-
-				$( car ).addEventListener( 'click', function() {
-
-					if ( ! CARS[ car ].object ) {
-
-						loader.statusDomElement.style.display = "block";
-						loader.load( CARS[ car ].url, function( geometry ) { createScene( geometry, car ) } );
-
-					} else {
-
-						switchCar( car );
-
-					}
-
-				}, false );
-
-			}
 
 			function $( id ) { return document.getElementById( id ) }
 			function button_name( car, index ) { return "m_" + car  + "_" + index }
 
-			function switchCar( car ) {
-
-				for ( var c in CARS ) {
-
-					if ( c != car && CARS[ c ].object ) {
-
-						CARS[ c ].object.visible = false;
-						CARS[ c ].buttons.style.display = "none";
-
-					}
-				}
-
-				CARS[ car ].object.visible = true;
-				CARS[ car ].buttons.style.display = "block";
-
-				$( "car_name" ).innerHTML = CARS[ car ].name + " model";
-				$( "car_author" ).innerHTML = CARS[ car ].author;
-
-			}
-
-			function createButtons( materials, car ) {
-
-				var buttons, i, src = "";
-
-				for( i = 0; i < materials.length; i ++ ) {
-
-					src += '<button id="' + button_name( car, i ) + '">' + materials[ i ][ 0 ] + '</button> ';
-
-				}
-
-				buttons = document.createElement( "div" );
-				buttons.innerHTML = src;
-
-				$( "buttons_materials" ).appendChild( buttons );
-
-				return buttons;
-
-			}
-
-			function attachButtonMaterials( materials, faceMaterial, material_indices, car ) {
-
-				for( var i = 0; i < materials.length; i ++ ) {
-
-					$( button_name( car, i ) ).counter = i;
-					$( button_name( car, i ) ).addEventListener( 'click', function() {
-
-						for ( var j = 0; j < material_indices.length; j ++ ) {
-
-							faceMaterial.materials[ material_indices [ j ] ] = materials[ this.counter ][ 1 ];
-
-						}
-
-					}, false );
-
-				}
-
-			}
-
-			function createScene( geometry, car ) {
+			function createScene() {
 
 				loader.statusDomElement.innerHTML = "Creating model ...";
 
@@ -373,8 +207,8 @@
 
 			    var tubeMesh = new TubeMesh(initialRadius, initialScale, initialDesign);
 
-    var knot = new THREE.Curves.CinquefoilKnot(20, 5);
-    var diffGeo = new THREE.TubeGeometry(knot, 200, 10, 5, true, false);
+    			var knot = new THREE.Curves.CinquefoilKnot(20, 5);
+    			var diffGeo = new THREE.TubeGeometry(knot, 200, 10, 5, true, false);
 
 				var mesh = new THREE.Mesh( diffGeo, m );
 
