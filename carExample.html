@@ -60,6 +60,9 @@
 		<script src="js/libs/BinaryLoader.js"></script>
 		<script src="js/libs/Detector.js"></script>
 		<script src="js/libs/stats.min.js"></script>
+		<script src="CurveExtras.js"></script>
+		<script src="tubeMesh.js"></script>
+		<script src="sceneCubeWrapper.js"></script>
 
 		<script>
 
@@ -170,8 +173,16 @@
 
 				// SCENE
 
+				var r = "src/textures/cube/Bridge2/";
+				var urls = [ r + "posx.jpg", r + "negx.jpg",
+							 r + "posy.jpg", r + "negy.jpg",
+							 r + "posz.jpg", r + "negz.jpg" ];
+
+				var textureCube = THREE.ImageUtils.loadTextureCube( urls );
+				textureCube.format = THREE.RGBFormat;
+
 				scene = new THREE.Scene();
-				sceneCube = new THREE.Scene();
+				sceneCube = new SceneCubeWrapper(textureCube);
 
 				// LIGHTS
 
@@ -190,25 +201,25 @@
 				pointLight.position.set( 2000, 1200, 10000 );
 				scene.add( pointLight );
 
-				// Skybox
+				// // Skybox
 
-				var shader = THREE.ShaderLib[ "cube" ];
-				shader.uniforms[ "tCube" ].value = textureCube;
+				// var shader = THREE.ShaderLib[ "cube" ];
+				// shader.uniforms[ "tCube" ].value = textureCube;
 
-				var material = new THREE.ShaderMaterial( {
+				// var material = new THREE.ShaderMaterial( {
 
-					fragmentShader: shader.fragmentShader,
-					vertexShader: shader.vertexShader,
-					uniforms: shader.uniforms,
-					depthWrite: false,
-					side: THREE.BackSide
+				// 	fragmentShader: shader.fragmentShader,
+				// 	vertexShader: shader.vertexShader,
+				// 	uniforms: shader.uniforms,
+				// 	depthWrite: false,
+				// 	side: THREE.BackSide
 
-				} ),
+				// } );
 
-				mesh = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
-				sceneCube.add( mesh );
+				// sceneCube.add( new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material ) );
 
-				//
+				// //
+
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -228,14 +239,6 @@
 				}
 
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
-				var r = "src/textures/cube/Bridge2/";
-				var urls = [ r + "posx.jpg", r + "negx.jpg",
-							 r + "posy.jpg", r + "negy.jpg",
-							 r + "posz.jpg", r + "negz.jpg" ];
-
-				var textureCube = THREE.ImageUtils.loadTextureCube( urls );
-				textureCube.format = THREE.RGBFormat;
 
 				// common materials
 
@@ -284,186 +287,9 @@
 
 				}
 
-				// Gallardo materials
-
-				CARS[ "gallardo" ].materials = {
-
-					body: [
-
-						[ "Orange", 	mlib[ "Orange" ] ],
-						[ "Blue", 		mlib[ "Blue" ] ],
-						[ "Red", 		mlib[ "Red" ] ],
-						[ "Black", 		mlib[ "Black" ] ],
-						[ "White", 		mlib[ "White" ] ],
-
-						[ "Orange metal", 	mlib[ "Orange metal" ] ],
-						[ "Blue metal", 	mlib[ "Blue metal" ] ],
-						[ "Green metal", 	mlib[ "Green metal" ] ],
-						[ "Black metal", 	mlib[ "Black metal" ] ],
-
-						[ "Carmine", 	mlib[ "Carmine" ] ],
-						[ "Gold", 		mlib[ "Gold" ] ],
-						[ "Bronze", 	mlib[ "Bronze" ] ],
-						[ "Chrome", 	mlib[ "Chrome" ] ]
-
-					]
-
-				}
-
-				m = CARS[ "gallardo" ].materials;
-				mi = CARS[ "gallardo" ].init_material;
-
-				CARS[ "gallardo" ].mmap = {
-
-					0: mlib[ "Pure chrome" ], 	// wheels chrome
-					1: mlib[ "Black rough" ],   // tire
-					2: mlib[ "Black glass" ], 	// windshield
-					3: m.body[ mi ][ 1 ], 		// body
-					4: mlib[ "Red glass" ],    	// back lights
-					5: mlib[ "Yellow glass" ],  // front lights
-					6: mlib[ "Dark chrome" ]	// windshield rim
-
-				}
-
-				// Veyron materials
-
-				CARS[ "veyron" ].materials = {
-
-					body: [
-
-						[ "Orange metal", 	mlib[ "Orange metal" ] ],
-						[ "Blue metal", 	mlib[ "Blue metal" ] ],
-						[ "Red metal", 		mlib[ "Red metal" ] ],
-						[ "Green metal",	mlib[ "Green metal" ] ],
-						[ "Black metal", 	mlib[ "Black metal" ] ],
-
-						[ "Gold", 		mlib[ "Gold" ] ],
-						[ "Bronze", 	mlib[ "Bronze" ] ],
-						[ "Chrome", 	mlib[ "Chrome" ] ]
-
-					],
-
-				}
-
-				m = CARS[ "veyron" ].materials;
-				mi = CARS[ "veyron" ].init_material;
-
-				CARS[ "veyron" ].mmap = {
-
-					0: mlib[ "Black rough" ],		// tires + inside
-					1: mlib[ "Pure chrome" ],		// wheels + extras chrome
-					2: m.body[ mi ][ 1 ], 			// back / top / front torso
-					3: mlib[ "Dark glass" ],		// glass
-					4: mlib[ "Pure chrome" ],		// sides torso
-					5: mlib[ "Pure chrome" ],		// engine
-					6: mlib[ "Red glass 50" ],		// backlights
-					7: mlib[ "Orange glass 50" ]	// backsignals
-
-				}
-
-				// F50 materials
-
-				CARS[ "f50" ].materials = {
-
-					body: [
-
-						[ "Orange", 	mlib[ "Orange" ] ],
-						[ "Blue", 		mlib[ "Blue" ] ],
-						[ "Red", 		mlib[ "Red" ] ],
-						[ "Black", 		mlib[ "Black" ] ],
-						[ "White", 		mlib[ "White" ] ],
-
-						[ "Orange metal", 	mlib[ "Orange metal" ] ],
-						[ "Blue metal", 	mlib[ "Blue metal" ] ],
-						[ "Black metal", 	mlib[ "Black metal" ] ],
-
-						[ "Carmine", 	mlib[ "Carmine" ] ],
-						[ "Gold", 		mlib[ "Gold" ] ],
-						[ "Bronze", 	mlib[ "Bronze" ] ],
-						[ "Chrome", 	mlib[ "Chrome" ] ]
-
-					],
-
-				}
-
-				m = CARS[ "f50" ].materials;
-				mi = CARS[ "f50" ].init_material;
-
-				CARS[ "f50" ].mmap = {
-
-					0:  mlib[ "Dark chrome" ], 		// interior + rim
-					1:  mlib[ "Pure chrome" ], 		// wheels + gears chrome
-					2:  mlib[ "Blue glass" ], 		// glass
-					3:  m.body[ mi ][ 1 ], 			// torso mid + front spoiler
-					4:  mlib[ "Darkgray shiny" ], 	// interior + behind seats
-					5:  mlib[ "Darkgray shiny" ], 	// tiny dots in interior
-					6:  m.body[ mi ][ 1 ], 			// back torso
-					7:  m.body[ mi ][ 1 ], 			// right mirror decal
-					8:  m.body[ mi ][ 1 ], 			// front decal
-					9:  m.body[ mi ][ 1 ], 			// front torso
-					10: m.body[ mi ][ 1 ], 			// left mirror decal
-					11: mlib[ "Pure chrome" ], 		// engine
-					12: mlib[ "Darkgray rough" ],	// tires side
-					13: mlib[ "Darkgray rough" ],	// tires bottom
-					14: mlib[ "Darkgray shiny" ], 	// bottom
-					15: mlib[ "Black rough" ],		// ???
-					16: mlib[ "Orange glass" ],		// front signals
-					17: mlib[ "Dark chrome" ], 		// wheels center
-					18: mlib[ "Red glass" ], 		// back lights
-					19: mlib[ "Black rough" ], 		// ???
-					20: mlib[ "Red rough" ], 		// seats
-					21: mlib[ "Black rough" ], 		// back plate
-					22: mlib[ "Black rough" ], 		// front light dots
-					23: m.body[ mi ][ 1 ], 			// back torso
-					24: m.body[ mi ][ 1 ] 			// back torso center
-
-				}
 
 
-				// Camero materials
-
-				CARS[ "camaro" ].materials = {
-
-					body: [
-
-						[ "Orange", 	mlib[ "Orange" ] ],
-						[ "Blue", 		mlib[ "Blue" ] ],
-						[ "Red", 		mlib[ "Red" ] ],
-						[ "Black", 		mlib[ "Black" ] ],
-						[ "White", 		mlib[ "White" ] ],
-
-						[ "Orange metal", 	mlib[ "Orange metal" ] ],
-						[ "Blue metal", 	mlib[ "Blue metal" ] ],
-						[ "Red metal", 		mlib[ "Red metal" ] ],
-						[ "Green metal", 	mlib[ "Green metal" ] ],
-						[ "Black metal", 	mlib[ "Black metal" ] ],
-
-						[ "Gold", 		mlib[ "Gold" ] ],
-						[ "Bronze", 	mlib[ "Bronze" ] ],
-						[ "Chrome", 	mlib[ "Chrome" ] ]
-
-					],
-
-				}
-
-				m = CARS[ "camaro" ].materials;
-				mi = CARS[ "camaro" ].init_material;
-
-				CARS[ "camaro" ].mmap = {
-
-					0: m.body[ mi ][ 1 ], 			// car body
-					1: mlib[ "Pure chrome" ], 		// wheels chrome
-					2: mlib[ "Pure chrome" ], 		// grille chrome
-					3: mlib[ "Dark chrome" ], 		// door lines
-					4: mlib[ "Light glass" ], 		// windshield
-					5: mlib[ "Gray shiny" ],        // interior
-					6: mlib[ "Black rough" ],       // tire
-					7: mlib[ "Fullblack rough" ],   // tireling
-					8: mlib[ "Fullblack rough" ]    // behind grille
-
-				}
-
-				loader.load( CARS[ "veyron" ].url, function( geometry ) { createScene( geometry, "veyron" ) } );
+				loader.load( "obj/veyron/VeyronNoUv_bin.js", function( geometry ) { createScene( geometry, "veyron" ) } );
 
 				for( var c in CARS ) initCarButton( c );
 
@@ -606,26 +432,24 @@
 
 				loader.statusDomElement.innerHTML = "Creating model ...";
 
-				var veyronMaterials = {
-					body: [
-
-						[ "Orange metal", 	mlib[ "Orange metal" ] ],
-						[ "Blue metal", 	mlib[ "Blue metal" ] ],
-						[ "Red metal", 		mlib[ "Red metal" ] ],
-						[ "Green metal",	mlib[ "Green metal" ] ],
-						[ "Black metal", 	mlib[ "Black metal" ] ],
-
-						[ "Gold", 		mlib[ "Gold" ] ],
-						[ "Bronze", 	mlib[ "Bronze" ] ],
-						[ "Chrome", 	mlib[ "Chrome" ] ]
-
-					]
-				}
-
 				var m = new THREE.MeshFaceMaterial(),
 					s = 5.5 * 1, //scale
 					r = [ 0, 0, 0 ], //inital rotation			
-					materials = veyronMaterials,
+					materials = {
+							body: [
+
+								[ "Orange metal", 	mlib[ "Orange metal" ] ],
+								[ "Blue metal", 	mlib[ "Blue metal" ] ],
+								[ "Red metal", 		mlib[ "Red metal" ] ],
+								[ "Green metal",	mlib[ "Green metal" ] ],
+								[ "Black metal", 	mlib[ "Black metal" ] ],
+
+								[ "Gold", 		mlib[ "Gold" ] ],
+								[ "Bronze", 	mlib[ "Bronze" ] ],
+								[ "Chrome", 	mlib[ "Chrome" ] ]
+
+							]
+						},
 					mi = 4, // initial material_indices
 					bm = [ 2 ]; //body materials
 
@@ -633,20 +457,26 @@
 
 					0: mlib[ "Black rough" ],		// tires + inside
 					1: mlib[ "Pure chrome" ],		// wheels + extras chrome
-					2: veyronMaterials.body[ mi ][ 1 ], 			// back / top / front torso
+					2: mlib[ "Black metal" ], 			// back / top / front torso
 					3: mlib[ "Dark glass" ],		// glass
 					4: mlib[ "Pure chrome" ],		// sides torso
 					5: mlib[ "Pure chrome" ],		// engine
 					6: mlib[ "Red glass 50" ],		// backlights
 					7: mlib[ "Orange glass 50" ]	// backsignals
-
 				}
 
 				for ( var i in materialsMap ) {
-
 					m.materials[ i ] = materialsMap[ i ];
-
 				}
+
+				var initialRadius = 3;
+			    var initialScale = 5;
+				var initialDesign = 5;
+
+			    var tubeMesh = new TubeMesh(initialRadius, initialScale, initialDesign);
+
+    var knot = new THREE.Curves.CinquefoilKnot(20, 5);
+    var diffGeo = new THREE.TubeGeometry(knot, 200, 10, 5, true, false);
 
 				var mesh = new THREE.Mesh( geometry, m );
 
@@ -657,16 +487,6 @@
 				mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
 
 				scene.add( mesh );
-
-				// CARS[ car ].object = mesh;
-
-				CARS[ car ].buttons = createButtons( materials.body, car );
-				attachButtonMaterials( materials.body, m, bm, car );
-
-				switchCar( car );
-
-				loader.statusDomElement.style.display = "none";
-				loader.statusDomElement.innerHTML = "Loading model ...";
 
 			}
 
@@ -697,7 +517,7 @@
 				camera.lookAt( scene.position );
 				cameraCube.rotation.copy( camera.rotation );
 
-				renderer.render( sceneCube, cameraCube );
+				renderer.render( sceneCube.scene, cameraCube );
 				renderer.render( scene, camera );
 
 				if ( STATS_ENABLED ) stats.update();
