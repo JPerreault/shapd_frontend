@@ -25,7 +25,7 @@ var SceneWrapper = function(tMB) {
 		this.camera.updateProjectionMatrix();
 	};
 
-	this.renderCamera = function(){
+	this.renderCamera = function(mouseY){
 		var timer = -0.0002 * Date.now();
 
 		this.camera.position.x = 1000 * Math.cos( timer );
