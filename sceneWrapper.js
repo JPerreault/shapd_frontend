@@ -1,4 +1,7 @@
-var SceneWrapper = function() {
+var SceneWrapper = function(tMB) {
+	var currentMesh;
+	var tubeMeshBuilder = tMB;
+
 	this.scene = new THREE.Scene();
 	this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 
@@ -33,6 +36,23 @@ var SceneWrapper = function() {
 	};
 
 	this.addMesh = function(mesh){
-		this.scene.add(mesh);
-	}
+		currentMesh = mesh;
+		this.scene.add(mesh.figure);
+	};
+
+	this.updateRadius = function(newVal){
+        this.scene.remove( currentMesh.figure );
+        currentMesh = tubeMeshBuilder.build(newVal, currentMesh.scale, currentMesh.design);
+        this.scene.add( currentMesh.figure );
+    };
+
+    this.updateScale = function(newVal){
+        currentMesh.figure.scale.set(newVal, newVal, newVal);
+    };
+
+    this.updateDesign = function(newVal){
+        this.scene.remove( currentMesh.figure );
+        currentMesh = tubeMeshBuilder.build(currentMesh.radius, currentMesh.scale, newVal);
+        this.scene.add( currentMesh.figure );
+    };
 }

@@ -25,20 +25,23 @@
 	</head>
 
 	<body>
+
+		<div id="controls"> </div>
 		<script src="js/libs/three.min.js"></script>
 		<script src="js/libs/BinaryLoader.js"></script>
 		<script src="js/libs/Detector.js"></script>
 		<script src="CurveExtras.js"></script>
-		<script src="tubeMesh.js"></script>
 		<script src="sceneCubeWrapper.js"></script>
 		<script src="sceneWrapper.js"></script>
 		<script src="materialsLibrary.js"></script>
+		<script src="tubeMeshBuilder.js"></script>	
+		<script src="js/libs/dat.gui.min.js"></script>
 
 		<script>
 
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			var materialsLibrary;
+			var tubeMeshBuilder;
 			var container;
 			var renderer, sceneWrapper;
 			var sceneCube;
@@ -57,8 +60,9 @@
 				document.body.appendChild( container );
 
 				// SCENE
-				materialsLibrary = new MaterialsLibrary();				
-				sceneWrapper = new SceneWrapper();
+				var materialsLibrary = new MaterialsLibrary();	
+				tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
+				sceneWrapper = new SceneWrapper(tubeMeshBuilder);
 				sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
 				renderer = new THREE.WebGLRenderer();
@@ -90,62 +94,14 @@
 			function button_name( car, index ) { return "m_" + car  + "_" + index }
 
 			function createScene() {
-
-				var m = new THREE.MeshFaceMaterial(),
-					s = 5.5 * 1, //scale
-					r = [ 0, 0, 0 ], //inital rotation			
-					materials = {
-							body: [
-
-								[ "Orange metal", 	materialsLibrary.getMaterial( "Orange metal" ) ],
-								[ "Blue metal", 	materialsLibrary.getMaterial( "Blue metal" ) ],
-								[ "Red metal", 		materialsLibrary.getMaterial( "Red metal" ) ],
-								[ "Green metal",	materialsLibrary.getMaterial( "Green metal" ) ],
-								[ "Black metal", 	materialsLibrary.getMaterial( "Black metal" ) ],
-
-								[ "Gold", 		materialsLibrary.getMaterial( "Gold" ) ],
-								[ "Bronze", 	materialsLibrary.getMaterial("Bronze" ) ],
-								[ "Chrome", 	materialsLibrary.getMaterial( "Chrome" ) ]
-
-							]
-						},
-					mi = 4, // initial material_indices
-					bm = [ 2 ]; //body materials
-
-				materialsMap = {
-
-					0: materialsLibrary.getMaterial( "Pure chrome" ),		// tires + inside
-					1: materialsLibrary.getMaterial( "Black rough" ),		// wheels + extras chrome
-					2: materialsLibrary.getMaterial( "Black metal" ), 			// back / top / front torso
-					3: materialsLibrary.getMaterial( "Dark glass" ),		// glass
-					4: materialsLibrary.getMaterial( "Pure chrome" ),		// sides torso
-					5: materialsLibrary.getMaterial( "Pure chrome" ),		// engine
-					6: materialsLibrary.getMaterial( "Red glass 50" ),		// backlights
-					7: materialsLibrary.getMaterial("Orange glass 50")// backsignals
-				}
-
-				for ( var i in materialsMap ) {
-					m.materials[ i ] = materialsMap[ i ];
-				}
-
 				var initialRadius = 3;
 			    var initialScale = 5;
 				var initialDesign = 5;
 
-			    var tubeMesh = new TubeMesh(initialRadius, initialScale, initialDesign);
+			    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign);
+				sceneWrapper.addMesh( tubeMesh );
 
-    			var knot = new THREE.Curves.CinquefoilKnot(20, 5);
-    			var diffGeo = new THREE.TubeGeometry(knot, 200, 10, 5, true, false);
-
-				var mesh = new THREE.Mesh( diffGeo, m );
-
-				mesh.rotation.x = r[ 0 ];
-				mesh.rotation.y = r[ 1 ];
-				mesh.rotation.z = r[ 2 ];
-
-				mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
-
-				sceneWrapper.addMesh( mesh );
+			    setupDatGui(tubeMesh, sceneWrapper);  		
 			}
 
 			function onDocumentMouseMove(event) {
@@ -164,6 +120,31 @@
 				renderer.render( sceneCube.scene, sceneCube.camera );
 				renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 			}
+
+			function setupDatGui(tM, sC) {
+			    var tubeMesh = tM;
+			    var scene = sC;
+			    var gui = new dat.GUI({ autoPlace: false });
+
+			    var radiusController = gui.add(tubeMesh, 'radius', 3, 12).step(1);
+			    radiusController.onFinishChange(function(val){
+			        scene.updateRadius(val);
+			    });
+
+			    var scaleController = gui.add(tubeMesh, 'scale', 1, 10);
+			    scaleController.onChange(function(val){
+			        scene.updateScale(val);
+			    });
+
+			    var designController = gui.add(tubeMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
+			    designController.onFinishChange(function(val){
+			        scene.updateDesign(val);
+			    });
+
+
+			    var customContainer = document.getElementById('controls');
+				customContainer.appendChild(gui.domElement);
+			};
 
 		</script>
 
