@@ -1,5 +1,4 @@
 window.onload = function() {
-if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 	var tubeMeshBuilder;
 	var container;
@@ -16,8 +15,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 	function init() {
 
-		container = document.createElement( 'div' );
-		document.body.appendChild( container );
+		container = document.getElementById('demoSpace');
 
 		// SCENE
 		var materialsLibrary = new MaterialsLibrary();	
@@ -26,7 +24,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
@@ -39,13 +37,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 	function onWindowResize() {
 
-		windowHalfX = window.innerWidth / 2;
-		windowHalfY = window.innerHeight / 2;
+		windowHalfX = window.innerWidth / 4;
+		windowHalfY = window.innerHeight / 4;
 
 		sceneWrapper.updateCameraOnWindowResize();
 		sceneCube.updateCameraOnWindowResize();
 		
-		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setSize( (window.innerWidth/2), (window.innerHeight/2) );
 
 	}
 
@@ -54,8 +52,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 	function button_name( car, index ) { return "m_" + car  + "_" + index }
 
 	function createScene() {
-		var initialRadius = 3;
-	    var initialScale = 5;
+		var initialRadius = 6;
+	    var initialScale = 8;
 		var initialDesign = 5;
 
 	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign);

@@ -18,7 +18,7 @@ var SceneCubeWrapper = function(textureCube) {
 	this.scene.add( new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material ) );
 
 	this.updateCameraOnWindowResize = function(){
-		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.aspect = (window.innerWidth/2) / (window.innerHeight/2);
 		this.camera.updateProjectionMatrix();
 	};
 
