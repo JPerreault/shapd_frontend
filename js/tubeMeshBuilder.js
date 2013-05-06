@@ -17,8 +17,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
     }
 
 
-    this.build = function(radius, scale, design, morph1, height, width) {
-        var knot = new THREE.Curves.CinquefoilKnot(20, design, morph1, height, width);
+    this.build = function(radius, scale, design, morph1, morph2, morph3, morph4, height, width) {
+        var knot = new THREE.Curves.CinquefoilKnot(20, design, morph1, morph2, morph3, morph4, height, width);
         var geometry = new THREE.TubeGeometry(knot, 200, 10, radius, true, false);
 
         var result = {
@@ -26,6 +26,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
             scale: scale,
             design: design,
 			morph1: morph1,
+			morph2: morph2,
+			morph3: morph3,
+			morph4: morph4,
 			height: height,
 			width: width,
             
