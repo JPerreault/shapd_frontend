@@ -163,18 +163,20 @@ THREE.Curves.TorusKnot = THREE.Curve.create(
 
 THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 
-	function(s, fM) {
+	function(s, fM, m1) {
 		this.scale = (s === undefined) ? 10 : s;
 		this.functionMultiple = fM;
+		this.morphMultiple = m1;
 	},
 
 	function(t) {
 		var p = 2,
 			q = this.functionMultiple;
+			z = this.morphMultiple;
 		t *= Math.PI * 2;
 		var tx = (2 + Math.cos(q * t)) * Math.cos(p * t),
 			ty = (2 + Math.cos(q * t)) * Math.sin(p * t),
-			tz = Math.sin(q * t);
+			tz = z*Math.sin(q * t);
 
 		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
 

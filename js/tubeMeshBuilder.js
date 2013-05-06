@@ -17,14 +17,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
     }
 
 
-    this.build = function(radius, scale, design) {
-        var knot = new THREE.Curves.CinquefoilKnot(20, design);
+    this.build = function(radius, scale, design, morph1) {
+        var knot = new THREE.Curves.CinquefoilKnot(20, design, morph1);
         var geometry = new THREE.TubeGeometry(knot, 200, 10, radius, true, false);
 
         var result = {
             curviness: radius,
             scale: scale,
             design: design,
+			morph1: morph1,
             
             figure: new THREE.Mesh( geometry, m )
         };

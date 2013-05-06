@@ -24,7 +24,7 @@ window.onload = function() {
 		sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
+		renderer.setSize( window.innerWidth / 1.25, window.innerHeight / 1.25 );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
@@ -55,15 +55,16 @@ window.onload = function() {
 		var initialRadius = 6;
 	    var initialScale = 8;
 		var initialDesign = 5;
+		var initialMorph1 = 1;
 
-	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign);
+	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1);
 		sceneWrapper.addMesh( tubeMesh );
 
 	    setupDatGui(tubeMesh, sceneWrapper);  		
 	}
 
 	function onDocumentMouseMove(event) {
-		mouseY = ( event.clientY - window.innerHeight );
+		//mouseY = ( event.clientY - window.innerHeight );
 	}
 
 	function animate() {
@@ -73,7 +74,7 @@ window.onload = function() {
 
 	function render() {
 		sceneWrapper.renderCamera(mouseY);
-		sceneCube.renderCamera(sceneWrapper.camera.rotation);
+		//sceneCube.renderCamera(sceneWrapper.camera.rotation);
 
 		renderer.render( sceneCube.scene, sceneCube.camera );
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
@@ -85,7 +86,7 @@ window.onload = function() {
 	    var gui = new dat.GUI({ autoPlace: false });
 
 	    var radiusController = gui.add(tubeMesh, 'curviness', 3, 12).step(1);
-	    radiusController.onFinishChange(function(val){
+	    radiusController.onChange(function(val){
 	        scene.updateRadius(val);
 	    });
 
@@ -95,11 +96,16 @@ window.onload = function() {
 	    });
 
 	    var designController = gui.add(tubeMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
-	    designController.onFinishChange(function(val){
+	    designController.onChange(function(val){
 	        scene.updateDesign(val);
 	    });
+		
+		var morph1Controller = gui.add(tubeMesh, 'morph1', -3,3);
+	    morph1Controller.onChange(function(val){
+	        scene.updateMorph1(val);
+	    });
 
-
+		
 	    var customContainer = document.getElementById('controls');
 		customContainer.appendChild(gui.domElement);
 	};
