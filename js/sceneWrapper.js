@@ -21,7 +21,7 @@ var SceneWrapper = function(tMB) {
 	this.scene.add( pointLight );
 
 	this.updateCameraOnWindowResize = function(){
-		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.aspect = (window.innerWidth /2) / (window.innerHeight/2);
 		this.camera.updateProjectionMatrix();
 	};
 
@@ -52,7 +52,7 @@ var SceneWrapper = function(tMB) {
 
     this.updateDesign = function(newVal){
         this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.radius, currentMesh.scale, newVal);
+        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, newVal);
         this.scene.add( currentMesh.figure );
     };
 }

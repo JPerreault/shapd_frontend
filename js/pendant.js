@@ -84,7 +84,7 @@ window.onload = function() {
 	    var scene = sC;
 	    var gui = new dat.GUI({ autoPlace: false });
 
-	    var radiusController = gui.add(tubeMesh, 'radius', 3, 12).step(1);
+	    var radiusController = gui.add(tubeMesh, 'curviness', 3, 12).step(1);
 	    radiusController.onFinishChange(function(val){
 	        scene.updateRadius(val);
 	    });

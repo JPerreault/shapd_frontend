@@ -22,7 +22,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
         var geometry = new THREE.TubeGeometry(knot, 200, 10, radius, true, false);
 
         var result = {
-            radius: radius,
+            curviness: radius,
             scale: scale,
             design: design,
             
