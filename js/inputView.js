@@ -4,7 +4,8 @@ var InputView = function(sW) {
 	this.targetY = 0;
 	this.targetX = 0;
 
-	var targetYRotationOnMouseDown = targetXRotationOnMouseDown = 0;
+	var targetYRotationOnMouseDown = 0;
+	var targetXRotationOnMouseDown = 0;
 
 	var mouseX = 0, mouseY = 0;
 	var mouseXOnMouseDown = 0, mouseYOnMouseDown =0;
@@ -48,9 +49,8 @@ var InputView = function(sW) {
 		mouseX = event.clientX - that.currentWindowX;
 		mouseY = event.clientY - that.currentWindowY;
 
-		that.targetX = targetXRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.02;
-		that.targetY = targetYRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.02;
-
+		that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.02;
+		that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.02;			
 	}
 
 	function onDocumentMouseUp( event ) {
