@@ -57,7 +57,10 @@ var SceneWrapper = function(tMB, textureCube) {
 
 	this.updateRadius = function(newVal){
         this.scene.remove( this.currentMesh.figure );
-        this.currentMesh = tubeMeshBuilder.build(newVal, this.currentMesh.scale, this.currentMesh.design, this.currentMesh.morph1);
+        var newParams = new TubeMeshParams();
+        newParams.curviness = newVal;
+
+        this.currentMesh = tubeMeshBuilder.build(newParams);
         this.scene.add( this.currentMesh.figure );
     };
 
@@ -67,13 +70,20 @@ var SceneWrapper = function(tMB, textureCube) {
 
     this.updateDesign = function(newVal){
         this.scene.remove( this.currentMesh.figure );
-        this.currentMesh = tubeMeshBuilder.build(this.currentMesh.curviness, this.currentMesh.scale, newVal, this.currentMesh.morph1);
+        var newParams = new TubeMeshParams();
+        newParams.design = newVal;
+
+        this.currentMesh = tubeMeshBuilder.build(newParams);
         this.scene.add( this.currentMesh.figure );
     };
 	
 	this.updateMorph1 = function(newVal){
         this.scene.remove( this.currentMesh.figure );
-        this.currentMesh = tubeMeshBuilder.build(this.currentMesh.curviness, this.currentMesh.scale, this.currentMesh.design, newVal);
+
+        var newParams = new TubeMeshParams();
+        newParams.morph1 = newVal;
+
+        this.currentMesh = tubeMeshBuilder.build(newParams);
         this.scene.add( this.currentMesh.figure );
     };
 
