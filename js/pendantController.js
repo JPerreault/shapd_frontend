@@ -12,7 +12,6 @@ window.onload = function() {
 		view.addMouseEventHandling();
 		view.addWindowResizing();
 
-		// SCENE
 		var materialsLibrary = new MaterialsLibrary();	
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
 		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
@@ -24,19 +23,8 @@ window.onload = function() {
 
 		view.addMeshElement(renderer.domElement)
 
-		createScene();
-	}
-
-	function createScene() {
-		var initialRadius = 6;
-	    var initialScale = 8;
-		var initialDesign = 5;
-		var initialMorph1 = 1;
-
-	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1);
-		sceneWrapper.addMesh( tubeMesh );
-
-	    setupDatGui(tubeMesh, sceneWrapper);  		
+		sceneWrapper.init();
+	    setupDatGui(sceneWrapper);  		
 	}
 
 	function animate() {
@@ -51,27 +39,26 @@ window.onload = function() {
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 	}
 
-	function setupDatGui(tM, sC) {
-	    var tubeMesh = tM;
+	function setupDatGui(sC) {
 	    var scene = sC;
 	    var gui = new dat.GUI({ autoPlace: false });
 
-	    var radiusController = gui.add(tubeMesh, 'curviness', 3, 12).step(1);
+	    var radiusController = gui.add(scene.currentMesh, 'curviness', 3, 12).step(1);
 	    radiusController.onChange(function(val){
 	        scene.updateRadius(val);
 	    });
 
-	    var scaleController = gui.add(tubeMesh, 'scale', 1, 10);
+	    var scaleController = gui.add(scene.currentMesh, 'scale', 1, 10);
 	    scaleController.onChange(function(val){
 	        scene.updateScale(val);
 	    });
 
-	    var designController = gui.add(tubeMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
+	    var designController = gui.add(scene.currentMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
 	    designController.onChange(function(val){
 	        scene.updateDesign(val);
 	    });
 		
-		var morph1Controller = gui.add(tubeMesh, 'morph1', -3,3);
+		var morph1Controller = gui.add(scene.currentMesh, 'morph1', -3,3);
 	    morph1Controller.onChange(function(val){
 	        scene.updateMorph1(val);
 	    });

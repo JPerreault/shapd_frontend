@@ -1,5 +1,5 @@
 var SceneWrapper = function(tMB, textureCube) {
-	var currentMesh;
+	this.currentMesh;
 	var tubeMeshBuilder = tMB;
 
 	this.scene = new THREE.Scene();
@@ -22,6 +22,15 @@ var SceneWrapper = function(tMB, textureCube) {
 	pointLight.position.set( 2000, 1200, 10000 );
 	this.scene.add( pointLight );
 
+	this.init = function(){
+		var initialRadius = 6;
+	    var initialScale = 8;
+		var initialDesign = 5;
+		var initialMorph1 = 1;
+
+		this.addMesh( tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1) );
+	};
+
 	this.updateCameraOnWindowResize = function(){
 		this.camera.aspect = (window.innerWidth /2) / (window.innerHeight/2);
 		this.camera.updateProjectionMatrix();
@@ -40,30 +49,30 @@ var SceneWrapper = function(tMB, textureCube) {
 	};
 
 	this.addMesh = function(mesh){
-		currentMesh = mesh;
+		this.currentMesh = mesh;
 		this.scene.add(mesh.figure);
 	};
 
 	this.updateRadius = function(newVal){
-        this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(newVal, currentMesh.scale, currentMesh.design, currentMesh.morph1);
-        this.scene.add( currentMesh.figure );
+        this.scene.remove( this.currentMesh.figure );
+        this.currentMesh = tubeMeshBuilder.build(newVal, this.currentMesh.scale, this.currentMesh.design, this.currentMesh.morph1);
+        this.scene.add( this.currentMesh.figure );
     };
 
     this.updateScale = function(newVal){
-        currentMesh.figure.scale.set(newVal, newVal, newVal);
+        this.currentMesh.figure.scale.set(newVal, newVal, newVal);
     };
 
     this.updateDesign = function(newVal){
-        this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, newVal, currentMesh.morph1);
-        this.scene.add( currentMesh.figure );
+        this.scene.remove( this.currentMesh.figure );
+        this.currentMesh = tubeMeshBuilder.build(this.currentMesh.curviness, this.currentMesh.scale, newVal, this.currentMesh.morph1);
+        this.scene.add( this.currentMesh.figure );
     };
 	
 	this.updateMorph1 = function(newVal){
-        this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, currentMesh.design, newVal);
-        this.scene.add( currentMesh.figure );
+        this.scene.remove( this.currentMesh.figure );
+        this.currentMesh = tubeMeshBuilder.build(this.currentMesh.curviness, this.currentMesh.scale, this.currentMesh.design, newVal);
+        this.scene.add( this.currentMesh.figure );
     };
 
 }
