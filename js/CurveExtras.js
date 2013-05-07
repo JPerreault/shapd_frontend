@@ -164,68 +164,28 @@ THREE.Curves.TorusKnot = THREE.Curve.create(
 THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 
 	function(tubeMeshParams) {
-		this.scalar = tubeMeshParams.scalar;
-		this.functionMultiple = tubeMeshParams.design;
-		this.morphMultiple = tubeMeshParams.morph1;
-		this.morphMultiple2 = tubeMeshParams.morph2;
-		this.morphMultiple3 = tubeMeshParams.morph3;
-		this.morphMultiple4 = tubeMeshParams.morph4;
-		this.heightMultiple = tubeMeshParams.morphHeight;
-		this.widthMultiple = tubeMeshParams.morphWidth;
+		this.tubeMeshParams = tubeMeshParams;
 	},
 
 	function(t) {
 		var p = 2,
-			q = this.functionMultiple;
-			z = this.morphMultiple;
-			b = this.morphMultiple2;
-			n = this.morphMultiple3;
-			m = this.morphMultiple4;
-			f = this.heightMultiple;
-			y = this.widthMultiple;
+			q = this.tubeMeshParams.design;
+			z = this.tubeMeshParams.morph1;
+			b = this.tubeMeshParams.morph2;
+			n = this.tubeMeshParams.morph3;
+			m = this.tubeMeshParams.morph4;
+			f = this.tubeMeshParams.morphHeight;
+			y = this.tubeMeshParams.morphWidth;
 		t *= Math.PI * b;
 		var tx = f*(2 + Math.cos(q * t)) * (Math.cos(p * t) + n),
 			ty = y*(2 + Math.cos(q * t)) * (Math.sin(p * t) + m),
 			tz = z*Math.sin(q * t);
 
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scalar);
+		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.tubeMeshParams.scalar);
 
 	}
 
 );
-
-// THREE.Curves.CinquefoilKnot = THREE.Curve.create(
-
-// 	function(s, fM, m1, m2, m3, m4, hM, wM) {
-// 		this.scale = (s === undefined) ? 10 : s;
-// 		this.functionMultiple = fM;
-// 		this.morphMultiple1 = m1;
-// 		this.morphMultiple2 = m2;
-// 		this.morphMultiple3 = m3;
-// 		this.morphMultiple4 = m4;
-// 		this.heightMultiple = hM;
-// 		this.widthMultiple = wM;
-// 	},
-
-// 	function(t) {
-// 		var p = 2,
-// 			q = this.functionMultiple;
-// 			z = this.morphMultiple1;
-// 			b = this.morphMultiple2;
-// 			n = this.morphMultiple3;
-// 			m = this.morphMultiple4;
-// 			f = this.heightMultiple;
-// 			y = this.widthMultiple;
-// 		t *= Math.PI * b;
-// 		var tx = f*(2 + Math.cos(q * t)) * (Math.cos(p * t) + n),
-// 			ty = y*(2 + Math.cos(q * t)) * (Math.sin(p * t) + m),
-// 			tz = z*Math.sin(q * t);
-
-// 		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
-
-// 	}
-
-// );
 
 
 THREE.Curves.TrefoilPolynomialKnot = THREE.Curve.create(
