@@ -9,8 +9,6 @@ window.onload = function() {
 	function init() {
 
 		view = new InputView();
-		view.addMouseEventHandling();
-		view.addWindowResizing();
 
 		var materialsLibrary = new MaterialsLibrary();	
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
@@ -33,7 +31,8 @@ window.onload = function() {
 	}
 
 	function render() {
-		sceneWrapper.renderCamera(view.mouseY);
+		// sceneWrapper.renderCamera(view.mouseY);
+		sceneWrapper.rotateMesh(view.targetX, view.targetY);
 
 		renderer.render( sceneWrapper.sceneCube.scene, sceneWrapper.sceneCube.camera );
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );

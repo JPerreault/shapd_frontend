@@ -6,6 +6,7 @@ var SceneWrapper = function(tMB, textureCube) {
 	this.sceneCube = new SceneCubeWrapper(textureCube);
 
 	this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
+	this.camera.position.z = 1000;
 
 	var ambient = new THREE.AmbientLight( 0x050505 );
 	this.scene.add( ambient );
@@ -36,14 +37,19 @@ var SceneWrapper = function(tMB, textureCube) {
 		this.camera.updateProjectionMatrix();
 	};
 
+	this.rotateMesh = function(targetXRotation, targetYRotation){
+		this.currentMesh.figure.rotation.x += ( targetXRotation - this.currentMesh.figure.rotation.x ) * 0.05;
+		this.currentMesh.figure.rotation.y += ( targetYRotation - this.currentMesh.figure.rotation.y ) * 0.05;	
+	};
+
 	this.renderCamera = function(mouseY){
-		var timer = -0.0002 * Date.now();
+		// var timer = -0.0002 * Date.now();
 
-		this.camera.position.x = 1000 * Math.cos( timer );
-		this.camera.position.y += ( - mouseY - this.camera.position.y ) * .05;
-		this.camera.position.z = 1000 * Math.sin( timer );
+		// this.camera.position.x = 1000 * Math.cos( timer );
+		// this.camera.position.y += ( - mouseY - this.camera.position.y ) * .05;
+		// this.camera.position.z = 1000 * Math.sin( timer );
 
-		this.camera.lookAt( this.scene.position );
+		// this.camera.lookAt( this.scene.position );
 
 		this.sceneCube.renderCamera(this.camera.rotation);	
 	};
