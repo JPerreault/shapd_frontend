@@ -24,7 +24,7 @@ window.onload = function() {
 		sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth / 1.5, window.innerHeight / 1.5 );
+		renderer.setSize( window.innerWidth / 1.25, window.innerHeight / 1.25 );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
@@ -56,10 +56,8 @@ window.onload = function() {
 	    var initialScale = 8;
 		var initialDesign = 5;
 		var initialMorph1 = 1;
-		var initialHeight = 1;
-		var initialWidth = 1;
 
-	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1, initialHeight, initialWidth);
+	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1);
 		sceneWrapper.addMesh( tubeMesh );
 
 	    setupDatGui(tubeMesh, sceneWrapper);  		
@@ -102,19 +100,9 @@ window.onload = function() {
 	        scene.updateDesign(val);
 	    });
 		
-		var morph1Controller = gui.add(tubeMesh, 'morph1', -5,5);
+		var morph1Controller = gui.add(tubeMesh, 'morph1', -3,3);
 	    morph1Controller.onChange(function(val){
 	        scene.updateMorph1(val);
-	    });
-		
-		var heightController = gui.add(tubeMesh, 'height', -5,5);
-	    heightController.onChange(function(val){
-	        scene.updateHeight(val);
-	    });
-		
-		var widthController = gui.add(tubeMesh, 'width', -5,5);
-	    widthController.onChange(function(val){
-	        scene.updateWidth(val);
 	    });
 
 		

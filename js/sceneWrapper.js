@@ -42,7 +42,7 @@ var SceneWrapper = function(tMB) {
 
 	this.updateRadius = function(newVal){
         this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(newVal, currentMesh.scale, currentMesh.design, currentMesh.morph1, currentMesh.height, currentMesh.width);
+        currentMesh = tubeMeshBuilder.build(newVal, currentMesh.scale, currentMesh.design, currentMesh.morph1);
         this.scene.add( currentMesh.figure );
     };
 
@@ -52,25 +52,13 @@ var SceneWrapper = function(tMB) {
 
     this.updateDesign = function(newVal){
         this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, newVal, currentMesh.morph1, currentMesh.height, currentMesh.width);
+        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, newVal, currentMesh.morph1);
         this.scene.add( currentMesh.figure );
     };
 	
 	this.updateMorph1 = function(newVal){
         this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, currentMesh.design, newVal, currentMesh.height, currentMesh.width);
-        this.scene.add( currentMesh.figure );
-    };
-	
-	this.updateHeight = function(newVal){
-        this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, currentMesh.design, currentMesh.morph1, newVal, currentMesh.width);
-        this.scene.add( currentMesh.figure );
-    };
-	
-	this.updateWidth = function(newVal){
-        this.scene.remove( currentMesh.figure );
-        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, currentMesh.design, currentMesh.morph1, currentMesh.height, newVal);
+        currentMesh = tubeMeshBuilder.build(currentMesh.curviness, currentMesh.scale, currentMesh.design, newVal);
         this.scene.add( currentMesh.figure );
     };
 
