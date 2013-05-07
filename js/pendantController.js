@@ -56,52 +56,44 @@ window.onload = function() {
 
 	    var designController = gui.add(scene.currentMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
 	    designController.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.design = newVal;
-	        scene.redrawMesh(newParams);
+	        scene.currentMesh.design = newVal;
+	        scene.redrawMesh(scene.currentMesh);
 	    });
 		
 		var morph1Controller = gui.add(scene.currentMesh, 'morph1', -3,3);
 	    morph1Controller.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.morph1 = newVal;
-	        scene.redrawMesh(newParams);
+	        scene.currentMesh.morph1 = newVal;
+	        scene.redrawMesh(scene.currentMesh);
 	    });
 
 		var morph2Controller = gui.add(scene.currentMesh, 'morph2', -2,2);
 	    morph2Controller.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.morph2 = newVal;
-	        scene.redrawMesh(newParams);
+        	scene.currentMesh.morph2 = newVal;
+	        scene.redrawMesh(scene.currentMesh);
 	    });
 
 		var morph3Controller = gui.add(scene.currentMesh, 'morph3', -2,2);
 	    morph3Controller.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.morph3 = newVal;
-	        scene.redrawMesh(newParams);
+        	scene.currentMesh.morph3 = newVal;
+	        scene.redrawMesh(scene.currentMesh);
 	    });
 
 		var morph4Controller = gui.add(scene.currentMesh, 'morph4', -2,2);
 	    morph4Controller.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.morph4 = newVal;
-	        scene.redrawMesh(newParams);
+        	scene.currentMesh.morph4 = newVal;
+	        scene.redrawMesh(scene.currentMesh);
 	    });
-
 
 		var morphHeightController = gui.add(scene.currentMesh, 'morphHeight', -2,2);
 	    morphHeightController.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.morphHeight = newVal;
-	        scene.redrawMesh(newParams);
+        	scene.currentMesh.morphHeight = newVal;
+	        scene.redrawMesh(scene.currentMesh);;
 	    });
 
 		var morphWidthController = gui.add(scene.currentMesh, 'morphWidth', -2,2);
 	    morphWidthController.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-        	newParams.morphWidth = newVal;
-	        scene.redrawMesh(newParams);
+    		scene.currentMesh.morphWidth = newVal;
+	        scene.redrawMesh(scene.currentMesh);
 	    });
 
 

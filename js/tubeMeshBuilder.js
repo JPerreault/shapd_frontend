@@ -21,28 +21,16 @@ var TubeMeshBuilder = function(materialsLibrary) {
         var knot = new THREE.Curves.CinquefoilKnot(tubeMeshParams);
         var geometry = new THREE.TubeGeometry(knot, 200, 10, tubeMeshParams.curviness, true, false);
 
-        var result = {
-            curviness: tubeMeshParams.curviness,
-            scale: tubeMeshParams.scale,
-            design: tubeMeshParams.design,
-            morph1: tubeMeshParams.morph1,
-            morph2: tubeMeshParams.morph2,
-            morph3: tubeMeshParams.morph3,
-            morph4: tubeMeshParams.morph4,
-            morphHeight: tubeMeshParams.morphHeight,
-			morphWidth: tubeMeshParams.morphWidth,
-            scalar: 20,
-            
-            figure: new THREE.Mesh( geometry, m )
-        };
+        var figure = new THREE.Mesh( geometry, m );
 
-        result.figure.rotation.x = 0;
-        result.figure.rotation.y = 0;
-        result.figure.rotation.z = 0;
+        figure.rotation.x = 0;
+        figure.rotation.y = 0;
+        figure.rotation.z = 0;
 
-        result.figure.scale.x = result.figure.scale.y = result.figure.scale.z = result.scale;
+        figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams.scale;
+        tubeMeshParams.figure = figure;
 
-        return result;
+        return tubeMeshParams;
     };
 
 };
