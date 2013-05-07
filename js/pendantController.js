@@ -2,9 +2,6 @@ window.onload = function() {
 
 	var tubeMeshBuilder, view;
 	var renderer, sceneWrapper;
-	var sceneCube;
-	var m, mi;
-	var directionalLight, pointLight;
 
 	init();
 	animate();
@@ -18,8 +15,7 @@ window.onload = function() {
 		// SCENE
 		var materialsLibrary = new MaterialsLibrary();	
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder);
-		sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
+		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
 
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -50,9 +46,8 @@ window.onload = function() {
 
 	function render() {
 		sceneWrapper.renderCamera(view.mouseY);
-		sceneCube.renderCamera(sceneWrapper.camera.rotation);
 
-		renderer.render( sceneCube.scene, sceneCube.camera );
+		renderer.render( sceneWrapper.sceneCube.scene, sceneWrapper.sceneCube.camera );
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 	}
 

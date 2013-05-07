@@ -1,8 +1,10 @@
-var SceneWrapper = function(tMB) {
+var SceneWrapper = function(tMB, textureCube) {
 	var currentMesh;
 	var tubeMeshBuilder = tMB;
 
 	this.scene = new THREE.Scene();
+	this.sceneCube = new SceneCubeWrapper(textureCube);
+
 	this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 
 	var ambient = new THREE.AmbientLight( 0x050505 );
@@ -33,6 +35,8 @@ var SceneWrapper = function(tMB) {
 		this.camera.position.z = 1000 * Math.sin( timer );
 
 		this.camera.lookAt( this.scene.position );
+
+		this.sceneCube.renderCamera(this.camera.rotation);	
 	};
 
 	this.addMesh = function(mesh){
