@@ -82,12 +82,28 @@ window.onload = function() {
 	        scene.redrawMesh(newParams);
 	    });
 
-		var morph3Controller = gui.add(scene.currentMesh, 'morph4', -2,2);
-	    morph3Controller.onChange(function(newVal){
+		var morph4Controller = gui.add(scene.currentMesh, 'morph4', -2,2);
+	    morph4Controller.onChange(function(newVal){
 	        var newParams = new TubeMeshParams();
         	newParams.morph4 = newVal;
 	        scene.redrawMesh(newParams);
 	    });
+
+
+		var morphHeightController = gui.add(scene.currentMesh, 'morphHeight', -2,2);
+	    morphHeightController.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.morphHeight = newVal;
+	        scene.redrawMesh(newParams);
+	    });
+
+		var morphWidthController = gui.add(scene.currentMesh, 'morphWidth', -2,2);
+	    morphWidthController.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.morphWidth = newVal;
+	        scene.redrawMesh(newParams);
+	    });
+
 
 
 		
