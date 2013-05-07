@@ -56,13 +56,10 @@ window.onload = function() {
 	    var initialScale = 8;
 		var initialDesign = 5;
 		var initialMorph1 = 1;
-		var initialMorph2 = 2;
-		var initialMorph3 = 0;
-		var initialMorph4 = 0;
 		var initialHeight = 1;
 		var initialWidth = 1;
 
-	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1, initialMorph2, initialMorph3, initialMorph4, initialHeight, initialWidth);
+	    var tubeMesh = tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1, initialHeight, initialWidth);
 		sceneWrapper.addMesh( tubeMesh );
 
 	    setupDatGui(tubeMesh, sceneWrapper);  		
@@ -105,6 +102,11 @@ window.onload = function() {
 	        scene.updateDesign(val);
 	    });
 		
+		var morph1Controller = gui.add(tubeMesh, 'morph1', -5,5);
+	    morph1Controller.onChange(function(val){
+	        scene.updateMorph1(val);
+	    });
+		
 		var heightController = gui.add(tubeMesh, 'height', -5,5);
 	    heightController.onChange(function(val){
 	        scene.updateHeight(val);
@@ -114,26 +116,7 @@ window.onload = function() {
 	    widthController.onChange(function(val){
 	        scene.updateWidth(val);
 	    });
-		
-		var morph1Controller = gui.add(tubeMesh, 'morph1', -5,5);
-	    morph1Controller.onChange(function(val){
-	        scene.updateMorph1(val);
-	    });
 
-		var morph2Controller = gui.add(tubeMesh, 'morph2', -2,2);
-	    morph2Controller.onChange(function(val){
-	        scene.updateMorph2(val);
-	    });
-		
-		var morph3Controller = gui.add(tubeMesh, 'morph3', -5,5);
-	    morph3Controller.onChange(function(val){
-	        scene.updateMorph3(val);
-	    });
-		
-		var morph4Controller = gui.add(tubeMesh, 'morph4', -5,5);
-	    morph4Controller.onChange(function(val){
-	        scene.updateMorph4(val);
-	    });
 		
 	    var customContainer = document.getElementById('controls');
 		customContainer.appendChild(gui.domElement);
