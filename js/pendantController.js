@@ -68,10 +68,17 @@ window.onload = function() {
 	        scene.redrawMesh(newParams);
 	    });
 
-		var morph1Controller = gui.add(scene.currentMesh, 'morph2', -2,2);
-	    morph1Controller.onChange(function(newVal){
+		var morph2Controller = gui.add(scene.currentMesh, 'morph2', -2,2);
+	    morph2Controller.onChange(function(newVal){
 	        var newParams = new TubeMeshParams();
         	newParams.morph2 = newVal;
+	        scene.redrawMesh(newParams);
+	    });
+
+		var morph3Controller = gui.add(scene.currentMesh, 'morph3', -2,2);
+	    morph3Controller.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.morph3 = newVal;
 	        scene.redrawMesh(newParams);
 	    });
 

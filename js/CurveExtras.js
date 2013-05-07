@@ -168,6 +168,7 @@ THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 		this.functionMultiple = tubeMeshParams.design;
 		this.morphMultiple = tubeMeshParams.morph1;
 		this.morphMultiple2 = tubeMeshParams.morph2;
+		this.morphMultiple3 = tubeMeshParams.morph3;
 	},
 
 	function(t) {
@@ -175,8 +176,9 @@ THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 			q = this.functionMultiple;
 			z = this.morphMultiple;
 			b = this.morphMultiple2;
+			n = this.morphMultiple3;
 		t *= Math.PI * b;
-		var tx = (2 + Math.cos(q * t)) * Math.cos(p * t),
+		var tx = (2 + Math.cos(q * t)) * (Math.cos(p * t) + n),
 			ty = (2 + Math.cos(q * t)) * Math.sin(p * t),
 			tz = z*Math.sin(q * t);
 
