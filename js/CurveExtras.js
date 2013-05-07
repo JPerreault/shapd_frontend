@@ -167,13 +167,15 @@ THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 		this.scalar = tubeMeshParams.scalar;
 		this.functionMultiple = tubeMeshParams.design;
 		this.morphMultiple = tubeMeshParams.morph1;
+		this.morphMultiple2 = tubeMeshParams.morph2;
 	},
 
 	function(t) {
 		var p = 2,
 			q = this.functionMultiple;
 			z = this.morphMultiple;
-		t *= Math.PI * 2;
+			b = this.morphMultiple2;
+		t *= Math.PI * b;
 		var tx = (2 + Math.cos(q * t)) * Math.cos(p * t),
 			ty = (2 + Math.cos(q * t)) * Math.sin(p * t),
 			tz = z*Math.sin(q * t);
@@ -183,6 +185,39 @@ THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 	}
 
 );
+
+// THREE.Curves.CinquefoilKnot = THREE.Curve.create(
+
+// 	function(s, fM, m1, m2, m3, m4, hM, wM) {
+// 		this.scale = (s === undefined) ? 10 : s;
+// 		this.functionMultiple = fM;
+// 		this.morphMultiple1 = m1;
+// 		this.morphMultiple2 = m2;
+// 		this.morphMultiple3 = m3;
+// 		this.morphMultiple4 = m4;
+// 		this.heightMultiple = hM;
+// 		this.widthMultiple = wM;
+// 	},
+
+// 	function(t) {
+// 		var p = 2,
+// 			q = this.functionMultiple;
+// 			z = this.morphMultiple1;
+// 			b = this.morphMultiple2;
+// 			n = this.morphMultiple3;
+// 			m = this.morphMultiple4;
+// 			f = this.heightMultiple;
+// 			y = this.widthMultiple;
+// 		t *= Math.PI * b;
+// 		var tx = f*(2 + Math.cos(q * t)) * (Math.cos(p * t) + n),
+// 			ty = y*(2 + Math.cos(q * t)) * (Math.sin(p * t) + m),
+// 			tz = z*Math.sin(q * t);
+
+// 		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+
+// 	}
+
+// );
 
 
 THREE.Curves.TrefoilPolynomialKnot = THREE.Curve.create(
