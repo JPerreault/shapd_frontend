@@ -55,6 +55,12 @@ var SceneWrapper = function(tMB, textureCube) {
 		this.scene.add(mesh.figure);
 	};
 
+	this.redrawMesh = function(newParams){
+        this.scene.remove( this.currentMesh.figure );
+		this.currentMesh = tubeMeshBuilder.build(newParams);
+        this.scene.add( this.currentMesh.figure );
+	};
+
 	this.updateRadius = function(newVal){
         this.scene.remove( this.currentMesh.figure );
         var newParams = new TubeMeshParams();

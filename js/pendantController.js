@@ -43,23 +43,29 @@ window.onload = function() {
 	    var gui = new dat.GUI({ autoPlace: false });
 
 	    var radiusController = gui.add(scene.currentMesh, 'curviness', 3, 12).step(1);
-	    radiusController.onChange(function(val){
-	        scene.updateRadius(val);
+	    radiusController.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.curviness = newVal;
+	        scene.redrawMesh(newParams);
 	    });
 
 	    var scaleController = gui.add(scene.currentMesh, 'scale', 1, 10);
-	    scaleController.onChange(function(val){
-	        scene.updateScale(val);
+	    scaleController.onChange(function(newVal){
+	        scene.updateScale(newVal);
 	    });
 
 	    var designController = gui.add(scene.currentMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
-	    designController.onChange(function(val){
-	        scene.updateDesign(val);
+	    designController.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.design = newVal;
+	        scene.redrawMesh(newParams);
 	    });
 		
 		var morph1Controller = gui.add(scene.currentMesh, 'morph1', -3,3);
-	    morph1Controller.onChange(function(val){
-	        scene.updateMorph1(val);
+	    morph1Controller.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.morph1 = newVal;
+	        scene.redrawMesh(newParams);
 	    });
 
 		
