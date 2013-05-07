@@ -163,10 +163,10 @@ THREE.Curves.TorusKnot = THREE.Curve.create(
 
 THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 
-	function(s, fM, m1) {
-		this.scale = (s === undefined) ? 10 : s;
-		this.functionMultiple = fM;
-		this.morphMultiple = m1;
+	function(tubeMeshParams) {
+		this.scalar = tubeMeshParams.scalar;
+		this.functionMultiple = tubeMeshParams.design;
+		this.morphMultiple = tubeMeshParams.morph1;
 	},
 
 	function(t) {
@@ -178,7 +178,7 @@ THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 			ty = (2 + Math.cos(q * t)) * Math.sin(p * t),
 			tz = z*Math.sin(q * t);
 
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scalar);
 
 	}
 
