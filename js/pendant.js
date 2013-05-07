@@ -1,14 +1,11 @@
 window.onload = function() {
 
-	var tubeMeshBuilder;
+	var tubeMeshBuilder, eventListening;
 	var container;
 	var renderer, sceneWrapper;
 	var sceneCube;
 	var m, mi;
 	var directionalLight, pointLight;
-	var mouseX = 0, mouseY = 0;
-	var windowHalfX = window.innerWidth / 2;
-	var windowHalfY = window.innerHeight / 2;
 
 	init();
 	animate();
@@ -23,28 +20,17 @@ window.onload = function() {
 		sceneWrapper = new SceneWrapper(tubeMeshBuilder);
 		sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
+		eventListening = new EventListening(window, document);
+		eventListening.addMouseEventHandling();
+		eventListening.addWindowResizing();
+
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth / 1.25, window.innerHeight / 1.25 );
+		renderer.setSize( eventListening.currentWindowX, eventListening.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
 		container.appendChild( renderer.domElement );
-
-		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		createScene();
-		window.addEventListener( 'resize', onWindowResize, false );
-	}
-
-	function onWindowResize() {
-
-		windowHalfX = window.innerWidth / 4;
-		windowHalfY = window.innerHeight / 4;
-
-		sceneWrapper.updateCameraOnWindowResize();
-		sceneCube.updateCameraOnWindowResize();
-		
-		renderer.setSize( (window.innerWidth/2), (window.innerHeight/2) );
-
 	}
 
 
@@ -63,17 +49,13 @@ window.onload = function() {
 	    setupDatGui(tubeMesh, sceneWrapper);  		
 	}
 
-	function onDocumentMouseMove(event) {
-		//mouseY = ( event.clientY - window.innerHeight );
-	}
-
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
 	}
 
 	function render() {
-		sceneWrapper.renderCamera(mouseY);
+		sceneWrapper.renderCamera(eventListening.mouseY);
 		//sceneCube.renderCamera(sceneWrapper.camera.rotation);
 
 		renderer.render( sceneCube.scene, sceneCube.camera );
