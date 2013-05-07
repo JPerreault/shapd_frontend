@@ -24,12 +24,8 @@ var SceneWrapper = function(tMB, textureCube) {
 	this.scene.add( pointLight );
 
 	this.init = function(){
-		var initialRadius = 6;
-	    var initialScale = 8;
-		var initialDesign = 5;
-		var initialMorph1 = 1;
-
-		this.addMesh( tubeMeshBuilder.build(initialRadius, initialScale, initialDesign, initialMorph1) );
+		var tubeMeshParams = new TubeMeshParams();
+		this.addMesh( tubeMeshBuilder.build(tubeMeshParams) );
 	};
 
 	this.updateCameraOnWindowResize = function(){
