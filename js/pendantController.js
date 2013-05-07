@@ -82,6 +82,14 @@ window.onload = function() {
 	        scene.redrawMesh(newParams);
 	    });
 
+		var morph3Controller = gui.add(scene.currentMesh, 'morph4', -2,2);
+	    morph3Controller.onChange(function(newVal){
+	        var newParams = new TubeMeshParams();
+        	newParams.morph4 = newVal;
+	        scene.redrawMesh(newParams);
+	    });
+
+
 		
 	    var customContainer = document.getElementById('controls');
 		customContainer.appendChild(gui.domElement);

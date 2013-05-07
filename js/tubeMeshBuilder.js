@@ -27,7 +27,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
             design: tubeMeshParams.design,
             morph1: tubeMeshParams.morph1,
             morph2: tubeMeshParams.morph2,
-			morph3: tubeMeshParams.morph3,
+            morph3: tubeMeshParams.morph3,
+			morph4: tubeMeshParams.morph4,
             scalar: 20,
             
             figure: new THREE.Mesh( geometry, m )
