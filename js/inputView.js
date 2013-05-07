@@ -1,31 +1,35 @@
-var EventListening = function(wind, doc) {	
-	var wind = wind;
-	var doc = doc;
-	
+var InputView = function() {		
 	this.mouseX = 0
 	this.mouseY = 0;
-	this.currentWindowX = wind.innerWidth / 2;
-	this.currentWindowY = wind.innerHeight / 2;
+	this.currentWindowX = window.innerWidth / 2;
+	this.currentWindowY = window.innerHeight / 2;
+
+	var that = this;
+
+	this.addMeshElement = function(domElement) {
+		var demoSpace = document.getElementById('demoSpace');
+		demoSpace.appendChild( domElement );
+	};
 
 	this.addMouseEventHandling = function(){
-		doc.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	};
 
 	this.addWindowResizing = function(){
-		wind.addEventListener( 'resize', onWindowResize, false );
+		window.addEventListener( 'resize', onWindowResize, false );
 	};
 
 	function onWindowResize() {
-		this.currentWindowX = wind.innerWidth / 4;
-		this.currentWindowY = wind.innerHeight / 4;
+		that.currentWindowX = window.innerWidth / 4;
+		that.currentWindowY = window.innerHeight / 4;
 
 		sceneWrapper.updateCameraOnWindowResize();
 		sceneCube.updateCameraOnWindowResize();
 		
-		renderer.setSize( (wind.innerWidth/2), (wind.innerHeight/2) );
+		renderer.setSize( (window.innerWidth/2), (window.innerHeight/2) );
 	}
 
 	function onDocumentMouseMove(event) {
-		this.mouseY = ( event.clientY - wind.innerHeight );
+		that.mouseY = ( event.clientY - window.innerHeight );
 	}
 }

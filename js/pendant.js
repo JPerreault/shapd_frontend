@@ -1,7 +1,6 @@
 window.onload = function() {
 
-	var tubeMeshBuilder, eventListening;
-	var container;
+	var tubeMeshBuilder, view;
 	var renderer, sceneWrapper;
 	var sceneCube;
 	var m, mi;
@@ -12,7 +11,9 @@ window.onload = function() {
 
 	function init() {
 
-		container = document.getElementById('demoSpace');
+		view = new InputView();
+		view.addMouseEventHandling();
+		view.addWindowResizing();
 
 		// SCENE
 		var materialsLibrary = new MaterialsLibrary();	
@@ -20,22 +21,15 @@ window.onload = function() {
 		sceneWrapper = new SceneWrapper(tubeMeshBuilder);
 		sceneCube = new SceneCubeWrapper(materialsLibrary.textureCube);
 
-		eventListening = new EventListening(window, document);
-		eventListening.addMouseEventHandling();
-		eventListening.addWindowResizing();
-
 		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( eventListening.currentWindowX, eventListening.currentWindowY );
+		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
-		container.appendChild( renderer.domElement );
+		view.addMeshElement(renderer.domElement)
+
 		createScene();
 	}
-
-
-	function $( id ) { return document.getElementById( id ) }
-	function button_name( car, index ) { return "m_" + car  + "_" + index }
 
 	function createScene() {
 		var initialRadius = 6;
@@ -55,8 +49,8 @@ window.onload = function() {
 	}
 
 	function render() {
-		sceneWrapper.renderCamera(eventListening.mouseY);
-		//sceneCube.renderCamera(sceneWrapper.camera.rotation);
+		sceneWrapper.renderCamera(view.mouseY);
+		sceneCube.renderCamera(sceneWrapper.camera.rotation);
 
 		renderer.render( sceneCube.scene, sceneCube.camera );
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
