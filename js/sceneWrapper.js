@@ -48,8 +48,15 @@ var SceneWrapper = function(tMB, textureCube) {
 	};
 
 	this.redrawMesh = function(newParams){
+		var yRotation = this.currentMesh.figure.rotation.y;
+		var xRotation = this.currentMesh.figure.rotation.x;
+
         this.scene.remove( this.currentMesh.figure );
 		this.currentMesh = tubeMeshBuilder.build(newParams);
+
+		this.currentMesh.figure.rotation.x = xRotation;
+		this.currentMesh.figure.rotation.y = yRotation;	
+
         this.scene.add( this.currentMesh.figure );
 	};
 
