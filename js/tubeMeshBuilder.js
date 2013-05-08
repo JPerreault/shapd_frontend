@@ -40,10 +40,10 @@ var TubeMeshParams = function(){
     this.scale = 8;
     this.scalar = 20;
     this.design = 5;
-    this.morph1 = 1;               
-    this.morph2 = 2;               
-    this.morph3 = 0;               
-    this.morph4 = 0;               
-    this.morphHeight = 1;               
-    this.morphWidth = 1;               
+    this.depth = 1;
+    this.slice = 2;
+    this.stretch = 0;
+    this.inversion = 0;
+    this.height = 1;
+    this.width = 1;
 };

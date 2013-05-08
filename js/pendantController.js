@@ -42,62 +42,47 @@ window.onload = function() {
 	    var scene = sC;
 	    var gui = new dat.GUI({ autoPlace: false });
 
-	    var radiusController = gui.add(scene.currentMesh, 'curviness', 3, 12).step(1);
-	    radiusController.onChange(function(newVal){
-	        var newParams = new TubeMeshParams();
-	        scene.currentMesh.morph1 = newVal;
-        	newParams.curviness = newVal;
-	        scene.redrawMesh(newParams);
-	    });
+        var currentMesh = scene.currentMesh;
 
-	    var scaleController = gui.add(scene.currentMesh, 'scale', 1, 10);
-	    scaleController.onChange(function(newVal){
-	        scene.updateScale(newVal);
-	    });
+        var setUpController = function(controller, fieldName){
+            controller.onChange(function(newVal){
+                currentMesh[fieldName] = newVal;
+                scene.redrawMesh(currentMesh);
+            });
+        };
+
+        var scaleController = gui.add(currentMesh, 'scale', 1, 10);
+        scaleController.onChange(function(newVal){
+            scene.updateScale(newVal);
+        });
+
+        var controller = gui.add(currentMesh, 'curviness', 3, 12).step(1);
+        setUpController(controller, 'curviness');
 
 	    var morphFolder = gui.addFolder('Morphing!');
-		
-		var morph1Controller = morphFolder.add(scene.currentMesh, 'morph1', -3,3);
-	    morph1Controller.onChange(function(newVal){
-	        scene.currentMesh.morph1 = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
 
-		var morph2Controller = morphFolder.add(scene.currentMesh, 'morph2', -2,2);
-	    morph2Controller.onChange(function(newVal){
-        	scene.currentMesh.morph2 = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
+        controller = morphFolder.add(currentMesh, 'depth', -3,3);
+        setUpController(controller, 'depth');
 
-		var morph3Controller = morphFolder.add(scene.currentMesh, 'morph3', -2,2);
-	    morph3Controller.onChange(function(newVal){
-        	scene.currentMesh.morph3 = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
+		controller = morphFolder.add(currentMesh, 'slice', -2,2).step(1);
+        setUpController(controller, 'slice');
 
-		var morph4Controller = morphFolder.add(scene.currentMesh, 'morph4', -2,2);
-	    morph4Controller.onChange(function(newVal){
-        	scene.currentMesh.morph4 = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
+		controller = morphFolder.add(currentMesh, 'stretch', -2,2);
+        setUpController(controller, 'stretch');
 
-		var morphHeightController = morphFolder.add(scene.currentMesh, 'morphHeight', -2,2);
-	    morphHeightController.onChange(function(newVal){
-        	scene.currentMesh.morphHeight = newVal;
-	        scene.redrawMesh(scene.currentMesh);;
-	    });
+		controller = morphFolder.add(currentMesh, 'inversion', -2,2);
+        setUpController(controller, 'inversion');
 
-		var morphWidthController = morphFolder.add(scene.currentMesh, 'morphWidth', -2,2);
-	    morphWidthController.onChange(function(newVal){
-    		scene.currentMesh.morphWidth = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
+		controller = morphFolder.add(currentMesh, 'height', 0,2);
+        setUpController(controller, 'height');
 
-	   	var designController = gui.add(scene.currentMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );	
-	    designController.onChange(function(newVal){
-	        scene.currentMesh.design = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
+		controller = morphFolder.add(currentMesh, 'width', 0,2);
+        setUpController(controller, 'width');
+
+	   	controller = gui.add(currentMesh, 'design', 1, 9).step(1);
+        setUpController(controller, 'design');
+
+        morphFolder.open();
 
 	    var customContainer = document.getElementById('controls');
 		customContainer.appendChild(gui.domElement);
