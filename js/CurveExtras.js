@@ -169,14 +169,13 @@ THREE.Curves.CinquefoilKnot = THREE.Curve.create(
 
 	function(t) {
 		var p = 2,
-			q = this.tubeMeshParams.design;
-			z = this.tubeMeshParams.depth;
-			b = this.tubeMeshParams.slice;
-			n = this.tubeMeshParams.stretch;
-			m = this.tubeMeshParams.inversion;
-			y = this.tubeMeshParams.height;
-			f = this.tubeMeshParams.width;
-		t *= Math.PI * b;
+			q = this.tubeMeshParams['Design'];
+			z = this.tubeMeshParams['Depth'];
+			n = this.tubeMeshParams['Stretch Side'];
+			m = this.tubeMeshParams['Stretch Up'];
+			y = this.tubeMeshParams['Height'];
+			f = this.tubeMeshParams['Width'];
+		t *= Math.PI * 2;
 		var tx = f*(2 + Math.cos(q * t)) * (Math.cos(p * t) + n),
 			ty = y*(2 + Math.cos(q * t)) * (Math.sin(p * t) + m),
 			tz = z*Math.sin(q * t);

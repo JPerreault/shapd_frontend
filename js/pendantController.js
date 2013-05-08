@@ -51,36 +51,33 @@ window.onload = function() {
             });
         };
 
-        var scaleController = gui.add(currentMesh, 'scale', 1, 10);
+        var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
         scaleController.onChange(function(newVal){
             scene.updateScale(newVal);
         });
 
-        var controller = gui.add(currentMesh, 'curviness', 3, 12).step(1);
-        setUpController(controller, 'curviness');
+        var controller = gui.add(currentMesh, 'Curviness', 3, 12).step(3);
+        setUpController(controller, 'Curviness');
 
 	    var morphFolder = gui.addFolder('Morphing!');
 
-        controller = morphFolder.add(currentMesh, 'depth', -3,3);
-        setUpController(controller, 'depth');
+        controller = morphFolder.add(currentMesh, 'Depth', 0,4);
+        setUpController(controller, 'Depth');
 
-		controller = morphFolder.add(currentMesh, 'slice', -2,2).step(1);
-        setUpController(controller, 'slice');
+		controller = morphFolder.add(currentMesh, 'Stretch Side', -2,2);
+        setUpController(controller, 'Stretch Side');
 
-		controller = morphFolder.add(currentMesh, 'stretch', -2,2);
-        setUpController(controller, 'stretch');
+		controller = morphFolder.add(currentMesh, 'Stretch Up', -2,2);
+        setUpController(controller, 'Stretch Up');
 
-		controller = morphFolder.add(currentMesh, 'inversion', -2,2);
-        setUpController(controller, 'inversion');
+		controller = morphFolder.add(currentMesh, 'Height', 0,4);
+        setUpController(controller, 'Height');
 
-		controller = morphFolder.add(currentMesh, 'height', 0,2);
-        setUpController(controller, 'height');
+		controller = morphFolder.add(currentMesh, 'Width', 0,4);
+        setUpController(controller, 'Width');
 
-		controller = morphFolder.add(currentMesh, 'width', 0,2);
-        setUpController(controller, 'width');
-
-	   	controller = gui.add(currentMesh, 'design', 1, 9).step(1);
-        setUpController(controller, 'design');
+	   	controller = gui.add(currentMesh, 'Design', 1, 12).step(1);
+        setUpController(controller, 'Design');
 
         morphFolder.open();
 

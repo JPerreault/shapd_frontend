@@ -10,8 +10,8 @@ var InputView = function(sW) {
 	var mouseX = 0, mouseY = 0;
 	var mouseXOnMouseDown = 0, mouseYOnMouseDown =0;
 
-	this.currentWindowX = window.innerWidth / 2;
-	this.currentWindowY = window.innerHeight / 2;
+	this.currentWindowX = window.innerWidth ;
+	this.currentWindowY = window.innerHeight;
 
 	var that = this;
 

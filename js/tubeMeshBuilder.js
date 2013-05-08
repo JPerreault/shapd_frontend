@@ -19,7 +19,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
     this.build = function(tubeMeshParams) {
         var knot = new THREE.Curves.CinquefoilKnot(tubeMeshParams);
-        var geometry = new THREE.TubeGeometry(knot, 200, 10, tubeMeshParams.curviness, true, false);
+        var geometry = new THREE.TubeGeometry(knot, 200, 10, tubeMeshParams['Curviness'], true, false);
 
         var figure = new THREE.Mesh( geometry, m );
 
@@ -27,7 +27,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
         figure.rotation.y = 0;
         figure.rotation.z = 0;
 
-        figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams.scale;
+        figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
         tubeMeshParams.figure = figure;
 
         return tubeMeshParams;
@@ -36,14 +36,13 @@ var TubeMeshBuilder = function(materialsLibrary) {
 };
 
 var TubeMeshParams = function(){
-    this.curviness = 6;
-    this.scale = 8;
+    this['Curviness'] = 6;
+    this['Scale'] = 5;
     this.scalar = 20;
-    this.design = 5;
-    this.depth = 1;
-    this.slice = 2;
-    this.stretch = 0;
-    this.inversion = 0;
-    this.height = 1;
-    this.width = 1;
+    this['Design'] = 5;
+    this['Depth'] = 1;
+    this['Stretch Side'] = 0;
+    this['Stretch Up'] = 0;
+    this['Height'] = 1;
+    this['Width'] = 1;
 };
