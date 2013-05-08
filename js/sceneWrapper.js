@@ -39,14 +39,6 @@ var SceneWrapper = function(tMB, textureCube) {
 	};
 
 	this.renderCamera = function(mouseY){
-		// var timer = -0.0002 * Date.now();
-
-		// this.camera.position.x = 1000 * Math.cos( timer );
-		// this.camera.position.y += ( - mouseY - this.camera.position.y ) * .05;
-		// this.camera.position.z = 1000 * Math.sin( timer );
-
-		// this.camera.lookAt( this.scene.position );
-
 		this.sceneCube.renderCamera(this.camera.rotation);	
 	};
 
@@ -61,36 +53,8 @@ var SceneWrapper = function(tMB, textureCube) {
         this.scene.add( this.currentMesh.figure );
 	};
 
-	this.updateRadius = function(newVal){
-        this.scene.remove( this.currentMesh.figure );
-        var newParams = new TubeMeshParams();
-        newParams.curviness = newVal;
-
-        this.currentMesh = tubeMeshBuilder.build(newParams);
-        this.scene.add( this.currentMesh.figure );
-    };
-
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
-    };
-
-    this.updateDesign = function(newVal){
-        this.scene.remove( this.currentMesh.figure );
-        var newParams = new TubeMeshParams();
-        newParams.design = newVal;
-
-        this.currentMesh = tubeMeshBuilder.build(newParams);
-        this.scene.add( this.currentMesh.figure );
-    };
-	
-	this.updateMorph1 = function(newVal){
-        this.scene.remove( this.currentMesh.figure );
-
-        var newParams = new TubeMeshParams();
-        newParams.morph1 = newVal;
-
-        this.currentMesh = tubeMeshBuilder.build(newParams);
-        this.scene.add( this.currentMesh.figure );
     };
 
 }

@@ -45,6 +45,7 @@ window.onload = function() {
 	    var radiusController = gui.add(scene.currentMesh, 'curviness', 3, 12).step(1);
 	    radiusController.onChange(function(newVal){
 	        var newParams = new TubeMeshParams();
+	        scene.currentMesh.morph1 = newVal;
         	newParams.curviness = newVal;
 	        scene.redrawMesh(newParams);
 	    });
@@ -54,51 +55,50 @@ window.onload = function() {
 	        scene.updateScale(newVal);
 	    });
 
-	    var designController = gui.add(scene.currentMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );
-	    designController.onChange(function(newVal){
-	        scene.currentMesh.design = newVal;
-	        scene.redrawMesh(scene.currentMesh);
-	    });
+	    var morphFolder = gui.addFolder('Morphing!');
 		
-		var morph1Controller = gui.add(scene.currentMesh, 'morph1', -3,3);
+		var morph1Controller = morphFolder.add(scene.currentMesh, 'morph1', -3,3);
 	    morph1Controller.onChange(function(newVal){
 	        scene.currentMesh.morph1 = newVal;
 	        scene.redrawMesh(scene.currentMesh);
 	    });
 
-		var morph2Controller = gui.add(scene.currentMesh, 'morph2', -2,2);
+		var morph2Controller = morphFolder.add(scene.currentMesh, 'morph2', -2,2);
 	    morph2Controller.onChange(function(newVal){
         	scene.currentMesh.morph2 = newVal;
 	        scene.redrawMesh(scene.currentMesh);
 	    });
 
-		var morph3Controller = gui.add(scene.currentMesh, 'morph3', -2,2);
+		var morph3Controller = morphFolder.add(scene.currentMesh, 'morph3', -2,2);
 	    morph3Controller.onChange(function(newVal){
         	scene.currentMesh.morph3 = newVal;
 	        scene.redrawMesh(scene.currentMesh);
 	    });
 
-		var morph4Controller = gui.add(scene.currentMesh, 'morph4', -2,2);
+		var morph4Controller = morphFolder.add(scene.currentMesh, 'morph4', -2,2);
 	    morph4Controller.onChange(function(newVal){
         	scene.currentMesh.morph4 = newVal;
 	        scene.redrawMesh(scene.currentMesh);
 	    });
 
-		var morphHeightController = gui.add(scene.currentMesh, 'morphHeight', -2,2);
+		var morphHeightController = morphFolder.add(scene.currentMesh, 'morphHeight', -2,2);
 	    morphHeightController.onChange(function(newVal){
         	scene.currentMesh.morphHeight = newVal;
 	        scene.redrawMesh(scene.currentMesh);;
 	    });
 
-		var morphWidthController = gui.add(scene.currentMesh, 'morphWidth', -2,2);
+		var morphWidthController = morphFolder.add(scene.currentMesh, 'morphWidth', -2,2);
 	    morphWidthController.onChange(function(newVal){
     		scene.currentMesh.morphWidth = newVal;
 	        scene.redrawMesh(scene.currentMesh);
 	    });
 
+	   	var designController = gui.add(scene.currentMesh, 'design', { 'very simple': 3, 'sorta simple': 8, 'cool': 5, 'that\'s crazy': 7, 'whoa': 9 } );	
+	    designController.onChange(function(newVal){
+	        scene.currentMesh.design = newVal;
+	        scene.redrawMesh(scene.currentMesh);
+	    });
 
-
-		
 	    var customContainer = document.getElementById('controls');
 		customContainer.appendChild(gui.domElement);
 	};
