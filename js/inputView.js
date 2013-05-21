@@ -92,7 +92,7 @@ var InputView = function(sW) {
 	}
 
 	this.addMeshElement = function(domElement) {
-		var demoSpace = document.getElementById('demoSpace');
+		var demoSpace = document.getElementById('container');
 		demoSpace.appendChild( domElement );
 	};
 }
