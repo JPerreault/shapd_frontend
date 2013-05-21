@@ -60,9 +60,9 @@ window.onload = function() {
         setUpController(controller, 'Curviness');
 
 	    var morphFolder = gui.addFolder('Morphing!');
-
-        controller = morphFolder.add(currentMesh, 'Depth', 0,4);
-        setUpController(controller, 'Depth');
+		
+        controller = morphFolder.add(currentMesh, 'Depth', 0.00000001,3.5);
+		setUpController(controller, 'Depth');
 
 		controller = morphFolder.add(currentMesh, 'Stretch Side', -2,2);
         setUpController(controller, 'Stretch Side');
@@ -78,10 +78,17 @@ window.onload = function() {
 
 	   	controller = gui.add(currentMesh, 'Design', 1, 12).step(1);
         setUpController(controller, 'Design');
+		
+		controller = gui.add(currentMesh, 'Loops', 1, 12).step(1);
+        setUpController(controller, 'Loops');
 
         morphFolder.open();
 
-	    var customContainer = document.getElementById('controls');
+	    var customContainer = document.getElementById('container');
+		gui.domElement.style.position = 'absolute';
+		gui.domElement.style.top = '-1px';
+		gui.domElement.style.left = '-15px';
+		gui.domElement.style.zIndex = '1000';
 		customContainer.appendChild(gui.domElement);
 	};
 
