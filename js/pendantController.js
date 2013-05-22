@@ -50,31 +50,40 @@ window.onload = function() {
                 scene.redrawMesh(currentMesh);
             });
         };
+		
+		var controller = gui.add(currentMesh, 'Starting Shape', 0,13).step(1);
+        setUpController(controller, 'Starting Shape');
 
         var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
         scaleController.onChange(function(newVal){
             scene.updateScale(newVal);
         });
-
-        var controller = gui.add(currentMesh, 'Curviness', 3, 12).step(3);
-        setUpController(controller, 'Curviness');
-
-	    var morphFolder = gui.addFolder('Morphing!');
 		
-        controller = morphFolder.add(currentMesh, 'Depth', 0.00000001,3.5);
+		controller = gui.add(currentMesh, 'Thickness', .5, 20);
+		setUpController(controller, 'Thickness');
+
+		//Curviness slider, decided it didn't do enough to stay in
+        //var controller = gui.add(currentMesh, 'Curviness', 3, 12).step(3);
+        //setUpController(controller, 'Curviness');
+
+		//Decided to not use MorphFolder, keeping for later reference
+	    //var morphFolder = gui.addFolder('Morphing!');
+        var controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
 		setUpController(controller, 'Depth');
 
-		controller = morphFolder.add(currentMesh, 'Stretch Side', -2,2);
-        setUpController(controller, 'Stretch Side');
+		//controller = gui.add(currentMesh, 'Stretch Side', -2,2).step(1);
+        //setUpController(controller, 'Stretch Side');
 
-		controller = morphFolder.add(currentMesh, 'Stretch Up', -2,2);
-        setUpController(controller, 'Stretch Up');
+		controller = gui.add(currentMesh, 'Stretch', 0.05,1.75);
+        setUpController(controller, 'Stretch');
 
-		controller = morphFolder.add(currentMesh, 'Height', 0,4);
-        setUpController(controller, 'Height');
+		//Height slider, decided to not have implemented (redundant with scale)
+		//controller = morphFolder.add(currentMesh, 'Height', 0,4);
+        //setUpController(controller, 'Height');
 
-		controller = morphFolder.add(currentMesh, 'Width', 0,4);
-        setUpController(controller, 'Width');
+		//Width slider, decided to not have implemented (redundant with scale)
+		//controller = morphFolder.add(currentMesh, 'Width', 0,4);
+        //setUpController(controller, 'Width');
 
 	   	controller = gui.add(currentMesh, 'Design', 1, 12).step(1);
         setUpController(controller, 'Design');
@@ -82,7 +91,7 @@ window.onload = function() {
 		controller = gui.add(currentMesh, 'Loops', 1, 12).step(1);
         setUpController(controller, 'Loops');
 
-        morphFolder.open();
+        //morphFolder.open();
 
 	    var customContainer = document.getElementById('container');
 		gui.domElement.style.position = 'absolute';
