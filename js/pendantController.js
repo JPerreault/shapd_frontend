@@ -74,7 +74,7 @@ window.onload = function() {
 		//controller = gui.add(currentMesh, 'Stretch Side', -2,2).step(1);
         //setUpController(controller, 'Stretch Side');
 
-		controller = gui.add(currentMesh, 'Stretch', 0.05,1.75);
+		controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
         setUpController(controller, 'Stretch');
 
 		//Height slider, decided to not have implemented (redundant with scale)
