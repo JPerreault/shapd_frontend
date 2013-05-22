@@ -1,329 +1,104 @@
-/*
- * A bunch of parametric curves
- * @author zz85
- *
- * Formulas collected from various sources
- *	http://mathworld.wolfram.com/HeartCurve.html
- *	http://mathdl.maa.org/images/upload_library/23/stemkoski/knots/page6.html
- *	http://en.wikipedia.org/wiki/Viviani%27s_curve
- *	http://mathdl.maa.org/images/upload_library/23/stemkoski/knots/page4.html
- *	http://www.mi.sanu.ac.rs/vismath/taylorapril2011/Taylor.pdf
- *	http://prideout.net/blog/?p=44
- */
+window.onload = function() {
 
-// Lets define some curves
-THREE.Curves = {};
+	var tubeMeshBuilder, view;
+	var renderer, sceneWrapper;
 
+	init();
+	animate();
 
- THREE.Curves.GrannyKnot = THREE.Curve.create( function(){},
+	function init() {
 
-	 function(t) {
-	    t = 2 * Math.PI * t;
+		view = new InputView();
 
-	    var x = -0.22 * Math.cos(t) - 1.28 * Math.sin(t) - 0.44 * Math.cos(3 * t) - 0.78 * Math.sin(3 * t);
-	    var y = -0.1 * Math.cos(2 * t) - 0.27 * Math.sin(2 * t) + 0.38 * Math.cos(4 * t) + 0.46 * Math.sin(4 * t);
-	    var z = 0.7 * Math.cos(3 * t) - 0.4 * Math.sin(3 * t);
-	    return new THREE.Vector3(x, y, z).multiplyScalar(20);
+		var materialsLibrary = new MaterialsLibrary();	
+		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
+		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize( view.currentWindowX, view.currentWindowY );
+		renderer.setFaceCulling( THREE.CullFaceNone );
+		renderer.autoClear = false;
+
+		view.addMeshElement(renderer.domElement)
+
+		sceneWrapper.init();
+	    setupDatGui(sceneWrapper);  		
 	}
-);
 
-THREE.Curves.HeartCurve = THREE.Curve.create(
+	function animate() {
+		requestAnimationFrame( animate );
+		render();
+	}
 
-function(s) {
+	function render() {
+		// sceneWrapper.renderCamera(view.mouseY);
+		sceneWrapper.rotateMesh(view.targetX, view.targetY);
 
-	this.scale = (s === undefined) ? 5 : s;
+		renderer.render( sceneWrapper.sceneCube.scene, sceneWrapper.sceneCube.camera );
+		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
+	}
 
-},
+	function setupDatGui(sC) {
+	    var scene = sC;
+	    var gui = new dat.GUI({ autoPlace: false });
 
-function(t) {
+        var currentMesh = scene.currentMesh;
 
-	t *= 2 * Math.PI;
+        var setUpController = function(controller, fieldName){
+            controller.onChange(function(newVal){
+                currentMesh[fieldName] = newVal;
+                scene.redrawMesh(currentMesh);
+            });
+        };
+		
+		var controller = gui.add(currentMesh, 'Starting Shape', 0,13).step(1);
+        setUpController(controller, 'Starting Shape');
 
-	var tx = 16 * Math.pow(Math.sin(t), 3);
-	var ty = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t), tz = 0;
+        var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
+        scaleController.onChange(function(newVal){
+            scene.updateScale(newVal);
+        });
+		
+		controller = gui.add(currentMesh, 'Thickness', .5, 20);
+		setUpController(controller, 'Thickness');
 
-	return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+		//Curviness slider, decided it didn't do enough to stay in
+        //var controller = gui.add(currentMesh, 'Curviness', 3, 12).step(3);
+        //setUpController(controller, 'Curviness');
+
+		//Decided to not use MorphFolder, keeping for later reference
+	    //var morphFolder = gui.addFolder('Morphing!');
+        var controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
+		setUpController(controller, 'Depth');
+
+		//controller = gui.add(currentMesh, 'Stretch Side', -2,2).step(1);
+        //setUpController(controller, 'Stretch Side');
+
+		controller = gui.add(currentMesh, 'Stretch', 0.05,1.75);
+        setUpController(controller, 'Stretch');
+
+		//Height slider, decided to not have implemented (redundant with scale)
+		//controller = morphFolder.add(currentMesh, 'Height', 0,4);
+        //setUpController(controller, 'Height');
+
+		//Width slider, decided to not have implemented (redundant with scale)
+		//controller = morphFolder.add(currentMesh, 'Width', 0,4);
+        //setUpController(controller, 'Width');
+
+	   	controller = gui.add(currentMesh, 'Design', 1, 12).step(1);
+        setUpController(controller, 'Design');
+		
+		controller = gui.add(currentMesh, 'Loops', 1, 12).step(1);
+        setUpController(controller, 'Loops');
+
+        //morphFolder.open();
+
+	    var customContainer = document.getElementById('container');
+		gui.domElement.style.position = 'absolute';
+		gui.domElement.style.top = '-1px';
+		gui.domElement.style.left = '-15px';
+		gui.domElement.style.zIndex = '1000';
+		customContainer.appendChild(gui.domElement);
+	};
 
 }
-
-);
-
-
-
-// Viviani's Curve
-THREE.Curves.VivianiCurve = THREE.Curve.create(
-
-	function(radius) {
-
-		this.radius = radius;
-	},
-
-	function(t) {
-
-		t = t * 4 * Math.PI; // Normalized to 0..1
-		var a = this.radius / 2;
-		var tx = a * (1 + Math.cos(t)),
-			ty = a * Math.sin(t),
-			tz = 2 * a * Math.sin(t / 2);
-
-		return new THREE.Vector3(tx, ty, tz);
-
-	}
-
-);
-
-
-THREE.Curves.KnotCurve = THREE.Curve.create(
-
-	function() {
-
-	},
-
-	function(t) {
-
-		t *= 2 * Math.PI;
-
-		var R = 10;
-		var s = 50;
-		var tx = s * Math.sin(t),
-			ty = Math.cos(t) * (R + s * Math.cos(t)),
-			tz = Math.sin(t) * (R + s * Math.cos(t));
-
-		return new THREE.Vector3(tx, ty, tz);
-
-	}
-
-);
-
-THREE.Curves.HelixCurve = THREE.Curve.create(
-
-	function() {
-
-	},
-
-	function(t) {
-
-		var a = 30; // radius
-		var b = 150; //height
-		var t2 = 2 * Math.PI * t * b / 30;
-		var tx = Math.cos(t2) * a,
-			ty = Math.sin(t2) * a,
-			tz = b * t;
-
-		return new THREE.Vector3(tx, ty, tz);
-
-	}
-
-);
-
-THREE.Curves.TrefoilKnot = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 10 : s;
-
-	},
-
-	function(t) {
-
-		t *= Math.PI * 2;
-		var tx = (2 + Math.cos(3 * t)) * Math.cos(2 * t),
-			ty = (2 + Math.cos(3 * t)) * Math.sin(2 * t),
-			tz = Math.sin(3 * t);
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
-
-	}
-
-);
-
-THREE.Curves.TorusKnot = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 10 : s;
-
-	},
-
-	function(t) {
-
-		var p = 3,
-			q = 4;
-		t *= Math.PI * 2;
-		var tx = (2 + Math.cos(q * t)) * Math.cos(p * t),
-			ty = (2 + Math.cos(q * t)) * Math.sin(p * t),
-			tz = Math.sin(q * t);
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
-
-	}
-
-);
-
-
-THREE.Curves.CinquefoilKnot = THREE.Curve.create(
-
-	function(tubeMeshParams) {
-		this.tubeMeshParams = tubeMeshParams;
-	},
-
-	function(t) {
-		var p = 2,
-			q = this.tubeMeshParams['Design'];
-			z = this.tubeMeshParams['Depth'];
-			n = this.tubeMeshParams['Stretch Side'];
-			m = this.tubeMeshParams['Stretch Up'];
-			y = this.tubeMeshParams['Height'];
-			f = this.tubeMeshParams['Width'];
-		t *= Math.PI * 2;
-		var tx = f*(2 + Math.cos(q * t)) * (Math.cos(p * t) + n),
-			ty = y*(2 + Math.cos(q * t)) * (Math.sin(p * t) + m),
-			tz = z*Math.sin(q * t);
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.tubeMeshParams.scalar);
-
-	}
-
-);
-
-
-THREE.Curves.TrefoilPolynomialKnot = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 10 : s;
-
-	},
-
-	function(t) {
-
-		t = t * 4 - 2;
-		var tx = Math.pow(t, 3) - 3 * t,
-			ty = Math.pow(t, 4) - 4 * t * t,
-			tz = 1 / 5 * Math.pow(t, 5) - 2 * t;
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
-
-	}
-
-);
-
-// var scaleTo = function(x, y) {
-//   var r = y - x;
-//   return function(t) {
-//     t * r + x;
-//   };
-// }
-var scaleTo = function(x, y, t) {
-
-		var r = y - x;
-		return t * r + x;
-
-	}
-
-THREE.Curves.FigureEightPolynomialKnot = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 1 : s;
-
-	},
-
-	function(t) {
-
-		t = scaleTo(-4, 4, t);
-		var tx = 2 / 5 * t * (t * t - 7) * (t * t - 10),
-			ty = Math.pow(t, 4) - 13 * t * t,
-			tz = 1 / 10 * t * (t * t - 4) * (t * t - 9) * (t * t - 12);
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
-
-	}
-
-);
-
-THREE.Curves.DecoratedTorusKnot4a = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 40 : s;
-
-	},
-
-	function(t) {
-
-		t *= Math.PI * 2;
-		var
-		x = Math.cos(2 * t) * (1 + 0.6 * (Math.cos(5 * t) + 0.75 * Math.cos(10 * t))),
-			y = Math.sin(2 * t) * (1 + 0.6 * (Math.cos(5 * t) + 0.75 * Math.cos(10 * t))),
-			z = 0.35 * Math.sin(5 * t);
-
-		return new THREE.Vector3(x, y, z).multiplyScalar(this.scale);
-
-	}
-
-);
-
-
-THREE.Curves.DecoratedTorusKnot4b = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 40 : s;
-
-	},
-
-	function(t) {
-		var fi = t * Math.PI * 2;
-		var x = Math.cos(2 * fi) * (1 + 0.45 * Math.cos(3 * fi) + 0.4 * Math.cos(9 * fi)),
-			y = Math.sin(2 * fi) * (1 + 0.45 * Math.cos(3 * fi) + 0.4 * Math.cos(9 * fi)),
-			z = 0.2 * Math.sin(9 * fi);
-
-		return new THREE.Vector3(x, y, z).multiplyScalar(this.scale);
-
-	}
-
-);
-
-
-THREE.Curves.DecoratedTorusKnot5a = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 40 : s;
-
-	},
-
-	function(t) {
-
-		var fi = t * Math.PI * 2;
-		var x = Math.cos(3 * fi) * (1 + 0.3 * Math.cos(5 * fi) + 0.5 * Math.cos(10 * fi)),
-			y = Math.sin(3 * fi) * (1 + 0.3 * Math.cos(5 * fi) + 0.5 * Math.cos(10 * fi)),
-			z = 0.2 * Math.sin(20 * fi);
-
-		return new THREE.Vector3(x, y, z).multiplyScalar(this.scale);
-
-	}
-
-);
-
-THREE.Curves.DecoratedTorusKnot5c = THREE.Curve.create(
-
-	function(s) {
-
-		this.scale = (s === undefined) ? 40 : s;
-
-	},
-
-	function(t) {
-
-		var fi = t * Math.PI * 2;
-		var x = Math.cos(4 * fi) * (1 + 0.5 * (Math.cos(5 * fi) + 0.4 * Math.cos(20 * fi))),
-			y = Math.sin(4 * fi) * (1 + 0.5 * (Math.cos(5 * fi) + 0.4 * Math.cos(20 * fi))),
-			z = 0.35 * Math.sin(15 * fi);
-
-		return new THREE.Vector3(x, y, z).multiplyScalar(this.scale);
-
-	}
-
-);
