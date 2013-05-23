@@ -20,7 +20,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
     this.build = function(tubeMeshParams) {
         //var knot = new THREE.Curves.CinquefoilKnot(tubeMeshParams);
 		var knot = shapePicker(tubeMeshParams);
-        var geometry = new THREE.TubeGeometry(knot, 200, tubeMeshParams['Thickness'], tubeMeshParams['Curviness'], true, false);
+        var geometry = new THREE.TubeGeometry(knot, 550, tubeMeshParams['Thickness'], 6, true, false); //6 is default 'curviness', or how rounded the lines are
 
         var figure = new THREE.Mesh( geometry, m );
 
@@ -38,33 +38,33 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 function shapePicker(tubeMeshParams)
 {
-	if (tubeMeshParams['Starting Shape'] == 0)
+	if (tubeMeshParams['Starting Shape'] == 1)
 		return new THREE.Curves.CinquefoilKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 1)
-		return new THREE.Curves.GrannyKnot(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 2)
-		return new THREE.Curves.HeartCurve(tubeMeshParams);
+		return new THREE.Curves.GrannyKnot(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 3)
-		return new THREE.Curves.VivianiCurve(tubeMeshParams);
+		return new THREE.Curves.HeartCurve(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 4)
-		return new THREE.Curves.KnotCurve(tubeMeshParams);
+		return new THREE.Curves.VivianiCurve(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 5)
-		return new THREE.Curves.HelixCurve(tubeMeshParams);
+		return new THREE.Curves.KnotCurve(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 6)
-		return new THREE.Curves.TrefoilKnot(tubeMeshParams);
+		return new THREE.Curves.HelixCurve(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 7)
-		return new THREE.Curves.TorusKnot(tubeMeshParams);
+		return new THREE.Curves.TrefoilKnot(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 8)
-		return new THREE.Curves.TrefoilPolynomialKnot(tubeMeshParams);
+		return new THREE.Curves.TorusKnot(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 9)
-		return new THREE.Curves.FigureEightPolynomialKnot(tubeMeshParams);
+		return new THREE.Curves.TrefoilPolynomialKnot(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 10)
-		return new THREE.Curves.DecoratedTorusKnot4a(tubeMeshParams);
+		return new THREE.Curves.FigureEightPolynomialKnot(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 11)
-		return new THREE.Curves.DecoratedTorusKnot4b(tubeMeshParams);
+		return new THREE.Curves.DecoratedTorusKnot4a(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 12)
-		return new THREE.Curves.DecoratedTorusKnot5a(tubeMeshParams);
+		return new THREE.Curves.DecoratedTorusKnot4b(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 13)
+		return new THREE.Curves.DecoratedTorusKnot5a(tubeMeshParams);
+	else if (tubeMeshParams['Starting Shape'] == 14)
 		return new THREE.Curves.DecoratedTorusKnot5c(tubeMeshParams);
 }
 
@@ -75,6 +75,6 @@ var TubeMeshParams = function(){
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;
-	this['Starting Shape'] = 10;
-	this['Thickness'] = 8;
+	this['Starting Shape'] = 1;
+	this['Thickness'] = 4;
 };
