@@ -67,7 +67,7 @@ window.onload = function() {
         var controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
 		setUpController(controller, 'Depth');
 
-		controller = gui.add(currentMesh, 'Stretch', 0.05,1.75);
+		controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
         setUpController(controller, 'Stretch');
 
 		//Width slider, decided to not have implemented (redundant with scale)
