@@ -49,29 +49,23 @@ function shapePicker(tubeMeshParams)
 	else if (tubeMeshParams['Starting Shape'] == 5)
 		return new THREE.Curves.KnotCurve(tubeMeshParams);
 	else if (tubeMeshParams['Starting Shape'] == 6)
-		return new THREE.Curves.HelixCurve(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 7)
 		return new THREE.Curves.TrefoilKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 8)
+	else if (tubeMeshParams['Starting Shape'] == 7)
 		return new THREE.Curves.TorusKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 9)
-		return new THREE.Curves.TrefoilPolynomialKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 10)
-		return new THREE.Curves.FigureEightPolynomialKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 11)
+	else if (tubeMeshParams['Starting Shape'] == 8)
 		return new THREE.Curves.DecoratedTorusKnot4a(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 12)
+	else if (tubeMeshParams['Starting Shape'] == 9)
 		return new THREE.Curves.DecoratedTorusKnot4b(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 13)
+	else if (tubeMeshParams['Starting Shape'] == 10)
 		return new THREE.Curves.DecoratedTorusKnot5a(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 14)
+	else if (tubeMeshParams['Starting Shape'] == 11)
 		return new THREE.Curves.DecoratedTorusKnot5c(tubeMeshParams);
 }
 
 var TubeMeshParams = function(){
     this['Scale'] = 5;
     this.scalar = 20;
-    this['Design'] = 5;
+    this['Modify'] = 5;
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;

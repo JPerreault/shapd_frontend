@@ -11,27 +11,87 @@ var SceneWrapper = function(tMB, textureCube) {
 	var ambient = new THREE.AmbientLight( 0x050505 );
 	this.scene.add( ambient );
 
-	directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-	directionalLight.position.set( 2, 1.2, 10 ).normalize();
-	this.scene.add( directionalLight );
+	if (clouds === true) //Cloud scene
+	{
+		directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 ); 
+		directionalLight1.position.set( 2, 1.2, 10 ).normalize();
+		this.scene.add( directionalLight1 );
 
-	directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-	directionalLight.position.set( -2, 1.2, -10 ).normalize();
-	this.scene.add( directionalLight );
+		directionalLight2 = new THREE.DirectionalLight( 0xffffff, 2 ); 
+		directionalLight2.position.set( -2, 1.2, -10 ).normalize();
+		this.scene.add( directionalLight2 );
 
-	pointLight = new THREE.PointLight( 0xffaa00, 2 );
-	pointLight.position.set( 2000, 1200, 10000 );
-	this.scene.add( pointLight );
+		pointLight = new THREE.PointLight( 0xffaa00, .5 ); //2 for bridge, .5 for clouds
+		pointLight.position.set( 2000, 1200, 10000 );
+		this.scene.add( pointLight );
+	}
+	
+	else //Bridge scene, different lighting
+	{
+		this.scene.remove(directionalLight1);
+		this.scene.remove(directionalLight2);
+		this.scene.remove(pointLight);
+		
+		directionalLight1 = new THREE.DirectionalLight( 0xffffff, 2 );
+		directionalLight1.position.set( 2, 1.2, 10 ).normalize();
+		this.scene.add( directionalLight1 );
+
+		directionalLight2 = new THREE.DirectionalLight( 0xffffff, 1 );
+		directionalLight2.position.set( -2, 1.2, -10 ).normalize();
+		this.scene.add( directionalLight2 );
+	
+		pointLight = new THREE.PointLight( 0xffaa00, 2 ); 
+		pointLight.position.set( 2000, 1200, 10000 );
+		this.scene.add( pointLight );
+	}
 
 	this.init = function(){
 		var tubeMeshParams = new TubeMeshParams();
 		this.addMesh( tubeMeshBuilder.build(tubeMeshParams) );
 	};
 
-	this.updateCameraOnWindowResize = function(){
+	this.updateCameraOnWindowResize = function (){
 		this.camera.aspect = (window.innerWidth /2) / (window.innerHeight/2);
 		this.camera.updateProjectionMatrix();
-	};
+	}
+	
+	this.updateLighting = function(){
+		this.scene.remove(directionalLight1);
+		this.scene.remove(directionalLight2);
+		this.scene.remove(pointLight);
+		//var matlib = new MaterialsLibrary();
+		//this.sceneCube = new SceneCubeWrapper(matlib.textureCube);
+		
+		if (clouds === true) //Cloud scene
+		{
+			directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 ); 
+			directionalLight1.position.set( 2, 1.2, 10 ).normalize();
+			this.scene.add( directionalLight1 );
+
+			directionalLight2 = new THREE.DirectionalLight( 0xffffff, 2 ); 
+			directionalLight2.position.set( -2, 1.2, -10 ).normalize();
+			this.scene.add( directionalLight2 );
+
+			pointLight = new THREE.PointLight( 0xffaa00, .5 ); //2 for bridge, .5 for clouds
+			pointLight.position.set( 2000, 1200, 10000 );
+			this.scene.add( pointLight );
+		}
+	
+		else //Bridge scene, different lighting
+		{
+			directionalLight1 = new THREE.DirectionalLight( 0xffffff, 2 );
+			directionalLight1.position.set( 2, 1.2, 10 ).normalize();
+			this.scene.add( directionalLight1 );
+
+			directionalLight2 = new THREE.DirectionalLight( 0xffffff, 1 );
+			directionalLight2.position.set( -2, 1.2, -10 ).normalize();
+			this.scene.add( directionalLight2 );
+	
+			pointLight = new THREE.PointLight( 0xffaa00, 2 ); 
+			pointLight.position.set( 2000, 1200, 10000 );
+			this.scene.add( pointLight );
+		}
+	}
 
 	this.rotateMesh = function(targetXRotation, targetYRotation){
 		this.currentMesh.figure.rotation.x += ( targetXRotation - this.currentMesh.figure.rotation.x ) * 0.05;
@@ -63,5 +123,4 @@ var SceneWrapper = function(tMB, textureCube) {
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
     };
-
 }

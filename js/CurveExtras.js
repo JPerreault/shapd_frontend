@@ -26,7 +26,7 @@ this;
 
 	function(t) {
 		var p = 2,
-			q = this.tubeMeshParams['Design'],
+			q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -51,7 +51,7 @@ this;
 	},
 
 	 function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -83,7 +83,7 @@ THREE.Curves.HeartCurve = THREE.Curve.create(
 
 	function(t) {
 	
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -117,7 +117,7 @@ THREE.Curves.VivianiCurve = THREE.Curve.create(
 
 	function(t) {
 	
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -145,7 +145,7 @@ THREE.Curves.KnotCurve = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -163,31 +163,6 @@ THREE.Curves.KnotCurve = THREE.Curve.create(
 
 );
 
-THREE.Curves.HelixCurve = THREE.Curve.create(
-
-	function(tubeMeshParams) {
-		this.tubeMeshParams = tubeMeshParams;
-	},
-	
-	function(t) {
-		var q = this.tubeMeshParams['Design'],
-			z = this.tubeMeshParams['Depth'],
-			m = this.tubeMeshParams['Stretch'],
-			l = this.tubeMeshParams['Loops'];
-
-		var t2 = 2 * Math.PI * t * q;
-		var tx = Math.cos(t2) * (q+25),
-			ty = Math.sin(t2) * (l+28),
-			tz = (l+148) * t;
-		ty *= m;
-		tz *= z;
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(.80);
-
-	}
-
-);
-
 THREE.Curves.TrefoilKnot = THREE.Curve.create(
 
 	function(tubeMeshParams) {
@@ -195,7 +170,7 @@ THREE.Curves.TrefoilKnot = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -219,7 +194,7 @@ THREE.Curves.TorusKnot = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -228,32 +203,6 @@ THREE.Curves.TorusKnot = THREE.Curve.create(
 		var tx = (2 + Math.cos((q-1) * t)) * Math.cos((l+1) * t),
 			ty = (2 + Math.cos((q-1) * t)) * Math.sin((l+1) * t),
 			tz = Math.sin((q-1) * t);
-		ty *= m;
-		tz *= z;
-
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(20);
-
-	}
-
-);
-
-//TODO: Find out if line connecting is necessary, segments end closed?
-THREE.Curves.TrefoilPolynomialKnot = THREE.Curve.create(
-
-	function(tubeMeshParams) {
-		this.tubeMeshParams = tubeMeshParams;
-	},
-
-	function(t) {
-		var q = this.tubeMeshParams['Design'],
-			z = this.tubeMeshParams['Depth'],
-			m = this.tubeMeshParams['Stretch'],
-			l = this.tubeMeshParams['Loops'];
-
-		t = t * 4 - 2;
-		var tx = Math.pow(t, 3) - (q-2) * t,
-			ty = Math.pow(t, 4) - (l+2) * t * t,
-			tz = 1 / 5 * Math.pow(t, 5) - 2 * t;
 		ty *= m;
 		tz *= z;
 
@@ -276,31 +225,6 @@ var scaleTo = function(x, y, t) {
 
 	}
 
-THREE.Curves.FigureEightPolynomialKnot = THREE.Curve.create(
-
-	function(tubeMeshParams) {
-		this.tubeMeshParams = tubeMeshParams;
-	},
-
-	function(t) {
-		var q = this.tubeMeshParams['Design'],
-			z = this.tubeMeshParams['Depth'],
-			m = this.tubeMeshParams['Stretch'],
-			l = this.tubeMeshParams['Loops'];
-
-		t = scaleTo(-4, 4, t);
-		var tx = 2 / 5 * t * (t * t - (q+2)) * (t * t - (l+8)),
-			ty = Math.pow(t, 4) - (q+8) * t * t,
-			tz = 1 / 10 * t * (t * t - 4) * (t * t - (q+4)) * (t * t - (l+10));
-		ty *= m;
-		tz *= z;
-
-		return new THREE.Vector3(tx, ty, tz);
-
-	}
-
-);
-
 THREE.Curves.DecoratedTorusKnot4a = THREE.Curve.create(
 
 	function(tubeMeshParams) {
@@ -308,7 +232,7 @@ THREE.Curves.DecoratedTorusKnot4a = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -334,7 +258,7 @@ THREE.Curves.DecoratedTorusKnot4b = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -346,7 +270,7 @@ THREE.Curves.DecoratedTorusKnot4b = THREE.Curve.create(
 		tz *= z;
 		
 
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(50);
+		return new THREE.Vector3(tx, ty, tz).multiplyScalar(40);
 
 	}
 
@@ -360,7 +284,7 @@ THREE.Curves.DecoratedTorusKnot5a = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -372,7 +296,7 @@ THREE.Curves.DecoratedTorusKnot5a = THREE.Curve.create(
 		ty *= m;
 		tz *= z;
 
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(60);
+		return new THREE.Vector3(tx, ty, tz).multiplyScalar(40);
 
 	}
 
@@ -385,7 +309,7 @@ THREE.Curves.DecoratedTorusKnot5c = THREE.Curve.create(
 	},
 
 	function(t) {
-		var q = this.tubeMeshParams['Design'],
+		var q = this.tubeMeshParams['Modify'],
 			z = this.tubeMeshParams['Depth'],
 			m = this.tubeMeshParams['Stretch'],
 			l = this.tubeMeshParams['Loops'];
@@ -397,8 +321,85 @@ THREE.Curves.DecoratedTorusKnot5c = THREE.Curve.create(
 		ty *= m;
 		tz *= z;
 
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(80);
+		return new THREE.Vector3(tx, ty, tz).multiplyScalar(40);
 
 	}
 
 );
+
+//Had line connecting two points that should not have been connected.
+//THREE.Curves.HelixCurve = THREE.Curve.create(
+//
+//	function(tubeMeshParams) {
+//		this.tubeMeshParams = tubeMeshParams;
+//	},
+//	
+//	function(t) {
+//		var q = this.tubeMeshParams['Modify'],
+//			z = this.tubeMeshParams['Depth'],
+//			m = this.tubeMeshParams['Stretch'],
+//			l = this.tubeMeshParams['Loops'];
+//
+//		var t2 = 2 * Math.PI * t * q;
+//		var tx = Math.cos(t2) * (q+25),
+//			ty = Math.sin(t2) * (l+28),
+//			tz = (l+148) * t;
+//		ty *= m;
+//		tz *= z;
+//
+//		return new THREE.Vector3(tx, ty, tz).multiplyScalar(.80);
+//
+//	}
+//
+//);
+
+//Had line connecting two points that should not have been connected.
+//THREE.Curves.FigureEightPolynomialKnot = THREE.Curve.create(
+//
+//	function(tubeMeshParams) {
+//		this.tubeMeshParams = tubeMeshParams;
+//	},
+//
+//	function(t) {
+//		var q = this.tubeMeshParams['Modify'],
+//			z = this.tubeMeshParams['Depth'],
+//			m = this.tubeMeshParams['Stretch'],
+//			l = this.tubeMeshParams['Loops'];
+//
+//		t = scaleTo(-4, 4, t);
+//		var tx = 2 / 5 * t * (t * t - (q+2)) * (t * t - (l+8)),
+//			ty = Math.pow(t, 4) - (q+8) * t * t,
+//			tz = 1 / 10 * t * (t * t - 4) * (t * t - (q+4)) * (t * t - (l+10));
+//		ty *= m;
+//		tz *= z;
+//
+//		return new THREE.Vector3(tx, ty, tz);
+//
+//	}
+//);
+
+//Had line connecting two points that should not have been connected.
+//THREE.Curves.TrefoilPolynomialKnot = THREE.Curve.create(
+//
+//	function(tubeMeshParams) {
+//		this.tubeMeshParams = tubeMeshParams;
+//	},
+//
+//	function(t) {
+//		var q = this.tubeMeshParams['Modify'],
+//			z = this.tubeMeshParams['Depth'],
+//			m = this.tubeMeshParams['Stretch'],
+//			l = this.tubeMeshParams['Loops'];
+//
+//		t = t * 4 - 2;
+//		var tx = Math.pow(t, 3) - (q-2) * t,
+//			ty = Math.pow(t, 4) - (l+2) * t * t,
+//			tz = 1 / 5 * Math.pow(t, 5) - 2 * t;
+//		ty *= m;
+//		tz *= z;
+//
+//		return new THREE.Vector3(tx, ty, tz).multiplyScalar(20);
+//
+//	}
+//
+//);

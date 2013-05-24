@@ -29,13 +29,39 @@
 		<script src="js/libs/Detector.js"></script>
 		<script src="js/libs/dat.gui.min.js"></script>
 		<script src="js/sceneCubeWrapper.js"></script>
+		<script src="js/pendantController.js"></script>
 		<script src="js/CurveExtras.js"></script>
 		<script src="js/sceneWrapper.js"></script>
 		<script src="js/materialsLibrary.js"></script>
 		<script src="js/tubeMeshBuilder.js"></script>	
 		<script src="js/inputView.js"></script>	
-		<script src="js/pendantController.js"></script>	
+		<script src="js/testObject.js"></script>	
+		
+		<script> //Background toggling functionality
+		function toggleClouds()
+		{
+			if (clouds === true)
+				clouds = false;
+			else
+				clouds = true;
+			var test = new testObject(2);
+			console.log(test.testfield);
+			//var materialsLibrary = new MaterialsLibrary();
+			//var tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
+			//var sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+			//var renderer = new THREE.WebGLRenderer();
+			//var view = new InputView(sceneWrapper, renderer);
+			//renderer.setSize( view.currentWindowX, view.currentWindowY );
+			//renderer.setFaceCulling( THREE.CullFaceNone );
+			//renderer.autoClear = false;
 
+			//view.addMeshElement(renderer.domElement)
+			
+			//sceneWrapper.init();
+			
+		}
+		</script>
+	
 		<div id = "container"></div>
 
 	</body>

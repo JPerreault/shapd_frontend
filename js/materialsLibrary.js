@@ -51,10 +51,20 @@ var MaterialsLibrary = function() {
 };
 
 function buildTextureCube(){
-	var r = "src/textures/cube/Bridge2/";
-	var urls = [ r + "posx.jpg", r + "negx.jpg",
-				 r + "posy.jpg", r + "negy.jpg",
-				 r + "posz.jpg", r + "negz.jpg" ];
+	if (clouds == true)
+	{
+		var r = "src/textures/cube/skybox/";
+		var urls = [ r + "px.jpg", r + "nx.jpg",
+					r + "py.jpg", r + "ny.jpg",
+					r + "pz.jpg", r + "nz.jpg" ];
+	}
+	else
+	{
+		var r = "src/textures/cube/Bridge2/";
+		var urls = [ r + "posx.jpg", r + "negx.jpg",
+					r + "posy.jpg", r + "negy.jpg",
+					r + "posz.jpg", r + "negz.jpg" ];
+	}
 
 	var textureCube = THREE.ImageUtils.loadTextureCube( urls );
 	textureCube.format = THREE.RGBFormat;

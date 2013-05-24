@@ -1,9 +1,16 @@
-var TextureCube = function(){
-	var r = "src/textures/cube/Bridge2/";
-	var urls = [ r + "posx.jpg", r + "negx.jpg",
-				 r + "posy.jpg", r + "negy.jpg",
-				 r + "posz.jpg", r + "negz.jpg" ];
+var testObject = function() {
+	
+	function init()
+	{
+		var materialsLibrary = new MaterialsLibrary();
+		var tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
+		var sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+		var renderer = new THREE.WebGLRenderer();
+		var view = new InputView(sceneWrapper, renderer);
+		renderer.setSize( view.currentWindowX, view.currentWindowY );
+		renderer.setFaceCulling( THREE.CullFaceNone );
+		renderer.autoClear = false;
 
-	this.figure = THREE.ImageUtils.loadTextureCube( urls );
-	figure.format = THREE.RGBFormat;
+		view.addMeshElement(renderer.domElement)
+	};
 }
