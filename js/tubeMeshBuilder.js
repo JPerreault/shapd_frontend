@@ -18,7 +18,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 
     this.build = function(tubeMeshParams) {
-        //var knot = new THREE.Curves.CinquefoilKnot(tubeMeshParams);
 		var knot = shapePicker(tubeMeshParams);
         var geometry = new THREE.TubeGeometry(knot, 550, tubeMeshParams['Thickness'], 6, true, false); //6 is default 'curviness', or how rounded the lines are
 

@@ -51,7 +51,7 @@ var MaterialsLibrary = function() {
 };
 
 function buildTextureCube(){
-	if (clouds == true)
+	if (n%2 == 0)
 	{
 		var r = "src/textures/cube/skybox/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",

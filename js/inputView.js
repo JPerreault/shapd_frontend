@@ -1,7 +1,6 @@
 var InputView = function(sW, rend) {		
 	var sceneWrapper = sW;
 	var renderer = rend;
-	//SceneWrapper.updateCameraOnWindowResize();
 
 	this.targetY = 0;
 	this.targetX = 0;

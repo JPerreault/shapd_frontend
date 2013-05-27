@@ -1,9 +1,9 @@
 //Global variable for toggle clouds/bridges
-var clouds = true;
+var n = 0;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, view;
+	var tubeMeshBuilder, view, gui, scene, tubeMP;
 	var renderer, sceneWrapper, materialsLibrary;
 
 	init();
@@ -31,20 +31,6 @@ window.onload = function() {
 		requestAnimationFrame( animate );
 		render();
 	}
-	
-	//function buttonClicked()
-	//{
-		//console.log('test');
-		//sceneWrapper.updateLighting();
-		
-		//var materialsLibrary = new MaterialsLibrary();
-		//tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		//sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
-		//view = new InputView (sceneWrapper, renderer);
-
-		//sceneWrapper.init();
-	   // setupDatGui(sceneWrapper); 
-	//}
 
 	function render() {
 		sceneWrapper.rotateMesh(view.targetX, view.targetY);
@@ -52,10 +38,30 @@ window.onload = function() {
 		renderer.render( sceneWrapper.sceneCube.scene, sceneWrapper.sceneCube.camera );
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 	}
+	
+	//For background toggling
+	document.getElementById('toggle').onclick = function()
+	{
+		n++;
+
+		materialsLibrary = new MaterialsLibrary();
+		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
+		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, scene.currentMesh);
+		
+		view = new InputView(sceneWrapper, renderer);
+		sceneWrapper.init();
+		
+		view.addMeshElement(renderer.domElement)
+		
+		currentMesh = sceneWrapper.currentMesh;
+		scene = sceneWrapper;
+		sceneWrapper.redrawMesh(currentMesh);
+		
+	}
 
 	function setupDatGui(sC) {
-	    var scene = sC;
-	    var gui = new dat.GUI({ autoPlace: false });
+	    scene = sC;
+	    gui = new dat.GUI({ autoPlace: false });
 
         var currentMesh = scene.currentMesh;
 
@@ -76,9 +82,6 @@ window.onload = function() {
 		
 		var controller = gui.add(currentMesh, 'Starting Shape', 1, 11).step(1);
         setUpController(controller, 'Starting Shape');
-		
-		//var controller = gui.add(currentMesh, 'Starting Shape', ['shape one', 'shape two']);
-		//setUpController(controller, 'Starting Shape');
 
         var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
         scaleController.onChange(function(newVal){
@@ -128,11 +131,7 @@ window.onload = function() {
 		cloudToggle.style.top = '-1px';
 		cloudToggle.style.left = '228px';
 		cloudToggle.style.zIndex = '1000';
-		
-		if (clouds == true)
-			cloudToggle.innerHTML += '<input id="toggle" type="button" onclick="toggleClouds()" value="Bridge Background"/>';
-		else
-			cloudToggle.innerHTML += '<input id="toggle" type="button" onclick="toggleClouds(), sceneWrapper.updateLighting()" value="Cloud Background"/>';
+		cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
 		customContainer.appendChild(cloudToggle);
 	};
 

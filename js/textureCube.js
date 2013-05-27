@@ -1,16 +1,12 @@
-var testObject = function() {
-	
-	function init()
-	{
-		var materialsLibrary = new MaterialsLibrary();
-		var tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		var sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
-		var renderer = new THREE.WebGLRenderer();
-		var view = new InputView(sceneWrapper, renderer);
-		renderer.setSize( view.currentWindowX, view.currentWindowY );
-		renderer.setFaceCulling( THREE.CullFaceNone );
-		renderer.autoClear = false;
+//** Appears to not be in use, commenting out for now**
 
-		view.addMeshElement(renderer.domElement)
-	};
-}
+
+//var TextureCube = function(){
+//	var r = "src/textures/cube/skybox/";
+//	var urls = [ r + "px.jpg", r + "nx.jpg",
+//				 r + "py.jpg", r + "ny.jpg",
+//				 r + "pz.jpg", r + "nz.jpg" ];
+				 
+//	this.figure = THREE.ImageUtils.loadTextureCube( urls );
+//	figure.format = THREE.RGBFormat;
+//}
