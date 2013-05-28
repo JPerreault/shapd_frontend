@@ -18,7 +18,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 
     this.build = function(tubeMeshParams) {
-		var knot = shapePicker(tubeMeshParams);
+		var knot = new curveMaker(tubeMeshParams);
         var geometry = new THREE.TubeGeometry(knot, 550, tubeMeshParams['Thickness'], 6, true, false); //6 is default 'curviness', or how rounded the lines are
 
         var figure = new THREE.Mesh( geometry, m );
@@ -35,32 +35,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 };
 
-function shapePicker(tubeMeshParams)
-{
-	if (tubeMeshParams['Starting Shape'] == 1)
-		return new THREE.Curves.CinquefoilKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 2)
-		return new THREE.Curves.GrannyKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 3)
-		return new THREE.Curves.HeartCurve(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 4)
-		return new THREE.Curves.VivianiCurve(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 5)
-		return new THREE.Curves.KnotCurve(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 6)
-		return new THREE.Curves.TrefoilKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 7)
-		return new THREE.Curves.TorusKnot(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 8)
-		return new THREE.Curves.DecoratedTorusKnot4a(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 9)
-		return new THREE.Curves.DecoratedTorusKnot4b(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 10)
-		return new THREE.Curves.DecoratedTorusKnot5a(tubeMeshParams);
-	else if (tubeMeshParams['Starting Shape'] == 11)
-		return new THREE.Curves.DecoratedTorusKnot5c(tubeMeshParams);
-}
-
 var TubeMeshParams = function(){
     this['Scale'] = 5;
     this.scalar = 20;
@@ -68,6 +42,6 @@ var TubeMeshParams = function(){
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;
-	this['Starting Shape'] = 1;
+	this['Starting Shape'] = 3;
 	this['Thickness'] = 4;
 };
