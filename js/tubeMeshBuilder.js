@@ -1,5 +1,6 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
     var m = new THREE.MeshFaceMaterial();
+	var knot;
     var materialsMap = {
 
         0: materialsLibrary.getMaterial( "Pure chrome" ),       
@@ -15,14 +16,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
     for ( var i in materialsMap ) {
         m.materials[ i ] = materialsMap[ i ];
     }
-
+	m.opacity = 0.5;
+	m.transparent = true;
+	m.wireframe = true;
 
     this.build = function(tubeMeshParams) {
-		var knot = new curveMaker(tubeMeshParams);
-        var geometry = new THREE.TubeGeometry(knot, 550, tubeMeshParams['Thickness'], 6, true, false); //6 is default 'curviness', or how rounded the lines are
-
+		knot = new curveMaker(tubeMeshParams);
+        var geometry = new THREE.TubeGeometry(knot, 300, tubeMeshParams['Thickness'], 6, isClosed(tubeMeshParams), false); //6 is default 'curviness', or how rounded the lines are
+		//m = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, wireframe: true } ); //Makes the frame wirey.
         var figure = new THREE.Mesh( geometry, m );
-
         figure.rotation.x = 0;
         figure.rotation.y = 0;
         figure.rotation.z = 0;
@@ -32,6 +34,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
         return tubeMeshParams;
     };
+	
+	//Sees if the lines should be attempted to be closed or not
+	function isClosed(tubeMeshParams)
+	{
+		if (tubeMeshParams['Starting Shape'] < 10)
+			return true;
+		else
+			return false;
+	}
 
 };
 
@@ -42,6 +53,6 @@ var TubeMeshParams = function(){
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;
-	this['Starting Shape'] = 3;
+	this['Starting Shape'] = 1;
 	this['Thickness'] = 4;
 };

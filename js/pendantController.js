@@ -80,7 +80,7 @@ window.onload = function() {
 		};
 		
 		
-		var controller = gui.add(currentMesh, 'Starting Shape', 1, 11).step(1);
+		var controller = gui.add(currentMesh, 'Starting Shape', 1, 14).step(1);
         setUpController(controller, 'Starting Shape');
 
         var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
@@ -97,7 +97,7 @@ window.onload = function() {
 		controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
         setUpController(controller, 'Stretch');
 
-		e = "#ff8800";
+		//e = "#ff8800";
 		//this. color = "#ffae23";
 		//var text = 'hi';
 		//gui.addColor (colors, 'color');
