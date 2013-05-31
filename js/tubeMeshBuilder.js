@@ -1,6 +1,11 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
     var m = new THREE.MeshFaceMaterial();
 	var knot;
+	
+	// Scoping out of functions
+	var segments = 300;
+	var radiusSegments = 6;
+	
     var materialsMap = {
 
         0: materialsLibrary.getMaterial( "Pure chrome" ),       
@@ -21,9 +26,16 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	m.wireframe = true;
 
     this.build = function(tubeMeshParams) {
+		var radius = tubeMeshParams['Thickness'];
 		knot = new curveMaker(tubeMeshParams);
-        var geometry = new THREE.TubeGeometry(knot, 300, tubeMeshParams['Thickness'], 6, isClosed(tubeMeshParams), false); //6 is default 'curviness', or how rounded the lines are
-		//m = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, wireframe: true } ); //Makes the frame wirey.
+        var geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, isClosed(tubeMeshParams), false); //6 is default 'curviness', or how rounded the lines are
+		
+		
+		if (isClosed(tubeMeshParams) == false ) {								// Check to see if there are caps (i.e. if its closed or not)
+			var cap = new capSpline(knot, segments, radius, radiusSegments, isClosed(tubeMeshParams), false);
+			THREE.GeometryUtils.merge( geometry, cap );
+		} 
+		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         var figure = new THREE.Mesh( geometry, m );
         figure.rotation.x = 0;
         figure.rotation.y = 0;
@@ -53,6 +65,6 @@ var TubeMeshParams = function(){
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;
-	this['Starting Shape'] = 1;
+	this['Starting Shape'] = 12;
 	this['Thickness'] = 4;
 };
