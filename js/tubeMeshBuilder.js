@@ -21,9 +21,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	m.wireframe = true;
 
     this.build = function(tubeMeshParams) {
-		knot = new curveMaker(tubeMeshParams);
+		knot = new curveMaker(tubeMeshParams);git p
         var geometry = new THREE.TubeGeometry(knot, 300, tubeMeshParams['Thickness'], 6, isClosed(tubeMeshParams), false); //6 is default 'curviness', or how rounded the lines are
-		//m = new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, wireframe: true } ); //Makes the frame wirey.
+		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         var figure = new THREE.Mesh( geometry, m );
         figure.rotation.x = 0;
         figure.rotation.y = 0;

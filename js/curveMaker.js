@@ -117,7 +117,7 @@ var curveMaker = function (tMP) {
 			scalar = 40;
 		}
 		
-		//Heart Curve
+		//Heart Curve **Start of open by default curves**
 		else if (w == 10) {
 			t = 2 * Math.PI * t;
 		
