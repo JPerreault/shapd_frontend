@@ -16,19 +16,14 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 	this.grid = [];
 
 	var scope = this,
-
 		tangent,
 		normal,
 		binormal,
-
 		numpoints = this.segments + 1,
-
 		x, y, z,
 		tx, ty, tz,
 		u, v,
-		
 		q, w, e, r, p,
-
 		cx, cy,
 		pos, pos2 = new THREE.Vector3(),
 		i, j,
@@ -106,7 +101,8 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 		triangleGeometryTest = makeCap(q+radiusSegments);
 		THREE.GeometryUtils.merge (triangleGeometry, triangleGeometryTest);	
 	}
-
+		
+		//Makes as many triangles as necessary to cap the open end.
 		function makeCap (q) {
 				var triangleGeometry2 = new THREE.Geometry();
 				var origin;
@@ -115,6 +111,7 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 				else
 					origin = 0;
 				
+				//Starts at either the start of the start cap or the start of the end cap.
 				w = xPoints[ origin ];
 				e = yPoints[ origin ];
 				r = zPoints[ origin ];
@@ -130,15 +127,17 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 				r = zPoints[ q + 2 ];
 				var v3 = new THREE.Vector3( w, e, r );
 
+				//Pushes vectors made from points.
 				triangleGeometry2.vertices.push( v1 );
 				triangleGeometry2.vertices.push( v2 );
 				triangleGeometry2.vertices.push( v3 );				
 	
+				//Creates a face, making the actual cap from the vectors.
 				triangleGeometry2.faces.push( new THREE.Face3( 0, 2, 1));
 				triangleGeometry2.computeCentroids();
 				triangleGeometry2.computeFaceNormals();
 				triangleGeometry2.computeVertexNormals();
-	
+				
 				return triangleGeometry2;
 	}
 
