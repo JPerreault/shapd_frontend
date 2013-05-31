@@ -117,7 +117,7 @@ window.onload = function() {
 		cloudToggle = document.createElement('div');
 		cloudToggle.style.position = 'absolute';
 		cloudToggle.style.top = '97%';
-		cloudToggle.style.left = '92%';
+		cloudToggle.style.left = '91%';
 		cloudToggle.style.zIndex = '1000';
 		cloudToggle.style.background = '#999';
 		cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';

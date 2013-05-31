@@ -1,8 +1,6 @@
+// Copied from core/geometries/TubeGeometry.js
 var capSpline = function(path, segments, radius, radiusSegments, closed, debug) {
-	
-	
-	// Copied from core/geometries/TubeGeometry.js
-	
+
 	THREE.Geometry.call( this );
 
 	this.path = path;
@@ -15,36 +13,25 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 
 	this.grid = [];
 
-	var scope = this,
-		tangent,
-		normal,
-		binormal,
+	var tangent, normal, binormal,
 		numpoints = this.segments + 1,
-		x, y, z,
-		tx, ty, tz,
-		u, v,
-		q, w, e, r, p,
-		cx, cy,
-		pos, pos2 = new THREE.Vector3(),
-		i, j,
-		ip, jp,
-		a, b, c, d,
-		uva, uvb, uvc, uvd;
+		u, v, q, w, e, r, cx, cy, i, j,
+		pos, pos2 = new THREE.Vector3();
 
 	var frames = new THREE.TubeGeometry.FrenetFrames( this.path, this.segments, this.closed ),
 		tangents = frames.tangents,
 		normals = frames.normals,
 		binormals = frames.binormals;
 
-	// proxy internals
+	// Create internals
 	this.tangents = tangents;
 	this.normals = normals;
 	this.binormals = binormals;
 	var xPoints = new Array();
 	var yPoints = new Array();
 	var zPoints = new Array();
-	// consruct the grid
-
+	
+	// Get the ponts
 	for ( i = 0; i < numpoints; i++ ) {
 		u = i / ( numpoints - 1 );
 
@@ -53,14 +40,6 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 		tangent = tangents[ i ];
 		normal = normals[ i ];
 		binormal = binormals[ i ];
-
-		if ( this.debug ) {
-
-			this.debug.add( new THREE.ArrowHelper(tangent, pos, radius, 0x0000ff ) );
-			this.debug.add( new THREE.ArrowHelper(normal, pos, radius, 0xff0000 ) );
-			this.debug.add( new THREE.ArrowHelper(binormal, pos, radius, 0x00ff00 ) );
-
-		}
 
 		for ( j = 0; j < this.radiusSegments; j++ ) {
 
@@ -91,11 +70,13 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 	
 	var triangleGeometry = new THREE.Geometry();
 	var triangleGeometryTest = new THREE.Geometry();
+	
 	//Start cap
 	for (var q = 0; q < radiusSegments - 2; q++) {
 		triangleGeometryTest = makeCap(q);
 		THREE.GeometryUtils.merge (triangleGeometry, triangleGeometryTest);	
 	}
+	
 	//End cap
 	for (var q = 0; q < radiusSegments - 2; q++) {
 		triangleGeometryTest = makeCap(q+radiusSegments);
@@ -103,44 +84,43 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 	}
 		
 		//Makes as many triangles as necessary to cap the open end.
-		function makeCap (q) {
-				var triangleGeometry2 = new THREE.Geometry();
-				var origin;
-				if (q >= radiusSegments)
-					origin = radiusSegments;
-				else
-					origin = 0;
+	function makeCap (q) {
+		var triangleGeometry2 = new THREE.Geometry();
+		var origin;
+		if (q >= radiusSegments)
+			origin = radiusSegments;
+		else
+			origin = 0;
 				
-				//Starts at either the start of the start cap or the start of the end cap.
-				w = xPoints[ origin ];
-				e = yPoints[ origin ];
-				r = zPoints[ origin ];
-				var v1 = new THREE.Vector3( w, e, r );
+		//Starts at either the start of the start cap or the start of the end cap.
+		w = xPoints[ origin ];
+		e = yPoints[ origin ];
+		r = zPoints[ origin ];
+		var v1 = new THREE.Vector3( w, e, r );
 
-				w = xPoints[ q + 1 ];
-				e = yPoints[ q + 1 ];
-				r = zPoints[ q + 1 ];
-				var v2 = new THREE.Vector3( w, e, r );
+		w = xPoints[ q + 1 ];
+		e = yPoints[ q + 1 ];
+		r = zPoints[ q + 1 ];
+		var v2 = new THREE.Vector3( w, e, r );
 				
-				w = xPoints[ q + 2 ];
-				e = yPoints[ q + 2 ];
-				r = zPoints[ q + 2 ];
-				var v3 = new THREE.Vector3( w, e, r );
+		w = xPoints[ q + 2 ];
+		e = yPoints[ q + 2 ];
+		r = zPoints[ q + 2 ];
+		var v3 = new THREE.Vector3( w, e, r );
 
-				//Pushes vectors made from points.
-				triangleGeometry2.vertices.push( v1 );
-				triangleGeometry2.vertices.push( v2 );
-				triangleGeometry2.vertices.push( v3 );				
+		//Pushes vectors made from points.
+		triangleGeometry2.vertices.push( v1 );
+		triangleGeometry2.vertices.push( v2 );
+		triangleGeometry2.vertices.push( v3 );				
 	
-				//Creates a face, making the actual cap from the vectors.
-				triangleGeometry2.faces.push( new THREE.Face3( 0, 2, 1));
-				triangleGeometry2.computeCentroids();
-				triangleGeometry2.computeFaceNormals();
-				triangleGeometry2.computeVertexNormals();
+		//Creates a face, making the actual cap from the vectors.
+		triangleGeometry2.faces.push( new THREE.Face3( 0, 2, 1));
+		triangleGeometry2.computeCentroids();
+		triangleGeometry2.computeFaceNormals();
+		triangleGeometry2.computeVertexNormals();
 				
-				return triangleGeometry2;
+		return triangleGeometry2;
 	}
-
+	
 	return triangleGeometry;
-
 };
