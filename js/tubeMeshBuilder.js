@@ -27,11 +27,12 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
     this.build = function(tubeMeshParams) {
 		var radius = tubeMeshParams['Thickness'];
+		var closed = isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
-        var geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, isClosed(tubeMeshParams), false); //6 is default 'curviness', or how rounded the lines are
+        var geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
 		
-		
-		if (isClosed(tubeMeshParams) == false ) {								// Check to see if there are caps (i.e. if its closed or not)
+		//Check if caps are needed on open ends.
+		if (!closed) {				
 			var cap = new capSpline(knot, segments, radius, radiusSegments, isClosed(tubeMeshParams), false);
 			THREE.GeometryUtils.merge( geometry, cap );
 		} 
@@ -55,7 +56,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		else
 			return false;
 	}
-
 };
 
 var TubeMeshParams = function(){
@@ -65,6 +65,6 @@ var TubeMeshParams = function(){
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;
-	this['Starting Shape'] = 12;
+	this['Starting Shape'] = 1;
 	this['Thickness'] = 4;
 };

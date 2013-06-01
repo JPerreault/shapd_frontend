@@ -4,7 +4,7 @@ var n = 0;
 window.onload = function() {
 
 	var tubeMeshBuilder, view, gui, scene, tubeMP;
-	var renderer, sceneWrapper, materialsLibrary;
+	var renderer, sceneWrapper, materialsLibrary, cloudToggle;
 
 	init();
 	animate();
@@ -96,28 +96,16 @@ window.onload = function() {
 
 		controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
         setUpController(controller, 'Stretch');
-
-		//e = "#ff8800";
-		//this. color = "#ffae23";
-		//var text = 'hi';
-		//gui.addColor (colors, 'color');
-		//gui.addColor (controller, 'color');
-	   	controller = gui.add(currentMesh, 'Modify', 1, 12).step(1);
-		//gui.addColor (controller, 'e');
-		//controller.color = this.color;
-		//color = new THREE.Color( 0xff0000 );
-		//controller.color = color;
-		//gui.addColor(controller, e).name('Test');
+		
+		
+		var morphFolder = gui.addFolder ('Shape Alteration');
+	   	controller = morphFolder.add(currentMesh, 'Modify', 1, 12).step(1);
         setUpController(controller, 'Modify');
 		
-		controller = gui.add(currentMesh, 'Loops', 1, 12).step(1);
+		controller = morphFolder.add(currentMesh, 'Loops', 1, 12, 0x000000).step(1);
         setUpController(controller, 'Loops');
 
-		//Decided to not use MorphFolder, keeping for later reference
-	    //var morphFolder = gui.addFolder('Morphing!');
-		//controller = morphFolder.add(currentMesh, 'Width', 0,4);
-        //setUpController(controller, 'Width');
-        //morphFolder.open();
+        morphFolder.open();
 		
 	    var customContainer = document.getElementById('container');
 		gui.domElement.style.position = 'absolute';
@@ -126,10 +114,10 @@ window.onload = function() {
 		gui.domElement.style.zIndex = '1000';
 		customContainer.appendChild(gui.domElement);
 		
-		var cloudToggle = document.createElement('div');
+		cloudToggle = document.createElement('div');
 		cloudToggle.style.position = 'absolute';
 		cloudToggle.style.top = '97%';
-		cloudToggle.style.left = '92%';
+		cloudToggle.style.left = '91%';
 		cloudToggle.style.zIndex = '1000';
 		cloudToggle.style.background = '#999';
 		cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';

@@ -117,7 +117,8 @@ var curveMaker = function (tMP) {
 			scalar = 40;
 		}
 		
-		//SphericalCardioid
+
+		//SphericalCardioid **Start of open by default curves**
 		else if (w == 10) {
 			
 			t = 4 * Math.PI * t;
