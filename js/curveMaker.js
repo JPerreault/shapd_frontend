@@ -117,22 +117,57 @@ var curveMaker = function (tMP) {
 			scalar = 40;
 		}
 		
-		//Heart Curve
+		//SphericalCardioid
 		else if (w == 10) {
+			
+			t = 4 * Math.PI * t;
+			
+			tx = 2 * Math.cos(t*(q-4)) - Math.cos(2*t),
+			ty = 2 * Math.sin(t*(q-4)) - Math.sin(2*t),
+			tz = Math.sqrt(8) * Math.cos(t*(l-2) / 2);
+
+			scalar = 20;
+		}
+		
+		//Basebeall Seam
+		else if (w == 11) {
+			
+			t = 4 * Math.PI * t;
+			a = 0.4;
+			
+			tx = Math.sin(( l - 1 ) * Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t)) * Math.cos((q-4) * t / 2 + ( (l-1)*a * Math.sin( 2 * t ))),
+			ty = Math.sin(( l - 1 ) * Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t)) * Math.sin((q-4) * t / 2 + ( (l-1)*a * Math.sin( 2 * t ))),
+			tz = Math.cos(Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t));
+
+			scalar = 40;
+		}
+		
+		//Modified Baseball Seam
+		else if (w == 12) {
+			
+			t = 4 * Math.PI * t;
+			a = l-5;
+			
+			tx = Math.sin(( l - 1 ) * Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t)) * Math.cos((q-4) * t / 2 + ( a * Math.sin( 2 * t ))),
+			ty = Math.sin(( l - 1 ) * Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t)) * Math.sin((q-4) * t / 2 + ( a * Math.sin( 2 * t ))),
+			tz = Math.cos(Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t));
+
+			scalar = 40;
+		}
+		
+		//Heart Curve
+		else if (w == 13) {
 			t = 2 * Math.PI * t;
 		
 			tx = 16 * Math.pow(Math.sin(t+(l-2)), 3),
 			ty = 13 * Math.cos(t*(1)) - 5 * Math.cos((2) * t) - 2 * Math.cos((q-2) * t)- Math.cos((q-1) * t),
 			tz = 1;
-			//console.log(m);
-			//if (m === 1.2708011600338698);
-			//	console.log('y ', ty);
 
 			scalar = 3.5;
 		}
 	
 		//Viviani's Curve
-		else if (w == 11) {
+		else if (w == 14) {
 			this.radius = 70;
 			t = t * 4 * Math.PI;
 		
@@ -145,7 +180,7 @@ var curveMaker = function (tMP) {
 		}
 		
 		//Figure Eight Polynomial Knot
-		else if (w == 12) {
+		else if (w == 15) {
 			t = t * 8 - 4;
 			
 			tx = 2 / 5 * t * (t * t - (q+2)) * (t * t - (l+8)),
@@ -156,7 +191,7 @@ var curveMaker = function (tMP) {
 		}
 		
 		//Treofil Polynomial Knot
-		else if (w == 13) {
+		else if (w == 16) {
 			t = t * 4 - 2;
 			
 			tx = Math.pow(t, 3) - (q-2) * t,
@@ -166,7 +201,7 @@ var curveMaker = function (tMP) {
 			scalar = 20;
 		}
 		
-		else if (w == 14) {
+		else if (w == 17) {
 			var t2 = 2 * Math.PI * t * q;
 			
 			tx = Math.cos(t2) * (q+25),
