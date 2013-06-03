@@ -44,9 +44,9 @@ var curveMaker = function (tMP) {
 		else if (w == 3) {
 			t *= 2 * Math.PI;
 		
-			tx = 50 * Math.sin(t*(l-1)),
-			ty = Math.cos(t) * ((2*q) + (q+45) * Math.cos(t*(l-1))),
-			tz = Math.sin(t) * ((2*q) + (q+45) * Math.cos(t*(l-1)));
+			tx = 50 * Math.sin(t*(l)),
+			ty = Math.cos(t) * ((2*q) + (q+45) * Math.cos(t*(l))),
+			tz = Math.sin(t) * ((2*q) + (q+45) * Math.cos(t*(l)));
 		
 			scalar = 1;
 		}

@@ -4,7 +4,7 @@ var n = 0;
 window.onload = function() {
 
 	var tubeMeshBuilder, view, gui, scene, tubeMP;
-	var renderer, sceneWrapper, materialsLibrary, cloudToggle;
+	var renderer, sceneWrapper, materialsLibrary;
 
 	init();
 	animate();
@@ -56,7 +56,12 @@ window.onload = function() {
 		currentMesh = sceneWrapper.currentMesh;
 		scene = sceneWrapper;
 		sceneWrapper.redrawMesh(currentMesh);
-		
+	}
+	
+	//For STL Saving
+	document.getElementById('save').onclick = function()
+	{
+		tubeMeshBuilder.saveSTL();
 	}
 
 	function setupDatGui(sC) {
@@ -114,7 +119,7 @@ window.onload = function() {
 		gui.domElement.style.zIndex = '1000';
 		customContainer.appendChild(gui.domElement);
 		
-		cloudToggle = document.createElement('div');
+		var cloudToggle = document.createElement('div');
 		cloudToggle.style.position = 'absolute';
 		cloudToggle.style.top = '97%';
 		cloudToggle.style.left = '91%';
@@ -122,6 +127,15 @@ window.onload = function() {
 		cloudToggle.style.background = '#999';
 		cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
 		customContainer.appendChild(cloudToggle);
+		
+		var saveSTL = document.createElement('div');
+		saveSTL.style.position = 'absolute';
+		saveSTL.style.top = '0%';
+		saveSTL.style.left = '16.8%';
+		saveSTL.style.zIndex = '1000';
+		saveSTL.style.background = '#999';
+		saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
+		customContainer.appendChild(saveSTL);
 	};
 
 }
