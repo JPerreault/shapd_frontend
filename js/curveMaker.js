@@ -45,8 +45,8 @@ var curveMaker = function (tMP) {
 			t *= 2 * Math.PI;
 		
 			tx = 50 * Math.sin(t*(l)),
-			ty = Math.cos(t) * ((2*q) + (q+45) * Math.cos(t*(l))),
-			tz = Math.sin(t) * ((2*q) + (q+45) * Math.cos(t*(l)));
+			ty = Math.cos(t) * ((2*q) + (q+45) * Math.cos(t*l)),
+			tz = Math.sin(t) * ((2*q) + (q+45) * Math.cos(t*l));
 		
 			scalar = 1;
 		}

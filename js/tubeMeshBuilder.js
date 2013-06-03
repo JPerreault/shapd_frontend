@@ -118,6 +118,6 @@ var TubeMeshParams = function(){
     this['Depth'] = 1;
     this['Stretch'] = 1;
 	this['Loops'] = 2;
-	this['Starting Shape'] = 10;
+	this['Starting Shape'] = 1;
 	this['Thickness'] = 4;
 };
