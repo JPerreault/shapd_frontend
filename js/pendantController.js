@@ -85,7 +85,7 @@ window.onload = function() {
 		};
 		
 		
-		var controller = gui.add(currentMesh, 'Starting Shape', 1, 14).step(1);
+		var controller = gui.add(currentMesh, 'Starting Shape', 1, 16).step(1);
         setUpController(controller, 'Starting Shape');
 
         var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
