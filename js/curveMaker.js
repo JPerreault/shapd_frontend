@@ -175,11 +175,14 @@ var curveMaker = function (tMP) {
 			var a = this.radius / 2;
 			tx = a * (1 + Math.cos(t*(l-1))),
 			ty = a * Math.sin(t*(l-1)),
-			tz = 2 * a * Math.sin((t+(q-5)) / (2)) + z;
-		
+			tz = 2 * a * Math.sin((t*(q-4)) / (2)) + z;
+			
 			scalar = 1;
+
 		}
 		
+		/*
+		// Wasn't interesting enough to keep as a stancalone shape. Perhaps put back in later. 
 		//Figure Eight Polynomial Knot
 		else if (w == 15) {
 			t = t * 8 - 4;
@@ -190,7 +193,10 @@ var curveMaker = function (tMP) {
 			
 			scalar = 1;
 		}
+		*/
 		
+		/*
+		// Wasn't interesting enough to keep as a stancalone shape. Perhaps put back in later. 
 		//Treofil Polynomial Knot
 		else if (w == 16) {
 			t = t * 4 - 2;
@@ -201,19 +207,31 @@ var curveMaker = function (tMP) {
 			
 			scalar = 20;
 		}
+		*/
 		
-		else if (w == 17) {
+		else if (w == 16) {
 			var t2 = 2 * Math.PI * t * q;
 			
 			tx = Math.cos(t2) * (q+25),
 			ty = Math.sin(t2) * (l+28),
 			tz = (l+148) * t;
-			
+	
 			scalar = .8;
+
 		}
 	
 		ty *= m;
 		tz *= z;
+		
+		//Changing Default Size to match real-world dimentions
+		
+		var normalizeSize = 0.35;
+		
+		tx *= normalizeSize;
+		ty *= normalizeSize;
+		tz *= normalizeSize;
+		
+		//Return final shape
 		
 		return new THREE.Vector3(tx, ty, tz).multiplyScalar(scalar);
 	});

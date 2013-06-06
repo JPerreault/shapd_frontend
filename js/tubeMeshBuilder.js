@@ -1,6 +1,7 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
     var m = new THREE.MeshFaceMaterial();
 	var knot, geometry, stl, closed;
+	var currentMesh;
 	
 	// Scoping out of functions
 	var segments = 300;
@@ -41,7 +42,31 @@ var TubeMeshBuilder = function(materialsLibrary) {
         var figure = new THREE.Mesh( geometry, m );
         figure.rotation.x = 0;
         figure.rotation.y = 0;
-        figure.rotation.z = 0;
+        figure.rotation.z = 0;	
+		
+		currentMesh = figure; //Used for computing bounding box below, defined above
+		
+		//Probably delete this. Let you decide, Jason. In a function below.
+		figure.geometry.computeBoundingBox();
+		var boundingBox = figure.geometry.boundingBox;
+		
+		var xMin = boundingBox.min.x;
+		var xMax = boundingBox.max.x;
+		var yMin = boundingBox.min.y;
+		var yMax = boundingBox.max.y;
+		var zMin = boundingBox.min.z;
+		var zMax = boundingBox.max.z;
+		
+		var xDim = xMax - xMin;
+		var yDim = yMax - yMin;
+		var zDim = zMax - zMin;
+		
+		//Debugger for Size
+		
+		console.log("xDim",xDim);
+		console.log("yDim",yDim);
+		console.log("zDim",zDim);
+
 
         figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
         tubeMeshParams.figure = figure;
@@ -108,6 +133,26 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	function convertVertexToString(vector)
 	{
 		return 'vertex '+ convertVectorToString(vector) + ' \n';
+	}
+	
+	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
+	
+	function calculateMeshSize(figure)
+	{
+		
+		figure.geometry.computeBoundingBox();
+		var boundingBox = figure.geometry.boundingBox;
+		
+		var xMin = boundingBox.min.x;
+		var xMax = boundingBox.max.x;
+		var yMin = boundingBox.min.y;
+		var yMax = boundingBox.max.y;
+		var zMin = boundingBox.min.z;
+		var zMax = boundingBox.max.z;
+		
+		var xWidth = xMax - xMin;
+		var yHeight = yMax - yMin;
+		var zDepth = zMax - zMin;
 	}
 };
 
