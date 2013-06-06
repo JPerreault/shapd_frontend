@@ -1,10 +1,11 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
     var m = new THREE.MeshFaceMaterial();
-	var knot, geometry, stl, closed;
+	var knot, geometry, stl, closed, figure;
 	
 	// Scoping out of functions
-	var segments = 300;
+	var segments = 600;
 	var radiusSegments = 6;
+	var fIndex;
 	
     var materialsMap = {
 
@@ -27,6 +28,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
     this.build = function(tubeMeshParams) {
 		var radius = tubeMeshParams['Thickness'];
+		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
@@ -35,10 +37,24 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//Check if caps are needed on open ends.
 		if (!closed) {				
 			var cap = new capSpline(knot, segments, radius, radiusSegments, closed, false);
-			THREE.GeometryUtils.merge( geometry, cap );
-		} 
+			THREE.GeometryUtils.merge(geometry, cap);
+		}
+		//Adds on a loop if they chose to add one.
+		if (typeof fIndex != 'undefined' && typeof fIndex != 'string')
+		{
+			//console.log(geometry);
+			//console.log(geometry.faces[fIndex].a);
+			var torus = new THREE.TorusGeometry(5, 1.5, 50, 50);
+			pointX = geometry.faces[fIndex].centroid.x;
+			pointY = geometry.faces[fIndex].centroid.y;
+			pointZ = geometry.faces[fIndex].centroid.z;
+			torus.applyMatrix(new THREE.Matrix4().makeTranslation(pointX, pointY, pointZ));
+			console.log(torus);
+			THREE.GeometryUtils.merge(geometry, torus);
+			fIndex = "undefined";
+		}
 		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
-        var figure = new THREE.Mesh( geometry, m );
+        figure = new THREE.Mesh(geometry, m);
         figure.rotation.x = 0;
         figure.rotation.y = 0;
         figure.rotation.z = 0;
@@ -100,14 +116,28 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return stl;
 	}
 	
-	function convertVectorToString(vector)
+	function convertVectorToString(vector, scale)
 	{
-		return ''+ vector.x + ' '+ vector.y + ' '+ vector.z;
+		return ''+ vector.x/scale + ' '+ vector.y/scale + ' '+ vector.z/scale;
 	}
 	
 	function convertVertexToString(vector)
 	{
 		return 'vertex '+ convertVectorToString(vector) + ' \n';
+	}
+	
+	//Temporary, added for loop testing
+	this.addLoop = function (rC)
+	{
+		var raycaster = rC;
+		var intersects = raycaster.intersectObject(figure);
+
+		if (intersects.length > 0)
+		{
+			fIndex = intersects[0].faceIndex;
+			return true;
+		}
+		return false;
 	}
 };
 

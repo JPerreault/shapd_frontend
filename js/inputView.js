@@ -26,7 +26,7 @@ var InputView = function(sW, rend) {
 	
 	function onDocumentMouseWheel ( event ) {
 		var fovMAX = 160;
-		var fovMIN = 1;
+		var fovMIN = 5;
 
 		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.05;
 		sceneWrapper.camera.fov = Math.max( Math.min( sceneWrapper.camera.fov, fovMAX ), fovMIN );
