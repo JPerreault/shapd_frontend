@@ -45,7 +45,7 @@ var capSpline = function(path, segments, radius, radiusSegments, closed, debug) 
 
 			v = j / this.radiusSegments * 2 * Math.PI;
 
-			cx = -this.radius * Math.cos( v ); // TODO: Hack: Negating it so it faces outside.
+			cx = -this.radius * Math.cos( v ); //Negating it so it faces outside.
 			cy = this.radius * Math.sin( v );
 
 			pos2.copy( pos );

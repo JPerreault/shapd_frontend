@@ -1,11 +1,9 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
-    var m = new THREE.MeshFaceMaterial();
-	var knot, geometry, stl, closed, figure;
-	
-	// Scoping out of functions
+	var knot, geometry, stl, closed, figure, torusLoop;
+	//Scoping out of functions
 	var segments = 600;
 	var radiusSegments = 6;
-	var fIndex;
+	var fIndex, intersects;
 	
     var materialsMap = {
 
@@ -13,18 +11,17 @@ var TubeMeshBuilder = function(materialsLibrary) {
         1: materialsLibrary.getMaterial( "Black rough" ),       
         2: materialsLibrary.getMaterial( "Black metal" ),       
         3: materialsLibrary.getMaterial( "Dark glass" ),
-        4: materialsLibrary.getMaterial( "Pure chrome" ),       
-        5: materialsLibrary.getMaterial( "Pure chrome" ),       
-        6: materialsLibrary.getMaterial( "Red glass 50" ),      
-        7: materialsLibrary.getMaterial("Orange glass 50")
+        4: materialsLibrary.getMaterial( "Dark chrome" ),       
+        5: materialsLibrary.getMaterial( "Silver premium" ),       
+        6: materialsLibrary.getMaterial( "Gold" ),      
+        7: materialsLibrary.getMaterial("Bronze")
     }
 
-    for ( var i in materialsMap ) {
-        m.materials[ i ] = materialsMap[ i ];
-    }
-	m.opacity = 0.5;
-	m.transparent = true;
-	m.wireframe = true;
+   // for ( var i in materialsMap ) {
+   //     m.materials[ i ] = materialsMap[ 0 ];
+   // }
+	var m = materialsMap[0];
+	
 
     this.build = function(tubeMeshParams) {
 		var radius = tubeMeshParams['Thickness'];
@@ -38,20 +35,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		if (!closed) {				
 			var cap = new capSpline(knot, segments, radius, radiusSegments, closed, false);
 			THREE.GeometryUtils.merge(geometry, cap);
-		}
-		//Adds on a loop if they chose to add one.
-		if (typeof fIndex != 'undefined' && typeof fIndex != 'string')
-		{
-			//console.log(geometry);
-			//console.log(geometry.faces[fIndex].a);
-			var torus = new THREE.TorusGeometry(5, 1.5, 50, 50);
-			pointX = geometry.faces[fIndex].centroid.x;
-			pointY = geometry.faces[fIndex].centroid.y;
-			pointZ = geometry.faces[fIndex].centroid.z;
-			torus.applyMatrix(new THREE.Matrix4().makeTranslation(pointX, pointY, pointZ));
-			console.log(torus);
-			THREE.GeometryUtils.merge(geometry, torus);
-			fIndex = "undefined";
 		}
 		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         figure = new THREE.Mesh(geometry, m);
@@ -87,26 +70,51 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	{
 		var vertices = geometry.vertices;
 		var faces = geometry.faces;
+		console.log(geometry);
 		stl = 'solid test \n';
 		//Loop for all faces, adding each vertex to the stl file and making triangles from them.
 		for (var i = 0; i < faces.length; i++)
 		{
-			stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
+			stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
 			stl += 'outer loop \n';
-			stl += convertVertexToString(vertices[faces[i].a]);
-			stl += convertVertexToString(vertices[faces[i].b]);
-			stl += convertVertexToString(vertices[faces[i].c]);
+			stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
+			stl += convertVertexToString(vertices[faces[i].b], figure.scale.x);
+			stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
 			stl += 'endloop \n';
 			stl += 'endfacet \n';
-			
 			//Make the corresponding triangle unless the face in question is the cap.
 			if ((i < faces.length - (2 * (radiusSegments - 2)) && closed == false) || closed == true)
 			{
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
 				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a]);
-				stl += convertVertexToString(vertices[faces[i].c]);
-				stl += convertVertexToString(vertices[faces[i].d]);
+				stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].d], figure.scale.x);
+				stl += 'endloop \n';
+				stl += 'endfacet \n';
+			}
+		}
+		if (typeof torusLoop != 'undefined')
+		{
+			faces = torusLoop.geometry.faces;
+			vertices = torusLoop.geometry.vertices;
+			console.log(torusLoop.geometry);
+			
+			for (var i = 0; i < faces.length; i++)
+			{
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
+				stl += 'outer loop \n';
+				stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].b], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
+				stl += 'endloop \n';
+				stl += 'endfacet \n';
+				
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
+				stl += 'outer loop \n';
+				stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].d], figure.scale.x);
 				stl += 'endloop \n';
 				stl += 'endfacet \n';
 			}
@@ -121,16 +129,17 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return ''+ vector.x/scale + ' '+ vector.y/scale + ' '+ vector.z/scale;
 	}
 	
-	function convertVertexToString(vector)
+	function convertVertexToString(vector, scale)
 	{
-		return 'vertex '+ convertVectorToString(vector) + ' \n';
+		return 'vertex '+ convertVectorToString(vector, scale) + ' \n';
 	}
 	
-	//Temporary, added for loop testing
+	//Adding loops:
 	this.addLoop = function (rC)
 	{
 		var raycaster = rC;
-		var intersects = raycaster.intersectObject(figure);
+		intersects = raycaster.intersectObject(figure);
+		
 
 		if (intersects.length > 0)
 		{
@@ -138,6 +147,59 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			return true;
 		}
 		return false;
+	}
+	
+	this.createTorus = function (tubeMeshParams)
+	{
+		var torus = new THREE.TorusGeometry(5, 1.5, segments/10, 50);
+		var yRadian = yToRadians(geometry.vertices[intersects[0].face.a], geometry.vertices[intersects[0].face.b], geometry.vertices[intersects[0].face.d]);
+		torus.applyMatrix(new THREE.Matrix4().makeRotationY(-yRadian));
+		torusLoop = new THREE.Mesh(torus, m);
+		
+		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
+		
+		posx = geometry.faces[fIndex].centroid.x;
+		posy = geometry.faces[fIndex].centroid.y;
+		posz = geometry.faces[fIndex].centroid.z;
+		
+		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(posx, posy, posz));
+		torusLoop.geometry.computeCentroids();
+		torusLoop.geometry.computeFaceNormals();
+		torusLoop.geometry.computeVertexNormals();
+		
+		return torusLoop;
+	}
+	
+	//x and y values of points a, b, c of given face
+	function yToRadians(a, b, c)
+	{
+		var m, q, w, e, r, s;
+		//Find slope m between b and c.
+		m = (b.x - c.x)/(b.y - c.y);
+		//console.log('m :', m);
+		//Find x intercept between plane (y = 0 and line bc) which is the length of q = distance of line segment between origin and y intercept of the line bc.
+		q = Math.abs(b.y - (m * b.x));
+		console.log('q :', q);
+		
+		//Determine length of side w, which is the length between points a and b.
+		w = Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
+		//w = Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2);
+		//console.log(Math.pow((a.x - b.x), 2));
+		//console.log(Math.pow((a.y - b.y), 2));
+		console.log('w: ', w);
+		
+		//Determine angle e given sides q, w and the known right angle using law of sines.
+		e = Math.asin(w/q);
+		//Converting e to degrees
+		e *= 57.2957795
+		console.log('e: ', e);
+		
+		//With known angle e, solve for remaining unknown angle r.
+		r = 90 - e;
+		console.log('r :', r);
+		//Convert angle r into radian value to feed back into function.
+		//return (r * Math.PI) / 180;
+		return r * 0.0174532925;
 	}
 };
 

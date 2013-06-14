@@ -1,6 +1,6 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
-//Global variable, temporary, for loop testing
+//Global variable for loops
 var loops = false;
 
 window.onload = function() {
@@ -10,30 +10,6 @@ window.onload = function() {
 
 	init();
 	animate();
-	
-	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	function onDocumentMouseDown(event)
-	{
-		if (loops)
-		{
-			//Temporary for loop testing
-			var projector = new THREE.Projector();
-			
-			event.preventDefault();
-			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-			projector.unprojectVector(vector, sceneWrapper.camera);
-			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
-			
-			var inBounds = tubeMeshBuilder.addLoop(raycaster);
-			if (inBounds === true)
-			{
-				var currentMesh = scene.currentMesh;
-				scene.redrawMesh(currentMesh);
-			}
-		}
-	}
-	//document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	//function onDocumentMouseDown(event)
 
 	function init() {
 
@@ -85,22 +61,36 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(currentMesh);
 	}
 	
-	//For STL Saving
 	document.getElementById('save').onclick = function()
 	{
-		console.log(view.targetX);
-		console.log(view.targetY);
-		//tubeMeshBuilder.saveSTL();
-		view.targetX = 0;
-		view.targetY = 0;
+		tubeMeshBuilder.saveSTL();
 	}
 	
-	//For loop adding (temporary, will be moved to seperate step)
+	//For loop adding
 	document.getElementById('loops').onclick = function()
 	{
 		loops = !loops;
-		//view.targetX = 0;
-		//view.targetY = 0;
+	}
+	
+	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+	function onDocumentMouseDown(event)
+	{
+		if (loops)
+		{
+			var projector = new THREE.Projector();
+			
+			event.preventDefault();
+			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+			projector.unprojectVector(vector, sceneWrapper.camera);
+			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
+			
+			var inBounds = tubeMeshBuilder.addLoop(raycaster);
+			if (inBounds === true)
+			{
+				scene.torusDefined = true;
+				scene.redrawMesh(scene.currentMesh);
+			}
+		}
 	}
 
 	function setupDatGui(sC) {
