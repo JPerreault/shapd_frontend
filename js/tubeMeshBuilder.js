@@ -206,7 +206,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
 	function calculateMeshSize(figure)
 	{
-		
 		figure.geometry.computeBoundingBox();
 		var boundingBox = figure.geometry.boundingBox;
 		

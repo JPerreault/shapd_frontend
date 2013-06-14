@@ -171,6 +171,7 @@ var curveMaker = function (tMP) {
 			tz = 2 * a * Math.sin((t*(q-4)) / (2)) + z;
 			
 			scalar = 1;
+
 		}
 		
 		else if (w == 15) {
