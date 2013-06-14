@@ -221,4 +221,5 @@ var curveMaker = function (tMP) {
 			
 			scalar = 20;
 		}
+
 		*/
