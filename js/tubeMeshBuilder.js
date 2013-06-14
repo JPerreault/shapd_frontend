@@ -1,5 +1,4 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
-<<<<<<< HEAD
 	var knot, geometry, stl, closed, figure, torusLoop;
 	var m, fIndex, intersects;
 	
