@@ -1,10 +1,11 @@
 var TubeMeshBuilder = function(materialsLibrary) {	
-	var knot, geometry, stl, closed, figure, torusLoop;
-	//Scoping out of functions
-	var segments = 600;
-	var radiusSegments = 6;
-	var fIndex, intersects;
+	var knot, geometry, stl, closed;
+	var figure, torusLoop, fIndex, intersects;;
 	
+	//Scoping out of functions
+	var segments = 600,  radiusSegments = 6;
+	
+	var m = new THREE.MeshFaceMaterial();
     var materialsMap = {
 
         0: materialsLibrary.getMaterial( "Pure chrome" ),       
@@ -25,7 +26,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
     this.build = function(tubeMeshParams) {
 		var radius = tubeMeshParams['Thickness'];
-		var scal = tubeMeshParams['Scale'];
+		var scale = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
@@ -40,7 +41,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
         figure = new THREE.Mesh(geometry, m);
         figure.rotation.x = 0;
         figure.rotation.y = 0;
-        figure.rotation.z = 0;
+        figure.rotation.z = 0;	
 
         figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
         tubeMeshParams.figure = figure;
@@ -200,6 +201,25 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//Convert angle r into radian value to feed back into function.
 		//return (r * Math.PI) / 180;
 		return r * 0.0174532925;
+	}
+	
+	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
+	function calculateMeshSize(figure)
+	{
+		
+		figure.geometry.computeBoundingBox();
+		var boundingBox = figure.geometry.boundingBox;
+		
+		var xMin = boundingBox.min.x;
+		var xMax = boundingBox.max.x;
+		var yMin = boundingBox.min.y;
+		var yMax = boundingBox.max.y;
+		var zMin = boundingBox.min.z;
+		var zMax = boundingBox.max.z;
+		
+		var xWidth = xMax - xMin;
+		var yHeight = yMax - yMin;
+		var zDepth = zMax - zMin;
 	}
 };
 

@@ -10,14 +10,7 @@ var curveMaker = function (tMP) {
 		ty = 0,
 		tz = 0,
 	scalar = 0;
-	
-	//Arrays for points
-	var xCoords = [],
-		yCoords = [],
-		zCoords = [];
-
 		
-	//All logic for curves
 	var shapeMaker = THREE.Curve.create (function(){}, function(t) {
 		//Cinquefoil Knot
 		if (w == 1) {
@@ -175,11 +168,34 @@ var curveMaker = function (tMP) {
 			var a = this.radius / 2;
 			tx = a * (1 + Math.cos(t*(l-1))),
 			ty = a * Math.sin(t*(l-1)),
-			tz = 2 * a * Math.sin((t+(q-5)) / (2)) + z;
-		
+			tz = 2 * a * Math.sin((t*(q-4)) / (2)) + z;
+			
 			scalar = 1;
 		}
 		
+		else if (w == 15) {
+			var t2 = 2 * Math.PI * t * q;
+			
+			tx = Math.cos(t2) * (q+25),
+			ty = Math.sin(t2) * (l+28),
+			tz = (l+148) * t;
+	
+			scalar = .8;
+		}
+	
+		ty *= m;
+		tz *= z;
+
+		return new THREE.Vector3(tx, ty, tz).multiplyScalar(scalar);
+	});
+	
+	//Actual curve once done
+	var shape = new shapeMaker();
+	return shape;
+}
+
+		/*
+		// Wasn't interesting enough to keep as a stancalone shape. Perhaps put back in later. 
 		//Figure Eight Polynomial Knot
 		else if (w == 15) {
 			t = t * 8 - 4;
@@ -190,7 +206,10 @@ var curveMaker = function (tMP) {
 			
 			scalar = 1;
 		}
+		*/
 		
+		/*
+		// Wasn't interesting enough to keep as a stancalone shape. Perhaps put back in later. 
 		//Treofil Polynomial Knot
 		else if (w == 16) {
 			t = t * 4 - 2;
@@ -201,24 +220,4 @@ var curveMaker = function (tMP) {
 			
 			scalar = 20;
 		}
-		
-		else if (w == 17) {
-			var t2 = 2 * Math.PI * t * q;
-			
-			tx = Math.cos(t2) * (q+25),
-			ty = Math.sin(t2) * (l+28),
-			tz = (l+148) * t;
-			
-			scalar = .8;
-		}
-	
-		ty *= m;
-		tz *= z;
-		
-		return new THREE.Vector3(tx, ty, tz).multiplyScalar(scalar);
-	});
-	
-	//Actual curve once done
-	var shape = new shapeMaker();
-	return shape;
-}
+		*/
