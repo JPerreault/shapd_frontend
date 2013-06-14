@@ -1,5 +1,7 @@
 var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.currentMesh;
+	this.torusMesh;
+	this.torusDefined = false;
 	var tubeMeshBuilder = tMB;
 	var tubeMeshParams = tMP;
 
@@ -47,11 +49,16 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	}
 
 	this.init = function(){
-	if (n == 0)
-		tubeMeshParams = new TubeMeshParams();
-	else
-		tubeMeshParams = tMP;
-	this.addMesh( tubeMeshBuilder.build(tubeMeshParams) );
+		if (n == 0)
+			tubeMeshParams = new TubeMeshParams();
+		else
+			tubeMeshParams = tMP;
+		this.addMesh( tubeMeshBuilder.build(tubeMeshParams) );
+		if (typeof tubeMeshBuilder.fIndex != 'undefined')
+		{
+			this.torusDefined = true;
+			this.addToMesh(tubeMeshBuilder.createTorus());
+		}
 	};
 
 	this.updateCameraOnWindowResize = function (){
@@ -62,6 +69,12 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.rotateMesh = function(targetXRotation, targetYRotation){
 		this.currentMesh.figure.rotation.x += ( targetXRotation - this.currentMesh.figure.rotation.x ) * 0.05;
 		this.currentMesh.figure.rotation.y += ( targetYRotation - this.currentMesh.figure.rotation.y ) * 0.05;	
+		
+		if (this.torusDefined)
+		{
+			this.torusMesh.rotation.x += ( targetXRotation - this.torusMesh.rotation.x) * 0.05;
+			this.torusMesh.rotation.y += ( targetYRotation - this.torusMesh.rotation.y) * 0.05;
+		}
 	};
 
 	this.renderCamera = function(mouseY){
@@ -84,9 +97,24 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.currentMesh.figure.rotation.y = yRotation;	
 
         this.scene.add( this.currentMesh.figure );
+		
+		if (this.torusDefined)
+		{
+			this.scene.remove(this.torusMesh);
+			this.torusMesh = tubeMeshBuilder.createTorus(this.currentMesh);
+			
+			this.torusMesh.rotation.x = xRotation;
+			this.torusMesh.rotation.y = yRotation;
+			
+			this.scene.add(this.torusMesh);
+		}
 	};
 
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
+		if (this.torusDefined)
+		{
+			this.torusMesh.scale.set(newVal, newVal, newVal);
+		}
     };
 }
