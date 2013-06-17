@@ -77,6 +77,15 @@ window.onload = function() {
 	rotateButton.innerHTML += '<input id="rotate" type="button" value="Reset Rotations"/>';
 	customContainer.appendChild(rotateButton);
 	
+	 var share = document.createElement('div');
+	share.style.position = 'absolute';
+	share.style.top = '84px';
+	share.style.left = '230px';
+	share.style.zIndex = '1000';
+	share.style.background= '#999';
+	share.innerHTML = '<input id="share" type="button" value="Update URL">';
+	customContainer.appendChild(share);
+	
 	//For background toggling
 	document.getElementById('toggle').onclick = function()
 	{
@@ -104,6 +113,12 @@ window.onload = function() {
 	document.getElementById('continue').onclick = function()
 	{
 		window.location.href='loops.html';
+	}
+    
+    // For shape sharing via hash
+    document.getElementById('share').onclick = function()
+	{
+		setHash();
 	}
 	
 	document.getElementById('rotate').onclick = function()
@@ -154,7 +169,5 @@ window.onload = function() {
 		gui.domElement.style.left = '-15px';
 		gui.domElement.style.zIndex = '1000';
 		customContainer.appendChild(gui.domElement);
-		
 	};
-
 }
