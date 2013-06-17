@@ -112,7 +112,8 @@ window.onload = function() {
 	
 	document.getElementById('continue').onclick = function()
 	{
-		window.location.href='loops.html';
+		setHash();	
+		window.location.href='loops.html'+location.hash;
 	}
     
     // For shape sharing via hash

@@ -106,7 +106,8 @@ window.onload = function() {
 	
 	document.getElementById('continue').onclick = function()
 	{
-		window.location.href='creator.html';
+		setHash();	
+		window.location.href='creator.html'+location.hash;
 	}
 	
 	document.getElementById('rotate').onclick = function()

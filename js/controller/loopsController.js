@@ -115,7 +115,8 @@ window.onload = function() {
 	
 	document.getElementById('continue').onclick = function()
 	{
-		window.location.href='checkout.html';
+		setHash();	
+		window.location.href='checkout.html'+location.hash;
 	}
 	
 	document.getElementById('rotate').onclick = function()
