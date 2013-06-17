@@ -278,11 +278,6 @@ var TubeMeshParams = function(){
 				this.scalar = parseme[x];
 				continue;
 			}
-			else if (transformations[x] == 'Scale')
-			{
-				this['Scale'] = 10;
-				continue;
-			}
             
 			this[transformations[x]] = parseFloat(parseme[x]);
 		}
