@@ -71,6 +71,12 @@ window.onload = function() {
 	{
 		loops = !loops;
 	}
+    
+    // For shape sharing via hash
+    document.getElementById('share').onclick = function()
+	{
+		setHash();
+	}
 	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	function onDocumentMouseDown(event)
@@ -168,6 +174,15 @@ window.onload = function() {
 		loopTest.style.background = '#999';
 		loopTest.innerHTML += '<input id="loops" type="button" value="Loop Test"/>';
 		customContainer.appendChild(loopTest);
+        
+        var share = document.createElement('div');
+		share.style.position = 'absolute';
+		share.style.top = '48px';
+		share.style.left = '230px';
+		share.style.zIndex = '1000';
+		share.style.background= '#999';
+		share.innerHTML = '<input id="share" type="button" value="Update URL">';
+		customContainer.appendChild(share);
 	};
 
 }

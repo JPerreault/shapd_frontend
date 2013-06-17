@@ -1,4 +1,6 @@
-var TubeMeshBuilder = function(materialsLibrary) {	
+var hashend;
+
+var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop;
 	var m, fIndex, intersects;
 	
@@ -24,6 +26,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 
     this.build = function(tubeMeshParams) {
+        parseParams(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
@@ -219,15 +222,71 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var yHeight = yMax - yMin;
 		var zDepth = zMax - zMin;
 	}
+    
+    // Update the string representing the shape
+    function parseParams(tubeMesh)
+	{
+		var keys = Object.keys(tubeMesh);
+		//alert(keys);
+		hashend = "";
+		for (var x=0; x<keys.length; x++)
+		{
+			if (keys[x] == 'Thickness')
+			{
+				hashend += tubeMesh[keys[x]];
+				break;
+			}
+			hashend += tubeMesh[keys[x]]+"|";
+		}
+//		location.hash = hashend;
+        
+	}
+
 };
 
+// Updates the URL's hash to the shape's string
+function setHash()
+{
+    location.hash = hashend;
+}
+
 var TubeMeshParams = function(){
-    this['Scale'] = 5;
-    this.scalar = 20;
-    this['Modify'] = 5;
-    this['Depth'] = 1;
-    this['Stretch'] = 1;
-	this['Loops'] = 2;
-	this['Starting Shape'] = 1;
-	this['Thickness'] = 4;
+    if (location.hash == "#" || location.hash == "")
+	{
+        
+		this['Scale'] = 5;
+		this.scalar = 20;
+		this['Modify'] = 5;
+		this['Depth'] = 1;
+		this['Stretch'] = 1;
+		this['Loops'] = 2;
+		this['Starting Shape'] = 1;
+		this['Thickness'] = 4;
+	}
+	else
+	{
+		var hash = location.hash;
+		location.hash = "";
+		location.hash = hash.replace(/\%7C/g, '|');
+		var parseme = location.hash.substring(1).split("|");
+		var transformations = ['Scale', 'scalar', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness'];
+		for (var x=0; x<transformations.length; x++)
+		{
+            
+			if (transformations[x] == "scalar")
+			{
+				this.scalar = parseme[x];
+				continue;
+			}
+			else if (transformations[x] == 'Scale')
+			{
+				this['Scale'] = 10;
+				continue;
+			}
+            
+			this[transformations[x]] = parseFloat(parseme[x]);
+		}
+        
+        
+	}
 };
