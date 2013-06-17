@@ -12,7 +12,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
         2: materialsLibrary.getMaterial( "Black metal" ),       
         3: materialsLibrary.getMaterial( "Dark glass" ),
         4: materialsLibrary.getMaterial( "Dark chrome" ),       
-        5: materialsLibrary.getMaterial( "Silver premium" ),       
+        5: materialsLibrary.getMaterial( "Plastic regular white" ),       
         6: materialsLibrary.getMaterial( "Gold" ),      
         7: materialsLibrary.getMaterial("Bronze")
     }
@@ -179,24 +179,24 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//console.log('m :', m);
 		//Find x intercept between plane (y = 0 and line bc) which is the length of q = distance of line segment between origin and y intercept of the line bc.
 		q = Math.abs(b.y - (m * b.x));
-		console.log('q :', q);
+		//console.log('q :', q);
 		
 		//Determine length of side w, which is the length between points a and b.
 		w = Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
 		//w = Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2);
 		//console.log(Math.pow((a.x - b.x), 2));
 		//console.log(Math.pow((a.y - b.y), 2));
-		console.log('w: ', w);
+		//console.log('w: ', w);
 		
 		//Determine angle e given sides q, w and the known right angle using law of sines.
 		e = Math.asin(w/q);
 		//Converting e to degrees
 		e *= 57.2957795
-		console.log('e: ', e);
+		//console.log('e: ', e);
 		
 		//With known angle e, solve for remaining unknown angle r.
 		r = 90 - e;
-		console.log('r :', r);
+		//console.log('r :', r);
 		//Convert angle r into radian value to feed back into function.
 		//return (r * Math.PI) / 180;
 		return r * 0.0174532925;

@@ -1,12 +1,10 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
-//Global variable for loops
-var loops = false;
 
 window.onload = function() {
 
 	var tubeMeshBuilder, view, gui, scene, tubeMP;
-	var renderer, sceneWrapper, materialsLibrary, projector;
+	var renderer, sceneWrapper, materialsLibrary, customContainer;
 
 	init();
 	animate();
@@ -42,6 +40,43 @@ window.onload = function() {
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 	}
 	
+	customContainer = document.getElementById('container');	
+	var cloudToggle = document.createElement('div');
+	cloudToggle.style.position = 'absolute';
+	cloudToggle.style.top = '97%';
+	cloudToggle.style.left = '91%';
+	cloudToggle.style.zIndex = '1000';
+	cloudToggle.style.background = '#999';
+	cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
+	customContainer.appendChild(cloudToggle);
+		
+	var saveSTL = document.createElement('div');
+	saveSTL.style.position = 'absolute';
+	saveSTL.style.top = '0px';
+	saveSTL.style.left = '230px';
+	saveSTL.style.zIndex = '1000';
+	saveSTL.style.background = '#999';
+	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
+	customContainer.appendChild(saveSTL);
+		
+	var continueButton = document.createElement('div');
+	continueButton.style.position = 'absolute';
+	continueButton.style.top = '28px';
+	continueButton.style.left = '230px';
+	continueButton.style.zIndex = '1000';
+	continueButton.style.background = '#999';
+	continueButton.innerHTML += '<input id="continue" type="button" value="Continue"/>';
+	customContainer.appendChild(continueButton);
+		
+	var rotateButton = document.createElement('div');
+	rotateButton.style.position = 'absolute';
+	rotateButton.style.top = '56px';
+	rotateButton.style.left = '230px';
+	rotateButton.style.zIndex = '1000';
+	rotateButton.style.background = '#999';
+	rotateButton.innerHTML += '<input id="rotate" type="button" value="Reset Rotations"/>';
+	customContainer.appendChild(rotateButton);
+	
 	//For background toggling
 	document.getElementById('toggle').onclick = function()
 	{
@@ -66,31 +101,15 @@ window.onload = function() {
 		tubeMeshBuilder.saveSTL();
 	}
 	
-	//For loop adding
-	document.getElementById('loops').onclick = function()
+	document.getElementById('continue').onclick = function()
 	{
-		loops = !loops;
+		window.location.href='loops.html';
 	}
 	
-	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	function onDocumentMouseDown(event)
+	document.getElementById('rotate').onclick = function()
 	{
-		if (loops)
-		{
-			var projector = new THREE.Projector();
-			
-			event.preventDefault();
-			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-			projector.unprojectVector(vector, sceneWrapper.camera);
-			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
-			
-			var inBounds = tubeMeshBuilder.addLoop(raycaster);
-			if (inBounds === true)
-			{
-				scene.torusDefined = true;
-				scene.redrawMesh(scene.currentMesh);
-			}
-		}
+		view.targetX = 0;
+		view.targetY = 0;
 	}
 
 	function setupDatGui(sC) {
@@ -107,14 +126,8 @@ window.onload = function() {
             });
         };
 		
-		
 		var controller = gui.add(currentMesh, 'Starting Shape', 1, 15).step(1);
         setUpController(controller, 'Starting Shape');
-
-        var scaleController = gui.add(currentMesh, 'Scale', 1, 10);
-        scaleController.onChange(function(newVal){
-            scene.updateScale(newVal);
-        });
 		
 		controller = gui.add(currentMesh, 'Thickness', .5, 20);
 		setUpController(controller, 'Thickness');
@@ -135,39 +148,13 @@ window.onload = function() {
 
         morphFolder.open();
 		
-	    var customContainer = document.getElementById('container');
+		customContainer = document.getElementById('container');	
 		gui.domElement.style.position = 'absolute';
 		gui.domElement.style.top = '-1px';
 		gui.domElement.style.left = '-15px';
 		gui.domElement.style.zIndex = '1000';
 		customContainer.appendChild(gui.domElement);
 		
-		var cloudToggle = document.createElement('div');
-		cloudToggle.style.position = 'absolute';
-		cloudToggle.style.top = '97%';
-		cloudToggle.style.left = '91%';
-		cloudToggle.style.zIndex = '1000';
-		cloudToggle.style.background = '#999';
-		cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
-		customContainer.appendChild(cloudToggle);
-		
-		var saveSTL = document.createElement('div');
-		saveSTL.style.position = 'absolute';
-		saveSTL.style.top = '0px';
-		saveSTL.style.left = '230px';
-		saveSTL.style.zIndex = '1000';
-		saveSTL.style.background = '#999';
-		saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
-		customContainer.appendChild(saveSTL);
-		
-		var loopTest = document.createElement('div');
-		loopTest.style.position = 'absolute';
-		loopTest.style.top = '28px';
-		loopTest.style.left = '230px';
-		loopTest.style.zIndex = '1000';
-		loopTest.style.background = '#999';
-		loopTest.innerHTML += '<input id="loops" type="button" value="Loop Test"/>';
-		customContainer.appendChild(loopTest);
 	};
 
 }
