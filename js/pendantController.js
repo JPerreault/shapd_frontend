@@ -177,7 +177,7 @@ window.onload = function() {
         
         var share = document.createElement('div');
 		share.style.position = 'absolute';
-		share.style.top = '48px';
+		share.style.top = '56px';
 		share.style.left = '230px';
 		share.style.zIndex = '1000';
 		share.style.background= '#999';
