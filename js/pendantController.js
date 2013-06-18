@@ -27,6 +27,12 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 
 		sceneWrapper.init();
+		
+		// Modify the ones below. All in now to test
+		generatorGUI();
+		scaleGUI();
+		loopGUI();
+		
 	    setupDatGui(sceneWrapper);	
 	}
 
