@@ -20,7 +20,7 @@ var curveMaker = function (tMP) {
 			ty = (2 + Math.cos(q * t)) * Math.sin(l * t),
 			tz = Math.sin(q * t);
 		
-			scalar = tubeMeshParams.scalar;
+			scalar = 20;
 		}
 	
 		//Granny Knot

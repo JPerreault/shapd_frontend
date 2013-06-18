@@ -242,6 +242,10 @@ var TubeMeshBuilder = function(materialsLibrary) {
         
 	}
 
+	function setMaterial(material)
+	{
+		m = materialsLibrary.getMaterial(material);
+	}
 };
 
 // Updates the URL's hash to the shape's string
@@ -255,7 +259,6 @@ var TubeMeshParams = function(){
 	{
         
 		this['Scale'] = 5;
-		this.scalar = 20;
 		this['Modify'] = 5;
 		this['Depth'] = 1;
 		this['Stretch'] = 1;
@@ -269,16 +272,9 @@ var TubeMeshParams = function(){
 		location.hash = "";
 		location.hash = hash.replace(/\%7C/g, '|');
 		var parseme = location.hash.substring(1).split("|");
-		var transformations = ['Scale', 'scalar', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness'];
+		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness'];
 		for (var x=0; x<transformations.length; x++)
 		{
-            
-			if (transformations[x] == "scalar")
-			{
-				this.scalar = parseme[x];
-				continue;
-			}
-            
 			this[transformations[x]] = parseFloat(parseme[x]);
 		}
 	}

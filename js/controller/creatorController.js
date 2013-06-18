@@ -41,6 +41,8 @@ window.onload = function() {
 	}
 	
 	customContainer = document.getElementById('container');	
+	customContainer.style.zIndex = '100';
+	customContainer.style.position = 'absolute';
 	var cloudToggle = document.createElement('div');
 	cloudToggle.style.position = 'absolute';
 	cloudToggle.style.top = '97%';
@@ -77,7 +79,7 @@ window.onload = function() {
 	rotateButton.innerHTML += '<input id="rotate" type="button" value="Reset Rotations"/>';
 	customContainer.appendChild(rotateButton);
 	
-	 var share = document.createElement('div');
+	var share = document.createElement('div');
 	share.style.position = 'absolute';
 	share.style.top = '84px';
 	share.style.left = '230px';
@@ -112,7 +114,8 @@ window.onload = function() {
 	
 	document.getElementById('continue').onclick = function()
 	{
-		window.location.href='loops.html';
+		setHash();
+		window.location.href='loops.html' + location.hash;
 	}
     
     // For shape sharing via hash

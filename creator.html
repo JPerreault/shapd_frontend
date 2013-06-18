@@ -22,6 +22,122 @@
 			#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
 
 		</style>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script>
+		$(function() {
+			$( "#materials" ).accordion({
+			heightStyle: 'content',
+			collapsible: true,
+			active: false,
+			alwaysOpen: false,
+			icons: icons,
+			event: "click hoverintent"
+		})});
+		$(function() {
+			$( "#plastics" ).accordion({
+			heightStyle: 'content',
+			collapsible: true,
+			active: false,
+			alwaysOpen: false,
+			icons: icons,
+			event: "click hoverintent"
+		})});
+		$(function() {
+			$( "#metals" ).accordion({
+			heightStyle: 'content',
+			collapsible: true,
+			active: false,
+			alwaysOpen: false,
+			icons: icons,
+			event: "click hoverintent"
+		})});
+		$(function() {
+			$( "#preciousMetals" ).accordion({
+			heightStyle: 'content',
+			collapsible: true,
+			active: false,
+			alwaysOpen: false,
+			icons: icons,
+			event: "click hoverintent"
+		})});
+		$(function() {
+			$( "#steel" ).accordion({
+			heightStyle: 'content',
+			collapsible: true,
+			active: false,
+			alwaysOpen: false,
+			icons: icons,
+			event: "click hoverintent"
+		})});
+		
+		
+		var icons = {
+				header: "ui-icon-circle-arrow-e",
+				activeHeader: "ui-icon-circle-arrow-s"
+			};
+		
+		//Hovering code
+		$.event.special.hoverintent = {
+			setup: function() {
+				$( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
+			},
+			teardown: function() {
+				$( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
+			},
+			handler: function( event ) {
+				var currentX, currentY, timeout,
+				args = arguments,
+				target = $( event.target ),
+				previousX = event.pageX,
+				previousY = event.pageY;
+ 
+			function track( event ) {
+				currentX = event.pageX;
+				currentY = event.pageY;
+			};
+ 
+			function clear() {
+				target
+				.unbind( "mousemove", track )
+				.unbind( "mouseout", clear );
+				clearTimeout( timeout );
+			}
+ 
+			function handler() {
+				var prop,
+				orig = event;
+	
+				if ( ( Math.abs( previousX - currentX ) +
+				Math.abs( previousY - currentY ) ) < 7 ) {
+				clear();
+ 
+				event = $.Event( "hoverintent" );
+				for ( prop in orig ) {
+					if ( !( prop in event ) ) {
+					event[ prop ] = orig[ prop ];
+					}
+				}
+          
+				delete event.originalEvent;
+ 
+				target.trigger( event );
+				} else {
+				previousX = currentX;
+				previousY = currentY;
+				timeout = setTimeout( handler, 100 );
+				}
+			}
+ 
+			timeout = setTimeout( handler, 100 );
+			target.bind({
+				mousemove: track,
+				mouseout: clear
+			});
+			}
+		};
+		</script>
 	</head>
 
 	<body>		
@@ -39,7 +155,29 @@
 		<script src="js/curveMaker.js"></script>
         <script src="js/capSpline.js"></script>
 	
+		
+		
+		
 		<div id = "container"></div>
+		
+		<div style = "font-size: 75%; background-color: transparent; background-image: none; z-index: 1001; position: absolute; padding: 0 !important; top: 20%; left: 68%"><div id = "materials">
+		<h3>Plastic</h3><div id = "plastics">
+		<h3>Regular</h3><div></div>
+		<h3>Polished</h3><div></div>
+		<h3>Detail</h3><div></div>
+		<h3>Transparent</h3><div></div></div>
 
+		<h3>Metals</h3><div id = "metals">
+		<h3>Alumide</h3><div></div>
+		<h3>Brass</h3><div></div>
+		<h3>Stainless Steel</h3><div id = "steel">
+		<h3>Regular</h3><div></div>
+		<h3>Bronze Plated</h3><div></div>
+		<h3>Gold Plated</h3><div></div></div></div>
+		
+		<h3>Precious Metals</h3><div id = "preciousMetals">
+		<h3>Silver</h3><div></div>
+		<h3>Titanium</h3><div></div>
+		<h3>Gold</h3><div></div></div></div>
 	</body>
 </html>
