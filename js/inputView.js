@@ -2,8 +2,8 @@ var InputView = function(sW, rend) {
 	var sceneWrapper = sW;
 	var renderer = rend;
 
-	this.targetY = 0;
-	this.targetX = 0;
+	this.targetY = 150;
+	this.targetX = 150;
 
 	var targetYRotationOnMouseDown = 0;
 	var targetXRotationOnMouseDown = 0;
@@ -39,7 +39,7 @@ var InputView = function(sW, rend) {
 
 		sceneWrapper.updateCameraOnWindowResize();
 		
-		renderer.setSize( (window.innerWidth), (window.innerHeight) ); //Was divided by 2 after Julie, changed because it resized seemingly incorrectly
+		renderer.setSize( (window.innerWidth), (window.innerHeight) );
 	}
 
 	function onDocumentMouseDown( event ) {

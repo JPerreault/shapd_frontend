@@ -25,8 +25,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var m = materialsMap[0];
 	
 
-    this.build = function(tubeMeshParams) {
-        parseParams(tubeMeshParams);
+    this.build = function(tubeMeshParams, sW) {
+		//parseParams(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
@@ -41,8 +41,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		}
 		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         figure = new THREE.Mesh(geometry, m);
-        figure.rotation.x = 0;
-        figure.rotation.y = 0;
+        figure.rotation.x = 150;
+        figure.rotation.y = 150;
         figure.rotation.z = 0;	
 
         figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
@@ -226,12 +226,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
     // Update the string representing the shape
     function parseParams(tubeMesh)
 	{
+		//console.log(figure);
 		var keys = Object.keys(tubeMesh);
-		//alert(keys);
+		tubeMesh['Rotation X'] = figure.rotation.x;
+		tubeMesh['Rotation Y'] = figure.rotation.y;
+		console.log(tubeMesh['Rotation X']);
 		hashend = "";
 		for (var x=0; x<keys.length; x++)
 		{
-			if (keys[x] == 'Thickness')
+			if (keys[x] == 'Rotation Y')
 			{
 				hashend += tubeMesh[keys[x]];
 				break;
@@ -239,7 +242,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			hashend += tubeMesh[keys[x]]+"|";
 		}
 //		location.hash = hashend;
-        
+        console.log(hashend);
 	}
 
 	function setMaterial(material)
@@ -265,6 +268,8 @@ var TubeMeshParams = function(){
 		this['Loops'] = 2;
 		this['Starting Shape'] = 1;
 		this['Thickness'] = 4;
+		this['Rotation X'] = 0;
+		this['Rotation Y'] = 0;
 	}
 	else
 	{
@@ -272,7 +277,7 @@ var TubeMeshParams = function(){
 		location.hash = "";
 		location.hash = hash.replace(/\%7C/g, '|');
 		var parseme = location.hash.substring(1).split("|");
-		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness'];
+		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
 		for (var x=0; x<transformations.length; x++)
 		{
 			this[transformations[x]] = parseFloat(parseme[x]);

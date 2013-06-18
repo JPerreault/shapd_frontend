@@ -67,8 +67,9 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	}
 
 	this.rotateMesh = function(targetXRotation, targetYRotation){
-		this.currentMesh.figure.rotation.x += ( targetXRotation - this.currentMesh.figure.rotation.x ) * 0.05;
-		this.currentMesh.figure.rotation.y += ( targetYRotation - this.currentMesh.figure.rotation.y ) * 0.05;	
+		this.currentMesh.figure.rotation.x += (( targetXRotation - this.currentMesh.figure.rotation.x ) * 0.05);
+		this.currentMesh.figure.rotation.y += (( targetYRotation - this.currentMesh.figure.rotation.y ) * 0.05);	
+
 		
 		if (this.torusDefined)
 		{

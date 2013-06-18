@@ -25,6 +25,12 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 
 		sceneWrapper.init();
+		
+		// Modify the ones below. All in now to test
+		//generatorGUI();
+		//scaleGUI();
+		//loopGUI();
+		
 	    setupDatGui(sceneWrapper);	
 	}
 
@@ -115,7 +121,7 @@ window.onload = function() {
 	document.getElementById('continue').onclick = function()
 	{
 		setHash();
-		window.location.href='loops.html' + location.hash;
+		window.location.href = 'loops.html' + location.hash;
 	}
     
     // For shape sharing via hash
