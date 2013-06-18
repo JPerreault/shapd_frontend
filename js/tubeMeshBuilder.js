@@ -1,4 +1,6 @@
-var TubeMeshBuilder = function(materialsLibrary) {	
+var hashend;
+
+var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop;
 	var m, fIndex, intersects;
 	
@@ -12,7 +14,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
         2: materialsLibrary.getMaterial( "Black metal" ),       
         3: materialsLibrary.getMaterial( "Dark glass" ),
         4: materialsLibrary.getMaterial( "Dark chrome" ),       
-        5: materialsLibrary.getMaterial( "Silver premium" ),       
+        5: materialsLibrary.getMaterial( "Plastic regular white" ),       
         6: materialsLibrary.getMaterial( "Gold" ),      
         7: materialsLibrary.getMaterial("Bronze")
     }
@@ -24,6 +26,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 
     this.build = function(tubeMeshParams) {
+        parseParams(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
@@ -179,24 +182,24 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//console.log('m :', m);
 		//Find x intercept between plane (y = 0 and line bc) which is the length of q = distance of line segment between origin and y intercept of the line bc.
 		q = Math.abs(b.y - (m * b.x));
-		console.log('q :', q);
+		//console.log('q :', q);
 		
 		//Determine length of side w, which is the length between points a and b.
 		w = Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
 		//w = Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2);
 		//console.log(Math.pow((a.x - b.x), 2));
 		//console.log(Math.pow((a.y - b.y), 2));
-		console.log('w: ', w);
+		//console.log('w: ', w);
 		
 		//Determine angle e given sides q, w and the known right angle using law of sines.
 		e = Math.asin(w/q);
 		//Converting e to degrees
 		e *= 57.2957795
-		console.log('e: ', e);
+		//console.log('e: ', e);
 		
 		//With known angle e, solve for remaining unknown angle r.
 		r = 90 - e;
-		console.log('r :', r);
+		//console.log('r :', r);
 		//Convert angle r into radian value to feed back into function.
 		//return (r * Math.PI) / 180;
 		return r * 0.0174532925;
@@ -219,15 +222,64 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var yHeight = yMax - yMin;
 		var zDepth = zMax - zMin;
 	}
+    
+    // Update the string representing the shape
+    function parseParams(tubeMesh)
+	{
+		var keys = Object.keys(tubeMesh);
+		//alert(keys);
+		hashend = "";
+		for (var x=0; x<keys.length; x++)
+		{
+			if (keys[x] == 'Thickness')
+			{
+				hashend += tubeMesh[keys[x]];
+				break;
+			}
+			hashend += tubeMesh[keys[x]]+"|";
+		}
+//		location.hash = hashend;
+        
+	}
+
 };
 
+// Updates the URL's hash to the shape's string
+function setHash()
+{
+    location.hash = hashend;
+}
+
 var TubeMeshParams = function(){
-    this['Scale'] = 5;
-    this.scalar = 20;
-    this['Modify'] = 5;
-    this['Depth'] = 1;
-    this['Stretch'] = 1;
-	this['Loops'] = 2;
-	this['Starting Shape'] = 1;
-	this['Thickness'] = 4;
+    if (location.hash == "#" || location.hash == "")
+	{
+        
+		this['Scale'] = 5;
+		this.scalar = 20;
+		this['Modify'] = 5;
+		this['Depth'] = 1;
+		this['Stretch'] = 1;
+		this['Loops'] = 2;
+		this['Starting Shape'] = 1;
+		this['Thickness'] = 4;
+	}
+	else
+	{
+		var hash = location.hash;
+		location.hash = "";
+		location.hash = hash.replace(/\%7C/g, '|');
+		var parseme = location.hash.substring(1).split("|");
+		var transformations = ['Scale', 'scalar', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness'];
+		for (var x=0; x<transformations.length; x++)
+		{
+            
+			if (transformations[x] == "scalar")
+			{
+				this.scalar = parseme[x];
+				continue;
+			}
+            
+			this[transformations[x]] = parseFloat(parseme[x]);
+		}
+	}
 };
