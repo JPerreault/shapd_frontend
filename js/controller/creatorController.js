@@ -13,24 +13,27 @@ window.onload = function() {
 
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
-
+		
+		if (location.hash == "#" || location.hash == "")
+		{
+			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+		}
+		else
+		{
+			tubeMP = new TubeMeshParams();
+			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
+		}
+		
 		renderer = new THREE.WebGLRenderer();
-		view = new InputView(sceneWrapper, renderer);
+		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
 		view.addMeshElement(renderer.domElement)
-
 		sceneWrapper.init();
-		
-		// Modify the ones below. All in now to test
-		//generatorGUI();
-		//scaleGUI();
-		//loopGUI();
-		
+		scene = sceneWrapper;
 	    setupDatGui(sceneWrapper);	
 	}
 
@@ -120,6 +123,7 @@ window.onload = function() {
 	
 	document.getElementById('continue').onclick = function()
 	{
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		setHash();
 		window.location.href = 'loops.html' + location.hash;
 	}
@@ -127,6 +131,7 @@ window.onload = function() {
     // For shape sharing via hash
     document.getElementById('share').onclick = function()
 	{
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		setHash();
 	}
 	

@@ -15,17 +15,25 @@ window.onload = function() {
 
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+		
+		if (location.hash == "#" || location.hash == "")
+		{
+			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+		}
+		else
+		{
+			tubeMP = new TubeMeshParams();
+			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
+		}
 
 		renderer = new THREE.WebGLRenderer();
-		view = new InputView(sceneWrapper, renderer);
+		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
 		view.addMeshElement(renderer.domElement)
-
 		sceneWrapper.init();
 		scene = sceneWrapper;
 	}

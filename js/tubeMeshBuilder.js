@@ -25,8 +25,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var m = materialsMap[0];
 	
 
-    this.build = function(tubeMeshParams, sW) {
-		//parseParams(tubeMeshParams);
+    this.build = function(tubeMeshParams) {
+		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
@@ -41,8 +41,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		}
 		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         figure = new THREE.Mesh(geometry, m);
-        figure.rotation.x = 150;
-        figure.rotation.y = 150;
+        figure.rotation.x = tubeMeshParams['Rotation X'];
+        figure.rotation.y = tubeMeshParams['Rotation Y'];
         figure.rotation.z = 0;	
 
         figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
@@ -143,7 +143,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var raycaster = rC;
 		intersects = raycaster.intersectObject(figure);
 		
-
 		if (intersects.length > 0)
 		{
 			fIndex = intersects[0].faceIndex;
@@ -222,28 +221,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var yHeight = yMax - yMin;
 		var zDepth = zMax - zMin;
 	}
-    
-    // Update the string representing the shape
-    function parseParams(tubeMesh)
-	{
-		//console.log(figure);
-		var keys = Object.keys(tubeMesh);
-		tubeMesh['Rotation X'] = figure.rotation.x;
-		tubeMesh['Rotation Y'] = figure.rotation.y;
-		console.log(tubeMesh['Rotation X']);
-		hashend = "";
-		for (var x=0; x<keys.length; x++)
-		{
-			if (keys[x] == 'Rotation Y')
-			{
-				hashend += tubeMesh[keys[x]];
-				break;
-			}
-			hashend += tubeMesh[keys[x]]+"|";
-		}
-//		location.hash = hashend;
-        console.log(hashend);
-	}
 
 	function setMaterial(material)
 	{
@@ -255,6 +232,28 @@ var TubeMeshBuilder = function(materialsLibrary) {
 function setHash()
 {
     location.hash = hashend;
+}
+
+// Update the string representing the shape
+function updateHash(tubeMesh)
+{
+	var keys = Object.keys(tubeMesh);
+	if (typeof tubeMesh.figure != 'undefined')
+	{
+		tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
+		tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
+	}
+
+	hashend = "";
+	for (var x=0; x<keys.length; x++)
+	{
+		if (keys[x] == 'Rotation Y')
+		{
+			hashend += tubeMesh[keys[x]];
+			break;
+		}
+		hashend += tubeMesh[keys[x]]+"|";
+	}
 }
 
 var TubeMeshParams = function(){

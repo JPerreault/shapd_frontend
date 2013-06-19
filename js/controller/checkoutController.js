@@ -1,7 +1,5 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
-//Global variable for loops
-var loops = false;
 
 window.onload = function() {
 
@@ -15,17 +13,25 @@ window.onload = function() {
 
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+		
+		if (location.hash == "#" || location.hash == "")
+		{
+			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
+		}
+		else
+		{
+			tubeMP = new TubeMeshParams();
+			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
+		}
 
 		renderer = new THREE.WebGLRenderer();
-		view = new InputView(sceneWrapper, renderer);
+		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
 
 		view.addMeshElement(renderer.domElement)
-
 		sceneWrapper.init();
 		scene = sceneWrapper;
 	}
@@ -107,7 +113,7 @@ window.onload = function() {
 	document.getElementById('continue').onclick = function()
 	{
 		setHash();	
-		window.location.href = 'creator.html' + location.hash;
+		window.location.href = 'creator.html';
 	}
 	
 	document.getElementById('rotate').onclick = function()

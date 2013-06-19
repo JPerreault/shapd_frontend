@@ -49,7 +49,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	}
 
 	this.init = function(){
-		if (n == 0)
+		if (typeof tubeMeshParams === 'undefined')
 			tubeMeshParams = new TubeMeshParams();
 		else
 			tubeMeshParams = tMP;

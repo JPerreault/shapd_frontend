@@ -1,9 +1,17 @@
-var InputView = function(sW, rend) {		
+var InputView = function(sW, rend, tMP) {		
 	var sceneWrapper = sW;
 	var renderer = rend;
 
-	this.targetY = 150;
-	this.targetX = 150;
+	if (typeof tMP === 'undefined')
+	{
+		this.targetX = 0;
+		this.targetY = 0;
+	}
+	else
+	{
+		this.targetX = tMP['Rotation X'];
+		this.targetY = tMP['Rotation Y'];
+	}
 
 	var targetYRotationOnMouseDown = 0;
 	var targetXRotationOnMouseDown = 0;
