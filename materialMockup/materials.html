@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<title>Shapedom Prototype</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				background:#000;
+				color:#fff;
+				padding:0;
+				margin:0;
+				overflow:hidden;
+				font-family:georgia;
+				text-align:center;
+			}
+			h1 { }
+			a { color:skyblue; text-decoration:none }
+			canvas { pointer-events:none; z-index:10; position:relative; }
+
+			#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
+
+		</style>
+	</head>
+
+	<body>		
+		<script src="js/libs/three.min.js"></script>
+		<script src="js/libs/Detector.js"></script>
+		<script src="js/controller/materialController.js"></script>
+		<script src="js/sceneCubeWrapper.js"></script>
+		<script src="js/sceneWrapper.js"></script>
+		<script src="js/materialsLibrary.js"></script>
+		<script src="js/tubeMeshBuilder.js"></script>	
+		<script src="js/inputView.js"></script>		
+		<script src="js/curveMaker.js"></script>
+	
+		<div id = "container"></div>
+	</body>
+</html>
