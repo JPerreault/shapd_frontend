@@ -24,7 +24,10 @@ window.onload = function() {
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
 		}
 		
-		renderer = new THREE.WebGLRenderer();
+		if (Detector.webgl)
+			renderer = new THREE.WebGLRenderer();
+		else
+			renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
