@@ -2,28 +2,11 @@ var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop;
-	var m, fIndex, intersects;
+	var fIndex, intersects;
+	this.m = materialsLibrary.getMaterial( "Pure chrome" ) 
 	
 	//Scoping out of functions
 	var segments = 600, radiusSegments = 6;
-	
-    var materialsMap = {
-
-        0: materialsLibrary.getMaterial( "Pure chrome" ),       
-        1: materialsLibrary.getMaterial( "Black rough" ),       
-        2: materialsLibrary.getMaterial( "Black metal" ),       
-        3: materialsLibrary.getMaterial( "Dark glass" ),
-        4: materialsLibrary.getMaterial( "Dark chrome" ),       
-        5: materialsLibrary.getMaterial( "Plastic regular white" ),       
-        6: materialsLibrary.getMaterial( "Gold" ),      
-        7: materialsLibrary.getMaterial("Bronze")
-    }
-
-   // for ( var i in materialsMap ) {
-   //     m.materials[ i ] = materialsMap[ 0 ];
-   // }
-	var m = materialsMap[0];
-	
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
@@ -39,8 +22,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			var cap = new capSpline(knot, segments, radius, radiusSegments, closed, false);
 			THREE.GeometryUtils.merge(geometry, cap);
 		}
-		//m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
-        figure = new THREE.Mesh(geometry, m);
+		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
+        figure = new THREE.Mesh(geometry, this.m);
         figure.rotation.x = tubeMeshParams['Rotation X'];
         figure.rotation.y = tubeMeshParams['Rotation Y'];
         figure.rotation.z = 0;	
@@ -58,6 +41,10 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			return true;
 		else
 			return false;
+	}
+	this.setMaterial= function (material)
+	{
+		this.m = materialsLibrary.getMaterial(material)
 	}
 	
 	//Saves the shape (currently to your computer) as an STL file.
@@ -154,12 +141,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.createTorus = function (tubeMeshParams)
 	{
 		var torus = new THREE.TorusGeometry(5, 1.5, segments/10, 50);
-		var yRadian = yToRadians(geometry.vertices[intersects[0].face.a], geometry.vertices[intersects[0].face.b], geometry.vertices[intersects[0].face.d]);
-		torus.applyMatrix(new THREE.Matrix4().makeRotationY(-yRadian));
-		torusLoop = new THREE.Mesh(torus, m);
+		fIndex = this.calculateFaceIndex();
+		var xRadian = this.toRadians(geometry.faces[fIndex], true);
+		var yRadian = this.toRadians(geometry.faces[fIndex], false);
+		torus.applyMatrix(new THREE.Matrix4().makeRotationX(xRadian));
+		torus.applyMatrix(new THREE.Matrix4().makeRotationY(yRadian));
+		torusLoop = new THREE.Mesh(torus, this.m);
 		
 		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
-		
+
 		posx = geometry.faces[fIndex].centroid.x;
 		posy = geometry.faces[fIndex].centroid.y;
 		posz = geometry.faces[fIndex].centroid.z;
@@ -172,38 +162,53 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return torusLoop;
 	}
 	
-	//x and y values of points a, b, c of given face
-	function yToRadians(a, b, c)
+	this.calculateFaceIndex = function()
 	{
-		var m, q, w, e, r, s;
-		//Find slope m between b and c.
-		m = (b.x - c.x)/(b.y - c.y);
-		//console.log('m :', m);
-		//Find x intercept between plane (y = 0 and line bc) which is the length of q = distance of line segment between origin and y intercept of the line bc.
-		q = Math.abs(b.y - (m * b.x));
-		//console.log('q :', q);
+		var sectionNumber = Math.floor(fIndex / radiusSegments);
+		var high = -1, fIndexHigh = -1;
+		var newFace, newValue;
+		for (var i = 0; i < radiusSegments; i++)
+		{
+			newFace = geometry.faces[sectionNumber*radiusSegments + i];
+			newValue = Math.abs(newFace.centroid.x) + Math.abs(newFace.centroid.y);
+			if (newValue > high)
+			{
+				high = Math.max(high, newValue);
+				fIndexHigh = sectionNumber*radiusSegments + i;
+			}
+		}
 		
-		//Determine length of side w, which is the length between points a and b.
-		w = Math.sqrt(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2));
-		//w = Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2);
-		//console.log(Math.pow((a.x - b.x), 2));
-		//console.log(Math.pow((a.y - b.y), 2));
-		//console.log('w: ', w);
-		
-		//Determine angle e given sides q, w and the known right angle using law of sines.
-		e = Math.asin(w/q);
-		//Converting e to degrees
-		e *= 57.2957795
-		//console.log('e: ', e);
-		
-		//With known angle e, solve for remaining unknown angle r.
-		r = 90 - e;
-		//console.log('r :', r);
-		//Convert angle r into radian value to feed back into function.
-		//return (r * Math.PI) / 180;
-		return r * 0.0174532925;
+		return fIndexHigh;
 	}
 	
+	this.toRadians = function (face, isX)
+	{
+		var n1 = face.normal;
+		
+		//Normal of the vertical plane
+		if (isX)
+			var n2 = new THREE.Vector3(1, 0, 0);
+		else
+			var n2 = new THREE.Vector3(0, 1, 0);
+		//Equation to find the cosin of the angle. (n1)(n2) = ||n1|| * ||n2|| (cos theta)
+	
+		//Find the dot product of n1 and n2.
+		var d = (n1.x * n2.x) + (n1.y * n2.y) + (n1.z * n2.z);
+		console.log('d ', d);
+		var l1 = Math.pow ((Math.pow(n1.x, 2) + Math.pow(n1.y, 2) + Math.pow(n1.z, 2)), .5);
+		console.log('l1 ', l1);
+		var l2 = Math.pow ((Math.pow(n2.x, 2) + Math.pow(n2.y, 2) + Math.pow(n2.z, 2)), .5);
+		console.log('l2 ', l2);
+		
+		var a = (d)/(l1*l2);
+		console.log('a ', a);
+		var result = Math.acos(a);
+		result = 1.57079633 - result;
+		console.log(result);
+		console.log('-------------');
+		return result;
+	}
+
 	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
 	function calculateMeshSize(figure)
 	{
@@ -220,11 +225,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var xWidth = xMax - xMin;
 		var yHeight = yMax - yMin;
 		var zDepth = zMax - zMin;
-	}
-
-	function setMaterial(material)
-	{
-		m = materialsLibrary.getMaterial(material);
 	}
 };
 

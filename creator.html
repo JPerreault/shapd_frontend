@@ -154,34 +154,68 @@
 		<script src="js/inputView.js"></script>		
 		<script src="js/curveMaker.js"></script>
         <script src="js/capSpline.js"></script>
+		<script src="js/materialListener.js"></script>
 	
 		
 		
 		
 		<div id = "container"></div>
 		
-		<div align = "left" style = "font-size: 100%; background-color: transparent; background-image: none; z-index: 1001; position: absolute; padding: 0 !important; top: 20%; left: 68%"><div id = "materials">
-		<h3><img height = "30px" width = "41px" src = assets/imgs/materials/plastic.png>     Plastic</h3><div id = "plastics">
-			<h3><img height = "30px" width = "41px" src = assets/imgs/materials/regularplastic.png>     Regular</h3>
-				<div><div><img height = "30px" width = "41px" src = assets/imgs/materials/whiteregularplastic.png>    White</div>
-				<div><img height = "30px" width = "41px" src = assets/imgs/materials/blackregularplastic.png>    Black</div></div>
-		<h3><img height = "30px" width = "41px" src = assets/imgs/materials/polishedplastic.png>     Polished</h3><div></div>
-		<div><div><img height = "30px" width = "41px" src = assets/imgs/materials/whiteregularplastic.png>    White</div>
-		<div><img height = "30px" width = "41px" src = assets/imgs/materials/blackregularplastic.png>    Black</div></div>
-		<h3><img height = "30px" width = "41px" src = assets/imgs/materials/detailplastic.png>     Detailed</h3><div></div>
-		<h3><img height = "30px" width = "41px" src = assets/imgs/materials/transparentplastic.png>     Transparent</h3><div></div></div>
-
-		<h3>Metals</h3><div id = "metals">
-		<h3>Alumide</h3><div></div>
-		<h3>Brass</h3><div></div>
-		<h3>Stainless Steel</h3><div id = "steel">
-		<h3>Regular</h3><div></div>
-		<h3>Bronze Plated</h3><div></div>
-		<h3>Gold Plated</h3><div></div></div></div>
+		<div align = "left" style = "font-size: 80%; background-color: transparent; z-index: 1001; position: absolute; padding: 0 !important; top: 0%; right: 0%" id = "materials">
+		<h3><img height = "24px" width = "33px" src = assets/imgs/materials/plastic.png>     Plastic</h3><div id = "plastics">
+				<h3><img height = "24px" width = "33px" src = assets/imgs/materials/regularplastic.png>     Regular</h3>
+					<div><div id = "whiteregularplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/whiteregularplastic.png>    White</div>
+					<div id = "blackregularplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/blackregularplastic.png>    Black</div></div>
+			<h3><img height = "24px" width = "33px" src = assets/imgs/materials/polishedplastic.png>     Polished</h3>
+				<div><div id = "whitepolishedplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/whitepolishedplastic.png>    White</div>
+				<div id = "redpolishedplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/redpolishedplastic.png>    Red</div>
+				<div id = "bluepolishedplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/bluepolishedplastic.png>    Blue</div>
+				<div id = "pinkpolishedplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/pinkpolishedplastic.png>    Pink</div>
+				<div id = "purplepolishedplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/purplepolishedplastic.png>    Purple</div></div>
+			<h3><img height = "24px" width = "33px" src = assets/imgs/materials/detailplastic.png>     Detailed</h3>
+				<div><div id = "whitedetailplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/whitedetailplastic.png>    White</div>
+				<div id = "blackdetailplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/blackdetailplastic.png>    Black</div></div>
+			<h3><img height = "24px" width = "33px" src = assets/imgs/materials/transparentplastic.png>     Transparent</h3>
+				<div><div id = "whitetransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/whitetransparentplastic.png>    White</div>
+				<div id = "blacktransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/blacktransparentplastic.png>    Black</div>
+				<div id = "graytransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/graytransparentplastic.png>    Gray</div>
+				<div id = "redtransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/redtransparentplastic.png>    Red</div>
+				<div id = "greentransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/greentransparentplastic.png>    Green</div>
+				<div id = "bluetransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/bluetransparentplastic.png>    Blue</div>
+				<div id = "yellowtransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/yellowtransparentplastic.png>    Yellow</div>
+				<div id = "orangetransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/orangetransparentplastic.png>    Orange</div>
+				<div id = "browntransparentplastic"><img height = "24px" width = "33px" src = assets/imgs/materials/browntransparentplastic.png>    Brown</div></div></div>
+			
+		<h3><img height = "24px" width = "33px" src = assets/imgs/materials/metals.png>     Metals</h3><div id = "metals">
+			<h3><img height = "24px" width = "33px" src = assets/imgs/materials/alumide.png>     Alumide</h3>
+				<div><div id = "regularalumide"><img height = "24px" width = "33px" src = assets/imgs/materials/regularalumide.png>    Regular</div>
+					<div id = "polishedalumide"><img height = "24px" width = "33px" src = assets/imgs/materials/polishedalumide.png>    Polished</div></div>
+			<h3><img height = "24px" width = "33px" src = assets/imgs/materials/brass.png>     Brass</h3>
+				<div><div id = "regularbrass"><img height = "24px" width = "33px" src = assets/imgs/materials/regularbrass.png>    Regular</div>
+					<div id = "goldplatedbrass"><img height = "24px" width = "33px" src = assets/imgs/materials/goldplatedbrass.png>    Gold Plated</div></div>
+			<h3><img height = "24px" width = "33px" src = assets/imgs/materials/steel.png>     Stainless Steel</h3><div id = "steel">
+				<h3><img height = "24px" width = "33px" src = assets/imgs/materials/graysteel.png>     Gray Steel</h3>
+					<div><div id = "regularsteel"><img height = "24px" width = "33px" src = assets/imgs/materials/regularsteel.png>    Regular</div>
+					<div id = "medievalsteel"><img height = "24px" width = "33px" src = assets/imgs/materials/medievalsteel.png>    Medieval</div></div>
+				<h3><img height = "24px" width = "33px" src = assets/imgs/materials/bronzesteel.png>     Bronze Plated</h3>
+					<div><div id = "bronzemattesteel"><img height = "24px" width = "33px" src = assets/imgs/materials/bronzemattesteel.png>    Matte</div>
+					<div id = "bronzeglossysteel"><img height = "24px" width = "33px" src = assets/imgs/materials/bronzeglossysteel.png>    Glossy</div></div>
+				<h3><img height = "24px" width = "33px" src = assets/imgs/materials/goldsteel.png>     Gold Plated</h3>
+					<div><div id = "goldmattesteel"><img height = "24px" width = "33px" src = assets/imgs/materials/goldmattesteel.png>    Matte</div>
+					<div id = "goldglossysteel"><img height = "24px" width = "33px" src = assets/imgs/materials/goldglossysteel.png>    Glossy</div></div></div></div>
 		
-		<h3>Precious Metals</h3><div id = "preciousMetals">
-		<h3>Silver</h3><div></div>
-		<h3>Titanium</h3><div></div>
-		<h3>Gold</h3><div></div></div></div>
+		<h3><img height = "24px" width = "33px" src = assets/imgs/materials/preciousmetal.png>     Precious Metals</h3><div id = "preciousMetals">
+		<h3><img height = "24px" width = "33px" src = assets/imgs/materials/silver.png>     Silver</h3>
+			<div><div id = "regularsilver"><img height = "24px" width = "33px" src = assets/imgs/materials/regularsilver.png>    Regular</div>
+			<div id = "glossysilver"><img height = "24px" width = "33px" src = assets/imgs/materials/glossysilver.png>    Glossy</div>
+			<div id = "premiumsilver"><img height = "24px" width = "33px" src = assets/imgs/materials/premiumsilver.png>    Premium</div></div>
+		<h3><img height = "24px" width = "33px" src = assets/imgs/materials/titanium.png>     Titanium</h3>
+			<div><div id = "unpolishedtitanium"><img height = "24px" width = "33px" src = assets/imgs/materials/unpolishedtitanium.png>    Unpolished</div>
+			<div id = "polishedtitanium"><img height = "24px" width = "33px" src = assets/imgs/materials/polishedtitanium.png>   Polished</div></div>
+		<h3><img height = "24px" width = "33px" src = assets/imgs/materials/gold.png>     Gold (Unavailable)</h3>
+			<div><div id = "regulargold"><img height = "24px" width = "33px" src = assets/imgs/materials/regulargold.png>   Regular</div></div></div></div>
+			
+			
+		<div id = "save" style = "bottom: 0%; right: 0%; z-index: 1001; position: absolute; padding: 0 !important; background-color: transparent;"><img src = assets/imgs/save.png></div>
 	</body>
 </html>

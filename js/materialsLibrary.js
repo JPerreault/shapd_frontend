@@ -46,8 +46,8 @@ var MaterialsLibrary = function() {
 				
 				//Start of our materials
 				
-				"Regular alumide":  new THREE.MeshLambertMaterial({color: 0xEDEDED, map: THREE.ImageUtils.loadTexture('textures/roughmetal.jpg'),  shading: THREE.FlatShading}),
-				"Polished alumide":	new THREE.MeshLambertMaterial({color: 0xEDEDED, map: THREE.ImageUtils.loadTexture('textures/glossymetal.jpg'), shading: THREE.FlatShading}),
+				"Alumide regular":  new THREE.MeshLambertMaterial({color: 0xEDEDED, map: THREE.ImageUtils.loadTexture('textures/roughmetal.jpg'),  shading: THREE.FlatShading}),
+				"Alumide polished":	new THREE.MeshLambertMaterial({color: 0xEDEDED, map: THREE.ImageUtils.loadTexture('textures/glossymetal.jpg'), shading: THREE.FlatShading}),
 				
 				"Plastic regular white": 			new THREE.MeshLambertMaterial({color: 0xFAFFFF, map: THREE.ImageUtils.loadTexture('textures/sandy.jpg'), 			shading: THREE.FlatShading}),
 				"Plastic regular black": 			new THREE.MeshLambertMaterial({color: 0x5C5C5C, map: THREE.ImageUtils.loadTexture('textures/streaky.png'), 			shading: THREE.FlatShading}),

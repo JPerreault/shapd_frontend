@@ -3,7 +3,7 @@ var n = 0;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, view, gui, scene, tubeMP;
+	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener;
 	var renderer, sceneWrapper, materialsLibrary, customContainer;
 
 	init();
@@ -38,6 +38,7 @@ window.onload = function() {
 		sceneWrapper.init();
 		scene = sceneWrapper;
 	    setupDatGui(sceneWrapper);	
+		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 	}
 
 	function animate() {
@@ -55,23 +56,14 @@ window.onload = function() {
 	customContainer = document.getElementById('container');	
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'absolute';
-	var cloudToggle = document.createElement('div');
-	cloudToggle.style.position = 'absolute';
-	cloudToggle.style.top = '97%';
-	cloudToggle.style.left = '91%';
-	cloudToggle.style.zIndex = '1000';
-	cloudToggle.style.background = '#999';
-	cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
-	customContainer.appendChild(cloudToggle);
-		
-	var saveSTL = document.createElement('div');
-	saveSTL.style.position = 'absolute';
-	saveSTL.style.top = '0px';
-	saveSTL.style.left = '230px';
-	saveSTL.style.zIndex = '1000';
-	saveSTL.style.background = '#999';
-	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
-	customContainer.appendChild(saveSTL);
+	//var cloudToggle = document.createElement('div');
+	//cloudToggle.style.position = 'absolute';
+	//cloudToggle.style.top = '97%';
+	//cloudToggle.style.left = '91%';
+	//cloudToggle.style.zIndex = '1000';
+	//cloudToggle.style.background = '#999';
+	//cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
+	//customContainer.appendChild(cloudToggle);
 		
 	var continueButton = document.createElement('div');
 	continueButton.style.position = 'absolute';
@@ -101,27 +93,32 @@ window.onload = function() {
 	customContainer.appendChild(share);
 	
 	//For background toggling
-	document.getElementById('toggle').onclick = function()
-	{
-		n++;
+	//document.getElementById('toggle').onclick = function()
+	//{
+	//	n++;
 
-		materialsLibrary = new MaterialsLibrary();
-		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, scene.currentMesh);
+	//	materialsLibrary = new MaterialsLibrary();
+	//	tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
+	//	sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, scene.currentMesh);
 		
-		view = new InputView(sceneWrapper, renderer);
-		sceneWrapper.init();
+	//	view = new InputView(sceneWrapper, renderer);
+	//	sceneWrapper.init();
 		
-		view.addMeshElement(renderer.domElement)
+	//	view.addMeshElement(renderer.domElement)
 		
-		var currentMesh = sceneWrapper.currentMesh;
-		scene = sceneWrapper;
-		sceneWrapper.redrawMesh(currentMesh);
-	}
+	//	var currentMesh = sceneWrapper.currentMesh;
+	//	scene = sceneWrapper;
+	//	sceneWrapper.redrawMesh(currentMesh);
+		
+	//	matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
+	//}
 	
 	document.getElementById('save').onclick = function()
 	{
-		tubeMeshBuilder.saveSTL();
+		//tubeMeshBuilder.saveSTL();
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		setHash();
+		window.location.href = 'loops.html' + location.hash;
 	}
 	
 	document.getElementById('continue').onclick = function()
