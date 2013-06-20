@@ -56,24 +56,16 @@ window.onload = function() {
 	customContainer = document.getElementById('container');	
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'absolute';
-	//var cloudToggle = document.createElement('div');
-	//cloudToggle.style.position = 'absolute';
-	//cloudToggle.style.top = '97%';
-	//cloudToggle.style.left = '91%';
-	//cloudToggle.style.zIndex = '1000';
-	//cloudToggle.style.background = '#999';
-	//cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
-	//customContainer.appendChild(cloudToggle);
-		
-	var continueButton = document.createElement('div');
-	continueButton.style.position = 'absolute';
-	continueButton.style.top = '28px';
-	continueButton.style.left = '230px';
-	continueButton.style.zIndex = '1000';
-	continueButton.style.background = '#999';
-	continueButton.innerHTML += '<input id="continue" type="button" value="Continue"/>';
-	customContainer.appendChild(continueButton);
-		
+
+	var saveSTL = document.createElement('div');
+	saveSTL.style.position = 'absolute';
+	saveSTL.style.top = '0px';
+	saveSTL.style.left = '230px';
+	saveSTL.style.zIndex = '1000';
+	saveSTL.style.background = '#999';
+	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
+	customContainer.appendChild(saveSTL);
+	
 	var rotateButton = document.createElement('div');
 	rotateButton.style.position = 'absolute';
 	rotateButton.style.top = '56px';
@@ -94,7 +86,7 @@ window.onload = function() {
     
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
-    screen.style.top = '112px';
+    screen.style.top = '28px';
     screen.style.left = '230px';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
@@ -124,10 +116,7 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		//tubeMeshBuilder.saveSTL();
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		setHash();
-		window.location.href = 'loops.html' + location.hash;
+		tubeMeshBuilder.saveSTL();
 	}
 	
 	document.getElementById('continue').onclick = function()
