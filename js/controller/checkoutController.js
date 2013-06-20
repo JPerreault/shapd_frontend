@@ -85,6 +85,15 @@ window.onload = function() {
 	rotateButton.style.background = '#999';
 	rotateButton.innerHTML += '<input id="rotate" type="button" value="Reset Rotations"/>';
 	customContainer.appendChild(rotateButton);
+    
+    var screen = document.createElement('div');
+    screen.style.position = 'absolute';
+    screen.style.top = '84px';
+    screen.style.left = '230px';
+    screen.style.zIndex = '1000';
+    screen.style.background= '#999';
+    screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
+    customContainer.appendChild(screen);
 	
 	//For background toggling
 	document.getElementById('toggle').onclick = function()
@@ -120,6 +129,11 @@ window.onload = function() {
 	{
 		view.targetX = 0;
 		view.targetY = 0;
+	}
+    
+    document.getElementById('screen').onclick = function()
+	{
+		loadScreenshotStage();
 	}
 	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
