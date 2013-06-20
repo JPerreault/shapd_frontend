@@ -91,6 +91,15 @@ window.onload = function() {
 	share.style.background= '#999';
 	share.innerHTML = '<input id="share" type="button" value="Update URL">';
 	customContainer.appendChild(share);
+    
+    var screen = document.createElement('div');
+    screen.style.position = 'absolute';
+    screen.style.top = '112px';
+    screen.style.left = '230px';
+    screen.style.zIndex = '1000';
+    screen.style.background= '#999';
+    screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
+    customContainer.appendChild(screen);
 	
 	//For background toggling
 	//document.getElementById('toggle').onclick = function()
@@ -139,6 +148,12 @@ window.onload = function() {
 	{
 		view.targetX = 0;
 		view.targetY = 0;
+	}
+    
+    document.getElementById('screen').onclick = function()
+	{
+        sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		loadScreenshotStage();
 	}
 
 	function setupDatGui(sC) {

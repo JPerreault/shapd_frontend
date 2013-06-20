@@ -1,10 +1,14 @@
-function screenShot(){
+
+
+function loadBlank()
+{
+    document.getElementById('shape_stage').src = "blank.html";
+}
+
+function loadScreenshotStage()
+{
+    loadBlank();
+    setHash();
+    document.getElementById('shape_stage').src = "viewer.html"+ location.hash;
     
-    var data = (function convertCanvasToImage(canvas) {
-                var image = new Image();
-                image.src = canvas.toDataURL('image/png');
-                return image;
-                })(document.querySelectorAll('canvas')[0]);
-    
-    document.body.innerHTML="<br/><br/><br/><br/><br/><br/><img src="+data.src+"> ";
 }
