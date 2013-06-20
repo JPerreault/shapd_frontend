@@ -155,6 +155,7 @@ window.onload = function() {
     
     document.getElementById('screen').onclick = function()
 	{
+        sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		loadScreenshotStage();
 	}
 
