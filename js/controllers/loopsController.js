@@ -52,14 +52,6 @@ window.onload = function() {
 	
 	//Buttons
 	var customContainer = document.getElementById('container');
-	var cloudToggle = document.createElement('div');
-	cloudToggle.style.position = 'absolute';
-	cloudToggle.style.top = '97%';
-	cloudToggle.style.left = '91%';
-	cloudToggle.style.zIndex = '1000';
-	cloudToggle.style.background = '#999';
-	cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
-	customContainer.appendChild(cloudToggle);
 		
 	var saveSTL = document.createElement('div');
 	saveSTL.style.position = 'absolute';
@@ -69,24 +61,6 @@ window.onload = function() {
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
-		
-	var loopTest = document.createElement('div');
-	loopTest.style.position = 'absolute';
-	loopTest.style.top = '84px';
-	loopTest.style.left = '0';
-	loopTest.style.zIndex = '1000';
-	loopTest.style.background = '#999';
-	loopTest.innerHTML += '<input id="loops" type="button" value="Loop Test"/>';
-	customContainer.appendChild(loopTest);
-	
-	var continueButton = document.createElement('div');
-	continueButton.style.position = 'absolute';
-	continueButton.style.top = '28px';
-	continueButton.style.left = '0px';
-	continueButton.style.zIndex = '1000';
-	continueButton.style.background = '#999';
-	continueButton.innerHTML += '<input id="continue" type="button" value="Continue"/>';
-	customContainer.appendChild(continueButton);
 		
 	var rotateButton = document.createElement('div');
 	rotateButton.style.position = 'absolute';
@@ -99,41 +73,16 @@ window.onload = function() {
     
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
-    screen.style.top = '112px';
-    screen.style.left = '230px';
+    screen.style.top = '28px';
+    screen.style.left = '0px';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
     screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
     customContainer.appendChild(screen);
 	
-	//For background toggling
-	document.getElementById('toggle').onclick = function()
-	{
-		n++;
-
-		materialsLibrary = new MaterialsLibrary();
-		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, scene.currentMesh);
-		
-		view = new InputView(sceneWrapper, renderer);
-		sceneWrapper.init();
-		
-		view.addMeshElement(renderer.domElement)
-		
-		var currentMesh = sceneWrapper.currentMesh;
-		scene = sceneWrapper;
-		sceneWrapper.redrawMesh(currentMesh);
-	}
-	
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL();
-	}
-	
-	document.getElementById('continue').onclick = function()
-	{
-		setHash();	
-		window.location.href = 'checkout.html' + location.hash;
 	}
 	
 	document.getElementById('rotate').onclick = function()
@@ -151,6 +100,13 @@ window.onload = function() {
 	{
         sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		loadScreenshotStage();
+	}
+	
+	document.getElementById('continue').onclick = function()
+	{
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		setHash();
+		window.location.href = 'finalize.html' + location.hash;
 	}
     
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );

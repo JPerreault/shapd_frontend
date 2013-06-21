@@ -34,6 +34,7 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
 		scene = sceneWrapper;
+		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 	}
 
 	function animate() {
@@ -67,15 +68,6 @@ window.onload = function() {
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
-
-	var continueButton = document.createElement('div');
-	continueButton.style.position = 'absolute';
-	continueButton.style.top = '28px';
-	continueButton.style.left = '0px';
-	continueButton.style.zIndex = '1000';
-	continueButton.style.background = '#999';
-	continueButton.innerHTML += '<input id="continue" type="button" value="Continue"/>';
-	customContainer.appendChild(continueButton);
 		
 	var rotateButton = document.createElement('div');
 	rotateButton.style.position = 'absolute';
@@ -88,8 +80,8 @@ window.onload = function() {
     
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
-    screen.style.top = '84px';
-    screen.style.left = '230px';
+    screen.style.top = '28px';
+    screen.style.left = '0px';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
     screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
@@ -121,8 +113,9 @@ window.onload = function() {
 	
 	document.getElementById('continue').onclick = function()
 	{
-		setHash();	
-		window.location.href = 'creator.html';
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		setHash();
+		window.location.href = 'creator.html'; //Later goes to checkout.html
 	}
 	
 	document.getElementById('rotate').onclick = function()
@@ -135,26 +128,5 @@ window.onload = function() {
 	{
         sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		loadScreenshotStage();
-	}
-	
-	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	function onDocumentMouseDown(event)
-	{
-		if (loops)
-		{
-			var projector = new THREE.Projector();
-			
-			event.preventDefault();
-			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-			projector.unprojectVector(vector, sceneWrapper.camera);
-			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
-			
-			var inBounds = tubeMeshBuilder.addLoop(raycaster);
-			if (inBounds === true)
-			{
-				scene.torusDefined = true;
-				scene.redrawMesh(scene.currentMesh);
-			}
-		}
 	}
 }
