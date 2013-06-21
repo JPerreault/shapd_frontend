@@ -137,6 +137,8 @@ window.onload = function() {
 	{
 		view.targetX = 0;
 		view.targetY = 0;
+		//tubeMeshBuilder.calculateVolume();
+		//tubeMeshBuilder.calculateSurfaceArea();
 	}
     
     document.getElementById('screen').onclick = function()

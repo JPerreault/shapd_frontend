@@ -3,10 +3,11 @@ var hashend;
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop;
 	var fIndex, intersects;
-	this.m = materialsLibrary.getMaterial( "Pure chrome" ) 
+	this.m = materialsLibrary.getMaterial( "Pure chrome" ) ;
+	
 	
 	//Scoping out of functions
-	var segments = 600, radiusSegments = 6;
+	var segments = 100, radiusSegments = 4;
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
@@ -22,8 +23,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			var cap = new capSpline(knot, segments, radius, radiusSegments, closed, false);
 			THREE.GeometryUtils.merge(geometry, cap);
 		}
-		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
+		
+		geometry.mergeVertices();
+		geometry.computeCentroids();
+		geometry.computeFaceNormals();
+		geometry.computeVertexNormals();
+		
+		this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         figure = new THREE.Mesh(geometry, this.m);
+		
         figure.rotation.x = tubeMeshParams['Rotation X'];
         figure.rotation.y = tubeMeshParams['Rotation Y'];
         figure.rotation.z = 0;	
@@ -60,7 +68,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	{
 		var vertices = geometry.vertices;
 		var faces = geometry.faces;
-		console.log(geometry);
+		
 		stl = 'solid test \n';
 		//Loop for all faces, adding each vertex to the stl file and making triangles from them.
 		for (var i = 0; i < faces.length; i++)
@@ -225,6 +233,78 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var xWidth = xMax - xMin;
 		var yHeight = yMax - yMin;
 		var zDepth = zMax - zMin;
+	}
+	
+	this.calculateVolume = function()
+	{
+		var vertices = geometry.vertices;
+		var faces = geometry.faces;
+		var totalVolume = 0;
+		var partVol;
+		var px, py, pz,
+			qx, qy, qz,
+			rx, ry, rz;
+		for (i = 0; i < faces.length; i++)
+		{
+			px = vertices[faces[i].a].x;
+			py = vertices[faces[i].a].y;
+			pz = vertices[faces[i].a].z;
+			
+			qx = vertices[faces[i].c].x;
+			qy = vertices[faces[i].c].y;
+			qz = vertices[faces[i].c].z;
+			
+			rx = vertices[faces[i].b].x;
+			ry = vertices[faces[i].b].y;
+			rz = vertices[faces[i].b].z;
+			
+			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
+			totalVolume += partVol;
+			
+			
+			px = vertices[faces[i].a].x;
+			py = vertices[faces[i].a].y;
+			pz = vertices[faces[i].a].z;
+			
+			qx = vertices[faces[i].d].x;
+			qy = vertices[faces[i].d].y;
+			qz = vertices[faces[i].d].z;
+			
+			rx = vertices[faces[i].c].x;
+			ry = vertices[faces[i].c].y;
+			rz = vertices[faces[i].c].z;
+			
+			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
+			totalVolume += partVol;
+		}
+		
+		totalVolume /= 6;
+		console.log(totalVolume);
+		//return totalVolume;
+	}
+	
+	this.calculateSurfaceArea = function()
+	{
+		var surfaceArea = 0;
+		var faces = geometry.faces;
+		var vertices = geometry.vertices;
+		var a, b, c, d, ab, ad;
+		
+		a = vertices[faces[0].a];
+		b = vertices[faces[0].b];
+		d = vertices[faces[0].d];
+		
+		//The surface area is ||ab|| * ||ad|| * faces number
+		
+		for (var i = 0; i < faces; i++)
+		{
+			var a = vertices[faces[i].a].x;
+			var c = vertices[faces[i].a].x
+			var c = vertices[faces[i].a].x
+			var d = vertices[faces[i].a].x
+		}
+		
+		console.log(surfaceArea);
 	}
 };
 
