@@ -2,8 +2,7 @@ function generatorGUI() {
 	
 	// Create shape generator page custom gui
 
-			container = document.createElement('div');
-			document.body.appendChild(container);
+			
 			
 			
 	//Container & image for reset button
