@@ -152,8 +152,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		fIndex = this.calculateFaceIndex();
 		var xRadian = this.toRadians(geometry.faces[fIndex], true);
 		var yRadian = this.toRadians(geometry.faces[fIndex], false);
-		torus.applyMatrix(new THREE.Matrix4().makeRotationX(xRadian));
-		torus.applyMatrix(new THREE.Matrix4().makeRotationY(yRadian));
+		//torus.applyMatrix(new THREE.Matrix4().makeRotationX(xRadian));
+		//torus.applyMatrix(new THREE.Matrix4().makeRotationY(yRadian));
 		torusLoop = new THREE.Mesh(torus, this.m);
 		
 		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
@@ -211,7 +211,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var a = (d)/(l1*l2);
 		console.log('a ', a);
 		var result = Math.acos(a);
-		result = 1.57079633 - result;
+		//var result = - result;
+		//result = Math.PI - result;
 		console.log(result);
 		console.log('-------------');
 		return result;
