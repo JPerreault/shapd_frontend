@@ -2,35 +2,14 @@
 <html lang="en">
 	<head>
 
-		<title>Shapedom Prototype</title>
+		<title>Shapd App Preview</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				background:#000;
-				color:#fff;
-				padding:0;
-				margin:0;
-				overflow:hidden;
-				font-family:georgia;
-				text-align:center;
-			}
-			h1 { }
-			a { color:skyblue; text-decoration:none }
-			canvas { pointer-events:none; z-index:10; position:relative; }
 
-			#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
-			
-			.materialImg { height: 24px; width:  33px; }
-			.mouseHover { cursor: pointer; font-weight:550;} 
-			.mouseHover:hover { opacity:0.35; }
-			.menuHeader { background-color:#2fa1d7;}
-			
-			
-		
 
-		</style>
+        <link rel="stylesheet" type="text/css" href="css/guiCSS.css" />
 		<link rel="stylesheet" type="text/css" href="css/dropdownCSS.css" />
+        
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script>
@@ -51,7 +30,6 @@
 			active: false,
 			alwaysOpen: false,
 			icons: icons,
-		//	event: "click hoverintent"
 		})});
 		$(function() {
 			$( "#metals" ).accordion({
@@ -60,7 +38,6 @@
 			active: false,
 			alwaysOpen: false,
 			icons: icons,
-		//	event: "click hoverintent"
 		})});
 		$(function() {
 			$( "#preciousMetals" ).accordion({
@@ -69,7 +46,6 @@
 			active: false,
 			alwaysOpen: false,
 			icons: icons,
-		//	event: "click hoverintent"
 		})});
 		$(function() {
 			$( "#steel" ).accordion({
@@ -78,7 +54,6 @@
 			active: false,
 			alwaysOpen: false,
 			icons: icons,
-			//event: "click hoverintent"
 		})});
 		
 		
@@ -87,7 +62,9 @@
 				activeHeader: "ui-icon-circle-arrow-s"
 			};
 		
-		//Hovering code
+		//Code to do mouse hovering. Not using at the moment and just commented out. Should probably clean up in the future. 
+		
+		/*Hovering code
 		$.event.special.hoverintent = {
 			setup: function() {
 				$( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
@@ -146,7 +123,7 @@
 			});
 			}
 		};
-	
+	*/
 		
 		</script>
 	</head>
@@ -235,8 +212,7 @@ generatorGUI();
 			<div id = "polishedtitanium" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/polishedtitanium.png>   Polished</div></div>
 		<h3><img class="materialImg" src = assets/imgs/materials/gold.png>     Gold (Unavailable)</h3>
 			<div><div id = "regulargold" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/regulargold.png>   Regular</div></div></div></div>
+            
 			
-			
-		<img id = "continue" src = assets/imgs/save.png style = "bottom: 0%; right: 0%; z-index: 1001; position: absolute; padding: 0 !important; background-color: transparent;">
 	</body>
 </html>

@@ -85,24 +85,24 @@ window.onload = function() {
 		tubeMeshBuilder.saveSTL();
 	}
 	
-	document.getElementById('rotate').onclick = function()
+	document.getElementById('idResetRotationImg').onclick = function()
 	{
 		view.targetX = 0;
 		view.targetY = 0;
 	}
 	
-	document.getElementById('loops').onclick = function()
+	document.getElementById('idLoops').onclick = function()
 	{
 		loops = !loops;
 	}
 	
-    document.getElementById('screen').onclick = function()
+    document.getElementById('idResetShapdImg').onclick = function()
 	{
         sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		loadScreenshotStage();
 	}
 	
-	document.getElementById('continue').onclick = function()
+	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		setHash();

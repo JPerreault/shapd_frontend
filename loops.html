@@ -2,26 +2,15 @@
 <html lang="en">
 	<head>
 
-		<title>Shapedom Prototype</title>
+		<title>Shapd App Preview</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				background:#000;
-				color:#fff;
-				padding:0;
-				margin:0;
-				overflow:hidden;
-				font-family:georgia;
-				text-align:center;
-			}
-			h1 { }
-			a { color:skyblue; text-decoration:none }
-			canvas { pointer-events:none; z-index:10; position:relative; }
-
-			#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
-
-		</style>
+		
+        <link rel="stylesheet" type="text/css" href="css/guiCSS.css" />
+		<link rel="stylesheet" type="text/css" href="css/dropdownCSS.css" />
+        
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	</head>
 
 	<body>		
@@ -38,13 +27,17 @@
 		<script src="js/curveMaker.js"></script>
         <script src="js/capSpline.js"></script>
         <script src="js/screenShot.js"></script>
-
+		<script src="js/guiGenerator.js"></script>
 	
 		<div id = "container"></div>
-        <iframe id="shape_stage" z-index="-99" frameborder=0 height=250 width=250></iframe>
-		<img id = "loops" style = "z-index: 1001; position: absolute; top: 10%; left: 10%;" src = assets/imgs/addLoop.png>
-		<img src = assets/imgs/save.png id = "continue" style = "bottom: 0%; right: 0%; z-index: 1001; position: absolute; padding: 0 !important; background-color: transparent;">
+        
+			
+		<script>
 
+		// GUI Overlay
+		loopGUI();
+
+		</script>
 
 	</body>
 </html>

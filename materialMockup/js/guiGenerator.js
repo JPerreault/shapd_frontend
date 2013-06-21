@@ -13,14 +13,22 @@ function generatorGUI() {
 			resetContainer.style.top = '275px';
 			resetContainer.style.left = '0.5%';			
 			resetContainer.style.zIndex = '1000';
+			resetContainer.style.display = 'inline-block';
 			container.appendChild(resetContainer);
 			
-			var resetImg = document.createElement('img');
-			resetImg.id = 'idResetImg';
-			resetImg.style.margin = '5px 5px 5px 5px';
-			resetImg.src = 'assets/imgs/reset.png';
-			resetImg.style.zIndex = '1000';
-			resetContainer.appendChild(resetImg);
+			var resetRotationImg = document.createElement('img');
+			resetRotationImg.id = 'idResetRotationImg';
+			resetRotationImg.style.margin = '5px 5px 5px 5px';
+			resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
+			resetRotationImg.style.zIndex = '1000';
+			resetContainer.appendChild(resetRotationImg);
+			
+			var resetShapeImg = document.createElement('img');
+			resetShapeImg.id = 'idResetShapdImg';
+			resetShapeImg.style.margin = '5px 5px 5px 5px';
+			resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
+			resetShapeImg.style.zIndex = '1000';
+			resetContainer.appendChild(resetShapeImg);
 			
 	//Container & image for Progress Bar
 	

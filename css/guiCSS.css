@@ -1,0 +1,26 @@
+/* Gui Stylesheet */
+
+
+body {
+	background:#000;
+	color:#fff;
+	padding:0;
+	margin:0;
+	overflow:hidden;
+	font-family:georgia;
+	text-align:center;
+	}
+	
+	h1 { }
+	a { color:skyblue; text-decoration:none }
+	canvas { pointer-events:none; z-index:10; position:relative; }
+
+	#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
+			
+			
+	.materialImg { height: 24px; width:  33px; }
+	.mouseHover { cursor: pointer; font-weight:550;} 
+	.mouseHover:hover { opacity:0.35; }
+	.menuHeader { background-color:#2fa1d7;}
+	.buttonImg:hover { opacity:0.6; cursor: pointer;}	
+	.rounded { -moz-border-radius: 8px; border-radius: 8px; }		
