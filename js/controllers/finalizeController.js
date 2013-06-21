@@ -50,16 +50,7 @@ window.onload = function() {
 	}
 	
 	//Buttons
-	var customContainer = document.getElementById('container');
-	var cloudToggle = document.createElement('div');
-	cloudToggle.style.position = 'absolute';
-	cloudToggle.style.top = '97%';
-	cloudToggle.style.left = '91%';
-	cloudToggle.style.zIndex = '1000';
-	cloudToggle.style.background = '#999';
-	cloudToggle.innerHTML += '<input id="toggle" type="button" value="Swap Background"/>';
-	customContainer.appendChild(cloudToggle);
-		
+	var customContainer = document.getElementById('container');	
 	var saveSTL = document.createElement('div');
 	saveSTL.style.position = 'absolute';
 	saveSTL.style.top = '0px';
@@ -87,24 +78,6 @@ window.onload = function() {
     screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
     customContainer.appendChild(screen);
 	
-	//For background toggling
-	document.getElementById('toggle').onclick = function()
-	{
-		n++;
-
-		materialsLibrary = new MaterialsLibrary();
-		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, scene.currentMesh);
-		
-		view = new InputView(sceneWrapper, renderer);
-		sceneWrapper.init();
-		
-		view.addMeshElement(renderer.domElement)
-		
-		var currentMesh = sceneWrapper.currentMesh;
-		scene = sceneWrapper;
-		sceneWrapper.redrawMesh(currentMesh);
-	}
 	
 	document.getElementById('save').onclick = function()
 	{
