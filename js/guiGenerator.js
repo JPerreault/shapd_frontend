@@ -142,6 +142,7 @@ function loopGUI() {
 	
 			addProgressBar();
 			var progressImg = document.getElementById('idProgressImg');	
+			var progressContainer = document.getElementById('idProgressContainer');	
 			progressImg.src = 'assets/imgs/progress/progress2.png';	
 			progressContainer.appendChild(progressImg);	
 		
@@ -201,6 +202,7 @@ function scaleGUI() {
 	
 			addProgressBar();
 			var progressImg = document.getElementById('idProgressImg');	
+			var progressContainer = document.getElementById('idProgressContainer');	
 			progressImg.src = 'assets/imgs/progress/progress3.png';	
 			progressContainer.appendChild(progressImg);	
 }
