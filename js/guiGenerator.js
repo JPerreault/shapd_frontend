@@ -97,7 +97,8 @@ function generatorGUI() {
 	//add Progress Bar
 	
 			addProgressBar();
-			var progressImg = document.getElementById('idProgressImg');	
+			var progressImg = document.getElementById('idProgressImg');
+			var progressContainer = document.getElementById('idProgressContainer');	
 			progressImg.src = 'assets/imgs/progress/progress1.png';	
 			progressContainer.appendChild(progressImg);			
 				
