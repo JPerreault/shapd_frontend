@@ -102,7 +102,7 @@ window.onload = function() {
 		loadScreenshotStage();
 	}
 	
-	document.getElementById('idSaveButton').onclick = function()
+	document.getElementById('idSaveButtonContainer').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		setHash();

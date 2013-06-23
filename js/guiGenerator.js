@@ -133,6 +133,15 @@ function loopGUI() {
 			loopImg.style.zIndex = '1000';
 			loopContainer.appendChild(loopImg);
 			
+			var resetContainer = document.createElement('div');
+			var resetRotationImg = document.createElement('img');
+			resetRotationImg.id = 'idResetRotationImg';
+			resetRotationImg.className = 'buttonImg';
+			resetRotationImg.style.margin = '2px 2px 0px 0px';
+			resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
+			resetRotationImg.style.zIndex = '1000';
+			resetContainer.appendChild(resetRotationImg);
+			
 	// Add Save Button
 		
 			addSave();

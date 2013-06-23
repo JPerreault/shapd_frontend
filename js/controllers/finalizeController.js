@@ -84,7 +84,7 @@ window.onload = function() {
 		tubeMeshBuilder.saveSTL();
 	}
 	
-	document.getElementById('continue').onclick = function()
+	document.getElementById('idSaveButtonContainer').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		setHash();
