@@ -73,9 +73,13 @@ function addProgressBar() {
 	progressImg.usemap = '#progressMap';
 	progressContainer.appendChild(progressImg);	
 	
-	//var myMap = createElement("map");
-	//myMap.name = "myImageMap";
-	//imageBox.appendChild(myMap);
+	var myMap = document.createElement("map");
+	myMap.name = "myImageMap";
+	myMap.area = "test";
+	myMap.area.shape ="rect"; 
+	myMap.area.coords ="0,500,0,500"
+	progressContainer.appendChild(myMap);
+	console.log(myMap);
 }
 
 function addResetButtons() {

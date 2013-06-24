@@ -28,7 +28,7 @@ window.onload = function() {
 		if (Detector.webgl)
 			renderer = new THREE.WebGLRenderer();
 		else
-			renderer = new THREE.CanvasRenderer();
+			window.location = 'http://google.com/chrome';
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -63,7 +63,6 @@ window.onload = function() {
 			addStartingShapes();
 			addMaterialSelector();
 			addResetButtons();
-			addSave();
 			addProgressBar();
 			addLoops();
 			$('#idLoopContainer').fadeOut(0);
@@ -93,37 +92,6 @@ window.onload = function() {
 		}
 	}
 	
-	customContainer = document.getElementById('container');	
-	customContainer.style.zIndex = '100';
-	customContainer.style.position = 'relative';
-
-	var saveSTL = document.createElement('div');
-	saveSTL.style.position = 'absolute';
-	saveSTL.style.top = '0px';
-	saveSTL.style.left = '230px';
-	saveSTL.style.zIndex = '1000';
-	saveSTL.style.background = '#999';
-	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
-	customContainer.appendChild(saveSTL);
-	
-	var share = document.createElement('div');
-	share.style.position = 'absolute';
-	share.style.top = '56px';
-	share.style.left = '230px';
-	share.style.zIndex = '1000';
-	share.style.background= '#999';
-	share.innerHTML = '<input id="share" type="button" value="Update URL">';
-	customContainer.appendChild(share);
-    
-    var screen = document.createElement('div');
-    screen.style.position = 'absolute';
-    screen.style.top = '28px';
-    screen.style.left = '230px';
-    screen.style.zIndex = '1000';
-    screen.style.background= '#999';
-    screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
-    customContainer.appendChild(screen);
-	
 	//For background toggling
 	//document.getElementById('toggle').onclick = function()
 	//{
@@ -145,32 +113,6 @@ window.onload = function() {
 	//	matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 	//}
 	
-	document.getElementById('save').onclick = function()
-	{
-		tubeMeshBuilder.saveSTL();
-	}
-	
-	document.getElementById('idSaveButtonContainer').onclick = function()
-	{
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		setHash();
-		firstTime = false;
-		if (interfaceState == 'creator')
-		{
-			interfaceState = 'loops';
-			setupInterface(interfaceState);
-		}
-		else if (interfaceState == 'loops')
-		{
-			interfaceState = 'finalize';
-			setupInterface(interfaceState);
-		}
-		else if (interfaceState == 'finalize')
-		{
-			interfaceState = 'creator'; //later goes to checkout page
-			setupInterface(interfaceState);
-		}
-	}
 	
 		//document.getElementById('idProgressImg').onclick = function()
 	//{
@@ -179,16 +121,53 @@ window.onload = function() {
 	//}
     
     // For shape sharing via hash
-    document.getElementById('share').onclick = function()
+	
+	document.getElementById('idS1').onclick = function()
 	{
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		setHash();
+		var currentMesh = sceneWrapper.currentMesh;
+		currentMesh['Starting Shape'] = 1;
+		
+		sceneWrapper.redrawMesh(currentMesh);
 	}
 	
-	document.getElementById('screen').onclick = function()
+	document.getElementById('idS2').onclick = function()
 	{
-        sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		loadScreenshotStage();
+		var currentMesh = sceneWrapper.currentMesh;
+		currentMesh['Starting Shape'] = 2;
+		
+		sceneWrapper.redrawMesh(currentMesh);
+	}
+	
+	document.getElementById('idS3').onclick = function()
+	{
+		var currentMesh = sceneWrapper.currentMesh;
+		currentMesh['Starting Shape'] = 3;
+		
+		sceneWrapper.redrawMesh(currentMesh);
+	}
+	
+	document.getElementById('idS4').onclick = function()
+	{
+		var currentMesh = sceneWrapper.currentMesh;
+		currentMesh['Starting Shape'] = 4;
+		
+		sceneWrapper.redrawMesh(currentMesh);
+	}
+	
+	document.getElementById('idS5').onclick = function()
+	{
+		var currentMesh = sceneWrapper.currentMesh;
+		currentMesh['Starting Shape'] = 12;
+		
+		sceneWrapper.redrawMesh(currentMesh);
+	}
+	
+	document.getElementById('idS6').onclick = function()
+	{
+		var currentMesh = sceneWrapper.currentMesh;
+		currentMesh['Starting Shape'] = 13;
+		
+		sceneWrapper.redrawMesh(currentMesh);
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
@@ -226,9 +205,6 @@ window.onload = function() {
                 scene.redrawMesh(currentMesh);
             });
         };
-		
-		var controller = gui.add(currentMesh, 'Starting Shape', 1, 15).step(1);
-        setUpController(controller, 'Starting Shape');
 		
 		controller = gui.add(currentMesh, 'Thickness', .5, 20);
 		setUpController(controller, 'Thickness');
