@@ -157,7 +157,7 @@ window.onload = function() {
 	document.getElementById('idS5').onclick = function()
 	{
 		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 12;
+		currentMesh['Starting Shape'] = 13;
 		
 		sceneWrapper.redrawMesh(currentMesh);
 	}
@@ -165,7 +165,7 @@ window.onload = function() {
 	document.getElementById('idS6').onclick = function()
 	{
 		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 13;
+		currentMesh['Starting Shape'] = 12;
 		
 		sceneWrapper.redrawMesh(currentMesh);
 	}
