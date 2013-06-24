@@ -73,9 +73,9 @@ function addProgressBar() {
 	progressImg.usemap = '#progressMap';
 	progressContainer.appendChild(progressImg);	
 	
-	var myMap = createElement("map");
-	myMap.name = "myImageMap";
-	imageBox.appendChild(myMap);
+	//var myMap = createElement("map");
+	//myMap.name = "myImageMap";
+	//imageBox.appendChild(myMap);
 }
 
 function addResetButtons() {
@@ -156,6 +156,16 @@ function addStartingShapes() {
 	s4.id = 'idS4';
 	s4.src = 'assets/imgs/shapes/4.jpg'
 	shapeLibrary.appendChild(s4);	
+	
+	var s5 = s1.cloneNode(true);
+	s5.id = 'idS5';
+	s5.src = 'assets/imgs/shapes/5.png'
+	shapeLibrary.appendChild(s5);	
+	
+	var s6 = s1.cloneNode(true);
+	s6.id = 'idS6';
+	s6.src = 'assets/imgs/shapes/6.png'
+	shapeLibrary.appendChild(s6);	
 }
 
 function addMaterialSelector() {
