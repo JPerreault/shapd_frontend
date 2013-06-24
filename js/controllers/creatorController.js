@@ -1,10 +1,11 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
+var loops = false;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener, interfaceState;
-	var renderer, sceneWrapper, materialsLibrary, customContainer;
+	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener, state;
+	var renderer, sceneWrapper, materialsLibrary, customContainer, datGuiContainer;
 	var firstTime = true;
 
 	init();
@@ -28,7 +29,7 @@ window.onload = function() {
 		if (Detector.webgl)
 			renderer = new THREE.WebGLRenderer();
 		else
-			window.location = 'http://google.com/chrome';
+			renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -38,10 +39,15 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
 		scene = sceneWrapper;
+		
+		datGuiContainer = document.createElement('div');
+		document.body.appendChild(datGuiContainer);
+		datGuiContainer.id = 'datGuiStuff';
 	    setupDatGui(sceneWrapper);	
+		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
-		interfaceState = 'creator';
-		setupInterface(interfaceState);
+		state = 'creator';
+		setupInterface();
 	}
 
 	function animate() {
@@ -56,13 +62,14 @@ window.onload = function() {
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 	}
 	
-	function setupInterface(state)
+	function setupInterface()
 	{
 		if (state == 'creator' && firstTime)
 		{
 			addStartingShapes();
 			addMaterialSelector();
 			addResetButtons();
+			addSave();
 			addProgressBar();
 			addLoops();
 			$('#idLoopContainer').fadeOut(0);
@@ -92,6 +99,37 @@ window.onload = function() {
 		}
 	}
 	
+	customContainer = document.getElementById('container');	
+	customContainer.style.zIndex = '100';
+	customContainer.style.position = 'relative';
+
+	var saveSTL = document.createElement('div');
+	saveSTL.style.position = 'absolute';
+	saveSTL.style.top = '0px';
+	saveSTL.style.left = '230px';
+	saveSTL.style.zIndex = '1000';
+	saveSTL.style.background = '#999';
+	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
+	customContainer.appendChild(saveSTL);
+	
+	var share = document.createElement('div');
+	share.style.position = 'absolute';
+	share.style.top = '56px';
+	share.style.left = '230px';
+	share.style.zIndex = '1000';
+	share.style.background= '#999';
+	share.innerHTML = '<input id="share" type="button" value="Update URL">';
+	customContainer.appendChild(share);
+    
+    var screen = document.createElement('div');
+    screen.style.position = 'absolute';
+    screen.style.top = '28px';
+    screen.style.left = '230px';
+    screen.style.zIndex = '1000';
+    screen.style.background= '#999';
+    screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
+    customContainer.appendChild(screen);
+	
 	//For background toggling
 	//document.getElementById('toggle').onclick = function()
 	//{
@@ -113,61 +151,47 @@ window.onload = function() {
 	//	matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 	//}
 	
+	document.getElementById('save').onclick = function()
+	{
+		tubeMeshBuilder.saveSTL();
+	}
 	
-		//document.getElementById('idProgressImg').onclick = function()
-	//{
-	//	console.log('test');
-	//	console.log($('#idProgressImg'));
-	//}
+	document.getElementById('idSaveButtonContainer').onclick = function()
+	{
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		setHash();
+		firstTime = false;
+		if (state == 'creator')
+		{
+			state = 'loops';
+			setupInterface();
+		}
+		else if (state == 'loops')
+		{
+			state = 'finalize';
+			loops = false;
+			setupInterface();
+		}
+		else if (state == 'finalize')
+		{
+			state = 'creator'; //later goes to checkout page
+			setupInterface();
+		}
+	}
+	
+	
     
     // For shape sharing via hash
-	
-	document.getElementById('idS1').onclick = function()
+    document.getElementById('share').onclick = function()
 	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 1;
-		
-		sceneWrapper.redrawMesh(currentMesh);
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		setHash();
 	}
 	
-	document.getElementById('idS2').onclick = function()
+	document.getElementById('screen').onclick = function()
 	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 2;
-		
-		sceneWrapper.redrawMesh(currentMesh);
-	}
-	
-	document.getElementById('idS3').onclick = function()
-	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 3;
-		
-		sceneWrapper.redrawMesh(currentMesh);
-	}
-	
-	document.getElementById('idS4').onclick = function()
-	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 4;
-		
-		sceneWrapper.redrawMesh(currentMesh);
-	}
-	
-	document.getElementById('idS5').onclick = function()
-	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 13;
-		
-		sceneWrapper.redrawMesh(currentMesh);
-	}
-	
-	document.getElementById('idS6').onclick = function()
-	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Starting Shape'] = 12;
-		
-		sceneWrapper.redrawMesh(currentMesh);
+        sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		loadScreenshotStage();
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
@@ -175,21 +199,37 @@ window.onload = function() {
 		view.targetX = 0;
 		view.targetY = 0;
 	}
+	
+	document.getElementById('idLoopContainer').onclick = function()
+	{
+		loops = !loops;
+	}
     
     document.getElementById('idResetShapdImg').onclick = function()
 	{
-		var currentMesh = sceneWrapper.currentMesh;
-		currentMesh['Scale'] = 5;
-		currentMesh['Modify'] = 5;
-		currentMesh['Depth'] = 1;
-		currentMesh['Stretch'] = 1;
-		currentMesh['Loops'] = 2;
-		currentMesh['Thickness'] = 4;
-		currentMesh['Rotation X'] = 0;
-		currentMesh['Rotation Y'] = 0;
+		if (state == 'creator')
+		{
+			var currentMesh = sceneWrapper.currentMesh;
+			currentMesh['Scale'] = 5;
+			currentMesh['Modify'] = 5;
+			currentMesh['Depth'] = 1;
+			currentMesh['Stretch'] = 1;
+			currentMesh['Loops'] = 2;
+			currentMesh['Thickness'] = 4;
+			currentMesh['Rotation X'] = 0;
+			currentMesh['Rotation Y'] = 0;
 		
-        sceneWrapper.redrawMesh(currentMesh);
-		setupDatGui(sceneWrapper);
+			sceneWrapper.redrawMesh(currentMesh);
+			setupDatGui(sceneWrapper);
+			
+			view.targetX = 0;
+			view.targetY = 0;
+		}
+		else if (state == 'loops')
+		{
+			scene.scene.remove(scene.torusMesh);
+			scene.torusDefined = false;
+		}
 	}
 
 	function setupDatGui(sC) {
@@ -224,14 +264,32 @@ window.onload = function() {
         setUpController(controller, 'Loops');
 
         morphFolder.open();
-		
-		var datGuiContainer = document.createElement('div');
-		document.body.appendChild(datGuiContainer);
-		datGuiContainer.id = 'datGuiStuff';
+	
 		gui.domElement.style.position = 'absolute';
 		gui.domElement.style.top = '-1px';
 		gui.domElement.style.left = '-15px';
 		gui.domElement.style.zIndex = '100';
 		datGuiContainer.appendChild(gui.domElement);
+	}
+	
+	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+	function onDocumentMouseDown(event)
+	{
+		if (loops)
+		{
+			var projector = new THREE.Projector();
+			
+			event.preventDefault();
+			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+			projector.unprojectVector(vector, sceneWrapper.camera);
+			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
+			
+			var inBounds = tubeMeshBuilder.addLoop(raycaster);
+			if (inBounds === true)
+			{
+				scene.torusDefined = true;
+				scene.redrawMesh(scene.currentMesh);
+			}
+		}
 	};
 }

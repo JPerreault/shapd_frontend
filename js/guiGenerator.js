@@ -115,7 +115,7 @@ function addStartingShapes() {
 	shapeContainer.style.margin = '15 15 15 15';
 	shapeContainer.style.color = '#fff';
 	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '20%';
+	shapeContainer.style.bottom = '2%';
 	shapeContainer.style.left = '0.05%';	
 	shapeContainer.style.width = '215px';			
 	shapeContainer.style.zIndex = '1000';
@@ -129,7 +129,6 @@ function addStartingShapes() {
 	//shapeHeader.src = 'assets/imgs/buttons/shapeLibrary.png';
 	//shapeHeader.style.zIndex = '1000';
 	//shapeContainer.appendChild(shapeHeader);
-		
 			
 			
 	var shapeLibrary = document.createElement('div');
