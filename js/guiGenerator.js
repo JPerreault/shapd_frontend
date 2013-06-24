@@ -8,100 +8,12 @@ function generatorGUI() {
 			
 			
 	//Container & image for reset button
-	
-			var resetContainer = document.createElement('div');
-			resetContainer.id = 'idResetContainer';
-			resetContainer.style.position = 'absolute';
-			resetContainer.style.top = '220px';
-			resetContainer.style.left = '1%';			
-			resetContainer.style.zIndex = '1000';
-			container.appendChild(resetContainer);
-			
-			var resetRotationImg = document.createElement('img');
-			resetRotationImg.id = 'idResetRotationImg';
-			resetRotationImg.className = 'buttonImg';
-			resetRotationImg.style.margin = '2px 2px 0px 0px';
-			resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
-			resetRotationImg.style.zIndex = '1000';
-			resetContainer.appendChild(resetRotationImg);
-			
-			var resetShapeImg = resetRotationImg.cloneNode(true);
-			resetShapeImg.id = 'idResetShapdImg';
-			resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
-			resetContainer.appendChild(resetShapeImg);
 			
 
 			
 	// Container for shape images		
 			
-			var shapeContainer = document.createElement('div');
-			shapeContainer.id = 'idShapeContainer';
-			shapeContainer.className = 'rounded';
-			shapeContainer.innerHTML += 'Shape Library<br>';
-			shapeContainer.style.position = 'absolute';
-			shapeContainer.style.border = '10px solid #000';
-			shapeContainer.style.margin = '15 15 15 15';
-			shapeContainer.style.color = '#fff';
-			shapeContainer.style.background = '#000';
-			shapeContainer.style.bottom = '25%';
-			shapeContainer.style.left = '0.05%';	
-			shapeContainer.style.width = '215px';			
-			shapeContainer.style.zIndex = '1000';
-			container.appendChild(shapeContainer);
-			
-			
-			var shapeHeader = document.createElement('img');
-			shapeHeader.id = 'idShapeHeader';
-			shapeHeader.className = 'buttonImg';
-			shapeHeader.style.margin = '5px 5px 5px 5px';
-			//shapeHeader.src = 'assets/imgs/buttons/shapeLibrary.png';
-			shapeHeader.style.zIndex = '1000';
-			shapeContainer.appendChild(shapeHeader);
-			
-			
-			var shapeLibrary = document.createElement('div');
-			shapeLibrary.id = 'idShapeLibrary';
-			shapeContainer.appendChild(shapeLibrary);
 
-	// Shape images
-		
-			var s1 = document.createElement('img');
-			s1.id = 'idS1';
-			s1.className = 'buttonImg';
-			s1.style.margin = '5px 5px 5px 5px';
-			s1.src = 'assets/imgs/shapes/1.jpg';
-			s1.height = 90;
-			s1.width = 90;
-			s1.style.zIndex = '1000';
-			shapeLibrary.appendChild(s1);
-			
-			var s2 = s1.cloneNode(true);
-			s2.id = 'idS2';
-			s2.src = 'assets/imgs/shapes/2.jpg'
-			shapeLibrary.appendChild(s2);
-	
-			var s3 = s1.cloneNode(true);
-			s3.id = 'idS3';
-			s3.src = 'assets/imgs/shapes/3.jpg'
-			shapeLibrary.appendChild(s3);
-			
-			var s4 = s1.cloneNode(true);
-			s4.id = 'idS4';
-			s4.src = 'assets/imgs/shapes/4.jpg'
-			shapeLibrary.appendChild(s4);	
-			
-	//addSave button		
-			
-			addSave();
-			
-	//add Progress Bar
-	
-			addProgressBar();
-			var progressImg = document.getElementById('idProgressImg');
-			var progressContainer = document.getElementById('idProgressContainer');	
-			progressImg.src = 'assets/imgs/progress/progress1.png';	
-			progressContainer.appendChild(progressImg);			
-				
 }
 
 function loopGUI() {
@@ -237,7 +149,7 @@ function addSave() {
 }
 
 
-function addProgressBar() {
+function addProgressBar(state) {
 	
 	//Container & image for Progress Bar
 	
@@ -252,10 +164,91 @@ function addProgressBar() {
 			var progressImg = document.createElement('img');
 			progressImg.id = 'idProgressImg';
 			progressImg.style.margin = '5px 5px 5px 5px';
-			progressImg.src = 'assets/imgs/progress/progress3.png';
+			if (state == 'creator')
+				progressImg.src = 'assets/imgs/progress/progress1.png';
+			else if (state == 'loops')
+				progressImg.src = 'assets/imgs/progress/progress2.png';
+			else if (state == 'finalize')
+				progressImg.src = 'assets/imgs/progress/progress3.png';
 			progressImg.style.zIndex = '1000';
 			progressContainer.appendChild(progressImg);	
 }
 
+function addResetButtons() {
+	var resetContainer = document.createElement('div');
+	resetContainer.id = 'idResetContainer';
+	resetContainer.style.position = 'absolute';
+	resetContainer.style.top = '220px';
+	resetContainer.style.left = '1%';			
+	resetContainer.style.zIndex = '1000';
+	container.appendChild(resetContainer);
+			
+	var resetRotationImg = document.createElement('img');
+	resetRotationImg.id = 'idResetRotationImg';
+	resetRotationImg.className = 'buttonImg';
+	resetRotationImg.style.margin = '2px 2px 0px 0px';
+	resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
+	resetRotationImg.style.zIndex = '1000';
+	resetContainer.appendChild(resetRotationImg);
+			
+	var resetShapeImg = resetRotationImg.cloneNode(true);
+	resetShapeImg.id = 'idResetShapdImg';
+	resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
+	resetContainer.appendChild(resetShapeImg);
+}
 
-// JavaScript Document
+function addStartingShapes() {
+	var shapeContainer = document.createElement('div');
+	shapeContainer.id = 'idShapeContainer';
+	shapeContainer.className = 'rounded';
+	shapeContainer.innerHTML += 'Shape Library<br>';
+	shapeContainer.style.position = 'absolute';
+	shapeContainer.style.border = '10px solid #000';
+	shapeContainer.style.margin = '15 15 15 15';
+	shapeContainer.style.color = '#fff';
+	shapeContainer.style.background = '#000';
+	shapeContainer.style.bottom = '25%';
+	shapeContainer.style.left = '0.05%';	
+	shapeContainer.style.width = '215px';			
+	shapeContainer.style.zIndex = '1000';
+	container.appendChild(shapeContainer);
+			
+			
+	var shapeHeader = document.createElement('img');
+	shapeHeader.id = 'idShapeHeader';
+	shapeHeader.className = 'buttonImg';
+	shapeHeader.style.margin = '5px 5px 5px 5px';
+	//shapeHeader.src = 'assets/imgs/buttons/shapeLibrary.png';
+	shapeHeader.style.zIndex = '1000';
+	shapeContainer.appendChild(shapeHeader);
+			
+			
+	var shapeLibrary = document.createElement('div');
+	shapeLibrary.id = 'idShapeLibrary';
+	shapeContainer.appendChild(shapeLibrary);
+
+	var s1 = document.createElement('img');
+	s1.id = 'idS1';
+	s1.className = 'buttonImg';
+	s1.style.margin = '5px 5px 5px 5px';
+	s1.src = 'assets/imgs/shapes/1.jpg';
+	s1.height = 90;
+	s1.width = 90;
+	s1.style.zIndex = '1000';
+	shapeLibrary.appendChild(s1);
+			
+	var s2 = s1.cloneNode(true);
+	s2.id = 'idS2';
+	s2.src = 'assets/imgs/shapes/2.jpg'
+	shapeLibrary.appendChild(s2);
+	
+	var s3 = s1.cloneNode(true);
+	s3.id = 'idS3';
+	s3.src = 'assets/imgs/shapes/3.jpg'
+	shapeLibrary.appendChild(s3);
+			
+	var s4 = s1.cloneNode(true);
+	s4.id = 'idS4';
+	s4.src = 'assets/imgs/shapes/4.jpg'
+	shapeLibrary.appendChild(s4);	
+}

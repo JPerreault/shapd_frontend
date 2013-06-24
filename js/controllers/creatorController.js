@@ -3,7 +3,7 @@ var n = 0;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener;
+	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener, interaceState;
 	var renderer, sceneWrapper, materialsLibrary, customContainer;
 
 	init();
@@ -39,6 +39,8 @@ window.onload = function() {
 		scene = sceneWrapper;
 	    setupDatGui(sceneWrapper);	
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
+		interfaceState = 'creator';
+		setupInterface(interfaceState);
 	}
 
 	function animate() {
@@ -53,9 +55,28 @@ window.onload = function() {
 		renderer.render( sceneWrapper.scene, sceneWrapper.camera );
 	}
 	
+	function setupInterface(state)
+	{
+		if (state == 'creator')
+		{
+			addStartingShapes();
+		}
+		else if (state == 'loop')
+		{
+			
+		}
+		else if (state == 'finalize')
+		{
+			
+		}
+		addProgressBar(state);
+		addResetButtons();
+		addSave();
+	}
+	
 	customContainer = document.getElementById('container');	
 	customContainer.style.zIndex = '100';
-	customContainer.style.position = 'absolute';
+	customContainer.style.position = 'relative';
 
 	var saveSTL = document.createElement('div');
 	saveSTL.style.position = 'absolute';
@@ -66,18 +87,9 @@ window.onload = function() {
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
 	
-	var rotateButton = document.createElement('div');
-	rotateButton.style.position = 'absolute';
-	rotateButton.style.top = '56px';
-	rotateButton.style.left = '230px';
-	rotateButton.style.zIndex = '1000';
-	rotateButton.style.background = '#999';
-	rotateButton.innerHTML += '<input id="rotate" type="button" value="Reset Rotations"/>';
-	customContainer.appendChild(rotateButton);
-	
 	var share = document.createElement('div');
 	share.style.position = 'absolute';
-	share.style.top = '84px';
+	share.style.top = '56px';
 	share.style.left = '230px';
 	share.style.zIndex = '1000';
 	share.style.background= '#999';
@@ -137,8 +149,6 @@ window.onload = function() {
 	{
 		view.targetX = 0;
 		view.targetY = 0;
-		//tubeMeshBuilder.calculateVolume();
-		//tubeMeshBuilder.calculateSurfaceArea();
 	}
     
     document.getElementById('idResetShapdImg').onclick = function()

@@ -7,7 +7,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	
 	//Scoping out of functions
-	var segments = 100, radiusSegments = 4;
+	var segments = 600, radiusSegments = 6;
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
@@ -29,7 +29,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		geometry.computeFaceNormals();
 		geometry.computeVertexNormals();
 		
-		this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
+		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
         figure = new THREE.Mesh(geometry, this.m);
 		
         figure.rotation.x = tubeMeshParams['Rotation X'];
