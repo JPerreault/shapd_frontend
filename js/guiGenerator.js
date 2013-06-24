@@ -73,9 +73,9 @@ function addProgressBar() {
 	progressImg.usemap = '#progressMap';
 	progressContainer.appendChild(progressImg);	
 	
-	var myMap = createElement("map");
-	myMap.name = "myImageMap";
-	imageBox.appendChild(myMap);
+	//var myMap = createElement("map");
+	//myMap.name = "myImageMap";
+	//imageBox.appendChild(myMap);
 }
 
 function addResetButtons() {
