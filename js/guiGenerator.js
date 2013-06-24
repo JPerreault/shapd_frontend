@@ -1,83 +1,7 @@
-function generatorGUI() {
-
-	
-	// Create shape generator page custom gui
-
-			container = document.createElement('div');
-			document.body.appendChild(container);
-			
-			
-	//Container & image for reset button
-			
-
-			
-	// Container for shape images		
-			
-
-}
-
-function loopGUI() {
-	
-	// Create add Loop GUI
-
-			container = document.createElement('div');
-			document.body.appendChild(container);
-			
-	// Container for Add loop button	
-			
-			var loopContainer = document.createElement('div');
-			loopContainer.id = 'idShapeContainer';
-			loopContainer.style.position = 'absolute';
-			loopContainer.style.color = '#fff';
-			loopContainer.style.background = '';
-			loopContainer.style.top = '35%';
-			loopContainer.style.right = '0.5%';	
-			loopContainer.style.width = '200px';			
-			loopContainer.style.zIndex = '1000';
-			container.appendChild(loopContainer);
-
-	// Add Loop Button
-		
-			var loopImg = document.createElement('img');
-			loopImg.id = 'idLoops';
-			loopImg.className = 'buttonImg';
-			loopImg.style.margin = '5px 5px 5px 5px';
-			loopImg.src = 'assets/imgs/buttons/addLoop.png';
-			loopImg.style.zIndex = '1000';
-			loopContainer.appendChild(loopImg);
-			
-			var resetContainer = document.createElement('div');
-			var resetRotationImg = document.createElement('img');
-			resetRotationImg.id = 'idResetRotationImg';
-			resetRotationImg.className = 'buttonImg';
-			resetRotationImg.style.margin = '2px 2px 0px 0px';
-			resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
-			resetRotationImg.style.zIndex = '1000';
-			resetContainer.appendChild(resetRotationImg);
-			
-	// Add Save Button
-		
-			addSave();
-			
-	//add Progress Bar
-	
-			addProgressBar();
-			var progressImg = document.getElementById('idProgressImg');	
-			var progressContainer = document.getElementById('idProgressContainer');	
-			progressImg.src = 'assets/imgs/progress/progress2.png';	
-			progressContainer.appendChild(progressImg);	
-		
-}
-
 function scaleGUI() {
-	
-	// Create shape generator page custom gui
-
 			container = document.createElement('div');
 			document.body.appendChild(container);
-			
-	// Create Positioning for ruler images		
-			
+				
 			var hShapeDiv = document.createElement('div');
 			hShapeDiv.id = 'idHShapeDiv';
 			hShapeDiv.style.position = 'absolute';
@@ -94,9 +18,7 @@ function scaleGUI() {
 			vShapeDiv.style.right = '32.5%';
 		
 			container.appendChild(vShapeDiv);
-			
-	// Add ruler		
-			
+	
 			var hRulerImg = document.createElement('img');
 			hRulerImg.id = 'idHRuler';
 			hRulerImg.style.marginTop = '5px';
@@ -114,24 +36,9 @@ function scaleGUI() {
 			vRulerImg.style.cursor = 'move';
 			vRulerImg.style.zIndex = '1000';
 			vShapeDiv.appendChild(vRulerImg);
-	
-	// Add Save Button
-		
-			addSave();
-			
-	//add Progress Bar
-	
-			addProgressBar();
-			var progressImg = document.getElementById('idProgressImg');	
-			var progressContainer = document.getElementById('idProgressContainer');	
-			progressImg.src = 'assets/imgs/progress/progress3.png';	
-			progressContainer.appendChild(progressImg);	
 }
 
 function addSave() {
-	
-	// Add Save Button
-	
 			var saveButtonContainer = document.createElement('div');
 			saveButtonContainer.id = 'idSaveButtonContainer';
 			saveButtonContainer.style.zIndex = '1000';
@@ -149,29 +56,26 @@ function addSave() {
 }
 
 
-function addProgressBar(state) {
-	
-	//Container & image for Progress Bar
-	
-			var progressContainer = document.createElement('div');
-			progressContainer.id = 'idProgressContainer';
-			progressContainer.style.position = 'absolute';
-			progressContainer.style.top = '10px';
-			progressContainer.style.left = '36%';			
-			progressContainer.style.zIndex = '1000';
-			container.appendChild(progressContainer);
+function addProgressBar() {
+	var progressContainer = document.createElement('div');
+	progressContainer.id = 'idProgressContainer';
+	progressContainer.style.position = 'absolute';
+	progressContainer.style.top = '10px';
+	progressContainer.style.left = '36%';			
+	progressContainer.style.zIndex = '1000';
+	document.body.appendChild(progressContainer);
 			
-			var progressImg = document.createElement('img');
-			progressImg.id = 'idProgressImg';
-			progressImg.style.margin = '5px 5px 5px 5px';
-			if (state == 'creator')
-				progressImg.src = 'assets/imgs/progress/progress1.png';
-			else if (state == 'loops')
-				progressImg.src = 'assets/imgs/progress/progress2.png';
-			else if (state == 'finalize')
-				progressImg.src = 'assets/imgs/progress/progress3.png';
-			progressImg.style.zIndex = '1000';
-			progressContainer.appendChild(progressImg);	
+	var progressImg = document.createElement('img');
+	progressImg.id = 'idProgressImg';
+	progressImg.style.margin = '5px 5px 5px 5px';
+	progressImg.src = 'assets/imgs/progress/progress1.png';
+	progressImg.style.zIndex = '1000';
+	progressImg.usemap = '#progressMap';
+	progressContainer.appendChild(progressImg);	
+	
+	var myMap = createElement("map");
+	myMap.name = "myImageMap";
+	imageBox.appendChild(myMap);
 }
 
 function addResetButtons() {
@@ -207,20 +111,21 @@ function addStartingShapes() {
 	shapeContainer.style.margin = '15 15 15 15';
 	shapeContainer.style.color = '#fff';
 	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '25%';
+	shapeContainer.style.bottom = '20%';
 	shapeContainer.style.left = '0.05%';	
 	shapeContainer.style.width = '215px';			
 	shapeContainer.style.zIndex = '1000';
-	container.appendChild(shapeContainer);
+	document.body.appendChild(shapeContainer);
 			
 			
-	var shapeHeader = document.createElement('img');
-	shapeHeader.id = 'idShapeHeader';
-	shapeHeader.className = 'buttonImg';
-	shapeHeader.style.margin = '5px 5px 5px 5px';
+	//var shapeHeader = document.createElement('img');
+	//shapeHeader.id = 'idShapeHeader';
+	//shapeHeader.className = 'buttonImg';
+	//shapeHeader.style.margin = '5px 5px 5px 5px';
 	//shapeHeader.src = 'assets/imgs/buttons/shapeLibrary.png';
-	shapeHeader.style.zIndex = '1000';
-	shapeContainer.appendChild(shapeHeader);
+	//shapeHeader.style.zIndex = '1000';
+	//shapeContainer.appendChild(shapeHeader);
+		
 			
 			
 	var shapeLibrary = document.createElement('div');
@@ -251,4 +156,29 @@ function addStartingShapes() {
 	s4.id = 'idS4';
 	s4.src = 'assets/imgs/shapes/4.jpg'
 	shapeLibrary.appendChild(s4);	
+}
+
+function addMaterialSelector() {
+	document.getElementById('materials').style.zIndex = '1001';
+}
+
+function addLoops(){
+	var loopContainer = document.createElement('div');
+	document.body.appendChild(loopContainer);
+	loopContainer.id = 'idLoopContainer';
+	loopContainer.style.position = 'absolute';
+	loopContainer.style.color = '#fff';
+	loopContainer.style.background = '';
+	loopContainer.style.top = '7%';
+	loopContainer.style.left = '2.5%';	
+	loopContainer.style.width = '200px';			
+	loopContainer.style.zIndex = '1000';
+		
+	var loopImg = document.createElement('img');
+	loopImg.id = 'idLoops';
+	loopImg.className = 'buttonImg';
+	loopImg.style.margin = '5px 5px 5px 5px';
+	loopImg.src = 'assets/imgs/buttons/addLoop.png';
+	loopImg.style.zIndex = '1000';
+	loopContainer.appendChild(loopImg);
 }
