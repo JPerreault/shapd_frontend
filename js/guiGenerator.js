@@ -73,13 +73,13 @@ function addProgressBar() {
 	progressImg.usemap = '#progressMap';
 	progressContainer.appendChild(progressImg);	
 	
-	var myMap = document.createElement("map");
-	myMap.name = "myImageMap";
-	myMap.area = "test";
-	myMap.area.shape ="rect"; 
-	myMap.area.coords ="0,500,0,500"
-	progressContainer.appendChild(myMap);
-	console.log(myMap);
+	//var myMap = document.createElement("map");
+	//myMap.name = "myImageMap";
+	//myMap.area = "test";
+	//myMap.area.shape ="rect"; 
+	//myMap.area.coords ="0,500,0,500"
+	//progressContainer.appendChild(myMap);
+	//console.log(myMap);
 }
 
 function addResetButtons() {
@@ -160,6 +160,16 @@ function addStartingShapes() {
 	s4.id = 'idS4';
 	s4.src = 'assets/imgs/shapes/4.jpg'
 	shapeLibrary.appendChild(s4);	
+	
+	var s5 = s1.cloneNode(true);
+	s5.id = 'idS5';
+	s5.src = 'assets/imgs/shapes/5.png'
+	shapeLibrary.appendChild(s5);	
+	
+	var s6 = s1.cloneNode(true);
+	s6.id = 'idS6';
+	s6.src = 'assets/imgs/shapes/6.png'
+	shapeLibrary.appendChild(s6);	
 }
 
 function addMaterialSelector() {
