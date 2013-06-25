@@ -68,9 +68,8 @@ function addProgressBar() {
 	var progressContainer = document.createElement('div');
 	progressContainer.id = 'idProgressContainer';
 	progressContainer.style.position = 'absolute';
-	progressContainer.style.width = '575px';
-	progressContainer.style.top = '10px';
-	progressContainer.style.left = '36%';			
+	progressContainer.style.width = '100%';
+	progressContainer.style.top = '10px';			
 	progressContainer.style.zIndex = '1000';
 	document.body.appendChild(progressContainer);
 	
@@ -97,8 +96,9 @@ function addProgressBar() {
 	
 	var progressNameContainer = document.createElement('div');
 	progressNameContainer.id = 'idProgressNameContainer';
-	progressNameContainer.style.margin = '0px 0px 0px 35px';
+	progressNameContainer.style.margin = '0px 0px 0px 4px';
 	progressNameContainer.style.position = 'absolute';
+	progressNameContainer.style.width = '100%';
 	progressNameContainer.style.display = 'block';		
 	progressNameContainer.style.zIndex = '1000';
 	progressContainer.appendChild(progressNameContainer);
