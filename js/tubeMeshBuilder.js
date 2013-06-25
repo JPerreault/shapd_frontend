@@ -10,6 +10,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var segments = 600, radiusSegments = 6;
 
     this.build = function(tubeMeshParams) {
+		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
@@ -250,25 +251,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			py = vertices[faces[i].a].y;
 			pz = vertices[faces[i].a].z;
 			
-			qx = vertices[faces[i].c].x;
-			qy = vertices[faces[i].c].y;
-			qz = vertices[faces[i].c].z;
-			
-			rx = vertices[faces[i].b].x;
-			ry = vertices[faces[i].b].y;
-			rz = vertices[faces[i].b].z;
-			
-			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
-			totalVolume += partVol;
-			
-			
-			px = vertices[faces[i].a].x;
-			py = vertices[faces[i].a].y;
-			pz = vertices[faces[i].a].z;
-			
-			qx = vertices[faces[i].d].x;
-			qy = vertices[faces[i].d].y;
-			qz = vertices[faces[i].d].z;
+			qx = vertices[faces[i].b].x;
+			qy = vertices[faces[i].b].y;
+			qz = vertices[faces[i].b].z;
 			
 			rx = vertices[faces[i].c].x;
 			ry = vertices[faces[i].c].y;
@@ -276,12 +261,153 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			
 			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
 			totalVolume += partVol;
+			
+			
+			px = vertices[faces[i].c].x;
+			py = vertices[faces[i].c].y;
+			pz = vertices[faces[i].c].z;
+			
+			qx = vertices[faces[i].d].x;
+			qy = vertices[faces[i].d].y;
+			qz = vertices[faces[i].d].z;
+			
+			rx = vertices[faces[i].a].x;
+			ry = vertices[faces[i].a].y;
+			rz = vertices[faces[i].a].z;
+			
+			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
+			totalVolume += partVol;
 		}
 		
 		totalVolume /= 6;
-		console.log(totalVolume);
-		//return totalVolume;
+		totalVolume /= (Math.pow(figure.scale.x, 3));
+		console.log('Volume: ', totalVolume);
 	}
+	
+	this.volumeCalc = function(face4)
+	{
+	var volume = 0;
+	var object = figure;
+	var Pxlist = [];
+	var Pylist = [];
+	var Pzlist = [];
+	var pvlist = [];
+	var Qxlist = [];
+	var Qylist = [];
+	var Qzlist = [];
+	var Rxlist = [];
+	var Rylist = [];
+	var Rzlist = [];
+	
+    if (face4 == false) 
+	{
+		for (var i=0; i<object.geometry.faces.length; i++) 
+		{
+			var pA = (object.geometry.faces[i].a);
+			var qA = (object.geometry.faces[i].b);
+			var rA = (object.geometry.faces[i].c);
+
+			var Px = object.geometry.vertices[pA].x;
+			var Py = object.geometry.vertices[pA].y;
+			var Pz = object.geometry.vertices[pA].z;
+
+			Pxlist.push(Px);
+			Pylist.push(Py);
+			Pzlist.push(Pz);
+		
+			var Qx = object.geometry.vertices[qA].x;
+			var Qy = object.geometry.vertices[qA].y;
+			var Qz = object.geometry.vertices[qA].z;
+
+			Qxlist.push(Qx);
+			Qylist.push(Qy);
+			Qzlist.push(Qz);
+
+			var Rx = object.geometry.vertices[rA].x;
+			var Ry = object.geometry.vertices[rA].y;
+			var Rz = object.geometry.vertices[rA].z;
+
+			Rxlist.push(Rx);
+			Rxlist.push(Ry);
+			Rzlist.push(Rz);
+		}
+    }   
+	else
+	{
+        for (var i=0; i<object.geometry.faces.length; i++) 
+		{
+			var pA = (object.geometry.faces[i].b);
+			var qA = (object.geometry.faces[i].c);
+			var rA = (object.geometry.faces[i].d);
+
+			var Px = object.geometry.vertices[pA].x;
+			var Py = object.geometry.vertices[pA].y;
+			var Pz = object.geometry.vertices[pA].z;
+
+			Pxlist.push(Px);
+			Pylist.push(Py);
+			Pzlist.push(Pz);
+
+			var Qx = object.geometry.vertices[qA].x;
+			var Qy = object.geometry.vertices[qA].y;
+			var Qz = object.geometry.vertices[qA].z;
+
+			Qxlist.push(Qx);
+			Qylist.push(Qy);
+			Qzlist.push(Qz);
+
+			var Rx = object.geometry.vertices[rA].x;
+			var Ry = object.geometry.vertices[rA].y;
+			var Rz = object.geometry.vertices[rA].z;
+
+			Rxlist.push(Rx);
+			Rxlist.push(Ry);
+			Rzlist.push(Rz);
+		
+		
+		
+			var pA = (object.geometry.faces[i].d);
+			var qA = (object.geometry.faces[i].a);
+			var rA = (object.geometry.faces[i].b);
+
+			var Px = object.geometry.vertices[pA].x;
+			var Py = object.geometry.vertices[pA].y;
+			var Pz = object.geometry.vertices[pA].z;
+
+			//Pxlist.push(Px);
+			//Pylist.push(Py);
+			//Pzlist.push(Pz);
+
+			var Qx = object.geometry.vertices[qA].x;
+			var Qy = object.geometry.vertices[qA].y;
+			var Qz = object.geometry.vertices[qA].z;
+
+			//Qxlist.push(Qx);
+			//Qylist.push(Qy);
+			//Qzlist.push(Qz);
+
+			var Rx = object.geometry.vertices[rA].x;
+			var Ry = object.geometry.vertices[rA].y;
+			var Rz = object.geometry.vertices[rA].z;
+
+			//Rxlist.push(Rx);
+			//Rxlist.push(Ry);
+			//Rzlist.push(Rz);
+		}
+	}
+    for (i=0;i < Pxlist.length; i++)
+	{
+		pv = Pxlist[i]*Qylist[i]*Rzlist[i]; + Pylist[i]*Qzlist[i]*Rxlist[i]; + Pzlist[i]*Qxlist[i]*Rylist[i]; - Pxlist[i]*Qzlist[i]*Rylist[i]; - Pylist[i]*Qxlist[i]*Rzlist[i]; -Pzlist[i]*Qylist[i]*Rxlist[i];
+		pvlist.push(pv);
+	}
+
+	for (i = 0; i < pvlist.length; i++)
+	{
+		volume += pvlist[i];
+	}
+	volume /= 6;
+	console.log('Volume: ', volume);
+}
 	
 	this.calculateSurfaceArea = function()
 	{
@@ -300,7 +426,28 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
 		surfaceArea = ab*ab*faces.length;
 		
-		console.log(surfaceArea);
+		console.log('Surface area: ', surfaceArea);
+	}
+	
+	function updateHash(tubeMesh)
+	{
+		var keys = Object.keys(tubeMesh);
+		if (typeof tubeMesh.figure != 'undefined')
+		{
+			tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
+			tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
+		}
+
+		hashend = "";
+		for (var x=0; x<keys.length; x++)
+		{
+			if (keys[x] == 'Rotation Y')
+			{
+				hashend += tubeMesh[keys[x]];
+				break;
+			}
+			hashend += tubeMesh[keys[x]]+"|";
+		}
 	}
 };
 

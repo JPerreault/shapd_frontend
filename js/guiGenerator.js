@@ -39,20 +39,20 @@ function scaleGUI() {
 }
 
 function addSave() {
-			var saveButtonContainer = document.createElement('div');
-			saveButtonContainer.id = 'idSaveButtonContainer';
-			saveButtonContainer.style.zIndex = '1000';
-			saveButtonContainer.style.position = 'absolute';
-			saveButtonContainer.style.bottom = '0%';
-			saveButtonContainer.style.right = '0%';
-			container.appendChild(saveButtonContainer);	
+	var saveButtonContainer = document.createElement('div');
+	saveButtonContainer.id = 'idSaveButtonContainer';
+	saveButtonContainer.style.zIndex = '1000';
+	saveButtonContainer.style.position = 'absolute';
+	saveButtonContainer.style.bottom = '0%';
+	saveButtonContainer.style.right = '0%';
+	container.appendChild(saveButtonContainer);	
 		
-			var saveButton = document.createElement('img');
-			saveButton.id = 'idSaveButton';
-			saveButton.className = 'buttonImg';
-			saveButton.src = 'assets/imgs/buttons/save.png';
-			saveButton.style.margin = '3px 3px 10px 10px';
-			saveButtonContainer.appendChild(saveButton);
+	var saveButton = document.createElement('img');
+	saveButton.id = 'idSaveButton';
+	saveButton.className = 'buttonImg';
+	saveButton.src = 'assets/imgs/buttons/save.png';
+	saveButton.style.margin = '3px 3px 10px 10px';
+	saveButtonContainer.appendChild(saveButton);
 }
 
 
@@ -65,25 +65,11 @@ function addProgressBar() {
 	progressContainer.style.zIndex = '1000';
 	document.body.appendChild(progressContainer);
 	
-	var myMap = document.createElement("map");
-	myMap.name = "myImageMap";
-	myMap.id = 'myImageMap';
-	
-	var areaOne = document.createElement("area");
-	areaOne.shape = 'rect';
-	areaOne.coords = '0,0,515,63';
-	areaOne.href = 'http://www.google.com';
-	myMap.appendChild(areaOne);
-	
-	progressContainer.appendChild(myMap);
-	
 	var progressImg = document.createElement('img');
 	progressImg.id = 'idProgressImg';
 	progressImg.style.margin = '5px 5px 5px 5px';
 	progressImg.src = 'assets/imgs/progress/progress1.png';
 	progressImg.style.zIndex = '1000';
-	progressImg.usemap = '#myImageMap';
-	progressImg.map = '#myImageMap';
 	progressContainer.appendChild(progressImg);	
 }
 
