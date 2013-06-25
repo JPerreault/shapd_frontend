@@ -224,7 +224,6 @@ function addMaterialSelector() {
 
 function addLoops(){
 	var loopContainer = document.createElement('div');
-	document.body.appendChild(loopContainer);
 	loopContainer.id = 'idLoopContainer';
 	loopContainer.style.position = 'absolute';
 	loopContainer.style.color = '#fff';
@@ -233,6 +232,7 @@ function addLoops(){
 	loopContainer.style.left = '2.5%';	
 	loopContainer.style.width = '200px';			
 	loopContainer.style.zIndex = '1000';
+	document.body.appendChild(loopContainer);
 		
 	var loopImg = document.createElement('img');
 	loopImg.id = 'idLoops';
@@ -241,4 +241,17 @@ function addLoops(){
 	loopImg.src = 'assets/imgs/buttons/addLoop.png';
 	loopImg.style.zIndex = '1000';
 	loopContainer.appendChild(loopImg);
+	
+	var loopText = document.createElement('div');
+	loopText.id = 'idLoopText';
+	loopText.style.position = 'absolute';
+	loopText.style.color = '#fff';
+	loopText.innerHTML = 'Now we need a loop for the attachment.<br>Please click anywhere on your piece to place it.';
+	loopText.style.bottom = '15%';
+	loopText.style.width = '100%';
+	loopText.style.fontSize = 'x-large';
+	loopText.style.fontFamily = 'Verdana, Geneva, sans-serif';
+	loopText.align = 'center';			
+	loopText.style.zIndex = '1000';
+	document.body.appendChild(loopText);
 }

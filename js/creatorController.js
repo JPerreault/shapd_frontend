@@ -75,6 +75,7 @@ window.onload = function() {
 			$('#idLoopContainer').fadeOut(0);
 			$('#idBackButton').fadeOut(0);	
 			$("#materials").fadeOut(0);
+			$("#idLoopText").fadeOut(0);
 			firstTime = false;	
 		}
 		else if (state == 'creator')
@@ -93,6 +94,7 @@ window.onload = function() {
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#idLoopText").fadeOut(450);
 		}
 		else if (state == 'loops')
 		{
@@ -110,6 +112,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#idLoopText").fadeIn(450);
 		}
 		else if (state == 'finalize')
 		{
@@ -127,6 +130,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#idLoopText").fadeOut(450);
 		}
 		else if (state == 'publish')
 		{
@@ -144,6 +148,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeOut(450);
+			$("#idLoopText").fadeOut(450);
 		}
 	}
 	
