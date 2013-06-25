@@ -85,11 +85,13 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$('#idLoopContainer').fadeOut(450);
 			$("#datGuiStuff").fadeIn(450);
+			$('#idLoopContainer').fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
+			$('#idSaveButton').fadeIn(450);
+			$('#idResetContainer').fadeIn(450);
 		}
 		else if (state == 'loops')
 		{
@@ -98,11 +100,15 @@ window.onload = function() {
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
+			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
+			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
+			$('#idLoopContainer').fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
-			$('#idLoopContainer').fadeIn(450);
 			$('#idBackButton').fadeIn(450);
+			$('#idSaveButton').fadeIn(450);
+			$('#idResetContainer').fadeIn(450);
 		}
 		else if (state == 'finalize')
 		{
@@ -112,8 +118,11 @@ window.onload = function() {
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
+			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
+			$("#datGuiStuff").fadeOut(450);
 			$('#idLoopContainer').fadeOut(450);
 			$("#materials").fadeIn(450);
+			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
@@ -127,11 +136,13 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
+			$("#datGuiStuff").fadeOut(450);
 			$('#idLoopContainer').fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
+			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeOut(450);
-			$('#idSaveButton').fadeOut(450);
 		}
 	}
 	
