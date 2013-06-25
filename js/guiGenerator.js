@@ -223,25 +223,7 @@ function addMaterialSelector() {
 }
 
 function addLoops(){
-	var loopContainer = document.createElement('div');
-	loopContainer.id = 'idLoopContainer';
-	loopContainer.style.position = 'absolute';
-	loopContainer.style.color = '#fff';
-	loopContainer.style.background = '';
-	loopContainer.style.top = '7%';
-	loopContainer.style.left = '2.5%';	
-	loopContainer.style.width = '200px';			
-	loopContainer.style.zIndex = '1000';
-	document.body.appendChild(loopContainer);
-		
-	var loopImg = document.createElement('img');
-	loopImg.id = 'idLoops';
-	loopImg.className = 'buttonImg';
-	loopImg.style.margin = '5px 5px 5px 5px';
-	loopImg.src = 'assets/imgs/buttons/addLoop.png';
-	loopImg.style.zIndex = '1000';
-	loopContainer.appendChild(loopImg);
-	
+
 	var loopText = document.createElement('div');
 	loopText.id = 'idLoopText';
 	loopText.style.position = 'absolute';
