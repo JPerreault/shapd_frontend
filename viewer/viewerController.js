@@ -48,7 +48,7 @@ window.onload = function() {
     
     function screenie()
     {
-        window.open(renderer.domElement.toDataURL("image/png"), 'Shape');
+        $.post(renderer.domElement.toDataURL("image/png"), 'Shape');
     }
 
 	function animate() {
