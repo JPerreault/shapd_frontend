@@ -174,6 +174,7 @@ window.onload = function() {
 	document.getElementById('screen').onclick = function()
 	{
 		tubeMeshBuilder.calculateVolume();
+		//tubeMeshBuilder.volumeCalc(true);
 		tubeMeshBuilder.calculateSurfaceArea();
 	}
 	
@@ -213,6 +214,42 @@ window.onload = function() {
 			scene.scene.remove(scene.torusMesh);
 			scene.torusDefined = false;
 		}
+	}
+	
+	document.getElementById('idS1').onclick = function()
+	{
+		sceneWrapper.currentMesh['Starting Shape'] = 1;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('idS2').onclick = function()
+	{
+		sceneWrapper.currentMesh['Starting Shape'] = 2;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('idS3').onclick = function()
+	{
+		sceneWrapper.currentMesh['Starting Shape'] = 3;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('idS4').onclick = function()
+	{
+		sceneWrapper.currentMesh['Starting Shape'] = 4;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('idS5').onclick = function()
+	{
+		sceneWrapper.currentMesh['Starting Shape'] = 5;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('idS6').onclick = function()
+	{
+		sceneWrapper.currentMesh['Starting Shape'] = 6;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 
 	function setupDatGui(sC) {

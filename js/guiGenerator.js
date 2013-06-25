@@ -60,7 +60,6 @@ function addSave() {
 			saveButton.src = 'assets/imgs/buttons/save.png';
 			saveButton.style.margin = '1px 1px 10px 10px';
 			saveButtonContainer.appendChild(saveButton);
-			
 }
 
 
@@ -129,7 +128,6 @@ function addProgressBar() {
 		progressImgNames4.style.margin = '3px 3px 0px 0px';
 		progressImgNames4.src = 'assets/imgs/progress/progressNames4_opaque.png';
 		progressNameContainer.appendChild(progressImgNames4);	
-	
 }
 
 function addResetButtons() {
