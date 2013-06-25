@@ -297,13 +297,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		//The surface area is ||ab|| * ||ad|| * faces number
 		
-		for (var i = 0; i < faces; i++)
-		{
-			var a = vertices[faces[i].a].x;
-			var c = vertices[faces[i].a].x
-			var c = vertices[faces[i].a].x
-			var d = vertices[faces[i].a].x
-		}
+		//ab = Math.sqrt(Math.pow(
 		
 		console.log(surfaceArea);
 	}

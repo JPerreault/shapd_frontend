@@ -89,7 +89,6 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idLoopContainer').fadeIn(450);
-			console.log($('idLoopContainer'));
 		}
 		else if (state == 'finalize')
 		{
@@ -160,6 +159,8 @@ window.onload = function() {
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		setHash();
+		if (typeof newuser != 'undefined')
+			createNewUser();
 		firstTime = false;
 		if (state == 'creator')
 		{
@@ -177,6 +178,7 @@ window.onload = function() {
 			state = 'creator'; //later goes to checkout page
 			setupInterface();
 		}
+		rickyFunction();
 	}
 	
 	
@@ -190,8 +192,11 @@ window.onload = function() {
 	
 	document.getElementById('screen').onclick = function()
 	{
-        sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		loadScreenshotStage();
+       //sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		//loadScreenshotStage();
+		
+		tubeMeshBuilder.calculateVolume();
+		tubeMeshBuilder.calculateSurfaceArea();
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
