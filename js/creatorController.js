@@ -72,7 +72,6 @@ window.onload = function() {
 			addSave();
 			addProgressBar();
 			addLoops();
-			$('#idLoopContainer').fadeOut(0);
 			$('#idBackButton').fadeOut(0);	
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
@@ -87,7 +86,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$('#idLoopContainer').fadeOut(450);
 			$("#datGuiStuff").fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
@@ -95,6 +93,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			loops = false;
 		}
 		else if (state == 'loops')
 		{
@@ -106,13 +105,13 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
-			$('#idLoopContainer').fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeIn(450);
+			loops = true;
 		}
 		else if (state == 'finalize')
 		{
@@ -124,13 +123,13 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
-			$('#idLoopContainer').fadeOut(450);
 			$("#materials").fadeIn(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			loops = false;
 		}
 		else if (state == 'publish')
 		{
@@ -142,13 +141,13 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
 			$("#datGuiStuff").fadeOut(450);
-			$('#idLoopContainer').fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
+			loops = false;
 		}
 	}
 	
@@ -307,11 +306,6 @@ window.onload = function() {
 	{
 		view.targetX = 0;
 		view.targetY = 0;
-	}
-	
-	document.getElementById('idLoopContainer').onclick = function()
-	{
-		loops = !loops;
 	}
     
     document.getElementById('idResetShapdImg').onclick = function()
