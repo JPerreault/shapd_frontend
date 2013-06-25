@@ -1,7 +1,7 @@
 var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
-	var knot, geometry, stl, closed, figure, torusLoop;
+	var knot, geometry, stl, closed, figure, torusLoop, scale;
 	var fIndex, intersects;
 	this.m = materialsLibrary.getMaterial( "Pure chrome" ) ;
 	
@@ -12,7 +12,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
-		var scal = tubeMeshParams['Scale'];
+		scale = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
@@ -110,9 +110,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 				
 				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
 				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
-				stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
-				stl += convertVertexToString(vertices[faces[i].d], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].a]);
+				stl += convertVertexToString(vertices[faces[i].c]);
+				stl += convertVertexToString(vertices[faces[i].d]);
 				stl += 'endloop \n';
 				stl += 'endfacet \n';
 			}
@@ -122,14 +122,14 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return stl;
 	}
 	
-	function convertVectorToString(vector, scale)
+	function convertVectorToString(vector)
 	{
 		return ''+ vector.x/scale + ' '+ vector.y/scale + ' '+ vector.z/scale;
 	}
 	
-	function convertVertexToString(vector, scale)
+	function convertVertexToString(vector)
 	{
-		return 'vertex '+ convertVectorToString(vector, scale) + ' \n';
+		return 'vertex '+ convertVectorToString(vector) + ' \n';
 	}
 	
 	//Adding loops:
