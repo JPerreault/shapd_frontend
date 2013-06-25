@@ -74,7 +74,8 @@ window.onload = function() {
 			addLoops();
 			$('#idLoopContainer').fadeOut(0);
 			$('#idBackButton').fadeOut(0);	
-			$("#materials").fadeOut(0);	
+			$("#materials").fadeOut(0);
+			firstTime = false;	
 		}
 		else if (state == 'creator')
 		{
@@ -85,8 +86,8 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#datGuiStuff").fadeIn(450);
 			$('#idLoopContainer').fadeOut(450);
+			$("#datGuiStuff").fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
@@ -244,12 +245,58 @@ window.onload = function() {
 		weLoveRicky();
 	}
 	
-	document.getElementById('screen').onclick = function()
+// Changing states on progress bar clicks
+	
+	document.getElementById('idProgressImg').onclick = function()
 	{
-		tubeMeshBuilder.calculateVolume();
-		//tubeMeshBuilder.volumeCalc(true);
-		tubeMeshBuilder.calculateSurfaceArea();
+			state = 'creator';
+			setupInterface();
 	}
+	
+	document.getElementById('idProgressImg2').onclick = function()
+	{
+			state = 'loops';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImg3').onclick = function()
+	{
+			state = 'finalize';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImg4').onclick = function()
+	{
+			state = 'publish';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId1').onclick = function()
+	{
+			state = 'creator';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId2').onclick = function()
+	{
+			state = 'loops';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId3').onclick = function()
+	{
+			state = 'finalize';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId4').onclick = function()
+	{
+			state = 'publish';
+			setupInterface();
+	}
+	
+// End Progress state changing functionality	
+	
 	
 	document.getElementById('idResetRotationImg').onclick = function()
 	{
