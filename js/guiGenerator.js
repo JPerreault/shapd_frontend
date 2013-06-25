@@ -82,8 +82,7 @@ function addProgressBar() {
 	
 		var progressImg2 = progressImg.cloneNode(true);
 		progressImg2.id = 'idProgressImg2';
-		progressImg2.className = 'buttonImg';
-		progressImg2.src = 'assets/imgs/progress/progressSectionActive.png';
+		progressImg2.src = 'assets/imgs/progress/progressSectionOpaque.png';
 		progressContainer.appendChild(progressImg2);	
 	
 		var progressImg3 = progressImg.cloneNode(true);
