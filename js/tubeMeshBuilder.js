@@ -10,7 +10,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var segments = 600, radiusSegments = 6;
 
     this.build = function(tubeMeshParams) {
-		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		var scal = tubeMeshParams['Scale'];
 		closed = this.isClosed (tubeMeshParams);
@@ -297,42 +296,16 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		//The surface area is ||ab|| * ||ad|| * faces number
 		
-		//ab = Math.sqrt(Math.pow(
+		ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
+		ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
+		surfaceArea = ab*ab*faces.length;
 		
 		console.log(surfaceArea);
 	}
 };
 
-// Updates the URL's hash to the shape's string
-function setHash()
-{
-    location.hash = hashend;
-}
-
-// Update the string representing the shape
-function updateHash(tubeMesh)
-{
-	var keys = Object.keys(tubeMesh);
-	if (typeof tubeMesh.figure != 'undefined')
-	{
-		tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
-		tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
-	}
-
-	hashend = "";
-	for (var x=0; x<keys.length; x++)
-	{
-		if (keys[x] == 'Rotation Y')
-		{
-			hashend += tubeMesh[keys[x]];
-			break;
-		}
-		hashend += tubeMesh[keys[x]]+"|";
-	}
-}
-
 var TubeMeshParams = function(){
-    if (location.hash == "#" || location.hash == "")
+    if (typeof savedShape == 'undefined')
 	{
         
 		this['Scale'] = 5;
@@ -347,10 +320,7 @@ var TubeMeshParams = function(){
 	}
 	else
 	{
-		var hash = location.hash;
-		location.hash = "";
-		location.hash = hash.replace(/\%7C/g, '|');
-		var parseme = location.hash.substring(1).split("|");
+		var parseme = savedShape.split("|");
 		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
 		for (var x=0; x<transformations.length; x++)
 		{

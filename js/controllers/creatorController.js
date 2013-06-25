@@ -16,7 +16,7 @@ window.onload = function() {
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
 		
-		if (location.hash == "#" || location.hash == "")
+		if (typeof savedShape == 'undefined')
 		{
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
 		}
@@ -110,15 +110,6 @@ window.onload = function() {
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
-	
-	var share = document.createElement('div');
-	share.style.position = 'absolute';
-	share.style.top = '56px';
-	share.style.left = '230px';
-	share.style.zIndex = '1000';
-	share.style.background= '#999';
-	share.innerHTML = '<input id="share" type="button" value="Update URL">';
-	customContainer.appendChild(share);
     
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
@@ -126,7 +117,7 @@ window.onload = function() {
     screen.style.left = '230px';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
-    screen.innerHTML = '<input id="screen" type="button" value="Screen Shot">';
+    screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
     customContainer.appendChild(screen);
 	
 	//For background toggling
@@ -158,7 +149,6 @@ window.onload = function() {
 	document.getElementById('idSaveButtonContainer').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		setHash();
 		if (typeof newuser != 'undefined')
 			createNewUser();
 		firstTime = false;
@@ -178,23 +168,11 @@ window.onload = function() {
 			state = 'creator'; //later goes to checkout page
 			setupInterface();
 		}
-		rickyFunction();
-	}
-	
-	
-    
-    // For shape sharing via hash
-    document.getElementById('share').onclick = function()
-	{
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		setHash();
+		weLoveRicky();
 	}
 	
 	document.getElementById('screen').onclick = function()
 	{
-       //sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		//loadScreenshotStage();
-		
 		tubeMeshBuilder.calculateVolume();
 		tubeMeshBuilder.calculateSurfaceArea();
 	}
