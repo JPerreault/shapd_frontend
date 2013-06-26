@@ -407,7 +407,7 @@ window.onload = function() {
 		gui.domElement.style.position = 'absolute';
 		gui.domElement.style.top = '-1px';
 		gui.domElement.style.left = '-15px';
-		gui.domElement.style.zIndex = '100';
+		gui.domElement.style.zIndex = '1000';
 		datGuiContainer.appendChild(gui.domElement);
 	}
 	

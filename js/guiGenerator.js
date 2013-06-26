@@ -70,7 +70,7 @@ function addProgressBar() {
 	progressContainer.style.position = 'absolute';
 	progressContainer.style.width = '100%';
 	progressContainer.style.top = '10px';			
-	progressContainer.style.zIndex = '1000';
+	progressContainer.style.zIndex = '100';
 	document.body.appendChild(progressContainer);
 	
 		var progressImg = document.createElement('img');
@@ -133,7 +133,7 @@ function addResetButtons() {
 	var resetContainer = document.createElement('div');
 	resetContainer.id = 'idResetContainer';
 	resetContainer.style.position = 'absolute';
-	resetContainer.style.top = '220px';
+	resetContainer.style.top = '192px';
 	resetContainer.style.left = '1%';			
 	resetContainer.style.zIndex = '1000';
 	container.appendChild(resetContainer);
@@ -141,7 +141,7 @@ function addResetButtons() {
 	var resetRotationImg = document.createElement('img');
 	resetRotationImg.id = 'idResetRotationImg';
 	resetRotationImg.className = 'buttonImg';
-	resetRotationImg.style.margin = '2px 2px 0px 0px';
+	resetRotationImg.style.margin = '0px 10px 0px 0px';
 	resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
 	resetRotationImg.style.zIndex = '1000';
 	resetContainer.appendChild(resetRotationImg);
@@ -184,7 +184,7 @@ function addStartingShapes() {
 
 	var s1 = document.createElement('img');
 	s1.id = 'idS1';
-	s1.className = 'buttonImg';
+	s1.className = 'galleryImg';
 	s1.style.margin = '5px 5px 5px 5px';
 	s1.src = 'assets/imgs/shapes/1.jpg';
 	s1.height = 90;
