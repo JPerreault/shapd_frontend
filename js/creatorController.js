@@ -240,8 +240,15 @@ window.onload = function() {
                 
 		if (typeof newuser !== 'undefined')
 			createNewUser();
-        
-		firstTime = false;
+        else
+        {
+            saveButtonAction();
+        }
+	}
+    
+    function saveButtonAction()
+    {
+        firstTime = false;
 		if (state == 'creator')
 		{
 			state = 'loops';
@@ -259,7 +266,7 @@ window.onload = function() {
 			setupInterface();
 		}
 		saveShape();
-	}
+    }
 	
 	
 	document.getElementById('idBackButton').onclick = function()
