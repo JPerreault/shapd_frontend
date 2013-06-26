@@ -49,6 +49,7 @@ function addSave() {
 			
 			var backButton = document.createElement('img');
 			backButton.id = 'idBackButton';
+			backButton.style.zIndex = '1000';
 			backButton.className = 'buttonImg';
 			backButton.src = 'assets/imgs/buttons/back.png';
 			backButton.style.margin = '1px 1px 10px 10px';
@@ -56,6 +57,7 @@ function addSave() {
 		
 			var saveButton = document.createElement('img');
 			saveButton.id = 'idSaveButton';
+			saveButton.style.zIndex = '1000';
 			saveButton.className = 'buttonImg';
 			saveButton.src = 'assets/imgs/buttons/save.png';
 			saveButton.style.margin = '1px 1px 10px 10px';
@@ -152,6 +154,29 @@ function addResetButtons() {
 	resetContainer.appendChild(resetShapeImg);
 }
 
+function addSavedLibrary() {
+	
+	var savedShapeContainer = document.createElement('div');
+	savedShapeContainer.id = 'idSavedShapeContainer';
+	savedShapeContainer.className = 'rounded';
+	savedShapeContainer.innerHTML += 'Your Saved Shapes<br>';
+	savedShapeContainer.style.position = 'absolute';
+	savedShapeContainer.style.border = '10px solid #000';
+	savedShapeContainer.style.margin = '15 15 15 15';
+	savedShapeContainer.style.color = '#fff';
+	savedShapeContainer.style.background = '#000';
+	savedShapeContainer.style.top = '20%';
+	savedShapeContainer.style.right = '0.75%';	
+	savedShapeContainer.style.width = '215px';			
+	savedShapeContainer.style.zIndex = '1000';
+	document.body.appendChild(savedShapeContainer);			
+			
+	var savedShapeLibrary = document.createElement('div');
+	savedShapeLibrary.id = 'idSavedShapeLibrary';
+	savedShapeContainer.appendChild(savedShapeLibrary);
+}
+
+
 function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
@@ -166,17 +191,7 @@ function addStartingShapes() {
 	shapeContainer.style.left = '0.05%';	
 	shapeContainer.style.width = '215px';			
 	shapeContainer.style.zIndex = '1000';
-	document.body.appendChild(shapeContainer);
-			
-			
-	//var shapeHeader = document.createElement('img');
-	//shapeHeader.id = 'idShapeHeader';
-	//shapeHeader.className = 'buttonImg';
-	//shapeHeader.style.margin = '5px 5px 5px 5px';
-	//shapeHeader.src = 'assets/imgs/buttons/shapeLibrary.png';
-	//shapeHeader.style.zIndex = '1000';
-	//shapeContainer.appendChild(shapeHeader);
-			
+	document.body.appendChild(shapeContainer);			
 			
 	var shapeLibrary = document.createElement('div');
 	shapeLibrary.id = 'idShapeLibrary';
@@ -229,11 +244,11 @@ function addLoops(){
 	loopText.style.position = 'absolute';
 	loopText.style.color = '#fff';
 	loopText.innerHTML = 'Now we need a loop for the attachment.<br>Please click anywhere on your piece to place it.';
-	loopText.style.bottom = '15%';
+	loopText.style.bottom = '7%';
 	loopText.style.width = '100%';
 	loopText.style.fontSize = 'x-large';
 	loopText.style.fontFamily = 'Verdana, Geneva, sans-serif';
 	loopText.align = 'center';			
-	loopText.style.zIndex = '1000';
+	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
 }

@@ -72,6 +72,7 @@ window.onload = function() {
 			addSave();
 			addProgressBar();
 			addLoops();
+			addSavedLibrary();
 			$('#idBackButton').fadeOut(0);	
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
@@ -93,6 +94,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			$("#idSavedShapeContainer").fadeIn(450);
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -111,6 +113,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeIn(450);
+			$("#idSavedShapeContainer").fadeOut(450);
 			loops = true;
 		}
 		else if (state == 'finalize')
@@ -129,6 +132,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			$("#idSavedShapeContainer").fadeOut(450);
 			loops = false;
 		}
 		else if (state == 'publish')
@@ -147,6 +151,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
+			$("#idSavedShapeContainer").fadeOut(450);
 			loops = false;
 		}
 	}
