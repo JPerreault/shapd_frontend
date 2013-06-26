@@ -238,13 +238,12 @@ window.onload = function() {
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
                 
-		if (typeof newuser !== 'undefined')
+		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
-        {
             saveButtonAction();
-        }
 	}
+    
     
     function saveButtonAction()
     {
@@ -267,6 +266,7 @@ window.onload = function() {
 		}
 		saveShape();
     }
+
 	
 	
 	document.getElementById('idBackButton').onclick = function()
