@@ -41,11 +41,11 @@ function scaleGUI() {
 function addSave() {
 			var saveButtonContainer = document.createElement('div');
 			saveButtonContainer.id = 'idSaveButtonContainer';
-			saveButtonContainer.style.zIndex = '1000';
+			saveButtonContainer.style.zIndex = '900';
 			saveButtonContainer.style.position = 'absolute';
 			saveButtonContainer.style.bottom = '0%';
 			saveButtonContainer.style.right = '0%';
-			container.appendChild(saveButtonContainer);	
+			document.body.appendChild(saveButtonContainer);	
 			
 			var backButton = document.createElement('img');
 			backButton.id = 'idBackButton';
