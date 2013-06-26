@@ -237,8 +237,12 @@ window.onload = function() {
 	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		if (typeof newuser != 'undefined')
+        
+        alert(newuser);
+        
+		if (typeof newuser !== 'undefined')
 			createNewUser();
+        
 		firstTime = false;
 		if (state == 'creator')
 		{
