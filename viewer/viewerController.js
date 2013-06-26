@@ -49,7 +49,9 @@ window.onload = function() {
     function screenie()
     {
         var metaData = renderer.domElement.toDataURL("image/png");
-        $.post("/meta", {id: window['shapeID'], meta: metaData});
+        alert(shapeID);
+        alert("why");
+        $.post("/meta", {id: location.href.substr(href.lastIndexOf('/') + 1), authenticity_token: authToken, meta: metaData});
 
     }
 

@@ -1,5 +1,6 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
+var count = 0;
 var loops = false;
 
 window.onload = function() {
@@ -27,7 +28,12 @@ window.onload = function() {
 		}
 		
 		if (Detector.webgl)
-			renderer = new THREE.WebGLRenderer();
+        {
+            if (typeof screenShot != 'undefined')
+                renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+            else
+                renderer = new THREE.WebGLRenderer();
+        }
 		else
 			renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
@@ -49,10 +55,33 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 	}
-
+    
+    function killSelf()
+    {
+        location.href="blank.html";
+    }
+    
+    function screenie()
+    {
+        var metaData = renderer.domElement.toDataURL("image/png");
+        
+        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData});
+        
+    }
+    
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
+        
+        if (typeof screenShot != 'undefined')
+        {
+            if (count==10)
+                screenie();
+            else if (count == 20)
+                killSelf();
+            count++;
+        }
+        
 	}
 
 	function render() {
