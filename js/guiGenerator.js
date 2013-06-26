@@ -39,45 +39,103 @@ function scaleGUI() {
 }
 
 function addSave() {
-	var saveButtonContainer = document.createElement('div');
-	saveButtonContainer.id = 'idSaveButtonContainer';
-	saveButtonContainer.style.zIndex = '1000';
-	saveButtonContainer.style.position = 'absolute';
-	saveButtonContainer.style.bottom = '0%';
-	saveButtonContainer.style.right = '0%';
-	container.appendChild(saveButtonContainer);	
+			var saveButtonContainer = document.createElement('div');
+			saveButtonContainer.id = 'idSaveButtonContainer';
+			saveButtonContainer.style.zIndex = '1000';
+			saveButtonContainer.style.position = 'absolute';
+			saveButtonContainer.style.bottom = '0%';
+			saveButtonContainer.style.right = '0%';
+			container.appendChild(saveButtonContainer);	
+			
+			var backButton = document.createElement('img');
+			backButton.id = 'idBackButton';
+			backButton.style.zIndex = '1000';
+			backButton.className = 'buttonImg';
+			backButton.src = 'assets/imgs/buttons/back.png';
+			backButton.style.margin = '1px 1px 10px 10px';
+			saveButtonContainer.appendChild(backButton);
 		
-	var saveButton = document.createElement('img');
-	saveButton.id = 'idSaveButton';
-	saveButton.className = 'buttonImg';
-	saveButton.src = 'assets/imgs/buttons/save.png';
-	saveButton.style.margin = '3px 3px 10px 10px';
-	saveButtonContainer.appendChild(saveButton);
+			var saveButton = document.createElement('img');
+			saveButton.id = 'idSaveButton';
+			saveButton.style.zIndex = '1000';
+			saveButton.className = 'buttonImg';
+			saveButton.src = 'assets/imgs/buttons/save.png';
+			saveButton.style.margin = '1px 1px 10px 10px';
+			saveButtonContainer.appendChild(saveButton);
 }
 
 
 function addProgressBar() {
+	
 	var progressContainer = document.createElement('div');
 	progressContainer.id = 'idProgressContainer';
 	progressContainer.style.position = 'absolute';
-	progressContainer.style.top = '10px';
-	progressContainer.style.left = '36%';			
-	progressContainer.style.zIndex = '1000';
+	progressContainer.style.width = '100%';
+	progressContainer.style.top = '10px';			
+	progressContainer.style.zIndex = '100';
 	document.body.appendChild(progressContainer);
 	
-	var progressImg = document.createElement('img');
-	progressImg.id = 'idProgressImg';
-	progressImg.style.margin = '5px 5px 5px 5px';
-	progressImg.src = 'assets/imgs/progress/progress1.png';
-	progressImg.style.zIndex = '1000';
-	progressContainer.appendChild(progressImg);	
+		var progressImg = document.createElement('img');
+		progressImg.id = 'idProgressImg';
+		progressImg.className = 'buttonImg';
+		progressImg.src = 'assets/imgs/progress/progressSection1.png';
+		progressContainer.appendChild(progressImg);	
+	
+		var progressImg2 = progressImg.cloneNode(true);
+		progressImg2.id = 'idProgressImg2';
+		progressImg2.src = 'assets/imgs/progress/progressSectionOpaque.png';
+		progressContainer.appendChild(progressImg2);	
+	
+		var progressImg3 = progressImg.cloneNode(true);
+		progressImg3.id = 'idProgressImg3';
+		progressImg3.src = 'assets/imgs/progress/progressSectionOpaque.png';
+		progressContainer.appendChild(progressImg3);	
+	
+		var progressImg4 = progressImg.cloneNode(true);
+		progressImg4.id = 'idProgressImg4';
+		progressImg4.src = 'assets/imgs/progress/progressSectionOpaque.png';
+		progressContainer.appendChild(progressImg4);	
+	
+	var progressNameContainer = document.createElement('div');
+	progressNameContainer.id = 'idProgressNameContainer';
+	progressNameContainer.style.margin = '0px 0px 0px 4px';
+	progressNameContainer.style.position = 'absolute';
+	progressNameContainer.style.width = '100%';
+	progressNameContainer.style.display = 'block';		
+	progressNameContainer.style.zIndex = '1000';
+	progressContainer.appendChild(progressNameContainer);
+	
+		var progressImgNames1 = document.createElement('img');
+		progressImgNames1.id = 'idProgressImgNamesId1';
+		progressImgNames1.className = 'buttonImg';
+		progressImgNames1.style.margin = '3px 3px 0px 0px';
+		progressImgNames1.src = 'assets/imgs/progress/progressNames1_solid.png';
+		progressNameContainer.appendChild(progressImgNames1);	
+	
+		var progressImgNames2 = progressImgNames1.cloneNode(true);
+		progressImgNames2.id = 'idProgressImgNamesId2';
+		progressImgNames2.style.margin = '3px 3px 0px 5px';
+		progressImgNames2.src = 'assets/imgs/progress/progressNames2_opaque.png';
+		progressNameContainer.appendChild(progressImgNames2);	
+	
+		var progressImgNames3 = progressImgNames1.cloneNode(true);
+		progressImgNames3.id = 'idProgressImgNamesId3';
+		progressImgNames3.style.margin = '3px 3px 0px 6px';
+		progressImgNames3.src = 'assets/imgs/progress/progressNames3_opaque.png';
+		progressNameContainer.appendChild(progressImgNames3);	
+	
+		var progressImgNames4 = progressImgNames1.cloneNode(true);
+		progressImgNames4.id = 'idProgressImgNamesId4';
+		progressImgNames4.style.margin = '3px 3px 0px 0px';
+		progressImgNames4.src = 'assets/imgs/progress/progressNames4_opaque.png';
+		progressNameContainer.appendChild(progressImgNames4);	
 }
 
 function addResetButtons() {
 	var resetContainer = document.createElement('div');
 	resetContainer.id = 'idResetContainer';
 	resetContainer.style.position = 'absolute';
-	resetContainer.style.top = '220px';
+	resetContainer.style.top = '192px';
 	resetContainer.style.left = '1%';			
 	resetContainer.style.zIndex = '1000';
 	container.appendChild(resetContainer);
@@ -85,7 +143,7 @@ function addResetButtons() {
 	var resetRotationImg = document.createElement('img');
 	resetRotationImg.id = 'idResetRotationImg';
 	resetRotationImg.className = 'buttonImg';
-	resetRotationImg.style.margin = '2px 2px 0px 0px';
+	resetRotationImg.style.margin = '0px 10px 0px 0px';
 	resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
 	resetRotationImg.style.zIndex = '1000';
 	resetContainer.appendChild(resetRotationImg);
@@ -95,6 +153,29 @@ function addResetButtons() {
 	resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
 	resetContainer.appendChild(resetShapeImg);
 }
+
+function addSavedLibrary() {
+	
+	var savedShapeContainer = document.createElement('div');
+	savedShapeContainer.id = 'idSavedShapeContainer';
+	savedShapeContainer.className = 'rounded';
+	savedShapeContainer.innerHTML += 'Your Saved Shapes<br>';
+	savedShapeContainer.style.position = 'absolute';
+	savedShapeContainer.style.border = '10px solid #000';
+	savedShapeContainer.style.margin = '15 15 15 15';
+	savedShapeContainer.style.color = '#fff';
+	savedShapeContainer.style.background = '#000';
+	savedShapeContainer.style.top = '20%';
+	savedShapeContainer.style.right = '0.75%';	
+	savedShapeContainer.style.width = '215px';			
+	savedShapeContainer.style.zIndex = '1000';
+	document.body.appendChild(savedShapeContainer);			
+			
+	var savedShapeLibrary = document.createElement('div');
+	savedShapeLibrary.id = 'idSavedShapeLibrary';
+	savedShapeContainer.appendChild(savedShapeLibrary);
+}
+
 
 function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
@@ -110,17 +191,7 @@ function addStartingShapes() {
 	shapeContainer.style.left = '0.05%';	
 	shapeContainer.style.width = '215px';			
 	shapeContainer.style.zIndex = '1000';
-	document.body.appendChild(shapeContainer);
-			
-			
-	//var shapeHeader = document.createElement('img');
-	//shapeHeader.id = 'idShapeHeader';
-	//shapeHeader.className = 'buttonImg';
-	//shapeHeader.style.margin = '5px 5px 5px 5px';
-	//shapeHeader.src = 'assets/imgs/buttons/shapeLibrary.png';
-	//shapeHeader.style.zIndex = '1000';
-	//shapeContainer.appendChild(shapeHeader);
-			
+	document.body.appendChild(shapeContainer);			
 			
 	var shapeLibrary = document.createElement('div');
 	shapeLibrary.id = 'idShapeLibrary';
@@ -128,7 +199,7 @@ function addStartingShapes() {
 
 	var s1 = document.createElement('img');
 	s1.id = 'idS1';
-	s1.className = 'buttonImg';
+	s1.className = 'galleryImg';
 	s1.style.margin = '5px 5px 5px 5px';
 	s1.src = 'assets/imgs/shapes/1.jpg';
 	s1.height = 90;
@@ -167,22 +238,17 @@ function addMaterialSelector() {
 }
 
 function addLoops(){
-	var loopContainer = document.createElement('div');
-	document.body.appendChild(loopContainer);
-	loopContainer.id = 'idLoopContainer';
-	loopContainer.style.position = 'absolute';
-	loopContainer.style.color = '#fff';
-	loopContainer.style.background = '';
-	loopContainer.style.top = '7%';
-	loopContainer.style.left = '2.5%';	
-	loopContainer.style.width = '200px';			
-	loopContainer.style.zIndex = '1000';
-		
-	var loopImg = document.createElement('img');
-	loopImg.id = 'idLoops';
-	loopImg.className = 'buttonImg';
-	loopImg.style.margin = '5px 5px 5px 5px';
-	loopImg.src = 'assets/imgs/buttons/addLoop.png';
-	loopImg.style.zIndex = '1000';
-	loopContainer.appendChild(loopImg);
+
+	var loopText = document.createElement('div');
+	loopText.id = 'idLoopText';
+	loopText.style.position = 'absolute';
+	loopText.style.color = '#fff';
+	loopText.innerHTML = 'Now we need a loop for the attachment.<br>Please click anywhere on your piece to place it.';
+	loopText.style.bottom = '7%';
+	loopText.style.width = '100%';
+	loopText.style.fontSize = 'x-large';
+	loopText.style.fontFamily = 'Verdana, Geneva, sans-serif';
+	loopText.align = 'center';			
+	loopText.style.zIndex = '100';
+	document.body.appendChild(loopText);
 }

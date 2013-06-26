@@ -58,8 +58,6 @@ function getJson(figure)
 		};
 		jsonString = JSON.stringify(data);
 	}
-	
-	console.log(jsonString);
 }
 
 function calculateVolume(figure)

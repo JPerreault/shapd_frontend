@@ -8,6 +8,5 @@ function loadBlank()
 function loadScreenshotStage()
 {
     loadBlank();
-    document.getElementById('shape_stage').src = "viewer.html"+ location.hash;
-    
+    setTimeout("document.getElementById('shape_stage').src = location.href+\"?meta=1\";", 1000);
 }

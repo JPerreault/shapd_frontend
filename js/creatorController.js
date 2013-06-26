@@ -1,5 +1,7 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
+var count = 0;
+var loops = false;
 
 window.onload = function() {
 
@@ -27,7 +29,12 @@ window.onload = function() {
 		}
 		
 		if (Detector.webgl)
-			renderer = new THREE.WebGLRenderer();
+        {
+            if (typeof screenShot != 'undefined')
+                renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+            else
+                renderer = new THREE.WebGLRenderer();
+        }
 		else
 			renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
@@ -49,10 +56,33 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 	}
-
+    
+    function killSelf()
+    {
+        location.href="blank.html";
+    }
+    
+    function screenie()
+    {
+        var metaData = renderer.domElement.toDataURL("image/png");
+        
+        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData});
+        
+    }
+    
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
+        
+        if (typeof screenShot != 'undefined')
+        {
+            if (count==10)
+                screenie();
+            else if (count == 20)
+                killSelf();
+            count++;
+        }
+        
 	}
 
 	function render() {
@@ -72,29 +102,87 @@ window.onload = function() {
 			addSave();
 			addProgressBar();
 			addLoops();
-			$('#idLoopContainer').fadeOut(0);
+			addSavedLibrary();
+			$('#idBackButton').fadeOut(0);	
+			$("#materials").fadeOut(0);
+			$("#idLoopText").fadeOut(0);
+			firstTime = false;	
 		}
 		else if (state == 'creator')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progress1.png';
-			$('#idLoopContainer').fadeOut(450);
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1.png';
+			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionOpaque.png';
+			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
+			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
+			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
+			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
+			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeIn(450);
-			$("#materials").fadeIn(450);
+			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
+			$('#idBackButton').fadeOut(450);
+			$('#idSaveButton').fadeIn(450);
+			$('#idResetContainer').fadeIn(450);
+			$("#idLoopText").fadeOut(450);
+			$("#idSavedShapeContainer").fadeIn(450);
+			loops = false;
 		}
 		else if (state == 'loops')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progress2.png';
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionActive.png';
+			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
+			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
+			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
+			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
+			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
-			$('#idLoopContainer').fadeIn(450);
+			$('#idBackButton').fadeIn(450);
+			$('#idSaveButton').fadeIn(450);
+			$('#idResetContainer').fadeIn(450);
+			$("#idLoopText").fadeIn(450);
+			$("#idSavedShapeContainer").fadeOut(450);
+			loops = true;
 		}
 		else if (state == 'finalize')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progress3.png';
-			$('#idLoopContainer').fadeOut(450);
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionComplete.png';
+			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionActive.png';
+			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
+			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
+			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
+			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
+			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeIn(450);
+			$("#idShapeContainer").fadeOut(450);
+			$('#idBackButton').fadeIn(450);
+			$('#idSaveButton').fadeIn(450);
+			$('#idResetContainer').fadeIn(450);
+			$("#idLoopText").fadeOut(450);
+			$("#idSavedShapeContainer").fadeOut(450);
+			loops = false;
+		}
+		else if (state == 'publish')
+		{
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionComplete.png';
+			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionComplete.png';
+			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionActive.png';
+			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
+			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
+			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
+			$("#datGuiStuff").fadeOut(450);
+			$("#materials").fadeOut(450);
+			$("#idShapeContainer").fadeOut(450);
+			$('#idBackButton').fadeIn(450);
+			$('#idSaveButton').fadeIn(450);
+			$('#idResetContainer').fadeOut(450);
+			$("#idLoopText").fadeOut(450);
+			$("#idSavedShapeContainer").fadeOut(450);
+			loops = false;
 		}
 	}
 	
@@ -146,7 +234,7 @@ window.onload = function() {
 		tubeMeshBuilder.saveSTL();
 	}
 	
-	document.getElementById('idSaveButtonContainer').onclick = function()
+	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (typeof newuser != 'undefined')
@@ -165,26 +253,94 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			state = 'creator'; //later goes to checkout page
+			state = 'publish';
 			setupInterface();
 		}
 		saveShape();
 	}
 	
-	document.getElementById('screen').onclick = function()
+	
+	document.getElementById('idBackButton').onclick = function()
 	{
-		getJson(sceneWrapper.currentMesh.figure);
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		if (state == 'creator')
+		{
+		}
+		else if (state == 'loops')
+		{
+			state = 'creator';
+			setupInterface();
+		}
+		else if (state == 'finalize')
+		{
+			state = 'loops';
+			setupInterface();
+		}
+		else if (state == 'publish')
+		{
+			state = 'finalize';
+			setupInterface();
+		}
+		saveShape();
 	}
+	
+// Changing states on progress bar clicks
+	
+	document.getElementById('idProgressImg').onclick = function()
+	{
+			state = 'creator';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImg2').onclick = function()
+	{
+			state = 'loops';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImg3').onclick = function()
+	{
+			state = 'finalize';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImg4').onclick = function()
+	{
+			state = 'publish';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId1').onclick = function()
+	{
+			state = 'creator';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId2').onclick = function()
+	{
+			state = 'loops';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId3').onclick = function()
+	{
+			state = 'finalize';
+			setupInterface();
+	}
+	
+	document.getElementById('idProgressImgNamesId4').onclick = function()
+	{
+			state = 'publish';
+			setupInterface();
+	}
+	
+// End Progress state changing functionality	
+	
 	
 	document.getElementById('idResetRotationImg').onclick = function()
 	{
 		view.targetX = 0;
 		view.targetY = 0;
-	}
-	
-	document.getElementById('idLoopContainer').onclick = function()
-	{
-		loops = !loops;
 	}
     
     document.getElementById('idResetShapdImg').onclick = function()
@@ -249,6 +405,11 @@ window.onload = function() {
 		sceneWrapper.currentMesh['Starting Shape'] = 6;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
+	
+	document.getElementById('screen').onclick = function()
+	{
+		getJson(sceneWrapper.currentMesh.figure);
+	}
 
 	function setupDatGui(sC) {
 	    scene = sC;
@@ -286,7 +447,7 @@ window.onload = function() {
 		gui.domElement.style.position = 'absolute';
 		gui.domElement.style.top = '-1px';
 		gui.domElement.style.left = '-15px';
-		gui.domElement.style.zIndex = '100';
+		gui.domElement.style.zIndex = '1000';
 		datGuiContainer.appendChild(gui.domElement);
 	}
 	

@@ -260,8 +260,30 @@ var TubeMeshBuilder = function(materialsLibrary) {
 };
 
 var TubeMeshParams = function(){
-    if (typeof savedShape == 'undefined')
+    if (typeof savedShape != 'undefined')
 	{
+        try
+        {
+            var parseme = savedShape.split("|");
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
+            for (var x=0; x<transformations.length; x++)
+            {
+                this[transformations[x]] = parseFloat(parseme[x]);
+                
+                if (parseme[x].indexOf("undefined") != -1)
+                    throw "invalid";
+            }
+
+            if (parseme == "")
+                throw "invalid";
+            
+            return;
+        }
+        catch(e)
+        {
+            
+        }
+    }
         
 		this['Scale'] = 5;
 		this['Modify'] = 5;
@@ -272,14 +294,5 @@ var TubeMeshParams = function(){
 		this['Thickness'] = 4;
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
-	}
-	else
-	{
-		var parseme = savedShape.split("|");
-		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
-		for (var x=0; x<transformations.length; x++)
-		{
-			this[transformations[x]] = parseFloat(parseme[x]);
-		}
-	}
+
 };

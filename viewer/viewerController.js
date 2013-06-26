@@ -48,7 +48,11 @@ window.onload = function() {
     
     function screenie()
     {
-        window.open(renderer.domElement.toDataURL("image/png"), 'Shape');
+        var metaData = renderer.domElement.toDataURL("image/png");
+        alert(shapeID);
+        alert("why");
+        $.post("/meta", {id: location.href.substr(href.lastIndexOf('/') + 1), authenticity_token: authToken, meta: metaData});
+
     }
 
 	function animate() {
