@@ -1,12 +1,12 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
-var loops = false;
 
 window.onload = function() {
 
 	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener, state;
 	var renderer, sceneWrapper, materialsLibrary, customContainer, datGuiContainer;
 	var firstTime = true;
+	var loops = false;
 
 	init();
 	animate();
@@ -168,14 +168,12 @@ window.onload = function() {
 			state = 'creator'; //later goes to checkout page
 			setupInterface();
 		}
-		weLoveRicky();
+		saveShape();
 	}
 	
 	document.getElementById('screen').onclick = function()
 	{
-		tubeMeshBuilder.calculateVolume();
-		//tubeMeshBuilder.volumeCalc(true);
-		tubeMeshBuilder.calculateSurfaceArea();
+		getJson(sceneWrapper.currentMesh.figure);
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
