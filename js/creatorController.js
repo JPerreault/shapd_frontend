@@ -237,9 +237,7 @@ window.onload = function() {
 	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-        
-        alert(newuser);
-        
+                
 		if (typeof newuser !== 'undefined')
 			createNewUser();
         
