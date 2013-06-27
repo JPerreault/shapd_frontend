@@ -58,7 +58,8 @@ window.onload = function() {
     
     function killSelf()
     {
-        location.href="blank.html";
+        parent.hideTheBeast();
+        setTimeout("location.href=\"blank.html\";", 500);
     }
     
     function screenie()
