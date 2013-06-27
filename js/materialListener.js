@@ -208,13 +208,14 @@ var materialListener = function(sW, tMB){
 	
 	function materialChange()
 	{
-		getNewPrice();
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		getNewPrice();
 	}
 	
 	function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh.figure);
+		console.log(jsonString);
 		if (typeof authToken !== 'undefined')
 			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 	}

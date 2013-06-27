@@ -217,27 +217,6 @@ window.onload = function() {
     screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
     customContainer.appendChild(screen);
 	
-	//For background toggling
-	//document.getElementById('toggle').onclick = function()
-	//{
-	//	n++;
-
-	//	materialsLibrary = new MaterialsLibrary();
-	//	tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
-	//	sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, scene.currentMesh);
-		
-	//	view = new InputView(sceneWrapper, renderer);
-	//	sceneWrapper.init();
-		
-	//	view.addMeshElement(renderer.domElement)
-		
-	//	var currentMesh = sceneWrapper.currentMesh;
-	//	scene = sceneWrapper;
-	//	sceneWrapper.redrawMesh(currentMesh);
-		
-	//	matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
-	//}
-	
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL();
@@ -299,8 +278,6 @@ window.onload = function() {
 		saveShape();
 	}
 	
-// Changing states on progress bar clicks
-	
 	document.getElementById('idProgressImg').onclick = function()
 	{
 			state = 'creator';
@@ -348,9 +325,6 @@ window.onload = function() {
 			state = 'publish';
 			setupInterface();
 	}
-	
-// End Progress state changing functionality	
-	
 	
 	document.getElementById('idResetRotationImg').onclick = function()
 	{
@@ -453,8 +427,8 @@ window.onload = function() {
 		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
 		document.removeEventListener( 'mouseup', releaseSlider, false );
 		
-		getNewPrice();
 		scene.redrawMesh(scene.currentMesh);
+		getNewPrice();
 	}
 
 	function setupDatGui(sC) {
