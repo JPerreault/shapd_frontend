@@ -5,204 +5,222 @@ var materialListener = function(sW, tMB){
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular white');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('blackregularplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular black');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('whitepolishedplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular white polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('redpolishedplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular red polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('bluepolishedplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular blue polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('pinkpolishedplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular pink polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('purplepolishedplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular purple polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('whitedetailplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic detail white');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('blackdetailplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic detail black');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('whitetransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin white');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('blacktransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin black');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('graytransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin gray');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('redtransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin red');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('greentransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin green');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('bluetransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin blue');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('yellowtransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin yellow');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('orangetransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin orange');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('browntransparentplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Transparent resin brown');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('regularalumide').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Alumide regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('polishedalumide').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Alumide polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('regularbrass').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Brass regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('goldplatedbrass').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Brass gold plated polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('regularsteel').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Stainless steel regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('medievalsteel').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Stainless steel medieval pewter');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('bronzemattesteel').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Stainless steel bronze matte');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('bronzeglossysteel').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Stainless steel bronze glossy');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('goldmattesteel').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Stainless steel gold matte');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('goldglossysteel').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Stainless steel gold glossy');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('regularsilver').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Silver regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('glossysilver').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Silver glossy');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('premiumsilver').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Silver premium');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('unpolishedtitanium').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Titanium unpolished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('polishedtitanium').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Titanium polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		materialChange();
 	}
 	
 	document.getElementById('regulargold').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Gold regular');
+		materialChange();
+	}
+	
+	function materialChange()
+	{
+		getNewPrice();
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	function getNewPrice()
+	{
+		var jsonString = getJson(sceneWrapper.currentMesh.figure);
+		if (typeof authToken !== 'undefined')
+			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+	}
+	
+	function updatePrice(data)
+	{
+		$( "#cost" ).val('$'.concat(data+''));
 	}
 }	

@@ -90,6 +90,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.redrawMesh = function(newParams){
 		var yRotation = this.currentMesh.figure.rotation.y;
 		var xRotation = this.currentMesh.figure.rotation.x;
+		var scale = this.currentMesh.figure.scale.x;
 
         this.scene.remove( this.currentMesh.figure );
 		this.currentMesh = tubeMeshBuilder.build(newParams);
@@ -109,6 +110,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			
 			this.scene.add(this.torusMesh);
 		}
+		this.updateScale(scale);
 	};
 
     this.updateScale = function(newVal){

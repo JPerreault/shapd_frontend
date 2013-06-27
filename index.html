@@ -6,60 +6,72 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-
-        <link rel="stylesheet" type="text/css" href="css/guiCSS.css" />
-		<link rel="stylesheet" type="text/css" href="css/dropdownCSS.css" />
-        
+		<link rel="stylesheet" type="text/css" href="css/guiCSS.css" />
+ 		<link rel="stylesheet" type="text/css" href="css/dropdownCSS.css" />
+		 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script>
 
 		$(function() {
 			$( "#materials" ).accordion({
-			heightStyle: 'content',
-			collapsible: true,
-			active: false,
-			alwaysOpen: false,
-			icons: icons,
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
 		})});
 		$(function() {
 			$( "#plastics" ).accordion({
-			heightStyle: 'content',
-			collapsible: true,
-			active: false,
-			alwaysOpen: false,
-			icons: icons,
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
 		})});
 		$(function() {
 			$( "#metals" ).accordion({
-			heightStyle: 'content',
-			collapsible: true,
-			active: false,
-			alwaysOpen: false,
-			icons: icons,
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
 		})});
 		$(function() {
 			$( "#preciousMetals" ).accordion({
-			heightStyle: 'content',
-			collapsible: true,
-			active: false,
-			alwaysOpen: false,
-			icons: icons,
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
 		})});
 		$(function() {
 			$( "#steel" ).accordion({
-			heightStyle: 'content',
-			collapsible: true,
-			active: false,
-			alwaysOpen: false,
-			icons: icons,
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
 		})});
-		
-		
+
 		var icons = {
 				header: "ui-icon-circle-arrow-e",
 				activeHeader: "ui-icon-circle-arrow-s"
 			};
+		
+		$(function() {
+			$( "#slider" ).slider({
+				value: 100,
+				min: 50,
+				max: 200,
+				step: 1,
+				slide: function(event, ui){
+					$( "#scale" ).val(ui.value);
+				}
+			})
+			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
+		});	
 		
 		</script>
 	</head>
@@ -83,13 +95,17 @@
         <script src="js/guiGenerator.js"></script>
 		<script src="js/jsonMaker.js"></script>
 		
+		
 		<div id = "container" z-index="100"></div>
         <iframe id="shape_stage" style="left:0;right:0;position:absolute;top:0;"frameborder=0 height=250 width=250></iframe>
+		<div align = "left" style = "font-size: 80%; background-color: transparent;  padding: 0 !important; bottom: 20%; left: 40%; position: absolute; height: 10px; width: 200px;" id = "sliderContainer">
+			<p><label for = "cost">Cost: </label>
+			<input type = "text" id = "cost" style="border: 0; color: #f6931f; font-weight: bold; width: 45px" />
+			<p><label for = "scale">Scale: </label>
+			<input type = "text" id = "scale" style="border: 0; color: #f6931f; font-weight: bold; width: 45px" />
+			<div id = "slider"></div>
+		</div>
 		
-		<map id="progressMap">
-			<area shape ="rect" coords ="0,0,515,63"
-			onClick = "init()"  /> 
-		</map>
 		
 		<div align = "left" style = "font-size: 80%; background-color: transparent; position: absolute; padding: 0 !important; top: 0%; right: 0%" id = "materials">
 		<h3><img class="materialImg" src = assets/imgs/materials/plastic.png>     Plastics</h3>

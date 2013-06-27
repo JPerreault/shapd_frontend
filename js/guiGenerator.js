@@ -235,6 +235,7 @@ function addStartingShapes() {
 
 function addMaterialSelector() {
 	document.getElementById('materials').style.zIndex = '1001';
+	document.getElementById('sliderContainer').style.zIndex = '1001';
 }
 
 function addLoops(){

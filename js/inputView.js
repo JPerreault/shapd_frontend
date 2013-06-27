@@ -53,14 +53,17 @@ var InputView = function(sW, rend, tMP) {
 	function onDocumentMouseDown( event ) {
 		event.preventDefault();
 
-		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-		document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-		document.addEventListener( 'mouseout', onDocumentMouseOut, false );
+		if (event.target.id !== "slider" && event.target.parentElement.id !== "slider")
+		{
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+			document.addEventListener( 'mouseout', onDocumentMouseOut, false );
 
-		mouseXOnMouseDown = event.clientX - that.currentWindowX;
-		mouseYOnMouseDown = event.clientY - that.currentWindowY;
-		targetYRotationOnMouseDown = that.targetY;
-		targetXRotationOnMouseDown = that.targetX;
+			mouseXOnMouseDown = event.clientX - that.currentWindowX;
+			mouseYOnMouseDown = event.clientY - that.currentWindowY;
+			targetYRotationOnMouseDown = that.targetY;
+			targetXRotationOnMouseDown = that.targetX;
+		}
 
 	}
 

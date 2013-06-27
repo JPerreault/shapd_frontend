@@ -58,6 +58,13 @@ function getJson(figure)
 		};
 		jsonString = JSON.stringify(data);
 	}
+	
+	//console.log('Volume: ', volume);
+	//console.log('Surface Area: ', surfaceArea);
+	//console.log('Length: ', dimensions[1]);
+	//console.log('----------------------');
+	
+	return jsonString;
 }
 
 function calculateVolume(figure)
@@ -104,7 +111,7 @@ function calculateVolume(figure)
 	}
 		
 	totalVolume /= 6;
-	totalVolume /= (Math.pow(figure.scale.x, 3));
+	totalVolume /= (Math.pow(5 / figure.scale.x * 5, 3));
 	totalVolume /= 1000; //conversion to cm^3
 		
 	return totalVolume;
@@ -133,8 +140,7 @@ function calculateSurfaceArea(figure)
 			
 		surfaceArea += ab*ad;
 	}
-	
-	surfaceArea /= (Math.pow(figure.scale.x, 2));
+	surfaceArea /= (Math.pow(5 / figure.scale.x * 5, 2));
 	surfaceArea /= 100; //conversion to cm^2
 		
 	return surfaceArea;
@@ -145,7 +151,7 @@ function calculateXYZ(figure)
 	figure.geometry.computeBoundingBox();
 	var boundingBox = figure.geometry.boundingBox;
 	var dimensions = [];
-	scale = figure.scale.x;
+	var scale = 5 / figure.scale.x * 5;
 		
 	var xMin = boundingBox.min.x / scale;
 	var yMin = boundingBox.min.y / scale;

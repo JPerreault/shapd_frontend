@@ -1,4 +1,3 @@
-//Global variable for toggle clouds/bridges
 var n = 0;
 var count = 0;
 var loops = false;
@@ -96,14 +95,9 @@ window.onload = function() {
 	{
 		if (state == 'creator' && firstTime)
 		{
-			addStartingShapes();
-			addMaterialSelector();
-			addResetButtons();
-			addSave();
-			addProgressBar();
-			addLoops();
-			addSavedLibrary();
-			$('#idBackButton').fadeOut(0);	
+			initialSetup();
+			$('#idBackButton').fadeOut(0);
+			$("#sliderContainer").fadeOut(0);			
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
 			firstTime = false;	
@@ -119,6 +113,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeIn(450);
 			$("#materials").fadeOut(450);
+			$("#sliderContainer").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
@@ -138,6 +133,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#sliderContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -157,6 +153,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeIn(450);
+			$("#sliderContainer").fadeIn(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -176,6 +173,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#sliderContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -186,14 +184,25 @@ window.onload = function() {
 		}
 	}
 	
+	function initialSetup()
+	{
+		addStartingShapes();
+		addMaterialSelector();
+		addResetButtons();
+		addSave();
+		addProgressBar();
+		addLoops();
+		addSavedLibrary();
+	}
+	
 	customContainer = document.getElementById('container');	
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'relative';
 
 	var saveSTL = document.createElement('div');
 	saveSTL.style.position = 'absolute';
-	saveSTL.style.top = '0px';
-	saveSTL.style.left = '230px';
+	saveSTL.style.bottom = '0px';
+	saveSTL.style.left = '0px';
 	saveSTL.style.zIndex = '1000';
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
@@ -201,8 +210,8 @@ window.onload = function() {
     
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
-    screen.style.top = '28px';
-    screen.style.left = '230px';
+    screen.style.bottom = '28px';
+    screen.style.left = '0px';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
     screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
@@ -263,10 +272,7 @@ window.onload = function() {
 	document.getElementById('idBackButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		if (state == 'creator')
-		{
-		}
-		else if (state == 'loops')
+		if (state == 'loops')
 		{
 			state = 'creator';
 			setupInterface();
@@ -345,9 +351,9 @@ window.onload = function() {
     
     document.getElementById('idResetShapdImg').onclick = function()
 	{
+		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
 		{
-			var currentMesh = sceneWrapper.currentMesh;
 			currentMesh['Scale'] = 5;
 			currentMesh['Modify'] = 5;
 			currentMesh['Depth'] = 1;
@@ -356,17 +362,27 @@ window.onload = function() {
 			currentMesh['Thickness'] = 4;
 			currentMesh['Rotation X'] = 0;
 			currentMesh['Rotation Y'] = 0;
+			view.targetX = 0;
+			view.targetY = 0;
 		
 			sceneWrapper.redrawMesh(currentMesh);
 			setupDatGui(sceneWrapper);
 			
-			view.targetX = 0;
-			view.targetY = 0;
+			
 		}
 		else if (state == 'loops')
 		{
 			scene.scene.remove(scene.torusMesh);
 			scene.torusDefined = false;
+		}
+		else if (state == 'finalize')
+		{
+			currentMesh['Scale'] = 5;
+			$( "#slider" ).slider( "value", 100 );
+			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
+			
+		
+			sceneWrapper.redrawMesh(currentMesh);
 		}
 	}
 	
@@ -410,6 +426,27 @@ window.onload = function() {
 	{
 		getJson(sceneWrapper.currentMesh.figure);
 	}
+	
+	document.getElementById('slider').onmousedown = function()
+	{
+		event.preventDefault();
+		
+		document.addEventListener( 'mouseup', releaseSlider, false );
+	}
+	
+	function releaseSlider()
+	{
+		event.preventDefault();
+		
+		var sliderValue = $( "#slider" ).slider( "value" );
+		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 20;
+		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
+		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
+		document.removeEventListener( 'mouseup', releaseSlider, false );
+		
+		getNewPrice();
+		scene.redrawMesh(scene.currentMesh);
+	}
 
 	function setupDatGui(sC) {
 	    scene = sC;
@@ -449,6 +486,18 @@ window.onload = function() {
 		gui.domElement.style.left = '-15px';
 		gui.domElement.style.zIndex = '1000';
 		datGuiContainer.appendChild(gui.domElement);
+	}
+	
+	function getNewPrice()
+	{
+		var jsonString = getJson(sceneWrapper.currentMesh.figure);
+		if (typeof authToken !== 'undefined')
+			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+	}
+	
+	function updatePrice(data)
+	{
+		$( "#cost" ).val('$'.concat(data+''));
 	}
 	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
