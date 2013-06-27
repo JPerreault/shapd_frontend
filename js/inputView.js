@@ -33,6 +33,9 @@ var InputView = function(sW, rend, tMP) {
 	window.addEventListener( 'resize', onWindowResize, false );
 	
 	function onDocumentMouseWheel ( event ) {
+        if (typeof freeze !== 'undefined' && freeze)
+            return;
+        
 		var fovMAX = 160;
 		var fovMIN = 5;
 
@@ -52,6 +55,9 @@ var InputView = function(sW, rend, tMP) {
 
 	function onDocumentMouseDown( event ) {
 		event.preventDefault();
+		
+		if (typeof freeze !== 'undefined' && freeze)
+            return;
 
 		if (event.target.id !== "slider" && event.target.parentElement.id !== "slider")
 		{
