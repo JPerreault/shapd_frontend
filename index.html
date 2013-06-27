@@ -98,11 +98,22 @@
 		
 		<div id = "container" z-index="100"></div>
         <iframe id="shape_stage" style="left:0;right:0;position:absolute;top:0;"frameborder=0 height=250 width=250></iframe>
+		
 		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 20%; left: 40%; position: absolute; height: 10px; width: 200px;" id = "sliderContainer">
 			<p><label for = "cost">Cost: </label>
 			<input type = "text" id = "cost" style="border: 0; color: #f6931f; font-weight: bold; width: 45px" />
 			<p><label for = "scale">Scale: </label>
 			<input type = "text" id = "scale" style="border: 0; color: #f6931f; font-weight: bold; width: 45px" />
+			<div id = "slider"></div>
+		</div>
+		
+		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; top: 0%; left: 0%; position: absolute; z-index: 1001; height: 30px; width: 200px;" id = "idMaterialPanel">
+			<p><label for = "matname">Material Name: </label>
+			<input type = "text" id = "matname" style="border: 0; color: #f6931f; font-weight: bold; width: 175px" />
+			<p><label for = "matdesc">Material Decription: </label>
+			<input type = "text" id = "matdesc" style="border: 0; color: #f6931f; font-weight: bold; width: 175px" />
+			<p><label for = "matcost">Material Cost: </label>
+			<input type = "text" id = "matcost" style="border: 0; color: #f6931f; font-weight: bold; width: 45px" />
 			<div id = "slider"></div>
 		</div>
 		

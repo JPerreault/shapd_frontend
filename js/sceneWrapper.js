@@ -85,6 +85,33 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.addMesh = function(mesh){
 		this.currentMesh = mesh;
 		this.scene.add(mesh.figure);
+		if (typeof screenShot !== 'undefined')
+		{ 
+			var yRotation = this.currentMesh.figure.rotation.y;
+			var xRotation = this.currentMesh.figure.rotation.x;
+			figure = this.currentMesh.figure;
+			var outlineMaterial = new THREE.MeshBasicMaterial({color:0x000000, side: THREE.BackSide});
+			
+			var outlineMesh = new THREE.Mesh(figure.geometry, outlineMaterial);
+			outlineMesh.rotation.x = xRotation;
+			outlineMesh.rotation.y = yRotation;
+			outlineMesh.position = figure.position;
+			outlineMesh.scale.x = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.y = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.z = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.multiplyScalar(1.015);
+			this.scene.add(outlineMesh);
+			
+			var outlineMesh2 = new THREE.Mesh(figure.geometry, outlineMaterial);
+			outlineMesh2.rotation.x = xRotation;
+			outlineMesh2.rotation.y = yRotation;
+			outlineMesh2.position = figure.position;
+			outlineMesh2.scale.x = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.y = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.z = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.multiplyScalar(.985);
+			this.scene.add(outlineMesh2);
+		}
 	};
 
 	this.redrawMesh = function(newParams){

@@ -111,6 +111,13 @@ function buildTextureCube(){
 					 r + "posy.jpg", r + "negy.jpg",
 					 r + "posz.jpg", r + "negz.jpg" ];
 	}
+	if (typeof screenShot !== 'undefined')
+	{
+	var r = "src/textures/cube/skybox/";
+		var urls = [ r + "px.jpg", r + "nx.jpg",
+					 r + "py.jpg", r + "ny.jpg",
+					 r + "pz.jpg", r + "whitebox.jpg" ];
+	}
 
 	var textureCube = THREE.ImageUtils.loadTextureCube( urls );
 	textureCube.format = THREE.RGBFormat;

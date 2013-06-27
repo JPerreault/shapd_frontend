@@ -30,6 +30,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		geometry.computeVertexNormals();
 		
 		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
+		if (typeof screenShot !== 'undefined')
+			this.m.opacity = 1;
         figure = new THREE.Mesh(geometry, this.m);
 		
         figure.rotation.x = tubeMeshParams['Rotation X'];
@@ -210,24 +212,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var result = Math.acos(a);
 
 		return result;
-	}
-
-	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
-	function calculateMeshSize(figure)
-	{
-		figure.geometry.computeBoundingBox();
-		var boundingBox = figure.geometry.boundingBox;
-		
-		var xMin = boundingBox.min.x;
-		var xMax = boundingBox.max.x;
-		var yMin = boundingBox.min.y;
-		var yMax = boundingBox.max.y;
-		var zMin = boundingBox.min.z;
-		var zMax = boundingBox.max.z;
-		
-		var xWidth = xMax - xMin;
-		var yHeight = yMax - yMin;
-		var zDepth = zMax - zMin;
 	}
 	
 	function updateHash(tubeMesh)

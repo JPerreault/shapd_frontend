@@ -100,7 +100,8 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(0);			
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
-			if (typeof viewer !== 'undefined' && viewer == true)
+			$('#idMaterialPanel').fadeOut(0);
+			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
 				$("#idShapeContainer").fadeOut(0);
@@ -108,6 +109,7 @@ window.onload = function() {
 				$("#idSavedShapeContainer").fadeOut(0);
 				$('#idSaveButton').fadeOut(0);
 				$('#idProgressContainer').fadeOut(0);
+				$('#idMaterialPanel').fadeOut(0);
 			}
 			firstTime = false;	
 		}
@@ -129,6 +131,7 @@ window.onload = function() {
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
+			$('#idMaterialPanel').fadeOut(450);
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -149,6 +152,7 @@ window.onload = function() {
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
+			$('#idMaterialPanel').fadeOut(450);
 			loops = true;
 		}
 		else if (state == 'finalize')
@@ -169,6 +173,7 @@ window.onload = function() {
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
+			$('#idMaterialPanel').fadeIn(450);
 			loops = false;
 		}
 		else if (state == 'publish')
@@ -189,6 +194,7 @@ window.onload = function() {
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
+			$('#idMaterialPanel').fadeOut(450);
 			loops = false;
 		}
 	}
@@ -494,9 +500,14 @@ window.onload = function() {
 	
 	function getNewPrice()
 	{
-		var jsonString = getJson(sceneWrapper.currentMesh.figure);
-		if (typeof authToken !== 'undefined')
-			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		if (sceneWrapper.currentMesh.figure.material.name === '')
+			alert('Please choose a material.');
+		else
+		{
+			var jsonString = getJson(sceneWrapper.currentMesh.figure);
+			if (typeof authToken !== 'undefined')
+				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		}
 	}
 	
 	function updatePrice(data)

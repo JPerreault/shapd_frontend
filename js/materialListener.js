@@ -1,16 +1,25 @@
 var materialListener = function(sW, tMB){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
+	var name = 'name';
+	var description = 'description';
+	var cost = 'cost';
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular white');
+		name = 'White Regular Plastic';
+		description = 'Bumpy, rough';
+		cost = '$';
 		materialChange();
 	}
 	
 	document.getElementById('blackregularplastic').onclick = function()
 	{
 		tubeMeshBuilder.setMaterial('Plastic regular black');
+		name = 'Black Regular Plastic';
+		description = 'Bumpy, rough';
+		cost = '$';
 		materialChange();
 	}
 	
@@ -206,16 +215,16 @@ var materialListener = function(sW, tMB){
 		materialChange();
 	}
 	
-	function materialChange()
+	function materialChange(name, description, cost)
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
+		panelUpdate();
 	}
 	
 	function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh.figure);
-		console.log(jsonString);
 		if (typeof authToken !== 'undefined')
 			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 	}
@@ -224,4 +233,11 @@ var materialListener = function(sW, tMB){
 	{
 		$( "#cost" ).val('$'.concat(data+''));
 	}
-}	
+	
+	function panelUpdate()
+	{
+		$( "#matname" ).val(name);
+		$( "#matdesc" ).val(description);
+		$( "#matcost" ).val(cost);
+	}
+}
