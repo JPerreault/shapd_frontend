@@ -203,19 +203,12 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 		//Find the dot product of n1 and n2.
 		var d = (n1.x * n2.x) + (n1.y * n2.y) + (n1.z * n2.z);
-		console.log('d ', d);
 		var l1 = Math.pow ((Math.pow(n1.x, 2) + Math.pow(n1.y, 2) + Math.pow(n1.z, 2)), .5);
-		console.log('l1 ', l1);
 		var l2 = Math.pow ((Math.pow(n2.x, 2) + Math.pow(n2.y, 2) + Math.pow(n2.z, 2)), .5);
-		console.log('l2 ', l2);
 		
 		var a = (d)/(l1*l2);
-		console.log('a ', a);
 		var result = Math.acos(a);
-		//var result = - result;
-		//result = Math.PI - result;
-		console.log(result);
-		console.log('-------------');
+
 		return result;
 	}
 

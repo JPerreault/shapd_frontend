@@ -100,6 +100,15 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(0);			
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
+			if (typeof viewer !== 'undefined' && viewer == true)
+			{
+				$("#datGuiStuff").fadeOut(0);
+				$("#idShapeContainer").fadeOut(0);
+				$('#idResetContainer').fadeOut(0);
+				$("#idSavedShapeContainer").fadeOut(0);
+				$('#idSaveButton').fadeOut(0);
+				$('#idProgressContainer').fadeOut(0);
+			}
 			firstTime = false;	
 		}
 		else if (state == 'creator')
@@ -415,6 +424,17 @@ window.onload = function() {
 		event.preventDefault();
 		
 		document.addEventListener( 'mouseup', releaseSlider, false );
+		document.addEventListener( 'mousemove', moveSlider, false );
+	}
+	
+	function moveSlider()
+	{
+		var sliderValue = $( "#slider" ).slider( "value" );
+		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 20;
+		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
+		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
+		
+		scene.redrawMesh(scene.currentMesh);
 	}
 	
 	function releaseSlider()
@@ -426,6 +446,7 @@ window.onload = function() {
 		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
 		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
 		document.removeEventListener( 'mouseup', releaseSlider, false );
+		document.removeEventListener( 'mousemove', moveSlider, false );
 		
 		scene.redrawMesh(scene.currentMesh);
 		getNewPrice();
