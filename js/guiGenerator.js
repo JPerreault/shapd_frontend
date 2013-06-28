@@ -259,3 +259,9 @@ function addLoops(){
 	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
 }
+
+function addDatGui(){
+	var datgui = document.createElement('div');
+	datgui.id = 'datGuiStuff';
+	document.body.appendChild(datgui);
+}

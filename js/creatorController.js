@@ -1,11 +1,11 @@
 var n = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper;
+var sceneWrapper, view;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener, state;
+	var tubeMeshBuilder, gui, scene, tubeMP, matListener, state;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var firstTime = true;
 	var loops = false;
@@ -46,15 +46,13 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
 		scene = sceneWrapper;
-		
-		datGuiContainer = document.createElement('div');
-		document.body.appendChild(datGuiContainer);
-		datGuiContainer.id = 'datGuiStuff';
-	    setupDatGui(sceneWrapper);	
+	
+	    
 		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 		state = 'creator';
 		setupInterface();
+		setupDatGui(sceneWrapper);	
 	}
     
     function killSelf()
@@ -217,6 +215,7 @@ window.onload = function() {
 		addProgressBar();
 		addLoops();
 		addSavedLibrary();
+		addDatGui();
 	}
 	
 	customContainer = document.getElementById('container');	
@@ -513,16 +512,16 @@ function loadFromLib(hash)
 //    if (typeof savedShape != 'undefined')
     window.savedShape = hash;
     var loadedShape = new TubeMeshParams();
-    window.sceneWrapper.redrawMesh(loadedShape);
+    window.sceneWrapper.redrawMesh(loadedShape, true);
     window.sceneWrapper.currentMesh = loadedShape;
     window.sceneWrapper.tubeMeshParams = loadedShape;
+	window.view.targetX = loadedShape['Rotation X'];
+	window.view.targetY = loadedShape['Rotation Y'];
 	setupDatGui(window.sceneWrapper);
 }
-
+	
 function setupDatGui(sC) {
-	var datGuiContainer = document.createElement('div');
-	document.body.appendChild(datGuiContainer);
-	datGuiContainer.id = 'datGuiStuff';
+	datGuiContainer = document.getElementById('datGuiStuff');
 	
 	scene = sC;
 	gui = new dat.GUI({ autoPlace: false });
@@ -562,4 +561,3 @@ function setupDatGui(sC) {
 	gui.domElement.style.zIndex = '1000';
 	datGuiContainer.appendChild(gui.domElement);
 }
-

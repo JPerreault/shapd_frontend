@@ -114,9 +114,15 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		}
 	};
 
-	this.redrawMesh = function(newParams){
+	this.redrawMesh = function(newParams, isFromLib){
+		if (isFromLib){
+			var yRotation = newParams['Rotation Y'];
+			var xRotation = newParams['Rotation X'];
+		}
+		else{
 		var yRotation = this.currentMesh.figure.rotation.y;
 		var xRotation = this.currentMesh.figure.rotation.x;
+		}
 		var scale = this.currentMesh.figure.scale.x;
 
         this.scene.remove( this.currentMesh.figure );
