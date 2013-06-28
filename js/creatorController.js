@@ -525,6 +525,16 @@ window.onload = function() {
 		$( "#cost" ).val('$'.concat(data+''));
 	}
 	
+	function loadFromlib(hash)
+	{
+		if (typeof savedShape != 'undefined')
+			savedShape = hash;
+		var loadedShape = new TubeMeshParams();
+		sceneWrapper.redrawMesh(loadedShape);
+		sceneWrapper.currentMesh = loadedShape;
+		sceneWrapper.tubeMeshParams = loadedShape;
+	}
+	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	function onDocumentMouseDown(event)
 	{
