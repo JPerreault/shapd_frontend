@@ -219,12 +219,12 @@ var materialListener = function(sW, tMB){
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
-		panelUpdate();
+		this.panelUpdate();
 	}
 	
 	function getNewPrice()
 	{
-		var jsonString = getJson(sceneWrapper.currentMesh.figure);
+		var jsonString = getJson(sceneWrapper.currentMesh);
 		if (typeof authToken !== 'undefined')
 			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 	}
@@ -234,7 +234,7 @@ var materialListener = function(sW, tMB){
 		$( "#cost" ).val('$'.concat(data+''));
 	}
 	
-	function panelUpdate()
+	this.panelUpdate = function()
 	{
 		$( "#matname" ).val(name);
 		$( "#matdesc" ).val(description);

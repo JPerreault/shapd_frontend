@@ -3,7 +3,8 @@ var hashend;
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop, scale;
 	var fIndex, intersects;
-	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" ) ;
+	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
+	this.m.name = 'Brass gold plated polished';
 	
 	
 	//Scoping out of functions
@@ -53,9 +54,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		else
 			return false;
 	}
-	this.setMaterial= function (material)
+	this.nameMaterial= function (material)
 	{
-		this.m = materialsLibrary.getMaterial(material);
 		this.m.name = material;
 	}
 	

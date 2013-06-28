@@ -180,6 +180,8 @@ window.onload = function() {
 			$('#idDimensions').fadeIn(450);
 			loops = false;
 			tubeMeshBuilder.calculateDimensions('xyz');
+			matListener.panelUpdate();
+			getNewPrice();
 		}
 		else if (state == 'publish')
 		{
@@ -431,7 +433,7 @@ window.onload = function() {
 	
 	document.getElementById('screen').onclick = function()
 	{
-		getJson(sceneWrapper.currentMesh.figure);
+		getJson(sceneWrapper.currentMesh);
 	}
 	
 	document.getElementById('slider').onmousedown = function()
@@ -512,13 +514,9 @@ window.onload = function() {
 	
 	function getNewPrice()
 	{
-		if (sceneWrapper.currentMesh.figure.material.name === '');
-		else
-		{
-			var jsonString = getJson(sceneWrapper.currentMesh.figure);
-			if (typeof authToken !== 'undefined')
-				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-		}
+		var jsonString = getJson(sceneWrapper.currentMesh);
+		if (typeof authToken !== 'undefined')
+			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 	}
 	
 	function updatePrice(data)

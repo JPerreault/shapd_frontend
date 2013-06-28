@@ -1,9 +1,11 @@
 var websiteName = '';
 
-function getJson(figure)
+function getJson(currentMesh)
 {
 	var jsonString = '';
 	var data = [];
+	var figure = currentMesh.figure;
+	figure.material.name = currentMesh['Material'];
 	var material = calculateMaterial(figure);
 	var volume = calculateVolume(figure);
 	var surfaceArea = calculateSurfaceArea(figure);
@@ -63,7 +65,7 @@ function getJson(figure)
 	//console.log('Surface Area: ', surfaceArea);
 	//console.log('Length: ', dimensions[1]);
 	//console.log('----------------------');
-	//console.log(jsonString);
+	console.log(jsonString);
 	return jsonString;
 }
 
@@ -303,6 +305,11 @@ function calculateMaterial(figure)
 		websiteName = 'iMaterialise';
 		return '12a65a42-df49-47a9-8828-0efaf84c5509';
 	}
+	
+	else if (figure.material.name == 'Regular gold'){
+		websiteName = 'iMaterialise';
+		return 'd01a95ab-aaba-44f0-a4b6-8f72b66655b1';
+	}
 }
 
 function calculateFinishId(figure)
@@ -361,5 +368,9 @@ function calculateFinishId(figure)
 					
 	else if (figure.material.name == 'Titanium polished'){
 		return '7fbdfe5d-4f92-4038-99bd-42009ff9a4b4';
-	}	
+	}
+	
+	else if (figure.material.name == 'Regular gold'){
+		return '8f1cc7fa-8422-43e3-abf7-a7a2f8f63b8f';
+	}
 }
