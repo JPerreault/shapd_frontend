@@ -152,6 +152,7 @@ function addResetButtons() {
 	resetShapeImg.id = 'idResetShapdImg';
 	resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
 	resetContainer.appendChild(resetShapeImg);
+    
 }
 
 function addSavedLibrary() {
