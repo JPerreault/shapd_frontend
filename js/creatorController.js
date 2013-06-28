@@ -102,6 +102,7 @@ window.onload = function() {
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
 			$('#idMaterialPanel').fadeOut(0);
+			$('#idDimensions').fadeOut(0);
 			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
@@ -110,7 +111,6 @@ window.onload = function() {
 				$("#idSavedShapeContainer").fadeOut(0);
 				$('#idSaveButton').fadeOut(0);
 				$('#idProgressContainer').fadeOut(0);
-				$('#idMaterialPanel').fadeOut(0);
 			}
 			firstTime = false;	
 		}
@@ -133,6 +133,7 @@ window.onload = function() {
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
+			$('#idDimensions').fadeOut(450);
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -154,6 +155,7 @@ window.onload = function() {
 			$("#idLoopText").fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
+			$('#idDimensions').fadeOut(450);
 			loops = true;
 		}
 		else if (state == 'finalize')
@@ -175,7 +177,9 @@ window.onload = function() {
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
+			$('#idDimensions').fadeIn(450);
 			loops = false;
+			tubeMeshBuilder.calculateDimensions('xyz');
 		}
 		else if (state == 'publish')
 		{
@@ -196,6 +200,7 @@ window.onload = function() {
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
+			$('#idDimensions').fadeOut(450);
 			loops = false;
 		}
 	}
@@ -441,6 +446,8 @@ window.onload = function() {
 		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
 		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
 		
+		tubeMeshBuilder.calculateDimensions('xy');
+		
 		scene.redrawMesh(scene.currentMesh);
 	}
 	
@@ -456,6 +463,7 @@ window.onload = function() {
 		document.removeEventListener( 'mousemove', moveSlider, false );
 		
 		scene.redrawMesh(scene.currentMesh);
+		tubeMeshBuilder.calculateDimensions('xyz');
 		getNewPrice();
 	}
 
@@ -501,8 +509,7 @@ window.onload = function() {
 	
 	function getNewPrice()
 	{
-		if (sceneWrapper.currentMesh.figure.material.name === '')
-			alert('Please choose a material.');
+		if (sceneWrapper.currentMesh.figure.material.name === '');
 		else
 		{
 			var jsonString = getJson(sceneWrapper.currentMesh.figure);
@@ -512,7 +519,8 @@ window.onload = function() {
 	}
 	
 	function updatePrice(data)
-	{
+	{	
+		data = data + (data * .3);
 		$( "#cost" ).val('$'.concat(data+''));
 	}
 	

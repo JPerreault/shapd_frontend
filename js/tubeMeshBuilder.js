@@ -3,7 +3,7 @@ var hashend;
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop, scale;
 	var fIndex, intersects;
-	this.m = materialsLibrary.getMaterial( "Pure chrome" ) ;
+	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" ) ;
 	
 	
 	//Scoping out of functions
@@ -212,6 +212,41 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var result = Math.acos(a);
 
 		return result;
+	}
+	
+	this.calculateDimensions = function(variables)
+	{
+		geometry.computeBoundingBox();
+		var boundingBox = figure.geometry.boundingBox;
+		var dimensions = [];
+		var scale = 5 / figure.scale.x * 5;
+		
+		var xMin = boundingBox.min.x / scale;
+		var yMin = boundingBox.min.y / scale;
+		var zMin = boundingBox.min.z / scale;
+		var xMax = boundingBox.max.x / scale;
+		var yMax = boundingBox.max.y / scale;
+		var zMax = boundingBox.max.z / scale;
+	
+		var xVal = (xMax - xMin) * 0.393701;
+		xVal = Math.floor(xVal * 100) / 100;
+		var yVal = (yMax - yMin) * 0.393701;
+		yVal = Math.floor(yVal * 100) / 100;
+		var zVal = (zMax - zMin) * 0.393701;
+		zVal = Math.floor(zVal * 100) / 100;
+		
+		if (variables === 'xyz')
+		{
+			$( "#dimensions" ).val(xVal+''.concat(' by ').concat(yVal).concat(' by ').concat(zVal+'').concat(' inches'));
+			$( "#xwidth" ).val(xVal+''.concat(' inches'));
+			$( "#yheight" ).val(yVal+''.concat(' inches'));
+		}
+		else if (variables === 'xy')
+		{
+			$( "#xwidth" ).val(xVal+''.concat(' inches'));
+			$( "#yheight" ).val(yVal+''.concat(' inches'));
+		}
+		
 	}
 	
 	function updateHash(tubeMesh)

@@ -215,7 +215,7 @@ var materialListener = function(sW, tMB){
 		materialChange();
 	}
 	
-	function materialChange(name, description, cost)
+	function materialChange()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
