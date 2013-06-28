@@ -3,7 +3,7 @@ var hashend;
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop, scale;
 	var fIndex, intersects;
-	this.m = materialsLibrary.getMaterial( "Pure chrome" ) ;
+	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" ) ;
 	
 	
 	//Scoping out of functions
@@ -13,6 +13,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
+		this.m = materialsLibrary.getMaterial(tubeMeshParams['Material']);
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
@@ -214,6 +215,41 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return result;
 	}
 	
+	this.calculateDimensions = function(variables)
+	{
+		geometry.computeBoundingBox();
+		var boundingBox = figure.geometry.boundingBox;
+		var dimensions = [];
+		var scale = 5 / figure.scale.x * 5;
+		
+		var xMin = boundingBox.min.x / scale;
+		var yMin = boundingBox.min.y / scale;
+		var zMin = boundingBox.min.z / scale;
+		var xMax = boundingBox.max.x / scale;
+		var yMax = boundingBox.max.y / scale;
+		var zMax = boundingBox.max.z / scale;
+	
+		var xVal = (xMax - xMin) * 0.393701;
+		xVal = Math.floor(xVal * 100) / 100;
+		var yVal = (yMax - yMin) * 0.393701;
+		yVal = Math.floor(yVal * 100) / 100;
+		var zVal = (zMax - zMin) * 0.393701;
+		zVal = Math.floor(zVal * 100) / 100;
+		
+		if (variables === 'xyz')
+		{
+			$( "#dimensions" ).val(xVal+''.concat(' by ').concat(yVal).concat(' by ').concat(zVal+'').concat(' inches'));
+			$( "#xwidth" ).val(xVal+''.concat(' inches'));
+			$( "#yheight" ).val(yVal+''.concat(' inches'));
+		}
+		else if (variables === 'xy')
+		{
+			$( "#xwidth" ).val(xVal+''.concat(' inches'));
+			$( "#yheight" ).val(yVal+''.concat(' inches'));
+		}
+		
+	}
+	
 	function updateHash(tubeMesh)
 	{
 		var keys = Object.keys(tubeMesh);
@@ -242,7 +278,7 @@ var TubeMeshParams = function(){
         try
         {
             var parseme = savedShape.split("|");
-            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Rotation X', 'Rotation Y'];
             for (var x=0; x<transformations.length; x++)
             {
                 this[transformations[x]] = parseFloat(parseme[x]);
@@ -269,7 +305,7 @@ var TubeMeshParams = function(){
 		this['Loops'] = 2;
 		this['Starting Shape'] = 1;
 		this['Thickness'] = 4;
+		this['Material'] = 'Brass gold plated polished';
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
-
 };
