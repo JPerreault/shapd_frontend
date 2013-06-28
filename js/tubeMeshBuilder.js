@@ -281,7 +281,10 @@ var TubeMeshParams = function(){
             var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Rotation X', 'Rotation Y'];
             for (var x=0; x<transformations.length; x++)
             {
-                this[transformations[x]] = parseFloat(parseme[x]);
+                if (transformations[x] == 'Material')
+                    this[transformations[x]] = parseme[x];
+                else
+                    this[transformations[x]] = parseFloat(parseme[x]);
                 
                 if (parseme[x].indexOf("undefined") != -1)
                     throw "invalid";
