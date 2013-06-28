@@ -525,7 +525,7 @@ window.onload = function() {
 		$( "#cost" ).val('$'.concat(data+''));
 	}
 	
-	function loadFromlib(hash)
+	function loadFromLib(hash)
 	{
 		if (typeof savedShape != 'undefined')
 			savedShape = hash;

@@ -4,6 +4,7 @@ var materialListener = function(sW, tMB){
 	var name = 'name';
 	var description = 'description';
 	var cost = 'cost';
+	var that = this;
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
@@ -11,7 +12,7 @@ var materialListener = function(sW, tMB){
 		name = 'White Regular Plastic';
 		description = 'Bumpy, rough';
 		cost = '$';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('blackregularplastic').onclick = function()
@@ -20,202 +21,202 @@ var materialListener = function(sW, tMB){
 		name = 'Black Regular Plastic';
 		description = 'Bumpy, rough';
 		cost = '$';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('whitepolishedplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('redpolishedplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular red polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('bluepolishedplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular blue polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('pinkpolishedplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular pink polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('purplepolishedplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular purple polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('whitedetailplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic detail white';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('blackdetailplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic detail black';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('whitetransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin white';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('blacktransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin black';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('graytransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin gray';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('redtransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin red';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('greentransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin green';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('bluetransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin blue';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('yellowtransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin yellow';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('orangetransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin orange';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('browntransparentplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin brown';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('regularalumide').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Alumide regular';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('polishedalumide').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Alumide polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('regularbrass').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Brass regular';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('goldplatedbrass').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Brass gold plated polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('regularsteel').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel regular';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('medievalsteel').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel medieval pewter';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('bronzemattesteel').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel bronze matte';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('bronzeglossysteel').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel bronze glossy';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('goldmattesteel').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel gold matte';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('goldglossysteel').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel gold glossy';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('regularsilver').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Silver regular';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('glossysilver').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Silver glossy';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('premiumsilver').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Silver premium';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('unpolishedtitanium').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Titanium unpolished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('polishedtitanium').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Titanium polished';
-		materialChange();
+		that.materialChange();
 	}
 	
 	document.getElementById('regulargold').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Gold regular';
-		materialChange();
+		that.materialChange();
 	}
 	
-	function materialChange()
+	this.materialChange = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
