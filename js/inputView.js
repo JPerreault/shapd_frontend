@@ -33,7 +33,7 @@ var InputView = function(sW, rend, tMP) {
 	window.addEventListener( 'resize', onWindowResize, false );
 	
 	function onDocumentMouseWheel ( event ) {
-        if (typeof freeze !== 'undefined' && freeze)
+        if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
             return;
         
 		var fovMAX = 160;
@@ -54,10 +54,12 @@ var InputView = function(sW, rend, tMP) {
 	}
 
 	function onDocumentMouseDown( event ) {
-		event.preventDefault();
 		
 		if (typeof freeze !== 'undefined' && freeze)
             return;
+        
+        event.preventDefault();
+
 
 		if (event.target.id !== "slider" && event.target.parentElement.id !== "slider")
 		{
