@@ -13,6 +13,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
+		this.m = materialsLibrary.getMaterial(tubeMeshParams['Material']);
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
@@ -277,7 +278,7 @@ var TubeMeshParams = function(){
         try
         {
             var parseme = savedShape.split("|");
-            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Rotation X', 'Rotation Y'];
             for (var x=0; x<transformations.length; x++)
             {
                 this[transformations[x]] = parseFloat(parseme[x]);
@@ -304,7 +305,7 @@ var TubeMeshParams = function(){
 		this['Loops'] = 2;
 		this['Starting Shape'] = 1;
 		this['Thickness'] = 4;
+		this['Material'] = 'Brass gold plated polished';
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
-
 };

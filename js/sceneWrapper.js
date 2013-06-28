@@ -2,8 +2,8 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.currentMesh;
 	this.torusMesh;
 	this.torusDefined = false;
+	this.tubeMeshParams = tMP;
 	var tubeMeshBuilder = tMB;
-	var tubeMeshParams = tMP;
 
 	this.scene = new THREE.Scene();
 	this.sceneCube = new SceneCubeWrapper(textureCube);
@@ -49,11 +49,11 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	}
 
 	this.init = function(){
-		if (typeof tubeMeshParams === 'undefined')
-			tubeMeshParams = new TubeMeshParams();
+		if (typeof this.tubeMeshParams === 'undefined')
+			this.tubeMeshParams = new TubeMeshParams();
 		else
-			tubeMeshParams = tMP;
-		this.addMesh( tubeMeshBuilder.build(tubeMeshParams) );
+			this.tubeMeshParams = tMP;
+		this.addMesh( tubeMeshBuilder.build(this.tubeMeshParams) );
 		if (typeof tubeMeshBuilder.fIndex != 'undefined')
 		{
 			this.torusDefined = true;

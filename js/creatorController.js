@@ -381,12 +381,15 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			currentMesh['Scale'] = 5;
+			currentMesh.figure.scale.x = 5;
+			currentMesh.figure.scale.y = 5;
+			currentMesh.figure.scale.z = 5;
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
-			
+			tubeMeshBuilder.calculateDimensions('xyz');
 		
 			sceneWrapper.redrawMesh(currentMesh);
+			getNewPrice();
 		}
 	}
 	
