@@ -60,6 +60,7 @@ window.onload = function() {
     function killSelf()
     {
         parent.hideTheBeast();
+        idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
     }
     
@@ -67,7 +68,7 @@ window.onload = function() {
     {
         var metaData = renderer.domElement.toDataURL("image/png");
         
-        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData});
+        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData}, killSelf());
         
     }
     
@@ -79,8 +80,7 @@ window.onload = function() {
         {
             if (count==10)
                 screenie();
-            else if (count == 20)
-                killSelf();
+
             count++;
         }
         
@@ -510,8 +510,8 @@ window.onload = function() {
 
 function loadFromLib(hash)
 {
-    if (typeof savedShape != 'undefined')
-        savedShape = hash;
+//    if (typeof savedShape != 'undefined')
+    window.savedShape = hash;
     var loadedShape = new TubeMeshParams();
     window.sceneWrapper.redrawMesh(loadedShape);
     window.sceneWrapper.currentMesh = loadedShape;
