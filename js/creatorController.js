@@ -472,46 +472,6 @@ window.onload = function() {
 		tubeMeshBuilder.calculateDimensions('xyz');
 		getNewPrice();
 	}
-
-	function setupDatGui(sC) {
-	    scene = sC;
-	    gui = new dat.GUI({ autoPlace: false });
-
-        var currentMesh = scene.currentMesh;
-		
-        var setUpController = function(controller, fieldName){
-            controller.onChange(function(newVal){
-                currentMesh[fieldName] = newVal;
-				this.color = [ 0, 128, 225];
-                scene.redrawMesh(currentMesh);
-            });
-        };
-		
-		controller = gui.add(currentMesh, 'Thickness', .5, 20);
-		setUpController(controller, 'Thickness');
-
-        controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
-		setUpController(controller, 'Depth');
-
-		controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
-        setUpController(controller, 'Stretch');
-		
-		
-		var morphFolder = gui.addFolder ('Shape Alteration');
-	   	controller = morphFolder.add(currentMesh, 'Modify', 1, 12).step(1);
-        setUpController(controller, 'Modify');
-		
-		controller = morphFolder.add(currentMesh, 'Loops', 1, 12, 0x000000).step(1);
-        setUpController(controller, 'Loops');
-
-        morphFolder.open();
-	
-		gui.domElement.style.position = 'absolute';
-		gui.domElement.style.top = '-1px';
-		gui.domElement.style.left = '-15px';
-		gui.domElement.style.zIndex = '1000';
-		datGuiContainer.appendChild(gui.domElement);
-	}
 	
 	function getNewPrice()
 	{
@@ -556,5 +516,50 @@ function loadFromLib(hash)
     window.sceneWrapper.redrawMesh(loadedShape);
     window.sceneWrapper.currentMesh = loadedShape;
     window.sceneWrapper.tubeMeshParams = loadedShape;
+	setupDatGui(window.sceneWrapper);
+}
+
+function setupDatGui(sC) {
+	var datGuiContainer = document.createElement('div');
+	document.body.appendChild(datGuiContainer);
+	datGuiContainer.id = 'datGuiStuff';
+	
+	scene = sC;
+	gui = new dat.GUI({ autoPlace: false });
+
+	var currentMesh = scene.currentMesh;
+	
+	var setUpController = function(controller, fieldName){
+		controller.onChange(function(newVal){
+			currentMesh[fieldName] = newVal;
+			this.color = [ 0, 128, 225];
+			scene.redrawMesh(currentMesh);
+		});
+	};
+	
+	controller = gui.add(currentMesh, 'Thickness', .5, 20);
+	setUpController(controller, 'Thickness');
+
+	controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
+	setUpController(controller, 'Depth');
+
+	controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
+	setUpController(controller, 'Stretch');
+	
+	
+	var morphFolder = gui.addFolder ('Shape Alteration');
+	controller = morphFolder.add(currentMesh, 'Modify', 1, 12).step(1);
+	setUpController(controller, 'Modify');
+	
+	controller = morphFolder.add(currentMesh, 'Loops', 1, 12, 0x000000).step(1);
+	setUpController(controller, 'Loops');
+
+	morphFolder.open();
+
+	gui.domElement.style.position = 'absolute';
+	gui.domElement.style.top = '-1px';
+	gui.domElement.style.left = '-15px';
+	gui.domElement.style.zIndex = '1000';
+	datGuiContainer.appendChild(gui.domElement);
 }
 
