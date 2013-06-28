@@ -1,11 +1,12 @@
 var n = 0;
 var count = 0;
 var loops = false;
+var sceneWrapper;
 
 window.onload = function() {
 
 	var tubeMeshBuilder, view, gui, scene, tubeMP, matListener, state;
-	var renderer, sceneWrapper, materialsLibrary, customContainer, datGuiContainer;
+	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var firstTime = true;
 	var loops = false;
 
@@ -525,16 +526,6 @@ window.onload = function() {
 		$( "#cost" ).val('$'.concat(data+''));
 	}
 	
-	function loadFromLib(hash)
-	{
-		if (typeof savedShape != 'undefined')
-			savedShape = hash;
-		var loadedShape = new TubeMeshParams();
-		sceneWrapper.redrawMesh(loadedShape);
-		sceneWrapper.currentMesh = loadedShape;
-		sceneWrapper.tubeMeshParams = loadedShape;
-	}
-	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	function onDocumentMouseDown(event)
 	{
@@ -556,3 +547,14 @@ window.onload = function() {
 		}
 	};
 }
+
+function loadFromLib(hash)
+{
+    if (typeof savedShape != 'undefined')
+        savedShape = hash;
+    var loadedShape = new TubeMeshParams();
+    window.sceneWrapper.redrawMesh(loadedShape);
+    window.sceneWrapper.currentMesh = loadedShape;
+    window.sceneWrapper.tubeMeshParams = loadedShape;
+}
+
