@@ -156,24 +156,27 @@ function addResetButtons() {
 
 function addSavedLibrary() {
 	
-	var savedShapeContainer = document.createElement('div');
-	savedShapeContainer.id = 'idSavedShapeContainer';
-	savedShapeContainer.className = 'rounded';
-	savedShapeContainer.innerHTML += 'Your Saved Shapes<br>';
-	savedShapeContainer.style.position = 'absolute';
-	savedShapeContainer.style.border = '10px solid #000';
-	savedShapeContainer.style.margin = '15 15 15 15';
-	savedShapeContainer.style.color = '#fff';
-	savedShapeContainer.style.background = '#000';
-	savedShapeContainer.style.top = '20%';
-	savedShapeContainer.style.right = '0.75%';	
-	savedShapeContainer.style.width = '215px';			
-	savedShapeContainer.style.zIndex = '1000';
-	document.body.appendChild(savedShapeContainer);			
-			
-	var savedShapeLibrary = document.createElement('div');
-	savedShapeLibrary.id = 'idSavedShapeLibrary';
-	savedShapeContainer.appendChild(savedShapeLibrary);
+    if (typeof shapeLib !== 'undefined')
+    {
+        var savedShapeContainer = document.createElement('div');
+        savedShapeContainer.id = 'idSavedShapeContainer';
+        savedShapeContainer.className = 'rounded';
+        savedShapeContainer.innerHTML += '<b>Your Saved Shapes</b><br>';
+        savedShapeContainer.style.position = 'absolute';
+        savedShapeContainer.style.border = '10px solid #2fa1d6';
+        savedShapeContainer.style.color = '#fff';
+        savedShapeContainer.style.background = '#2fa1d6';
+        savedShapeContainer.style.top = '20%';
+        savedShapeContainer.style.right = '0.75%';	
+        savedShapeContainer.style.width = '215px';			
+        savedShapeContainer.style.zIndex = '1000';
+        document.body.appendChild(savedShapeContainer);			
+                
+        var savedShapeLibrary = document.createElement('div');
+        savedShapeLibrary.id = 'idSavedShapeLibrary';
+        savedShapeLibrary.innerHTML = shapeLib;
+        savedShapeContainer.appendChild(savedShapeLibrary);
+    }
 }
 
 
