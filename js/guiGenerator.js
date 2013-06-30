@@ -16,7 +16,6 @@ function scaleGUI() {
 			vShapeDiv.style.position = 'absolute';
 			vShapeDiv.style.top = '20%';
 			vShapeDiv.style.right = '32.5%';
-		
 			container.appendChild(vShapeDiv);
 	
 			var hRulerImg = document.createElement('img');
@@ -235,6 +234,22 @@ function addStartingShapes() {
 
 function addMaterialSelector() {
 	document.getElementById('materials').style.zIndex = '1001';
+	
+	var materialDetail = document.createElement('div');
+	materialDetail.id = 'idMaterialDetail';
+	materialDetail.className = 'rounded';
+	materialDetail.innerHTML += 'Material Details<br>';
+	materialDetail.style.position = 'absolute';
+	materialDetail.style.border = '10px solid #000';
+	materialDetail.style.margin = '15 15 15 15';
+	materialDetail.style.color = '#fff';
+	materialDetail.style.background = '#000';
+	materialDetail.style.top = '50%';
+	materialDetail.style.right = '0.75%';	
+	materialDetail.style.width = '215px';			
+	materialDetail.style.zIndex = '1000';
+	document.body.appendChild(materialDetail);		
+
 }
 
 function addLoops(){

@@ -1,6 +1,5 @@
 //Global variable for toggle clouds/bridges
 var n = 0;
-var count = 0;
 var loops = false;
 
 window.onload = function() {
@@ -28,12 +27,7 @@ window.onload = function() {
 		}
 		
 		if (Detector.webgl)
-        {
-            if (typeof screenShot != 'undefined')
-                renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
-            else
-                renderer = new THREE.WebGLRenderer();
-        }
+			renderer = new THREE.WebGLRenderer();
 		else
 			renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
@@ -55,33 +49,10 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 	}
-    
-    function killSelf()
-    {
-        location.href="blank.html";
-    }
-    
-    function screenie()
-    {
-        var metaData = renderer.domElement.toDataURL("image/png");
-        
-        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData});
-        
-    }
-    
+
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
-        
-        if (typeof screenShot != 'undefined')
-        {
-            if (count==10)
-                screenie();
-            else if (count == 20)
-                killSelf();
-            count++;
-        }
-        
 	}
 
 	function render() {
@@ -105,6 +76,7 @@ window.onload = function() {
 			$('#idBackButton').fadeOut(0);	
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
+			$("#idMaterialDetail").fadeOut(0);
 			firstTime = false;	
 		}
 		else if (state == 'creator')
@@ -118,6 +90,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeIn(450);
 			$("#materials").fadeOut(450);
+			$("#idMaterialDetail").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
@@ -137,6 +110,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#idMaterialDetail").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -156,6 +130,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeIn(450);
+			$("#idMaterialDetail").fadeIn(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -175,6 +150,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#idMaterialDetail").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);

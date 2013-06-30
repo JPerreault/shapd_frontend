@@ -148,21 +148,50 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.createTorus = function (tubeMeshParams)
 	{
-		var torus = new THREE.TorusGeometry(5, 1.5, segments/10, 50);
+		
+		var torusRadius = 5;
+		var torus = new THREE.TorusGeometry( torusRadius, 1.5, segments/10, 50 );
 		fIndex = this.calculateFaceIndex();
-		var xRadian = this.toRadians(geometry.faces[fIndex], true);
-		var yRadian = this.toRadians(geometry.faces[fIndex], false);
-		//torus.applyMatrix(new THREE.Matrix4().makeRotationX(xRadian));
-		//torus.applyMatrix(new THREE.Matrix4().makeRotationY(yRadian));
-		torusLoop = new THREE.Mesh(torus, this.m);
 		
-		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
+		//Get face normal
+		var faceNormal = geometry.faces[fIndex].normal;
+		faceNormal.normalize();
+		
+		//Determine Face centroid position
+		var faceCentroid = geometry.faces[fIndex].centroid;
 
-		posx = geometry.faces[fIndex].centroid.x;
-		posy = geometry.faces[fIndex].centroid.y;
-		posz = geometry.faces[fIndex].centroid.z;
+		//Determine vertices a and b on the face - the "long side"		
+		var v1 = geometry.vertices[geometry.faces[fIndex].a];
+		var v2 = geometry.vertices[geometry.faces[fIndex].b];
+
+		//Determine midpoint of line AB
+		var midX = (v1.x + v2.x) / 2;
+		var midY = (v1.y + v2.y) / 2;
+		var midZ = (v1.z + v2.z) / 2;
 		
-		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(posx, posy, posz));
+		var midpoint = new THREE.Vector3( midX, midY, midZ );
+		
+		//Don't use position, rotate, scale
+		torus.matrixAutoUpdate = false;
+		
+		//use matrix.lookAt to align torus to create rotation matrix aligned to two orthogonal vectors
+		//Rotate to align with face
+		var alignMatrix = new THREE.Matrix4().lookAt( midpoint, faceCentroid, faceNormal );
+		torus.applyMatrix(alignMatrix);
+
+		// Create mesh and scale
+		torusLoop = new THREE.Mesh(torus, this.m);
+		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
+		
+		//Determine Face centroid positions
+		var cenPosX = geometry.faces[fIndex].centroid.x;
+		var cenPosY = geometry.faces[fIndex].centroid.y;
+		var cenPosZ = geometry.faces[fIndex].centroid.z;
+
+		//Move the rotated torus around the centroid
+		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
+
+		//Move the rotated torus around the centroid
 		torusLoop.geometry.computeCentroids();
 		torusLoop.geometry.computeFaceNormals();
 		torusLoop.geometry.computeVertexNormals();
@@ -170,8 +199,11 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return torusLoop;
 	}
 	
+	
 	this.calculateFaceIndex = function()
 	{
+		//Calculate the face furthest away from the origin. Trying to put loop on the "outside" of the spline
+		
 		var sectionNumber = Math.floor(fIndex / radiusSegments);
 		var high = -1, fIndexHigh = -1;
 		var newFace, newValue;
@@ -188,36 +220,17 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		return fIndexHigh;
 	}
-	
-	this.toRadians = function (face, isX)
+	/*
+	function rotateAroundObjectAxis( object, axis, radians ) 
 	{
-		var n1 = face.normal;
-		
-		//Normal of the vertical plane
-		if (isX)
-			var n2 = new THREE.Vector3(1, 0, 0);
-		else
-			var n2 = new THREE.Vector3(0, 1, 0);
-		//Equation to find the cosin of the angle. (n1)(n2) = ||n1|| * ||n2|| (cos theta)
-	
-		//Find the dot product of n1 and n2.
-		var d = (n1.x * n2.x) + (n1.y * n2.y) + (n1.z * n2.z);
-		console.log('d ', d);
-		var l1 = Math.pow ((Math.pow(n1.x, 2) + Math.pow(n1.y, 2) + Math.pow(n1.z, 2)), .5);
-		console.log('l1 ', l1);
-		var l2 = Math.pow ((Math.pow(n2.x, 2) + Math.pow(n2.y, 2) + Math.pow(n2.z, 2)), .5);
-		console.log('l2 ', l2);
-		
-		var a = (d)/(l1*l2);
-		console.log('a ', a);
-		var result = Math.acos(a);
-		//var result = - result;
-		//result = Math.PI - result;
-		console.log(result);
-		console.log('-------------');
-		return result;
-	}
 
+    var rotationMatrix = new THREE.Matrix4();
+
+    rotationMatrix.setRotationAxis( axis.normalize(), radians );
+    object.matrix.multiplySelf( rotationMatrix );                       // post-multiply
+    object.rotation.setRotationFromMatrix( object.matrix );
+	}
+*/
 	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
 	function calculateMeshSize(figure)
 	{
@@ -446,36 +459,14 @@ var TubeMeshBuilder = function(materialsLibrary) {
 				hashend += tubeMesh[keys[x]];
 				break;
 			}
-			hashend += tubeMesh[keys[x]]+"|";
+			hashend += tubeMesh[keys[x]]+"|"; 
 		}
 	}
 };
 
 var TubeMeshParams = function(){
-    if (typeof savedShape != 'undefined')
+    if (typeof savedShape == 'undefined')
 	{
-        try
-        {
-            var parseme = savedShape.split("|");
-            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
-            for (var x=0; x<transformations.length; x++)
-            {
-                this[transformations[x]] = parseFloat(parseme[x]);
-                
-                if (parseme[x].indexOf("undefined") != -1)
-                    throw "invalid";
-            }
-
-            if (parseme == "")
-                throw "invalid";
-            
-            return;
-        }
-        catch(e)
-        {
-            
-        }
-    }
         
 		this['Scale'] = 5;
 		this['Modify'] = 5;
@@ -486,5 +477,14 @@ var TubeMeshParams = function(){
 		this['Thickness'] = 4;
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
-
+	}
+	else
+	{
+		var parseme = savedShape.split("|");
+		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
+		for (var x=0; x<transformations.length; x++)
+		{
+			this[transformations[x]] = parseFloat(parseme[x]);
+		}
+	}
 };
