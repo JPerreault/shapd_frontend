@@ -33,6 +33,9 @@ var InputView = function(sW, rend, tMP) {
 	window.addEventListener( 'resize', onWindowResize, false );
 	
 	function onDocumentMouseWheel ( event ) {
+        if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
+            return;
+        
 		var fovMAX = 160;
 		var fovMIN = 5;
 
@@ -51,16 +54,24 @@ var InputView = function(sW, rend, tMP) {
 	}
 
 	function onDocumentMouseDown( event ) {
-		event.preventDefault();
+		
+		if (typeof freeze !== 'undefined' && freeze)
+            return;
+        
+        event.preventDefault();
 
-		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-		document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-		document.addEventListener( 'mouseout', onDocumentMouseOut, false );
 
-		mouseXOnMouseDown = event.clientX - that.currentWindowX;
-		mouseYOnMouseDown = event.clientY - that.currentWindowY;
-		targetYRotationOnMouseDown = that.targetY;
-		targetXRotationOnMouseDown = that.targetX;
+		if (event.target.id !== "slider" && event.target.parentElement.id !== "slider")
+		{
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+			document.addEventListener( 'mouseout', onDocumentMouseOut, false );
+
+			mouseXOnMouseDown = event.clientX - that.currentWindowX;
+			mouseYOnMouseDown = event.clientY - that.currentWindowY;
+			targetYRotationOnMouseDown = that.targetY;
+			targetXRotationOnMouseDown = that.targetX;
+		}
 
 	}
 

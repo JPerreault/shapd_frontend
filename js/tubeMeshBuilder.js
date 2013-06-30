@@ -3,7 +3,8 @@ var hashend;
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, torusLoop, scale;
 	var fIndex, intersects;
-	this.m = materialsLibrary.getMaterial( "Pure chrome" ) ;
+	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
+	this.m.name = 'Brass gold plated polished';
 	
 	
 	//Scoping out of functions
@@ -13,6 +14,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
+		this.m = materialsLibrary.getMaterial(tubeMeshParams['Material']);
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
@@ -30,6 +32,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		geometry.computeVertexNormals();
 		
 		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
+		if (typeof screenShot !== 'undefined')
+			this.m.opacity = 1;
         figure = new THREE.Mesh(geometry, this.m);
 		
         figure.rotation.x = tubeMeshParams['Rotation X'];
@@ -50,9 +54,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		else
 			return false;
 	}
-	this.setMaterial= function (material)
+	this.nameMaterial= function (material)
 	{
-		this.m = materialsLibrary.getMaterial(material)
+		this.m.name = material;
 	}
 	
 	//Saves the shape (currently to your computer) as an STL file.
@@ -220,226 +224,63 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		return fIndexHigh;
 	}
-	/*
-	function rotateAroundObjectAxis( object, axis, radians ) 
-	{
 
-    var rotationMatrix = new THREE.Matrix4();
-
-    rotationMatrix.setRotationAxis( axis.normalize(), radians );
-    object.matrix.multiplySelf( rotationMatrix );                       // post-multiply
-    object.rotation.setRotationFromMatrix( object.matrix );
-	}
-*/
 	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
 	function calculateMeshSize(figure)
 	{
-		figure.geometry.computeBoundingBox();
+		var n1 = face.normal;
+		
+		//Normal of the vertical plane
+		if (isX)
+			var n2 = new THREE.Vector3(1, 0, 0);
+		else
+			var n2 = new THREE.Vector3(0, 1, 0);
+		//Equation to find the cosin of the angle. (n1)(n2) = ||n1|| * ||n2|| (cos theta)
+	
+		//Find the dot product of n1 and n2.
+		var d = (n1.x * n2.x) + (n1.y * n2.y) + (n1.z * n2.z);
+		var l1 = Math.pow ((Math.pow(n1.x, 2) + Math.pow(n1.y, 2) + Math.pow(n1.z, 2)), .5);
+		var l2 = Math.pow ((Math.pow(n2.x, 2) + Math.pow(n2.y, 2) + Math.pow(n2.z, 2)), .5);
+		
+		var a = (d)/(l1*l2);
+		var result = Math.acos(a);
+
+		return result;
+		}
+	
+this.calculateDimensions = function(variables)
+	{
+		geometry.computeBoundingBox();
 		var boundingBox = figure.geometry.boundingBox;
+		var dimensions = [];
+		var scale = 5 / figure.scale.x * 5;
 		
-		var xMin = boundingBox.min.x;
-		var xMax = boundingBox.max.x;
-		var yMin = boundingBox.min.y;
-		var yMax = boundingBox.max.y;
-		var zMin = boundingBox.min.z;
-		var zMax = boundingBox.max.z;
-		
-		var xWidth = xMax - xMin;
-		var yHeight = yMax - yMin;
-		var zDepth = zMax - zMin;
-	}
+		var xMin = boundingBox.min.x / scale;
+		var yMin = boundingBox.min.y / scale;
+		var zMin = boundingBox.min.z / scale;
+		var xMax = boundingBox.max.x / scale;
+		var yMax = boundingBox.max.y / scale;
+		var zMax = boundingBox.max.z / scale;
 	
-	this.calculateVolume = function()
-	{
-		var vertices = geometry.vertices;
-		var faces = geometry.faces;
-		var totalVolume = 0;
-		var partVol;
-		var px, py, pz,
-			qx, qy, qz,
-			rx, ry, rz;
-		for (i = 0; i < faces.length; i++)
+		var xVal = (xMax - xMin) * 0.393701;
+		xVal = Math.floor(xVal * 100) / 100;
+		var yVal = (yMax - yMin) * 0.393701;
+		yVal = Math.floor(yVal * 100) / 100;
+		var zVal = (zMax - zMin) * 0.393701;
+		zVal = Math.floor(zVal * 100) / 100;
+		
+		if (variables === 'xyz')
 		{
-			px = vertices[faces[i].a].x;
-			py = vertices[faces[i].a].y;
-			pz = vertices[faces[i].a].z;
-			
-			qx = vertices[faces[i].b].x;
-			qy = vertices[faces[i].b].y;
-			qz = vertices[faces[i].b].z;
-			
-			rx = vertices[faces[i].c].x;
-			ry = vertices[faces[i].c].y;
-			rz = vertices[faces[i].c].z;
-			
-			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
-			totalVolume += partVol;
-			
-			
-			px = vertices[faces[i].c].x;
-			py = vertices[faces[i].c].y;
-			pz = vertices[faces[i].c].z;
-			
-			qx = vertices[faces[i].d].x;
-			qy = vertices[faces[i].d].y;
-			qz = vertices[faces[i].d].z;
-			
-			rx = vertices[faces[i].a].x;
-			ry = vertices[faces[i].a].y;
-			rz = vertices[faces[i].a].z;
-			
-			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
-			totalVolume += partVol;
+			$( "#dimensions" ).val(xVal+''.concat(' by ').concat(yVal).concat(' by ').concat(zVal+'').concat(' inches'));
+			$( "#xwidth" ).val(xVal+''.concat(' inches'));
+			$( "#yheight" ).val(yVal+''.concat(' inches'));
+		}
+		else if (variables === 'xy')
+		{
+			$( "#xwidth" ).val(xVal+''.concat(' inches'));
+			$( "#yheight" ).val(yVal+''.concat(' inches'));
 		}
 		
-		totalVolume /= 6;
-		totalVolume /= (Math.pow(figure.scale.x, 3));
-		console.log('Volume: ', totalVolume);
-	}
-	
-	this.volumeCalc = function(face4)
-	{
-	var volume = 0;
-	var object = figure;
-	var Pxlist = [];
-	var Pylist = [];
-	var Pzlist = [];
-	var pvlist = [];
-	var Qxlist = [];
-	var Qylist = [];
-	var Qzlist = [];
-	var Rxlist = [];
-	var Rylist = [];
-	var Rzlist = [];
-	
-    if (face4 == false) 
-	{
-		for (var i=0; i<object.geometry.faces.length; i++) 
-		{
-			var pA = (object.geometry.faces[i].a);
-			var qA = (object.geometry.faces[i].b);
-			var rA = (object.geometry.faces[i].c);
-
-			var Px = object.geometry.vertices[pA].x;
-			var Py = object.geometry.vertices[pA].y;
-			var Pz = object.geometry.vertices[pA].z;
-
-			Pxlist.push(Px);
-			Pylist.push(Py);
-			Pzlist.push(Pz);
-		
-			var Qx = object.geometry.vertices[qA].x;
-			var Qy = object.geometry.vertices[qA].y;
-			var Qz = object.geometry.vertices[qA].z;
-
-			Qxlist.push(Qx);
-			Qylist.push(Qy);
-			Qzlist.push(Qz);
-
-			var Rx = object.geometry.vertices[rA].x;
-			var Ry = object.geometry.vertices[rA].y;
-			var Rz = object.geometry.vertices[rA].z;
-
-			Rxlist.push(Rx);
-			Rxlist.push(Ry);
-			Rzlist.push(Rz);
-		}
-    }   
-	else
-	{
-        for (var i=0; i<object.geometry.faces.length; i++) 
-		{
-			var pA = (object.geometry.faces[i].b);
-			var qA = (object.geometry.faces[i].c);
-			var rA = (object.geometry.faces[i].d);
-
-			var Px = object.geometry.vertices[pA].x;
-			var Py = object.geometry.vertices[pA].y;
-			var Pz = object.geometry.vertices[pA].z;
-
-			Pxlist.push(Px);
-			Pylist.push(Py);
-			Pzlist.push(Pz);
-
-			var Qx = object.geometry.vertices[qA].x;
-			var Qy = object.geometry.vertices[qA].y;
-			var Qz = object.geometry.vertices[qA].z;
-
-			Qxlist.push(Qx);
-			Qylist.push(Qy);
-			Qzlist.push(Qz);
-
-			var Rx = object.geometry.vertices[rA].x;
-			var Ry = object.geometry.vertices[rA].y;
-			var Rz = object.geometry.vertices[rA].z;
-
-			Rxlist.push(Rx);
-			Rxlist.push(Ry);
-			Rzlist.push(Rz);
-		
-		
-		
-			var pA = (object.geometry.faces[i].d);
-			var qA = (object.geometry.faces[i].a);
-			var rA = (object.geometry.faces[i].b);
-
-			var Px = object.geometry.vertices[pA].x;
-			var Py = object.geometry.vertices[pA].y;
-			var Pz = object.geometry.vertices[pA].z;
-
-			//Pxlist.push(Px);
-			//Pylist.push(Py);
-			//Pzlist.push(Pz);
-
-			var Qx = object.geometry.vertices[qA].x;
-			var Qy = object.geometry.vertices[qA].y;
-			var Qz = object.geometry.vertices[qA].z;
-
-			//Qxlist.push(Qx);
-			//Qylist.push(Qy);
-			//Qzlist.push(Qz);
-
-			var Rx = object.geometry.vertices[rA].x;
-			var Ry = object.geometry.vertices[rA].y;
-			var Rz = object.geometry.vertices[rA].z;
-
-			//Rxlist.push(Rx);
-			//Rxlist.push(Ry);
-			//Rzlist.push(Rz);
-		}
-	}
-    for (i=0;i < Pxlist.length; i++)
-	{
-		pv = Pxlist[i]*Qylist[i]*Rzlist[i]; + Pylist[i]*Qzlist[i]*Rxlist[i]; + Pzlist[i]*Qxlist[i]*Rylist[i]; - Pxlist[i]*Qzlist[i]*Rylist[i]; - Pylist[i]*Qxlist[i]*Rzlist[i]; -Pzlist[i]*Qylist[i]*Rxlist[i];
-		pvlist.push(pv);
-	}
-
-	for (i = 0; i < pvlist.length; i++)
-	{
-		volume += pvlist[i];
-	}
-	volume /= 6;
-	console.log('Volume: ', volume);
-}
-	
-	this.calculateSurfaceArea = function()
-	{
-		var surfaceArea = 0;
-		var faces = geometry.faces;
-		var vertices = geometry.vertices;
-		var a, b, c, d, ab, ad;
-		
-		a = vertices[faces[0].a];
-		b = vertices[faces[0].b];
-		d = vertices[faces[0].d];
-		
-		//The surface area is ||ab|| * ||ad|| * faces number
-		
-		ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
-		ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
-		surfaceArea = ab*ab*faces.length;
-		
-		console.log('Surface area: ', surfaceArea);
 	}
 	
 	function updateHash(tubeMesh)
@@ -467,6 +308,30 @@ var TubeMeshBuilder = function(materialsLibrary) {
 var TubeMeshParams = function(){
     if (typeof savedShape == 'undefined')
 	{
+        try
+        {
+            var parseme = savedShape.split("|");
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Rotation X', 'Rotation Y'];
+            for (var x=0; x<transformations.length; x++)
+            {
+                if (transformations[x] == 'Material')
+                    this[transformations[x]] = parseme[x];
+                else
+                    this[transformations[x]] = parseFloat(parseme[x]);
+                
+                if (parseme[x].indexOf("undefined") != -1)
+                    throw "invalid";
+            }
+
+            if (parseme == "")
+                throw "invalid";
+            
+            return;
+        }
+        catch(e)
+        {
+            
+        }
         
 		this['Scale'] = 5;
 		this['Modify'] = 5;
@@ -475,6 +340,7 @@ var TubeMeshParams = function(){
 		this['Loops'] = 2;
 		this['Starting Shape'] = 1;
 		this['Thickness'] = 4;
+		this['Material'] = 'Brass gold plated polished';
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
 	}

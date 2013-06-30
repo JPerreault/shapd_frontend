@@ -2,8 +2,8 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.currentMesh;
 	this.torusMesh;
 	this.torusDefined = false;
+	this.tubeMeshParams = tMP;
 	var tubeMeshBuilder = tMB;
-	var tubeMeshParams = tMP;
 
 	this.scene = new THREE.Scene();
 	this.sceneCube = new SceneCubeWrapper(textureCube);
@@ -49,11 +49,11 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	}
 
 	this.init = function(){
-		if (typeof tubeMeshParams === 'undefined')
-			tubeMeshParams = new TubeMeshParams();
+		if (typeof this.tubeMeshParams === 'undefined')
+			this.tubeMeshParams = new TubeMeshParams();
 		else
-			tubeMeshParams = tMP;
-		this.addMesh( tubeMeshBuilder.build(tubeMeshParams) );
+			this.tubeMeshParams = tMP;
+		this.addMesh( tubeMeshBuilder.build(this.tubeMeshParams) );
 		if (typeof tubeMeshBuilder.fIndex != 'undefined')
 		{
 			this.torusDefined = true;
@@ -85,11 +85,45 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.addMesh = function(mesh){
 		this.currentMesh = mesh;
 		this.scene.add(mesh.figure);
+		if (typeof screenShot !== 'undefined')
+		{ 
+			var yRotation = this.currentMesh.figure.rotation.y;
+			var xRotation = this.currentMesh.figure.rotation.x;
+			figure = this.currentMesh.figure;
+			var outlineMaterial = new THREE.MeshBasicMaterial({color:0x000000, side: THREE.BackSide});
+			
+			var outlineMesh = new THREE.Mesh(figure.geometry, outlineMaterial);
+			outlineMesh.rotation.x = xRotation;
+			outlineMesh.rotation.y = yRotation;
+			outlineMesh.position = figure.position;
+			outlineMesh.scale.x = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.y = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.z = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.multiplyScalar(1.015);
+			this.scene.add(outlineMesh);
+			
+			var outlineMesh2 = new THREE.Mesh(figure.geometry, outlineMaterial);
+			outlineMesh2.rotation.x = xRotation;
+			outlineMesh2.rotation.y = yRotation;
+			outlineMesh2.position = figure.position;
+			outlineMesh2.scale.x = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.y = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.z = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.multiplyScalar(.985);
+			this.scene.add(outlineMesh2);
+		}
 	};
 
-	this.redrawMesh = function(newParams){
+	this.redrawMesh = function(newParams, isFromLib){
+		if (isFromLib){
+			var yRotation = newParams['Rotation Y'];
+			var xRotation = newParams['Rotation X'];
+		}
+		else{
 		var yRotation = this.currentMesh.figure.rotation.y;
 		var xRotation = this.currentMesh.figure.rotation.x;
+		}
+		var scale = this.currentMesh.figure.scale.x;
 
         this.scene.remove( this.currentMesh.figure );
 		this.currentMesh = tubeMeshBuilder.build(newParams);
@@ -109,6 +143,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			
 			this.scene.add(this.torusMesh);
 		}
+		this.updateScale(scale);
 	};
 
     this.updateScale = function(newVal){

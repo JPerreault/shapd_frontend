@@ -1,208 +1,244 @@
 var materialListener = function(sW, tMB){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
+	var name = 'name';
+	var description = 'description';
+	var cost = 'cost';
+	var that = this;
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular white');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white';
+		name = 'White Regular Plastic';
+		description = 'Bumpy, rough';
+		cost = '$';
+		that.materialChange();
 	}
 	
 	document.getElementById('blackregularplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular black');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular black';
+		name = 'Black Regular Plastic';
+		description = 'Bumpy, rough';
+		cost = '$';
+		that.materialChange();
 	}
 	
 	document.getElementById('whitepolishedplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular white polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('redpolishedplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular red polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular red polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('bluepolishedplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular blue polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular blue polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('pinkpolishedplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular pink polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular pink polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('purplepolishedplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic regular purple polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular purple polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('whitedetailplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic detail white');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic detail white';
+		that.materialChange();
 	}
 	
 	document.getElementById('blackdetailplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Plastic detail black');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic detail black';
+		that.materialChange();
 	}
 	
 	document.getElementById('whitetransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin white');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin white';
+		that.materialChange();
 	}
 	
 	document.getElementById('blacktransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin black');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin black';
+		that.materialChange();
 	}
 	
 	document.getElementById('graytransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin gray');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin gray';
+		that.materialChange();
 	}
 	
 	document.getElementById('redtransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin red');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin red';
+		that.materialChange();
 	}
 	
 	document.getElementById('greentransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin green');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin green';
+		that.materialChange();
 	}
 	
 	document.getElementById('bluetransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin blue');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin blue';
+		that.materialChange();
 	}
 	
 	document.getElementById('yellowtransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin yellow');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin yellow';
+		that.materialChange();
 	}
 	
 	document.getElementById('orangetransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin orange');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin orange';
+		that.materialChange();
 	}
 	
 	document.getElementById('browntransparentplastic').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Transparent resin brown');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin brown';
+		that.materialChange();
 	}
 	
 	document.getElementById('regularalumide').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Alumide regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Alumide regular';
+		that.materialChange();
 	}
 	
 	document.getElementById('polishedalumide').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Alumide polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Alumide polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('regularbrass').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Brass regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Brass regular';
+		that.materialChange();
 	}
 	
 	document.getElementById('goldplatedbrass').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Brass gold plated polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Brass gold plated polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('regularsteel').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Stainless steel regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel regular';
+		that.materialChange();
 	}
 	
 	document.getElementById('medievalsteel').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Stainless steel medieval pewter');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel medieval pewter';
+		that.materialChange();
 	}
 	
 	document.getElementById('bronzemattesteel').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Stainless steel bronze matte');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel bronze matte';
+		that.materialChange();
 	}
 	
 	document.getElementById('bronzeglossysteel').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Stainless steel bronze glossy');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel bronze glossy';
+		that.materialChange();
 	}
 	
 	document.getElementById('goldmattesteel').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Stainless steel gold matte');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel gold matte';
+		that.materialChange();
 	}
 	
 	document.getElementById('goldglossysteel').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Stainless steel gold glossy');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel gold glossy';
+		that.materialChange();
 	}
 	
 	document.getElementById('regularsilver').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Silver regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Silver regular';
+		that.materialChange();
 	}
 	
 	document.getElementById('glossysilver').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Silver glossy');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Silver glossy';
+		that.materialChange();
 	}
 	
 	document.getElementById('premiumsilver').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Silver premium');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Silver premium';
+		that.materialChange();
 	}
 	
 	document.getElementById('unpolishedtitanium').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Titanium unpolished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Titanium unpolished';
+		that.materialChange();
 	}
 	
 	document.getElementById('polishedtitanium').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Titanium polished');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Titanium polished';
+		that.materialChange();
 	}
 	
 	document.getElementById('regulargold').onclick = function()
 	{
-		tubeMeshBuilder.setMaterial('Gold regular');
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		sceneWrapper.tubeMeshParams['Material'] = 'Gold regular';
+		that.materialChange();
 	}
-}	
+	
+	this.materialChange = function()
+	{
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		getNewPrice();
+		this.panelUpdate();
+	}
+	
+	function getNewPrice()
+	{
+		var jsonString = getJson(sceneWrapper.currentMesh);
+		if (typeof authToken !== 'undefined')
+			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+	}
+	
+	function updatePrice(data)
+	{
+		$( "#cost" ).val('$'.concat(data+''));
+	}
+	
+	this.panelUpdate = function()
+	{
+		$( "#matname" ).val(name);
+		$( "#matdesc" ).val(description);
+		$( "#matcost" ).val(cost);
+	}
+}

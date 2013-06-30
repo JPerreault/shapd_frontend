@@ -151,28 +151,34 @@ function addResetButtons() {
 	resetShapeImg.id = 'idResetShapdImg';
 	resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
 	resetContainer.appendChild(resetShapeImg);
+    
 }
 
 function addSavedLibrary() {
 	
-	var savedShapeContainer = document.createElement('div');
-	savedShapeContainer.id = 'idSavedShapeContainer';
-	savedShapeContainer.className = 'rounded';
-	savedShapeContainer.innerHTML += 'Your Saved Shapes<br>';
-	savedShapeContainer.style.position = 'absolute';
-	savedShapeContainer.style.border = '10px solid #000';
-	savedShapeContainer.style.margin = '15 15 15 15';
-	savedShapeContainer.style.color = '#fff';
-	savedShapeContainer.style.background = '#000';
-	savedShapeContainer.style.top = '20%';
-	savedShapeContainer.style.right = '0.75%';	
-	savedShapeContainer.style.width = '215px';			
-	savedShapeContainer.style.zIndex = '1000';
-	document.body.appendChild(savedShapeContainer);			
-			
-	var savedShapeLibrary = document.createElement('div');
-	savedShapeLibrary.id = 'idSavedShapeLibrary';
-	savedShapeContainer.appendChild(savedShapeLibrary);
+    if (typeof shapeLib !== 'undefined')
+    {
+        var savedShapeContainer = document.createElement('div');
+        savedShapeContainer.id = 'idSavedShapeContainer';
+        savedShapeContainer.className = 'rounded antiscroll-wrap';
+        savedShapeContainer.innerHTML += '<b>Your Saved Shapes</b><br>';
+        savedShapeContainer.style.position = 'absolute';
+        savedShapeContainer.style.border = '10px solid #000';
+        savedShapeContainer.style.color = '#fff';
+        savedShapeContainer.style.background = '#000';
+        savedShapeContainer.style.top = '20%';
+        savedShapeContainer.style.right = '0.75%';	
+        savedShapeContainer.style.width = '217px';			
+        savedShapeContainer.style.zIndex = '1000';
+        document.body.appendChild(savedShapeContainer);			
+                
+        var savedShapeLibrary = document.createElement('div');
+        savedShapeLibrary.id = 'idSavedShapeLibrary';
+        savedShapeLibrary.innerHTML = shapeLib;
+        savedShapeLibrary.style.background = '#000';
+        savedShapeLibrary.className = 'antiscroll-inner';
+        savedShapeContainer.appendChild(savedShapeLibrary);
+    }
 }
 
 
@@ -250,6 +256,7 @@ function addMaterialSelector() {
 	materialDetail.style.zIndex = '1000';
 	document.body.appendChild(materialDetail);		
 
+	document.getElementById('sliderContainer').style.zIndex = '1001';
 }
 
 function addLoops(){
@@ -266,4 +273,10 @@ function addLoops(){
 	loopText.align = 'center';			
 	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
+}
+
+function addDatGui(){
+	var datgui = document.createElement('div');
+	datgui.id = 'datGuiStuff';
+	document.body.appendChild(datgui);
 }
