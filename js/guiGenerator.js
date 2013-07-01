@@ -247,14 +247,13 @@ function addMaterialSelector() {
 	materialDetailContainer.innerHTML += 'Material:<br>';
 	materialDetailContainer.style.fontWeight = '500';
 	materialDetailContainer.style.position = 'absolute';
-	//materialDetailContainer.style.height = '300px';
 	materialDetailContainer.style.border = '10px solid #000';
 	materialDetailContainer.style.margin = '15 15 15 15';
 	materialDetailContainer.style.color = '#fff';
 	materialDetailContainer.align = 'center';
 	materialDetailContainer.style.background = '#000';
-	materialDetailContainer.style.top = '50%';
-	materialDetailContainer.style.right = '10%';	
+	materialDetailContainer.style.top = '1%';
+	materialDetailContainer.style.right = '20%';	
 	materialDetailContainer.style.width = '215px';			
 	materialDetailContainer.style.zIndex = '1000';
 	document.body.appendChild(materialDetailContainer);		
