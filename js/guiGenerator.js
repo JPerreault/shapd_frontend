@@ -165,8 +165,8 @@ function addSavedLibrary() {
         savedShapeContainer.style.position = 'absolute';
         savedShapeContainer.style.border = '10px solid #000';
         savedShapeContainer.style.color = '#fff';
-        savedShapeContainer.style.background = '#000';
         savedShapeContainer.style.top = '20%';
+        savedShapeContainer.style.background = '#000';
         savedShapeContainer.style.right = '0.75%';	
         savedShapeContainer.style.width = '217px';			
         savedShapeContainer.style.zIndex = '1000';
