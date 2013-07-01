@@ -33,6 +33,7 @@ var InputView = function(sW, rend, tMP) {
 	window.addEventListener( 'resize', onWindowResize, false );
 	
 	function onDocumentMouseWheel ( event ) {
+        
         if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
             return;
         
