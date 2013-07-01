@@ -31,7 +31,8 @@ window.onload = function() {
 		if (Detector.webgl)
 			renderer = new THREE.WebGLRenderer();
 		else
-			renderer = new THREE.CanvasRenderer();
+            location.href = 'snag.html';
+			//renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -68,7 +69,6 @@ window.onload = function() {
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
-<<<<<<< HEAD
         
         if (typeof screenShot != 'undefined')
         {
@@ -78,11 +78,9 @@ window.onload = function() {
             count++;
         }
         
-=======
 		
 		if(loops)
 		updateSelected();
->>>>>>> ac7fee07e5a4d2d6af01702d2788322e2faacf7b
 	}
 
 	function render() {
