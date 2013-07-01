@@ -65,7 +65,6 @@ var InputView = function(sW, rend, tMP) {
 		{
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-			document.addEventListener( 'mouseout', onDocumentMouseOut, false );
 
 			mouseXOnMouseDown = event.clientX - that.currentWindowX;
 			mouseYOnMouseDown = event.clientY - that.currentWindowY;
@@ -88,14 +87,6 @@ var InputView = function(sW, rend, tMP) {
 
 		document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
 		document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-		document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
-	}
-
-	function onDocumentMouseOut( event ) {
-
-		document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-		document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-		document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
 	}
 
 	function onDocumentTouchStart( event ) {

@@ -47,6 +47,15 @@ function addSave() {
 			saveButtonContainer.style.right = '0%';
 			document.body.appendChild(saveButtonContainer);	
 			
+			var saveStayButton = document.createElement('img');
+			saveStayButton.id = 'idSaveStayButton';
+			saveStayButton.style.zIndex = '1000';
+			saveStayButton.className = 'buttonImg';
+			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
+			saveStayButton.style.display = 'block';
+			saveStayButton.style.margin = '1px 1px 10px 10px';
+			saveButtonContainer.appendChild(saveStayButton);
+			
 			var backButton = document.createElement('img');
 			backButton.id = 'idBackButton';
 			backButton.style.zIndex = '1000';
