@@ -57,7 +57,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		if (typeof tubeMeshBuilder.fIndex != 'undefined')
 		{
 			this.torusDefined = true;
-			this.addToMesh(tubeMeshBuilder.createTorus());
+			this.addMesh(tubeMeshBuilder.createTorus());
 		}
 	};
 

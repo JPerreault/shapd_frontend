@@ -4,7 +4,10 @@ var materialListener = function(sW, tMB){
 	var name = 'name';
 	var description = 'description';
 	var cost = 'cost';
+	var smooth = ' - '
 	var that = this;
+	var img1 = '';
+	var img2 = '';
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
@@ -12,6 +15,8 @@ var materialListener = function(sW, tMB){
 		name = 'White Regular Plastic';
 		description = 'Bumpy, rough';
 		cost = '$';
+		img1 = 'assets/imgs/materialExamples/stainlessSteel_2.jpg';
+		img2 = 'assets/imgs/materialExamples/stainlessSteel_2.jpg';
 		that.materialChange();
 	}
 	
@@ -19,8 +24,11 @@ var materialListener = function(sW, tMB){
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular black';
 		name = 'Black Regular Plastic';
-		description = 'Bumpy, rough';
 		cost = '$';
+		smooth = 'Med';
+		img1 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+		img2 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+		description = 'Bumpy, rough';
 		that.materialChange();
 	}
 	
@@ -223,6 +231,7 @@ var materialListener = function(sW, tMB){
 		this.panelUpdate();
 	}
 	
+	
 	function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh);
@@ -237,6 +246,14 @@ var materialListener = function(sW, tMB){
 	
 	this.panelUpdate = function()
 	{
+		document.getElementById('idMaterialName').textContent = name;
+		document.getElementById('idCostContainer').textContent = cost;
+		document.getElementById('idSmoothContainer').textContent = name;
+		document.getElementById('idM1').src = name;
+		document.getElementById('idM2').src = name;
+		document.getElementById('idMaterialDescription').textContent = name;
+		
+		
 		$( "#matname" ).val(name);
 		$( "#matdesc" ).val(description);
 		$( "#matcost" ).val(cost);
