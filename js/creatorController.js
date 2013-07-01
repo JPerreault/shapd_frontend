@@ -1,5 +1,4 @@
 var n = 0;
-var count = 0;
 var loops = false;
 var sceneWrapper, view;
 
@@ -7,6 +6,7 @@ window.onload = function() {
 
 	var tubeMeshBuilder, gui, scene, tubeMP, matListener, state;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
+	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
 	var loops = false;
 
@@ -29,12 +29,7 @@ window.onload = function() {
 		}
 		
 		if (Detector.webgl)
-        {
-            if (typeof screenShot != 'undefined')
-                renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
-            else
-                renderer = new THREE.WebGLRenderer();
-        }
+			renderer = new THREE.WebGLRenderer();
 		else
 			renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
@@ -73,6 +68,7 @@ window.onload = function() {
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
+<<<<<<< HEAD
         
         if (typeof screenShot != 'undefined')
         {
@@ -82,6 +78,11 @@ window.onload = function() {
             count++;
         }
         
+=======
+		
+		if(loops)
+		updateSelected();
+>>>>>>> ac7fee07e5a4d2d6af01702d2788322e2faacf7b
 	}
 
 	function render() {
@@ -100,8 +101,10 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(0);			
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
+			$("#idmaterialDetailContainer").fadeOut(0);
 			$('#idMaterialPanel').fadeOut(0);
 			$('#idDimensions').fadeOut(0);
+			$('#materialDetailContainer').fadeOut(0);
 			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
@@ -124,12 +127,14 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeIn(450);
 			$("#materials").fadeOut(450);
+			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			$('#materialDetailContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
@@ -146,8 +151,10 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
+			$('#materialDetailContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
@@ -168,10 +175,12 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeIn(450);
+			$("#idmaterialDetailContainer").fadeIn(450);
 			$("#sliderContainer").fadeIn(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$('#materialDetailContainer').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
@@ -193,10 +202,12 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
 			$("#datGuiStuff").fadeOut(450);
 			$("#materials").fadeOut(450);
+			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$('#materialDetailContainer').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
@@ -505,6 +516,60 @@ window.onload = function() {
 			}
 		}
 	};
+	
+	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	function onDocumentMouseMove(event)
+	{
+		if (loops)
+		{
+			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+			console.log(mouse.x)
+		}
+	};
+	
+	function updateSelected(mouse)
+	{
+		//console.log('inupdateselect',mouse.x);
+		var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
+		projector.unprojectVector( vector, sceneWrapper.camera );
+		var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+
+		// create an array containing all objects in the scene with which the ray intersects
+		var intersects = ray.intersectObjects( scene.children );
+
+		// INTERSECTED = the object in the scene currently closest to the camera 
+		//		and intersected by the Ray projected from the mouse position 	
+	
+			// if there is one (or more) intersections
+		if ( intersects.length > 0 )
+		{
+			// if the closest object intersected is not the currently stored intersection object
+			if ( intersects[ 0 ].object != intersected ) 
+			{
+			    // restore previous intersection object (if it exists) to its original color
+				if ( intersected ) 
+					intersected.material.color.setHex( INTERSECTED.currentHex );
+				// store reference to closest object as current intersection object
+				intersected = intersects[ 0 ].object;
+				// store color of closest object (for later restoration)
+				intersected.currentHex = INTERSECTED.material.color.getHex();
+				// set a new color for closest object
+				intersected.material.color.setHex( 0xffff00 );
+			}
+		} 
+		else // there are no intersections
+		{
+			// restore previous intersection object (if it exists) to its original color
+			if ( INTERSECTED ) 
+				INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+			// remove previous intersection object reference
+			//     by setting current intersection object to "nothing"
+			INTERSECTED = null;
+		}
+		
+	}
+	
 }
 
 function loadFromLib(hash)
