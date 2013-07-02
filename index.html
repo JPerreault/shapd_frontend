@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Shapd - Amazing. Personal. Jewelry.</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="css/flexslider.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/prettyPhoto.css">
+
+    <script src="js/jquery.js"></script>
+
+        <script type="text/javascript">
+            function showPopUp()
+            {
+                    spyOff()
+                    document.getElementById('popup').style.display='block';
+
+            }
+            function hidePopUp()
+            {
+                    spyOn()
+                    document.getElementById('popup').style.display='none';
+
+            }
+            function showThanks()
+            {
+                $('#yet_to_reg').fadeOut();
+                $('#confirmed_reg').delay(400).fadeIn();
+            }
+
+            </script>
+	<script type="text/javascript">
+		
+		// ----------------------------------------------
+		// CUSTOM GOOGLE FONT
+		// ----------------------------------------------
+
+		WebFontConfig = { google: { families: [ 'Noto Sans:100,300,400,700',  'Finger Paint:700'] } };
+		(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+		'://ajax.googleapis.com/ajax/libs/webfont/1.3.0/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+		})();
+			
+		</script>
+
+		<!-- Google Analytics Tracking Code   -->
+        
+		<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+ 		 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+ 		 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ 		 ga('create', 'UA-41465220-1', 'shapd.co');
+ 		 ga('send', 'pageview');
+
+        </script>
+
+	<!-- ================================================= -->
+	<!-- STYLE TYPE : Choose either flat or skeuo design   -->
+	<!-- ================================================= -->
+    
+    
+	<link rel="stylesheet" href="css/skeuobootstrap.css">
+	<link rel="stylesheet" href="css/skeuo.css">
+        
+        <style>
+            #popup
+            {
+                z-index: 990;
+                position: absolute;
+                background-color: #777777;
+                top:55px;
+                color: #ffffff;
+                width: 415px;
+                height:130px;
+                display: none;
+                text-align: right;
+            }
+            
+            .user_input
+            {
+                float: left;
+            }
+            
+            #email_form1
+            {
+                padding: 15px;
+            }
+            
+            #email_form2
+            {
+                padding: 15px;
+
+            }
+            
+            .sign_in
+            {
+
+            }
+            
+            .register
+            {
+            }
+            
+            <% if !cookies['email_addr'].blank? %>
+            #yet_to_reg
+            {
+                display: none;
+            }
+            
+            <% else %>
+
+            #confirmed_reg
+            {
+                display: none;
+            }
+            <% end %>
+
+
+        </style>
+    
+    <!-- 
+    UNCOMMENT and comment out other to toggle between two different styles
+    
+    <link rel="stylesheet" href="css/flatbootstrap.css">
+    <link rel="stylesheet" href="css/flat.css">
+    -->
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<script src="js/modernizr.js"></script>
+    
+    <!-- Setting Facebook OpenGraph Default Values  -->
+
+	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml"> 
+	<meta property="og:image" content="http://www.shapd.co/img/assets/shapd_logo.jpg"/>
+
+
+</head>
+<body>
+<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+<%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+
+
+	<!-- ============================================= -->
+	<!-- LAYOUT TYPE : Add boxed class for Boxed style -->
+	<!-- ============================================= -->
+    
+    <!--
+    UNCOMMENT out and Comment "wrapper" to toggle between two layout choices - boxed or wrapper
+    <div class="wrapper boxed">
+    -->
+    
+	<div class="wrapper">
+
+		<!-- HEADER -->
+		<header>
+			<div class="container">
+				<div class="row">
+
+					<div class="span4 logo clearfix">
+						<div class="pull-left brand">
+
+							<!-- FONT BASED LOGO -->
+							<!--<h1><a href="index.html">HUMBLER</a></h1> -->
+
+							<!-- IMAGE BASED LOGO -->
+							<a href="#"><img src="img/assets/shapd_logo.jpg" alt=""></a>
+						</div>
+						<div class="pull-right visible-phone phonemenu"><a href="#"><i class="icon-reorder"></i></a></div>
+					</div>
+					
+					<!-- MENUS -->
+					<div class="span8">
+
+						<nav class="pull-right" id="navbar">
+
+							<ul class="nav nav-pills">
+                                
+                                
+                                								<li class="hidden-phone"><a href="#home">Home</a></li>
+                                 <% if !user_signed_in? %>
+
+								<!-- Start Here -->
+								<li><a href="#features">Features</a></li>
+								<li><a href="#works">Works</a></li>
+                                <div id='popup' >
+ <%= form_for("user", :url => user_session_path, :class => "nosub") do |f| %>
+  <br><div style="padding-left:29px">
+  <%= f.text_field :email, class: "user_input", placeholder: "Email address"  %>
+   <img src="img/background/wood.png" width=10 height=1 class="user_input"></img>
+  
+  <%= f.password_field :password, class: "user_input", placeholder: "Password"   %>
+  <img src="img/background/wood.png" width=10 height=1 class="user_input"></img>
+  <%= f.submit 'Sign in', class: "sign_in user_input"  %>
+  </div>
+  <script> jQuery('#email').closest('form').on('submit', function(){
+jQuery.post('/signup', jQuery(this).serialize()); return false;
+});  </script>
+ <br>
+    <!--
+  <%= link_to "Forgot your password?", new_password_path('user'), class:"user_input" %>
+   
+  <%= f.check_box :remember_me, class: "user_input" %>
+  <%= f.label :remember_me, class: "user_input"  %> -->
+<% end %>
+                                </div>
+								<li><a href="#team">Team</a></li>
+								<li><a href="#contact">Contact</a></li>
+
+                                <li><a href="javascript:hidePopUp()" onmouseover="showPopUp()">Login</a></li>
+                                <% else %>
+                                
+                                								<li class="hidden-phone"><a href="/library">My Library</a></li>
+                                                                <li class="hidden-phone"><a href="/gallery">Gallery</a></li>
+                                                                
+                                                               <!-- <li class="hidden-phone"><a href="#">Admin</a></li> -->
+                                                                								<li class="hidden-phone"><a href="/logout">Logout</a></li>
+
+
+                                
+                                <% end %>
+
+							</ul>
+						</nav>
+					</div>
+				</div>	
+			</div>
+		</header>
+		<!-- MASTHEAD -->
+		<section class="masthead" id="home">
+
+				<!-- Flexslider -->
+				<div class="flexslider wide">
+
+					<ul class="slides">
+						
+						<!-- Slide 1 -->
+						<!--
+                        <li data-background="img/assets/header_pic1_test.jpg">
+							<div class="container">
+								<div class="row">
+									<div class="span12">
+										
+										<div class="transit top" data-delay="250">
+											<h1>Flat VS Skeuo</h1>
+										</div>
+
+										<div class="transit top" data-delay="500">
+											<p class="lead">Humbler; is a template for those who wanted to have both style of designs.</p>
+										</div>
+										
+										<div class="transit bottom" data-delay="700">
+											<p><small>Also compatible with <i class="icon-facebook-sign"></i> Facebook Tab</small></p>
+										</div>
+
+										<div class="transit bottom" data-delay="1000">
+											<img src="img/assets/monitor2.png" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						-->
+						
+                        <!-- Slide 3 -->
+						<li data-background="img/assets/header_pic1_test2.jpg">
+							<div class="container">
+								<div class="row">
+									
+									<div class="span6">
+
+										<!--
+										<div class="transit bottom" data-delay="1000">
+											<img src="img/assets/ipad2.png" alt="">
+										</div>
+										-->
+
+									</div>
+
+									<div class="span6 tleft">
+
+										<div class="transit top" data-delay="250">
+											<h1><b><span style="color:rgb(145,200,245)">Breathtaking </span>Jewelry.</b></div></h1>
+                                            <br>
+                                       <div class="transit top" data-delay="900">
+                                            <b><h1>You Designed.</b></h1>
+                                            <br>
+                                     	</div>
+                                        
+										<div class="transit bottom" data-delay="2000">
+											<br><p class="lead">Launching soon!</p><br>Sign up and we'll give you access before your friends.<br> Just don't blame us when they're jealous of your earrings.
+											
+										</div>
+                                        
+                                      
+
+										
+										
+									</div>
+
+								</div>
+							</div>
+						</li>
+					
+                    
+                    	<!-- Slide 2 -->
+                        
+						<li data-background="img/assets/header_pic1_test2.jpg">
+							<div class="container">
+								<div class="row">
+									
+									<div class="span6">
+									
+									
+									
+
+									</div>
+
+									<div class="span6 tleft">
+
+										<div class="transit top" data-delay="250">
+											<h1><b>We're about to make the most...</b></h1>
+										</div>
+                                        <div class="transit top" data-delay="1500">
+											<br><br><h1><b><span style="color:rgb(145,200,245)"> incredible jewelry</span><br> on the planet.</b></h1>
+										</div>
+
+										<div class="transit top" data-delay="500">
+											<p class="lead"><br>Sign up below to get the inside scoop!</p>
+											</div>
+
+										
+										
+									</div>
+
+								</div>
+							</div>
+						</li>
+                        
+
+
+						<!-- Slide 4 -->
+                        <!--
+						<li data-background="img/assets/header_pic1_test.jpg">
+							<div class="container">
+								<div class="row">
+									<div class="span6 tright">
+										
+										<div class="transit top" data-delay="100">
+											<h1>Box / Full Width</h1>
+										</div>
+										
+										<div class="transit top" data-delay="300">
+											<p class="lead">Don't like full width design?</p>
+										</div>
+										
+										<div class="transit top" data-delay="500">
+											<p>Don't worry, you can have boxed design as well.</p>
+										</div>
+										
+										<div class="transit top" data-delay="700">
+											<p>Humbler also came with two types of placeholder devices stock image. So you can have real product images or flat based devices design.</p>
+										</div>
+
+										<div class="transit bottom" data-delay="1000">
+											<a href="#" class="btn btn-outline btn-large">I WANT THIS</a>
+										</div>
+										
+									</div>
+									<div class="span6">
+
+										<div class="transit bottom" data-delay="1000">
+											<img src="img/assets/phone2.png" alt="">
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</li>
+
+					</ul>
+					-->
+					<!-- Navigation -->
+				  	<nav class="clearfix">
+				  		<div class="box pull-left"><a class="previous disabled" href="#"><i class="icon-angle-left"></i></a></div>
+	    				<div class="box pull-right"><a class="next" href="#"><i class="icon-angle-right"></i></a></div>
+				  	</nav>
+				</div>
+
+		</section>
+		
+		<!-- INTRO -->
+		<section class="content" style="padding:5px;">
+			<div class="container">
+				
+				<div class="row tcenter">
+					<div class="span12 hero">
+                    <div class="btn-toolbar"  id="yet_to_reg">
+  							<div>
+                               
+                            	<img src="img/assets/arrow4.png" alt="Shapd sign up pointer">
+                                <br>
+                                <%= form_tag("/signup", onsubmit: "showThanks()", remote: true) do %>
+  <%= text_field_tag(:email, "", placeholder: "Your Email Address", class: "input-xlarge") %>
+  <%= submit_tag("Sign Up")%>
+<% end %>
+                               
+					</div>
+							<h2><span id="result1" style="color:#444"><b>Get early access</span></b></h2>
+                            <h4><span id="result2" style="color:#444">Sign up for pre-launch updates and sneak peaks.</span></h4>
+				</div>
+                <div class="btn-toolbar"  id="confirmed_reg">
+			<div><br><br><br>
+            <font size="100px">Thank you</font><br><br>
+            <br>
+                               
+                            	<input type="button" onmousedown="location.href = '/demo/?a=<%= cookies[:email_addr] %>'" value="Try Demo"></input><br>
+                                
+                                <img src='img/assets/arrow2.png' alt="Shapd trial">
+                                
+                               <br>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- FEATURES -->
+		<section class="content" data-bgcolor="#eee" id="features">
+			<div class="container">
+
+				<!-- Title -->
+				<div class="row headline">
+					<div class="span12 tcenter ">
+						<h3 class="title"><span>FEATURES</span></h3>
+						<p>Simply. Pure. Happiness.</p>
+					</div>
+				</div>
+				
+
+				<!-- Features -->
+				<div class="row tcenter">
+
+					<div class="span3">
+						<h1><i class="icon-tag"></i></h1>
+						<h3>Really?!</h3>
+						<p>Imagine this: a stunning piece of jewelry, custom made for you, at a price of what you'd find in a boutique.</p>
+					</div>
+
+					<div class="span3">
+						<h1><i class="icon-heart"></i></h1>
+						<h3>Smile</h3>
+						<p>Use our incredibly easy tools to design the best piece of jewelry you've gotten in a long time. Just be prepared for all the compliments.</p>
+					</div>
+
+					<div class="span3">
+						<h1><i class="icon-magic"></i></h1>
+						<h3>Magic</h3>
+						<p>We make it. How? We have a wizard we keep on hand. He has (almost) any material you'd want: plastic, brass, stainless steel, gold, silver, and ceramics to name a few.</p>
+					</div>
+
+					<div class="span3">
+						<h1><i class="icon-envelope"></i></h1>
+						<h3>To Your Door</h3>
+						<p>Each piece is custom made just for you. It'll show up at your door in 3-4 weeks. Easy. Peasy.</p>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+
+		<!-- WORKS -->
+		<section class="content" id="works" data-bgcolor="#fefefe">
+			<div class="container">
+
+				<!-- Title -->
+				<div class="row headline">
+					<div class="span12 tcenter ">
+						<h3 class="title"><span style="background: white">Examples of 3D Printed Jewelry</span></h3>
+						<p>It's amazing what's possible.</p>
+					</div>
+				</div>
+
+				<div class="row">
+					<ul id="humbler-grid" class="humbler-grid">
+						<li>
+                        	<a href="http://www.shapeways.com/model/52617/eardrops-ib.html">
+							<img src="img/assets/3d_examples/1.jpg" alt="img01" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                       		<a href="http://www.shapeways.com/model/194231/eardrops-iv-hopf-s.html">
+							<img src="img/assets/3d_examples/2.jpg" alt="img02" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                       		<a href="http://www.shapeways.com/model/109921/dna-flower-pendant.html?li=productBox-search">
+							<img src="img/assets/3d_examples/3.jpg" alt="img03" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                        	<a href="http://www.shapeways.com/model/123016/matchstick-ring.html">
+							<img src="img/assets/3d_examples/4.jpg" alt="img04" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+							<a href="http://www.shapeways.com/model/179838/earrings-wings-in-3d-printed-stainless-steel.html">
+                            <img src="img/assets/3d_examples/5.jpg" alt="img05" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                       		<a href="http://www.shapeways.com/model/261411/spiral-cuff-sz-s-m.html">
+							<img src="img/assets/3d_examples/6.jpg" alt="img06" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                        	<a href="http://www.shapeways.com/model/267384/o-vulgaris.html">
+							<img src="img/assets/3d_examples/7.jpg" alt="img07" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                        	<a href="http://www.shapeways.com/model/194231/eardrops-iv-hopf-s.html">
+							<img src="img/assets/3d_examples/8.jpg" alt="img08" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                       		<a href="http://www.shapeways.com/model/386777/quot-turbine-quot-pendant-40-mm.html">
+							<img src="img/assets/3d_examples/9.jpg" alt="img09" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                        	<a href="http://i.materialise.com/gallery/brass-bracelet-constructionist">
+							<img src="img/assets/3d_examples/10.jpg" alt="img10" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                      	    <a href="http://i.materialise.com/gallery/wedding-band-set-mens-and-womens-titanium">
+							<img src="img/assets/3d_examples/11.jpg" alt="img11" height="300" width="300" />
+                            </a>
+						</li>
+						<li>
+                       		<a href="http://i.materialise.com/gallery/cc4440be-96d2-4640-bfb8-9c5bb0e1eec4">
+							<img src="img/assets/3d_examples/12.jpg" alt="img12" height="300" width="300" />
+                            </a>
+						</li>
+						<br><br><center><p style="width:800px">Photo Attribution: i.materialise and Shapeways.<br> These designs are from individual designers listed on <a href="www.shapeways.com">Shapeways</a> and <a href="http://i.materialise.com/">i.materialise</a>, and are not designed, produced, or representative of Shapd. They're simply examples of 3D printed jewelry. Please click through each picture to get more information on the products, designers, and services.</p></center>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- GALLERY -->
+        <!--
+		<section class="content" data-bgcolor="#efefef">
+			-->
+			<!-- Title -->
+            <!--
+			<div class="container">
+				<div class="row headline">
+					<div class="span12 tcenter ">
+						<h3 class="title"><span style="background: white">GALLERY</span></h3>
+						<p>Catsear celery turnip greens bush tomato okra parsley.</p>
+					</div>
+				</div>
+			</div>
+			-->
+            
+            
+			<!-- Carousel -->
+            <!--
+			<div class="flexslider carousel">
+				<ul class="slides">
+
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]" title="Sample 'works' for May 13">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+
+					<li>
+						<a href="img/assets/works/works.png" data-rel="pop[works]">
+							<img alt="" src="img/assets/works/works.png" />
+						</a>
+					</li>
+
+				</ul>					
+			</div>
+
+		</section>
+			-->
+
+
+
+
+		<!-- EXTRA WORKS -->
+		<section class="content" data-bgcolor="#fff">
+
+			<div class="container">
+				<div class="row headline">
+
+					<div class="span12 tcenter ">
+						<h3 class="title"><span>About</span></h3>
+						<p>Beautiful, personal, and amazing jewelry - created by you.</p>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="span6">
+
+						<div class="flexslider normal">
+							<ul class="slides">
+								
+								<li>
+                                 <a href="http://www.shapeways.com/model/202289/vessel-pendant.html">
+									<img src="img/assets/3d_examples/14.jpg" alt="img14" height="200" width="200" />
+                                  </a>
+								</li>
+								<p>Photo credit: <a href="http://www.shapeways.com/">Shapeways</a>. Design by <a href="http://n-e-r-v-o-u-s.com/">Nervous System</a>. </p>
+							</ul>
+						</div>
+
+					</div>
+					<div class="span6">
+						<h4><i class="icon-thumbs-up"></i>&nbsp;&nbsp; What We're Up To</h4>
+						<p>Our premise is simple: We're making it very, very easy for an average person to design, customize, and create jewelry. We happen to be using a technology called 3D printing to do that, which you might have heard about it in the news. However we take care of all the "production" - the actual making of the items - which means that you get to just focus on the fun stuff: designing or browsing beautiful jewelry. We're creating software to allow you to create anything you can imagine in an extremely easy way, and we're excited to get your input. Please sign up if you're interested in being on the early list of users.</p>
+					</div>
+				</div>
+
+			</div>
+
+		</section>
+
+		<!-- TEAM -->
+		<section class="content" id="team" data-bgcolor="#efefef">
+			<div class="container">
+
+				<!-- Title -->
+				<div class="row headline">
+					<div class="span12 tcenter ">
+						<h3 class="title"><span>TEAM</span></h3>
+						<P>Hover over us to learn more.</P>
+					</div>
+				</div>
+
+				<!-- Profiles -->
+				<div class="row tcenter profile" style="margin-left:125px;">
+
+					<div class="span3 withinner">
+						<img src="img/assets/team/jon_cropped_small.jpg" alt="Jon OShaughnessy Shapd">
+						<div class="innerbox">
+							<p class="leads">Jon O'Shaughnessy</p>
+							<p class="position">CEO, Founder</p>
+							<p>Former VC, lifelong entrepreneur, frustrated coder. Also gets the coffee.</p>
+						</div>
+					</div>
+
+					<div class="span3 withinner">
+						<img src="img/assets/team/jason_cropped_small.jpg" alt="Jason Perreault Shapd">
+						<div class="innerbox">
+							<p class="leads">Jason Perreault</p>
+							<p class="position">Code Guru</p>
+							<p>Jason makes the magic happen at Shapd. Plays a mean game of chess too.</p>
+						</div>
+					</div>
+
+					<div class="span3 withinner">
+						<img src="img/assets/team/question.png" alt="Join Shaped">
+						<div class="innerbox">
+							<p class="leads">Join Us!</p>
+							<p>We're looking for great technical talent to join our team. We love working on something meaningful that's both incredibly exciting and challenging. Email us if interested.</p>
+						</div>
+					</div>
+                    
+				</div>
+
+			</div>
+		</section>
+
+		<!-- CLIENTS -->
+        <!--
+		<section class="content client dark" data-bgcolor="#555">
+			<div class="container">
+		-->
+				<!-- Title -->
+       <!--        
+				<div class="row headline">
+					<div class="span12 tcenter">
+						<h3 class="title"><span>CLIENTS</span></h3>
+						<P>She said, don't make others suffer for your personal hatred.</P>
+					</div>
+				</div>
+		-->
+				<!-- Clients logo -->
+        <!--
+				<div class="row tcenter">
+					
+					<div class="span3">
+						<img src="img/assets/client.png" alt="">
+					</div>
+					<div class="span3">
+						<img src="img/assets/client.png" alt="">
+					</div>
+					<div class="span3">
+						<img src="img/assets/client.png" alt="">
+					</div>
+					<div class="span3">
+						<img src="img/assets/client.png" alt="">
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		-->
+		<!-- MAP -->
+		<section class="content contact dark" data-bgcolor="#555" id="contact">
+			
+			<!-- Title -->
+			<div class="container">
+				<div class="row headline">
+					<div class="span12 tcenter ">
+						<h3 class="title"><span style="background: white">GET IN TOUCH</span></h3>
+						<br>
+                        <P>We love talking.</P>
+                        
+					</div>
+				</div>
+			</div>
+
+			<!-- CUSTOM MAP: Map Address -->
+            <!--
+			<div id="map-canvas" data-location="Boston, MA"></div>
+            -->
+
+			<!-- Address -->
+			<div class="container" align="center">
+             	<div class="row" style="display:inline-block" align="center">
+                <div class="span3" align="center" style="margin-left:auto">
+                		<h4><i class="icon-envelope"></i>&nbsp;&nbsp; Email</h4>
+                        <br>
+						<span class="icon-map-marker"></i> Boston, MA<br><i class="icon-envelope"></i> <a href="mailto:jon@shapd.co" style="color:#999">jon@shapd.co</a></span>
+						</div>
+                       <div class="span3" align="center" style="margin-left:auto">
+						<h4><i class="icon-twitter"></i>&nbsp; Tweets</h4>
+							<div id="tweet" style="color:#999"></div>
+                        	<br>&nbsp;&nbsp;&nbsp;
+                       	<a href="https://twitter.com/ShapdCo" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @ShapdCo</a>
+                        		
+					</div>
+
+				</div>
+			</div>
+
+		</section>
+
+		<!-- CTA -->
+		<section class="content" data-bgcolor="#fff">
+			<div class="container">
+				<div class="row tcenter">
+					<div>
+						
+						<h3><span id="result3">Sign up to our mailing list:</span></h3>
+						<p><span id="result4">We'll keep you updated 1-2 times per month.</span></p>
+                        <br>
+                        
+                        <%= form_tag("/signup", method: "post", remote: true) do %>
+
+  <%= text_field_tag(:email, "", placeholder: "Your Email Address") %>
+  <%= submit_tag("Sign Up") %>
+<% end %>
+                        <!--
+						<div class="btn-toolbar">
+  							<div>
+  								<form id="email_form2" action="php/input_email2.php" method="post">
+  								<input id="email2" name="email2" type="text" class="input-xlarge" onclick="this.value='';" value="Your Email Address" maxlength="40">
+								<input id="submit2" name="submit" type="submit" value="Sign Up">
+                                </form>
+  							</div>
+					</div> -->
+
+					</div>
+				</div>
+			</div>
+		</section>
+
+<!-- 
+
+<div class="container">
+<h3>Library</h3>
+<a href=/prototype.html><font size="8"><i class="icon-plus-sign"></i></font><font size="4"> Create New Object</font></a>
+<br>
+  </div>
+
+-->
+		<!-- FOOTER -->
+		<footer>
+			<div class="container" data-bgcolor="#555">
+				<div class="row">
+					
+					<div class="span6">&copy; 2013 Shapd, Inc. | all rights reserved</div>
+
+					<div class="span6 social">
+						<a href="#">twitter</a> <a href="#">facebook</a> <a href="#">instagram</a>
+					</div>
+
+				</div>
+			</div>
+		</footer>
+
+		<div class="dotted"></div>
+
+	</div> <!-- Wrapper end -->
+
+	<!-- Scripts -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+	<script src="js/app.js"></script>
+	<script src="js/init.js"></script>
+
+	<script>
+	//<![CDATA[
+	$(window).load(function(){ 
+		// Twitter Username
+		humbler.thetwitter('shapdco');
+		
+
+		//Google Map
+		//humbler.thegmap('#3f4c6b','http://cdn3.iconfinder.com/data/icons/eightyshades/512/72_Pin_alt-48.png');
+
+		// Backstrect
+		//humbler.thebackstretch('img/background/bg.jpg');
+	});
+	//]]>
+	</script>
+    <script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    </script>
+</body>
+</html>
