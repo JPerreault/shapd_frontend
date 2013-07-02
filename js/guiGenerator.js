@@ -361,6 +361,7 @@ function addMaterialSelector() {
 	materialDescriptionContainer.appendChild(materialDescription);
 	
 	document.getElementById('sliderContainer').style.zIndex = '1001';
+	document.getElementById('thicknessContainer').style.zIndex = '1001';
 }
 
 function addLoops(){

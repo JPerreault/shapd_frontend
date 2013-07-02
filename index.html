@@ -9,14 +9,16 @@
 		<link rel="stylesheet" type="text/css" href="css/guiCSS.css" />
         <link rel="stylesheet" type="text/css" href="css/antiscroll.css" />
  		<link rel="stylesheet" type="text/css" href="css/dropdownCSS.css" />
-		 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery-1.10.3.css" />
+		
     
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+			<script src="js/libs/jquery-1.9.1.js"></script>
+			<script src="js/libs/jquery-1.10.3.min.js"></script>
             <script src="js/libs/three.min.js"></script>
             <script src="js/libs/Detector.js"></script>
             <script src="js/libs/dat.gui.min.js"></script>
             <script src="js/libs/filesaver.min.js"></script>
+			<script src="js/libs/antiscroll.js"></script>
             <script src="js/creatorController.js"></script>
             <script src="js/sceneCubeWrapper.js"></script>
             <script src="js/CurveExtras.js"></script>
@@ -29,7 +31,6 @@
             <script src="js/materialListener.js"></script>
             <script src="js/screenShot.js"></script>
             <script src="js/guiGenerator.js"></script>
-            <script src="js/libs/antiscroll.js"></script>
             <script src="js/jsonMaker.js"></script>
             
 		<script>
@@ -97,6 +98,17 @@
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 		});	
 		
+		$(function() {
+			$( "#thickslider" ).slider({
+				value: 1.75,
+				min: .5,
+				max: 10,
+				step: .01,
+				slide: function(event, ui){
+					$( "#thickscale" ).val(ui.value);
+				}
+			})});	
+		
 		</script>
 	</head>
 
@@ -115,6 +127,12 @@
 			<div id = "slider"></div>
 		</div>
 		
+		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 32.5%; left: 20%; position: absolute; height: 10px; width: 200px;" id = "thicknessContainer">
+			<p>Your shape is too thin to print!</p>
+			<p>Please either increase thickness or increase the scale.</p>
+			<p>Thickness:</p><div id = "thickslider"></div>
+		</div>
+		
 		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; top: 0%; left: 0%; position: absolute; z-index: 1001; height: 30px; width: 200px;" id = "idMaterialPanel">
 			<p><label for = "matname">Material Name: </label>
 			<input type = "text" id = "matname" style="border: 0; color: #000000; font-weight: bold; width: 175px" />
@@ -122,7 +140,6 @@
 			<input type = "text" id = "matdesc" style="border: 0; color: #000000; font-weight: bold; width: 175px" />
 			<p><label for = "matcost">Material Cost: </label>
 			<input type = "text" id = "matcost" style="border: 0; color: #000000; font-weight: bold; width: 45px" />
-			<div id = "slider"></div>
 		</div>
 		
 		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; top: 50%; left: 0%; position: absolute; z-index: 1001; height: 30px; width: 200px;" id = "idDimensions">

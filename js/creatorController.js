@@ -5,7 +5,7 @@ var sceneWrapper, view;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, gui, scene, tubeMP, matListener, state;
+	var tubeMeshBuilder, gui, scene, tubeMP, matListener, state, thickness;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
@@ -105,7 +105,8 @@ window.onload = function() {
 		{
 			initialSetup();
 			$('#idBackButton').fadeOut(0);
-			$("#sliderContainer").fadeOut(0);			
+			$("#sliderContainer").fadeOut(0);
+			$("#thicknessContainer").fadeOut(0);				
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
 			$("#idmaterialDetailContainer").fadeOut(0);
@@ -136,6 +137,7 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
@@ -160,6 +162,7 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
@@ -184,6 +187,7 @@ window.onload = function() {
 			$("#materials").fadeIn(450);
 			$("#idmaterialDetailContainer").fadeIn(450);
 			$("#sliderContainer").fadeIn(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -197,6 +201,7 @@ window.onload = function() {
 			tubeMeshBuilder.calculateDimensions('xyz');
 			matListener.panelUpdate();
 			getNewPrice();
+			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
 		}
 		else if (state == 'publish')
 		{
@@ -211,6 +216,7 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -272,7 +278,14 @@ window.onload = function() {
         else
             saveButtonAction();
 	}
-    
+	
+	document.getElementById('idSaveStayButton').onclick = function()
+	{
+		if (typeof newuser !== 'undefined' && newuser)
+				createNewUser();
+			else
+				saveShape();
+	}
     
     function saveButtonAction()
     {
@@ -296,8 +309,6 @@ window.onload = function() {
 		saveShape();
     }
 
-	
-	
 	document.getElementById('idBackButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
@@ -406,6 +417,7 @@ window.onload = function() {
 			currentMesh.figure.scale.z = 1;
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
+			$( "#thickslider" ).slider( "value", 1.75 );
 			tubeMeshBuilder.calculateDimensions('xyz');
 		
 			sceneWrapper.redrawMesh(currentMesh);
@@ -455,6 +467,39 @@ window.onload = function() {
 		console.log(sceneWrapper.torusMesh);
 	}
 	
+	document.getElementById('thickslider').onmousedown = function()
+	{
+		event.preventDefault();
+		
+		document.addEventListener( 'mouseup', releaseThickSlider, false );
+		document.addEventListener( 'mousemove', moveThickSlider, false );
+	}
+	
+	function moveThickSlider()
+	{
+		var sliderValue = $( "#thickslider" ).slider( "value" );
+		sceneWrapper.currentMesh['Thickness'] = sliderValue;
+		
+		scene.redrawMesh(scene.currentMesh);
+		updateThickness();
+	}
+	
+	function releaseThickSlider()
+	{
+		event.preventDefault();
+		
+		var sliderValue = $( "#thickslider" ).slider( "value" );
+		console.log(sliderValue);
+		sceneWrapper.currentMesh['Thickness'] = sliderValue;
+		document.removeEventListener( 'mouseup', releaseThickSlider, false );
+		document.removeEventListener( 'mousemove', moveThickSlider, false );
+		
+		scene.redrawMesh(scene.currentMesh);
+		tubeMeshBuilder.calculateDimensions('xyz');
+		getNewPrice();
+		updateThickness(true);
+	}
+	
 	document.getElementById('slider').onmousedown = function()
 	{
 		event.preventDefault();
@@ -463,16 +508,16 @@ window.onload = function() {
 		document.addEventListener( 'mousemove', moveSlider, false );
 	}
 	
+	
 	function moveSlider()
 	{
 		var sliderValue = $( "#slider" ).slider( "value" );
-		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 100;
-		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 100;
-		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 100;
-		
-		tubeMeshBuilder.calculateDimensions('xy');
+		var newScale = sliderValue / 100;
+		sceneWrapper.updateScale(newScale);
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		
 		scene.redrawMesh(scene.currentMesh);
+		updateThickness();
 	}
 	
 	function releaseSlider()
@@ -480,15 +525,34 @@ window.onload = function() {
 		event.preventDefault();
 		
 		var sliderValue = $( "#slider" ).slider( "value" );
-		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 100;
-		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 100;
-		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 100;
+		var newScale = sliderValue / 100;
+		sceneWrapper.updateScale(newScale);
 		document.removeEventListener( 'mouseup', releaseSlider, false );
 		document.removeEventListener( 'mousemove', moveSlider, false );
 		
 		scene.redrawMesh(scene.currentMesh);
 		tubeMeshBuilder.calculateDimensions('xyz');
 		getNewPrice();
+		updateThickness();
+	}
+	
+	function updateThickness(isRelease)
+	{
+		thickness = sceneWrapper.currentMesh.figure.scale.x * sceneWrapper.currentMesh['Thickness'] * 25.4;
+		//console.log(thickness);
+		
+		if (thickness < 9)
+		{
+			$("#thicknessContainer").fadeIn(0);
+		}
+		else
+		{
+			if (!isRelease)
+			{
+				$("#thicknessContainer").fadeOut(0);
+				//console.log(isRelease);
+			}
+		}
 	}
 	
 	function getNewPrice()
@@ -565,7 +629,7 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', 1, 10);
+	controller = gui.add(currentMesh, 'Thickness', .5, 10);
 	setUpController(controller, 'Thickness');
 
 	controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
