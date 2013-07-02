@@ -8,33 +8,50 @@ var materialListener = function(sW, tMB){
 	var that = this;
 	var img1 = '';
 	var img2 = '';
+	var feeFlat, feePerCM3;
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white';
 		name = 'White Regular Plastic';
-		description = 'Bumpy, rough';
 		cost = '$';
-		img1 = 'assets/imgs/materialExamples/stainlessSteel_2.jpg';
-		img2 = 'assets/imgs/materialExamples/stainlessSteel_2.jpg';
+		smooth = 'Low';
+		img1 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+		img2 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+		description = 'Unpolished plastic is cost effective and durable, with a fairly rough, grainy look to it.';
+		feeFlat = '1.5';
+		feeperCM3 = '1.4';
+
 		that.materialChange();
 	}
 	
 	document.getElementById('blackregularplastic').onclick = function()
 	{
-		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular black';
-		name = 'Black Regular Plastic';
+		sceneWrapper.tubeMeshParams['Material'] = 'Black regular black';
+		name = 'Black Unpolished Plastic';
 		cost = '$';
-		smooth = 'Med';
+		smooth = 'Low';
 		img1 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
 		img2 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
-		description = 'Bumpy, rough';
+		description = 'Unpolished plastic is cost effective and durable, with a fairly rough, grainy look to it.';
+		feeFlat = '1.75';
+		feeperCM3 = '1.75';
+		
 		that.materialChange();
 	}
 	
 	document.getElementById('whitepolishedplastic').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white polished';
+		name = 'Black Unpolished Plastic';
+		cost = '$';
+		smooth = 'Low';
+		img1 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+		img2 = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+		description = 'Cost effective & durable, polished plastic has a moderately smooth texture that comes in a variety of colors.';
+		feeFlat = '2.00';
+		feeperCM3 = '1.5';
+		
 		that.materialChange();
 	}
 	
