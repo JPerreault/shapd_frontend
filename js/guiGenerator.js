@@ -174,8 +174,8 @@ function addSavedLibrary() {
         savedShapeContainer.style.position = 'absolute';
         savedShapeContainer.style.border = '10px solid #000';
         savedShapeContainer.style.color = '#fff';
-        savedShapeContainer.style.background = '#000';
         savedShapeContainer.style.top = '20%';
+        savedShapeContainer.style.background = '#000';
         savedShapeContainer.style.right = '0.75%';	
         savedShapeContainer.style.width = '217px';			
         savedShapeContainer.style.zIndex = '1000';
@@ -256,14 +256,13 @@ function addMaterialSelector() {
 	materialDetailContainer.innerHTML += 'Material:<br>';
 	materialDetailContainer.style.fontWeight = '500';
 	materialDetailContainer.style.position = 'absolute';
-	//materialDetailContainer.style.height = '300px';
 	materialDetailContainer.style.border = '10px solid #000';
 	materialDetailContainer.style.margin = '15 15 15 15';
 	materialDetailContainer.style.color = '#fff';
 	materialDetailContainer.align = 'center';
 	materialDetailContainer.style.background = '#000';
-	materialDetailContainer.style.top = '50%';
-	materialDetailContainer.style.right = '10%';	
+	materialDetailContainer.style.top = '1%';
+	materialDetailContainer.style.right = '20%';	
 	materialDetailContainer.style.width = '215px';			
 	materialDetailContainer.style.zIndex = '1000';
 	document.body.appendChild(materialDetailContainer);		
