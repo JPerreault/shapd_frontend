@@ -1,4 +1,5 @@
 var n = 0;
+var count = 0;
 var loops = false;
 var sceneWrapper, view;
 
@@ -29,9 +30,12 @@ window.onload = function() {
 		}
 		
 		if (Detector.webgl)
-			renderer = new THREE.WebGLRenderer();
-		else
-			renderer = new THREE.CanvasRenderer();
+        {
+			if (typeof screenShot != 'undefined')
+				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+			else
+				renderer = new THREE.WebGLRenderer();
+       }
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -41,8 +45,6 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
 		scene = sceneWrapper;
-	
-	    
 		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 		state = 'creator';
@@ -68,8 +70,14 @@ window.onload = function() {
 		requestAnimationFrame( animate );
 		render();
 		
-		if(loops)
-		updateSelected();
+		if (typeof screenShot != 'undefined')
+		{
+			if (count==10)
+				screenie();
+			else if (count == 20)               
+				killSelf();
+			count++;
+       }
 	}
 
 	function render() {
@@ -358,12 +366,12 @@ window.onload = function() {
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
 		{
-			currentMesh['Scale'] = 5;
+			currentMesh['Scale'] = 1;
 			currentMesh['Modify'] = 5;
 			currentMesh['Depth'] = 1;
 			currentMesh['Stretch'] = 1;
 			currentMesh['Loops'] = 2;
-			currentMesh['Thickness'] = 4;
+			currentMesh['Thickness'] = 1.75;
 			currentMesh['Rotation X'] = 0;
 			currentMesh['Rotation Y'] = 0;
 			view.targetX = 0;
@@ -381,9 +389,9 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			currentMesh.figure.scale.x = 5;
-			currentMesh.figure.scale.y = 5;
-			currentMesh.figure.scale.z = 5;
+			currentMesh.figure.scale.x = 1;
+			currentMesh.figure.scale.y = 1;
+			currentMesh.figure.scale.z = 1;
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 			tubeMeshBuilder.calculateDimensions('xyz');
@@ -432,6 +440,7 @@ window.onload = function() {
 	document.getElementById('screen').onclick = function()
 	{
 		getJson(sceneWrapper.currentMesh);
+		console.log(sceneWrapper.torusMesh);
 	}
 	
 	document.getElementById('slider').onmousedown = function()
@@ -445,9 +454,9 @@ window.onload = function() {
 	function moveSlider()
 	{
 		var sliderValue = $( "#slider" ).slider( "value" );
-		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
+		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 100;
+		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 100;
+		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 100;
 		
 		tubeMeshBuilder.calculateDimensions('xy');
 		
@@ -459,9 +468,9 @@ window.onload = function() {
 		event.preventDefault();
 		
 		var sliderValue = $( "#slider" ).slider( "value" );
-		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
+		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 100;
+		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 100;
+		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 100;
 		document.removeEventListener( 'mouseup', releaseSlider, false );
 		document.removeEventListener( 'mousemove', moveSlider, false );
 		
@@ -511,52 +520,8 @@ window.onload = function() {
 		{
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			console.log(mouse.x)
 		}
 	};
-	
-	function updateSelected(mouse)
-	{
-		//console.log('inupdateselect',mouse.x);
-		var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-		projector.unprojectVector( vector, sceneWrapper.camera );
-		var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-
-		// create an array containing all objects in the scene with which the ray intersects
-		var intersects = ray.intersectObjects( scene.children );
-
-		// INTERSECTED = the object in the scene currently closest to the camera 
-		//		and intersected by the Ray projected from the mouse position 	
-	
-			// if there is one (or more) intersections
-		if ( intersects.length > 0 )
-		{
-			// if the closest object intersected is not the currently stored intersection object
-			if ( intersects[ 0 ].object != intersected ) 
-			{
-			    // restore previous intersection object (if it exists) to its original color
-				if ( intersected ) 
-					intersected.material.color.setHex( INTERSECTED.currentHex );
-				// store reference to closest object as current intersection object
-				intersected = intersects[ 0 ].object;
-				// store color of closest object (for later restoration)
-				intersected.currentHex = INTERSECTED.material.color.getHex();
-				// set a new color for closest object
-				intersected.material.color.setHex( 0xffff00 );
-			}
-		} 
-		else // there are no intersections
-		{
-			// restore previous intersection object (if it exists) to its original color
-			if ( INTERSECTED ) 
-				INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
-			// remove previous intersection object reference
-			//     by setting current intersection object to "nothing"
-			INTERSECTED = null;
-		}
-		
-	}
-	
 }
 
 function loadFromLib(hash)
@@ -588,7 +553,7 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', .5, 20);
+	controller = gui.add(currentMesh, 'Thickness', 1, 10);
 	setUpController(controller, 'Thickness');
 
 	controller = gui.add(currentMesh, 'Depth', 0.05,3.5);

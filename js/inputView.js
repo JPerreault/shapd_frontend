@@ -29,17 +29,16 @@ var InputView = function(sW, rend, tMP) {
 	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false);
 	document.addEventListener( 'DOMMouseScroll', onDocumentMouseWheel, false);
-
 	window.addEventListener( 'resize', onWindowResize, false );
 	
 	function onDocumentMouseWheel ( event ) {
         if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
             return;
         
-		var fovMAX = 160;
-		var fovMIN = 5;
+		var fovMAX = 80;
+		var fovMIN = 1.05;
 
-		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.05;
+		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.015;
 		sceneWrapper.camera.fov = Math.max( Math.min( sceneWrapper.camera.fov, fovMAX ), fovMIN );
 		sceneWrapper.camera.projectionMatrix = new THREE.Matrix4().makePerspective(sceneWrapper.camera.fov, window.innerWidth / window.innerHeight, sceneWrapper.camera.near, sceneWrapper.camera.far);
 	}
