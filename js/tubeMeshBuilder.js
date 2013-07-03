@@ -260,7 +260,7 @@ this.calculateDimensions = function(variables)
 			tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
 			tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
 		}
-		if (tubeMesh['Face Index'] >= 0)
+		if (this.sceneWrapper.tubeMeshBuilder.fIndex >= 0)
 			tubeMesh['Face Index'] = this.sceneWrapper.tubeMeshBuilder.fIndex;
 		else
 			tubeMesh['Face Index'] = -1;
