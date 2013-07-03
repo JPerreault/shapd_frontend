@@ -271,16 +271,16 @@ function addMaterialSelector() {
 	materialNameContainer.id = 'idmaterialNameContainer';
 	materialNameContainer.align = 'center';
 	materialNameContainer.className = 'rounded';
-	materialNameContainer.style.height = '40px';
 	materialNameContainer.style.position = 'relative';
+	materialNameContainer.style.padding = '5px';
 	materialNameContainer.style.margin = '10px';
 	materialNameContainer.style.color = '#000';
 	materialNameContainer.style.background = '#2ea1d7';		
 	materialNameContainer.style.zIndex = '1000';
 	materialDetailContainer.appendChild(materialNameContainer);		
 	
-	var materialName = document.createElement('sdiv');
-	materialName.id = 'idmaterialName';
+	var materialName = document.createElement('div');
+	materialName.id = 'idMaterialName';
 	materialName.align = 'center';
 	materialName.style.fontSize = '16px';
 	materialName.style.top = '25%';
@@ -293,10 +293,10 @@ function addMaterialSelector() {
 	materialNameContainer.appendChild(materialName);	
 	
 	var costContainer = document.createElement('div');
-	costContainer.id = 'idcostContainer';
+	costContainer.id = 'idCostContainer';
 	costContainer.align = 'center';
 	costContainer.style.height = '25px';
-	costContainer.textContent += ' Cost: $$$';
+	costContainer.textContent += 'Cost: $$$';
 	costContainer.style.display = 'inline';
 	costContainer.style.position = 'relative';
 	costContainer.style.margin = '10px';
@@ -306,7 +306,7 @@ function addMaterialSelector() {
 	materialDetailContainer.appendChild(costContainer);		
 	
 	var smoothContainer = document.createElement('div');
-	smoothContainer.id = 'idsmoothContainer';
+	smoothContainer.id = 'idSmoothContainer';
 	smoothContainer.align = 'center';
 	smoothContainer.style.height = '25px';
 	smoothContainer.textContent += 'Smooth: High';
@@ -326,7 +326,7 @@ function addMaterialSelector() {
 	m1.id = 'idM1';
 	m1.className = 'matImg';
 	m1.style.margin = '10px 5px 5px 0px';
-	m1.src = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+	m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
 	m1.height = 95;
 	m1.width = 95;
 	m1.style.zIndex = '1000';
@@ -334,23 +334,24 @@ function addMaterialSelector() {
 			
 	var m2 = m1.cloneNode(true);
 	m2.id = 'idM2';
-	m2.src = 'assets/imgs/materialExamples/stainlessSteel_2.jpg';
+	m2.src = 'assets/imgs/materialExamples/alumide_2.jpg';
 	matLibrary.appendChild(m2);
 	
 	var materialDescriptionContainer = document.createElement('div');
-	materialDescriptionContainer.id = 'idmaterialDescriptionContainer';
+	materialDescriptionContainer.id = 'idMaterialDescriptionContainer';
 	materialDescriptionContainer.align = 'center';
 	materialDescriptionContainer.className = 'rounded';
 	materialDescriptionContainer.style.position = 'relative';
 	materialDescriptionContainer.style.margin = '5px';
+	materialDescriptionContainer.style.padding = '5px';
 	materialDescriptionContainer.style.color = '#000';
 	materialDescriptionContainer.style.background = '#2ea1d7';		
 	materialDescriptionContainer.style.zIndex = '1000';
 	materialDetailContainer.appendChild(materialDescriptionContainer);		
 	
-	var materialDescription = document.createElement('sdiv');
-	materialDescription.id = 'idmaterialDescription';
-	materialDescription.align = 'center';
+	var materialDescription = document.createElement('div');
+	materialDescription.id = 'idMaterialDescription';
+	materialDescription.style.textAlign = 'left';
 	materialDescription.style.fontSize = '16px';
 	materialDescription.textContent += ' Stainless steel has a fairly pitted surface finish, which gives it a vintage (almost steam-punk) look.';
 	materialDescription.style.fontWeight = '400';

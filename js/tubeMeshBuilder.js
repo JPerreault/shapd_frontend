@@ -165,7 +165,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//Determine Face centroid position
 		var faceCentroid = geometry.faces[fIndex].centroid;
 
-		//Determine vertices a and b on the face - the "long side"		
+		//Determine vertices a and b on the face - the "long side"of face4	
 		var v1 = geometry.vertices[geometry.faces[fIndex].a];
 		var v2 = geometry.vertices[geometry.faces[fIndex].b];
 
@@ -229,29 +229,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		return fIndexHigh;
 	}
-
-	//Calculate dimensions of Mesh. Being fed currentMesh as a param, defined above. 
-	function calculateMeshSize(figure)
-	{
-		var n1 = face.normal;
-		
-		//Normal of the vertical plane
-		if (isX)
-			var n2 = new THREE.Vector3(1, 0, 0);
-		else
-			var n2 = new THREE.Vector3(0, 1, 0);
-		//Equation to find the cosin of the angle. (n1)(n2) = ||n1|| * ||n2|| (cos theta)
-	
-		//Find the dot product of n1 and n2.
-		var d = (n1.x * n2.x) + (n1.y * n2.y) + (n1.z * n2.z);
-		var l1 = Math.pow ((Math.pow(n1.x, 2) + Math.pow(n1.y, 2) + Math.pow(n1.z, 2)), .5);
-		var l2 = Math.pow ((Math.pow(n2.x, 2) + Math.pow(n2.y, 2) + Math.pow(n2.z, 2)), .5);
-		
-		var a = (d)/(l1*l2);
-		var result = Math.acos(a);
-
-		return result;
-		}
 	
 this.calculateDimensions = function(variables)
 	{

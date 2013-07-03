@@ -1,0 +1,100 @@
+ .swoop
+    {
+        z-index: 100000;
+        background-color:#2fa1d6;
+        color: white;
+        font-family: helvetica, arial;
+        border-radius: 20px;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        text-align: center;
+        
+        a:link {color:#fff;}      /* unvisited link */
+        a:visited {color:#fff;}  /* visited link */
+        a:active {color:#fff;}  /* selected link */
+    
+    }
+    
+    input
+    {
+        border:1px solid #ccc;
+        padding:4px 4px;
+        line-height:20px;
+        min-height:20px;
+        font-size:13px;
+        
+        width:200px;
+        
+        border-radius:3px;
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        
+        transition:border linear .25s,
+        box-shadow linear .25s;
+        -webkit-transition:border linear .25s,
+        box-shadow linear .25s;
+        -moz-transition:border linear .25s,
+        box-shadow linear .25s;
+        
+        box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);
+        -webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);
+        -moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);
+        
+        background-color:#F9F9F9;
+    }
+    
+    input:focus
+    {
+        border-color:#09c;
+        border-color:rgba(0,135,200,0.75);
+        
+        box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),
+        0 0 8px rgba(81,169,236,0.66);
+        -webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),
+        0 0 8px rgba(81,169,236,0.66);
+        -moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1),
+        0 0 8px rgba(81,169,236,0.66);
+        
+        outline:none;
+    }
+    #blackout
+    {
+        background-color: black;
+        opacity: .7;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left:0;
+        position:fixed;
+        z-index:99999;
+        display:none;
+    }
+    
+    #controls
+    {
+        z-index: 100001;
+        position: fixed;
+    }
+    
+    button
+    {
+        width:150px;
+        height:35px;
+        font-size:20px;
+        background:#3e9ad2;
+        color: white;
+        border: #000;
+        -webkit-box-shadow:0 0 4px #000;/*safari and Chrome*/
+        -moz-box-shadow:0 0 4px #000; /*Mozilla*/
+        -o-box-shadow:0 0 4px #000; /*Opera*/
+        -ms-box-shadow:0 0 4px #000; /*Ms IE*/
+        box-shadow:0 0 4px #000; /*W3C*/
+        -webkit-border-radius:15px;/*safari and Chrome*/
+        -moz-border-radius:15px; /*Mozilla*/
+        -o-box-border-radius:15px; /*Opera*/
+        -ms-box-border-radius:15px; /*Ms IE*/
+        border-radius:15px; /*W3C*/
+
+
+
