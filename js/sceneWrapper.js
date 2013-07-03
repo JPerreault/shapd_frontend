@@ -3,7 +3,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.torusMesh;
 	this.torusDefined = false;
 	this.tubeMeshParams = tMP;
-	var tubeMeshBuilder = tMB;
+	this.tubeMeshBuilder = tMB;
 
 	this.scene = new THREE.Scene();
 	this.sceneCube = new SceneCubeWrapper(textureCube);
@@ -53,11 +53,16 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.tubeMeshParams = new TubeMeshParams();
 		else
 			this.tubeMeshParams = tMP;
-		this.addMesh( tubeMeshBuilder.build(this.tubeMeshParams) );
-		if (typeof tubeMeshBuilder.fIndex != 'undefined')
+		console.log('pre thing: ', this.tubeMeshParams['Face Index']);
+		this.addMesh( this.tubeMeshBuilder.build(this.tubeMeshParams) );
+		
+		console.log('post thing: ', this.tubeMeshParams['Face Index']);
+		if (this.tubeMeshParams['Face Index'] != -1)
 		{
 			this.torusDefined = true;
-			this.addMesh(tubeMeshBuilder.createTorus());
+			this.tubeMeshBuilder.fIndex = this.tubeMeshParams['Face Index'];
+			this.torusMesh = this.tubeMeshBuilder.createTorus();
+			this.redrawMesh(this.tubeMeshParams);
 		}
 	};
 
@@ -126,7 +131,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		var scale = this.currentMesh.figure.scale.x;
 
         this.scene.remove( this.currentMesh.figure );
-		this.currentMesh = tubeMeshBuilder.build(newParams);
+		this.currentMesh = this.tubeMeshBuilder.build(newParams);
 
 		this.currentMesh.figure.rotation.x = xRotation;
 		this.currentMesh.figure.rotation.y = yRotation;	
@@ -136,7 +141,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		if (this.torusDefined)
 		{
 			this.scene.remove(this.torusMesh);
-			this.torusMesh = tubeMeshBuilder.createTorus(this.currentMesh);
+			this.torusMesh = this.tubeMeshBuilder.createTorus();
 			
 			this.torusMesh.rotation.x = xRotation;
 			this.torusMesh.rotation.y = yRotation;
