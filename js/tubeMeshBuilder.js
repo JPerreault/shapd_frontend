@@ -10,7 +10,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var segments = 600, radiusSegments = 10;
 
     this.build = function(tubeMeshParams) {
-	console.log('tmb 1: ',tubeMeshParams['Face Index']);
 		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
@@ -42,7 +41,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
         figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
         tubeMeshParams.figure = figure;
-		console.log('tmb 2: ',tubeMeshParams['Face Index']);
+		
         return tubeMeshParams;
     }
 	
@@ -255,17 +254,19 @@ this.calculateDimensions = function(variables)
 	
 	function updateHash(tubeMesh)
 	{
+			console.log('tmb 1: ',tubeMesh['Face Index']);
 		var keys = Object.keys(tubeMesh);
 		if (typeof tubeMesh.figure != 'undefined')
 		{
 			tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
 			tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
 		}
-
+		
 		if (this.sceneWrapper.tubeMeshBuilder.fIndex >= 0)
 			tubeMesh['Face Index'] = this.sceneWrapper.tubeMeshBuilder.fIndex;
 		else
 			tubeMesh['Face Index'] = -1;
+		console.log('tmb 2: ',tubeMesh['Face Index']);
 		hashend = "";
 		for (var x=0; x<keys.length; x++)
 		{
@@ -276,6 +277,7 @@ this.calculateDimensions = function(variables)
 			}
 			hashend += tubeMesh[keys[x]]+"|"; 
 		}
+		
 	}
 };
 

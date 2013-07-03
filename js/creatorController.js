@@ -401,6 +401,8 @@ window.onload = function() {
 		{
 			scene.scene.remove(scene.torusMesh);
 			scene.torusDefined = false;
+			sceneWrapper.currentMesh['Face Index'] = -1;
+			sceneWrapper.tubeMeshBuilder.fIndex = -1;
 		}
 		else if (state == 'finalize')
 		{
