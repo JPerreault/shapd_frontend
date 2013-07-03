@@ -10,6 +10,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var segments = 600, radiusSegments = 10;
 
     this.build = function(tubeMeshParams) {
+		console.log('tmb: ',tubeMeshParams['Face Index'];
 		updateHash(tubeMeshParams);
 		var radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
@@ -296,7 +297,6 @@ var TubeMeshParams = function(){
 
             if (parseme == "")
                 throw "invalid";
-            console.log('tube mp: ', this['Face Index']);
             return;
         }
         catch(e)
