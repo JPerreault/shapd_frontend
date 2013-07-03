@@ -260,7 +260,7 @@ this.calculateDimensions = function(variables)
 			tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
 			tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
 		}
-
+		tubeMesh['Face Index'] = this.fIndex;
 		hashend = "";
 		for (var x=0; x<keys.length; x++)
 		{
