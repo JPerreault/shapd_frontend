@@ -29,7 +29,6 @@ var InputView = function(sW, rend, tMP) {
 	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false);
 	document.addEventListener( 'DOMMouseScroll', onDocumentMouseWheel, false);
-
 	window.addEventListener( 'resize', onWindowResize, false );
 	
 	function onDocumentMouseWheel ( event ) {
@@ -37,10 +36,10 @@ var InputView = function(sW, rend, tMP) {
         if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
             return;
         
-		var fovMAX = 160;
-		var fovMIN = 5;
+		var fovMAX = 80;
+		var fovMIN = 1.05;
 
-		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.05;
+		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.015;
 		sceneWrapper.camera.fov = Math.max( Math.min( sceneWrapper.camera.fov, fovMAX ), fovMIN );
 		sceneWrapper.camera.projectionMatrix = new THREE.Matrix4().makePerspective(sceneWrapper.camera.fov, window.innerWidth / window.innerHeight, sceneWrapper.camera.near, sceneWrapper.camera.far);
 	}
@@ -61,19 +60,17 @@ var InputView = function(sW, rend, tMP) {
         
         event.preventDefault();
 
-
-		if (event.target.id !== "slider" && event.target.parentElement.id !== "slider")
+		if (event.target.id.indexOf('slider') === -1 && event.target.parentElement.id.indexOf('slider') === -1)
 		{
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-			document.addEventListener( 'mouseout', onDocumentMouseOut, false );
 
 			mouseXOnMouseDown = event.clientX - that.currentWindowX;
 			mouseYOnMouseDown = event.clientY - that.currentWindowY;
 			targetYRotationOnMouseDown = that.targetY;
 			targetXRotationOnMouseDown = that.targetX;
 		}
-
+		
 	}
 
 	function onDocumentMouseMove( event ) {
@@ -89,14 +86,6 @@ var InputView = function(sW, rend, tMP) {
 
 		document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
 		document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-		document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
-	}
-
-	function onDocumentMouseOut( event ) {
-
-		document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-		document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-		document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
 	}
 
 	function onDocumentTouchStart( event ) {

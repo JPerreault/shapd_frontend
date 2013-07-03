@@ -1,13 +1,13 @@
 var materialListener = function(sW, tMB){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
-	var name = 'name';
-	var description = ' - ';
-	var cost = '$';
-	var smooth = ' - '
+	var name = 'Premium Gold';
+	var description = 'Not some thin plating, this is pure, 14k solid gold. Incredible, valuable, and timeless, your piece will be polished to a beautiful finish. Please note: Since it is polished by hand, some interior surfaces may remain unpolished if we can\'t reach them.';
+	var cost = '$$$';
+	var smooth = 'High'
 	var that = this;
-	var img1 = '';
-	var img2 = '';
+	var img1 = 'assets/imgs/materialExamples/gold_1.jpg';
+	var img2 = 'assets/imgs/materialExamples/gold_2.jpg';
 	var feeFlat, feePerCM3;
 	var shipsinBizDays;
 	var ourHandling = 3;

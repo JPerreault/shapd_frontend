@@ -46,6 +46,15 @@ function addSave() {
 			saveButtonContainer.style.right = '0%';
 			document.body.appendChild(saveButtonContainer);	
 			
+			var saveStayButton = document.createElement('img');
+			saveStayButton.id = 'idSaveStayButton';
+			saveStayButton.style.zIndex = '1000';
+			saveStayButton.className = 'buttonImg';
+			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
+			saveStayButton.style.display = 'block';
+			saveStayButton.style.margin = '1px 1px 10px 10px';
+			saveButtonContainer.appendChild(saveStayButton);
+			
 			var backButton = document.createElement('img');
 			backButton.id = 'idBackButton';
 			backButton.style.zIndex = '1000';
@@ -317,7 +326,7 @@ function addMaterialSelector() {
 	m1.id = 'idM1';
 	m1.className = 'matImg';
 	m1.style.margin = '10px 5px 5px 0px';
-	m1.src = 'assets/imgs/materialExamples/stainlessSteel_1.jpg';
+	m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
 	m1.height = 95;
 	m1.width = 95;
 	m1.style.zIndex = '1000';
@@ -325,7 +334,7 @@ function addMaterialSelector() {
 			
 	var m2 = m1.cloneNode(true);
 	m2.id = 'idM2';
-	m2.src = 'assets/imgs/materialExamples/stainlessSteel_2.jpg';
+	m2.src = 'assets/imgs/materialExamples/alumide_2.jpg';
 	matLibrary.appendChild(m2);
 	
 	var materialDescriptionContainer = document.createElement('div');
@@ -353,6 +362,7 @@ function addMaterialSelector() {
 	materialDescriptionContainer.appendChild(materialDescription);
 	
 	document.getElementById('sliderContainer').style.zIndex = '1001';
+	document.getElementById('thicknessContainer').style.zIndex = '1001';
 }
 
 function addLoops(){

@@ -8,7 +8,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	
 	//Scoping out of functions
-	var segments = 600, radiusSegments = 6;
+	var segments = 600, radiusSegments = 10;
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
@@ -77,21 +77,21 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//Loop for all faces, adding each vertex to the stl file and making triangles from them.
 		for (var i = 0; i < faces.length; i++)
 		{
-			stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
+			stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
 			stl += 'outer loop \n';
-			stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
-			stl += convertVertexToString(vertices[faces[i].b], figure.scale.x);
-			stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
+			stl += convertVertexToString(vertices[faces[i].a]);
+			stl += convertVertexToString(vertices[faces[i].b]);
+			stl += convertVertexToString(vertices[faces[i].c]);
 			stl += 'endloop \n';
 			stl += 'endfacet \n';
 			//Make the corresponding triangle unless the face in question is the cap.
 			if ((i < faces.length - (2 * (radiusSegments - 2)) && closed == false) || closed == true)
 			{
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
 				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
-				stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
-				stl += convertVertexToString(vertices[faces[i].d], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].a]);
+				stl += convertVertexToString(vertices[faces[i].c]);
+				stl += convertVertexToString(vertices[faces[i].d]);
 				stl += 'endloop \n';
 				stl += 'endfacet \n';
 			}
@@ -100,19 +100,18 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		{
 			faces = torusLoop.geometry.faces;
 			vertices = torusLoop.geometry.vertices;
-			console.log(torusLoop.geometry);
 			
 			for (var i = 0; i < faces.length; i++)
 			{
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
 				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a], figure.scale.x);
-				stl += convertVertexToString(vertices[faces[i].b], figure.scale.x);
-				stl += convertVertexToString(vertices[faces[i].c], figure.scale.x);
+				stl += convertVertexToString(vertices[faces[i].a]);
+				stl += convertVertexToString(vertices[faces[i].b]);
+				stl += convertVertexToString(vertices[faces[i].c]);
 				stl += 'endloop \n';
 				stl += 'endfacet \n';
 				
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal, figure.scale.x) + ' \n';
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
 				stl += 'outer loop \n';
 				stl += convertVertexToString(vertices[faces[i].a]);
 				stl += convertVertexToString(vertices[faces[i].c]);
@@ -128,7 +127,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	function convertVectorToString(vector)
 	{
-		return ''+ vector.x/scale + ' '+ vector.y/scale + ' '+ vector.z/scale;
+		return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
 	}
 	
 	function convertVertexToString(vector)
@@ -152,9 +151,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.createTorus = function (tubeMeshParams)
 	{
-		
-		var torusRadius = 5;
-		var torus = new THREE.TorusGeometry( torusRadius, 1.5, segments/10, 50 );
+		var thick = 1;
+		var torus = new THREE.TorusGeometry( 5, thick, segments/10, 50 );
 		fIndex = this.calculateFaceIndex();
 		
 		//Get face normal
@@ -185,12 +183,17 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 		// Create mesh and scale
 		torusLoop = new THREE.Mesh(torus, this.m);
-		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
+		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .4;
 		
 		//Determine Face centroid positions
-		var cenPosX = geometry.faces[fIndex].centroid.x;
-		var cenPosY = geometry.faces[fIndex].centroid.y;
-		var cenPosZ = geometry.faces[fIndex].centroid.z;
+		var scale = figure.scale.x / .4;
+		var cenPosX = geometry.faces[fIndex].centroid.x * scale;
+		var cenPosY = geometry.faces[fIndex].centroid.y * scale;
+		var cenPosZ = geometry.faces[fIndex].centroid.z * scale;
+
+		this.torusX = cenPosX;
+		this.torusY = cenPosY;
+		this.torusZ = cenPosZ;
 
 		//Move the rotated torus around the centroid
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
@@ -207,7 +210,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.calculateFaceIndex = function()
 	{
 		//Calculate the face furthest away from the origin. Trying to put loop on the "outside" of the spline
-		
 		var sectionNumber = Math.floor(fIndex / radiusSegments);
 		var high = -1, fIndexHigh = -1;
 		var newFace, newValue;
@@ -228,34 +230,34 @@ var TubeMeshBuilder = function(materialsLibrary) {
 this.calculateDimensions = function(variables)
 	{
 		geometry.computeBoundingBox();
-		var boundingBox = figure.geometry.boundingBox;
+		var boundingBox = geometry.boundingBox;
 		var dimensions = [];
-		var scale = 5 / figure.scale.x * 5;
+		var scale = figure.scale.x;
 		
-		var xMin = boundingBox.min.x / scale;
-		var yMin = boundingBox.min.y / scale;
-		var zMin = boundingBox.min.z / scale;
-		var xMax = boundingBox.max.x / scale;
-		var yMax = boundingBox.max.y / scale;
-		var zMax = boundingBox.max.z / scale;
+		var xMin = boundingBox.min.x * scale;
+		var yMin = boundingBox.min.y * scale;
+		var zMin = boundingBox.min.z * scale;
+		var xMax = boundingBox.max.x * scale;
+		var yMax = boundingBox.max.y * scale;
+		var zMax = boundingBox.max.z * scale;
 	
-		var xVal = (xMax - xMin) * 0.393701;
+		var xVal = (xMax - xMin) * 0.0393701;
 		xVal = Math.floor(xVal * 100) / 100;
-		var yVal = (yMax - yMin) * 0.393701;
+		var yVal = (yMax - yMin) * 0.0393701;
 		yVal = Math.floor(yVal * 100) / 100;
-		var zVal = (zMax - zMin) * 0.393701;
+		var zVal = (zMax - zMin) * 0.0393701;
 		zVal = Math.floor(zVal * 100) / 100;
 		
 		if (variables === 'xyz')
 		{
-			$( "#dimensions" ).val(xVal+''.concat(' by ').concat(yVal).concat(' by ').concat(zVal+'').concat(' inches'));
-			$( "#xwidth" ).val(xVal+''.concat(' inches'));
-			$( "#yheight" ).val(yVal+''.concat(' inches'));
+			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
+			$( "#xwidth" ).val(xVal+' inches');
+			$( "#yheight" ).val(yVal+' inches');
 		}
 		else if (variables === 'xy')
 		{
-			$( "#xwidth" ).val(xVal+''.concat(' inches'));
-			$( "#yheight" ).val(yVal+''.concat(' inches'));
+			$( "#xwidth" ).val(xVal+' inches');
+			$( "#yheight" ).val(yVal+' inches');
 		}
 		
 	}
@@ -283,8 +285,6 @@ this.calculateDimensions = function(variables)
 };
 
 var TubeMeshParams = function(){
-    if (typeof savedShape == 'undefined')
-	{
         try
         {
             var parseme = savedShape.split("|");
@@ -310,24 +310,14 @@ var TubeMeshParams = function(){
             
         }
         
-		this['Scale'] = 5;
+		this['Scale'] = 1;
 		this['Modify'] = 5;
 		this['Depth'] = 1;
 		this['Stretch'] = 1;
 		this['Loops'] = 2;
 		this['Starting Shape'] = 1;
-		this['Thickness'] = 4;
+		this['Thickness'] = 1.75;
 		this['Material'] = 'Brass gold plated polished';
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
-	}
-	else
-	{
-		var parseme = savedShape.split("|");
-		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
-		for (var x=0; x<transformations.length; x++)
-		{
-			this[transformations[x]] = parseFloat(parseme[x]);
-		}
-	}
 };

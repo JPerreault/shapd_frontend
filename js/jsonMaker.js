@@ -5,11 +5,12 @@ function getJson(currentMesh)
 	var jsonString = '';
 	var data = [];
 	var figure = currentMesh.figure;
+	var scale = figure.scale.x;
 	figure.material.name = currentMesh['Material'];
 	var material = calculateMaterial(figure);
-	var volume = calculateVolume(figure);
-	var surfaceArea = calculateSurfaceArea(figure);
-	var dimensions = calculateXYZ(figure);
+	var volume = calculateVolume(figure, scale);
+	var surfaceArea = calculateSurfaceArea(figure, scale);
+	var dimensions = calculateXYZ(figure, scale);
 	if (websiteName == 'iMaterialise')
 	{
 		var quantity = 1;
@@ -69,7 +70,7 @@ function getJson(currentMesh)
 	return jsonString;
 }
 
-function calculateVolume(figure)
+function calculateVolume(figure, scale)
 {
 	var vertices = figure.geometry.vertices;
 	var faces = figure.geometry.faces;
@@ -95,72 +96,82 @@ function calculateVolume(figure)
 			
 		partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
 		totalVolume += partVol;
-			
-		px = vertices[faces[i].c].x;
-		py = vertices[faces[i].c].y;
-		pz = vertices[faces[i].c].z;
-			
-		qx = vertices[faces[i].d].x;
-		qy = vertices[faces[i].d].y;
-		qz = vertices[faces[i].d].z;
-			
-		rx = vertices[faces[i].a].x;
-		ry = vertices[faces[i].a].y;
-		rz = vertices[faces[i].a].z;
-			
-		partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
-		totalVolume += partVol;
+
+		if (typeof faces[i].d != 'undefined')
+		{
+			px = vertices[faces[i].c].x;
+			py = vertices[faces[i].c].y;
+			pz = vertices[faces[i].c].z;
+				
+			qx = vertices[faces[i].d].x;
+			qy = vertices[faces[i].d].y;
+			qz = vertices[faces[i].d].z;
+				
+			rx = vertices[faces[i].a].x;
+			ry = vertices[faces[i].a].y;
+			rz = vertices[faces[i].a].z;
+				
+			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
+			totalVolume += partVol;
+		}
 	}
-		
+	
 	totalVolume /= 6;
-	totalVolume /= (Math.pow(5 / figure.scale.x * 5, 3));
+	totalVolume *= (Math.pow(scale, 3));
 	totalVolume /= 1000; //conversion to cm^3
 		
 	return totalVolume;
 }
 	
-function calculateSurfaceArea(figure)
+function calculateSurfaceArea(figure, scale)
 {
 	var surfaceArea = 0;
 	var faces = figure.geometry.faces;
 	var vertices = figure.geometry.vertices;
-	var a, b, c, d, ab, ad;
+	var a, b, c, d, ab, ad, p, p1, p2, p3, partSA;
 		
-	a = vertices[faces[0].a];
-	b = vertices[faces[0].b];
-	d = vertices[faces[0].d];
-		
-	ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
-	ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
 	for (var i = 0; i < faces.length; i++)
 	{
 		a = vertices[faces[i].a];
 		b = vertices[faces[i].b];
+		c = vertices[faces[i].c];
 		d = vertices[faces[i].d];
-		ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
-		ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
+		if (typeof d != 'undefined')
+		{
+			ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
+			ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
+			partSA = ab*ad;
+		}
+		
+		else
+		{
+			p1 = Math.sqrt(Math.pow(a.x-b.x, 2) + Math.pow(a.y-b.y, 2) + Math.pow(a.z-b.z, 2));
+			p2 = Math.sqrt(Math.pow(a.x-c.x, 2) + Math.pow(a.y-c.y, 2) + Math.pow(a.z-c.z, 2));
+			p3 = Math.sqrt(Math.pow(b.x-c.x, 2) + Math.pow(b.y-c.y, 2) + Math.pow(b.z-c.z, 2));
+			p = (p1 + p2 + p3) / 2;
 			
-		surfaceArea += ab*ad;
+			partSA = Math.sqrt(p * (p - p1) * (p - p2) * (p - p3));
+		}
+		surfaceArea += partSA;
 	}
-	surfaceArea /= (Math.pow(5 / figure.scale.x * 5, 2));
+	surfaceArea *= (Math.pow(scale, 2));
 	surfaceArea /= 100; //conversion to cm^2
 		
 	return surfaceArea;
 }
 	
-function calculateXYZ(figure)
+function calculateXYZ(figure, scale)
 {
 	figure.geometry.computeBoundingBox();
 	var boundingBox = figure.geometry.boundingBox;
 	var dimensions = [];
-	var scale = 5 / figure.scale.x * 5;
 		
-	var xMin = boundingBox.min.x / scale;
-	var yMin = boundingBox.min.y / scale;
-	var zMin = boundingBox.min.z / scale;
-	var xMax = boundingBox.max.x / scale;
-	var yMax = boundingBox.max.y / scale;
-	var zMax = boundingBox.max.z / scale;
+	var xMin = boundingBox.min.x * scale / 10;
+	var yMin = boundingBox.min.y * scale / 10;
+	var zMin = boundingBox.min.z * scale / 10;
+	var xMax = boundingBox.max.x * scale / 10;
+	var yMax = boundingBox.max.y * scale / 10;
+	var zMax = boundingBox.max.z * scale / 10;
 	
 	var xVal = (xMax - xMin);
 	var yVal = (yMax - yMin);

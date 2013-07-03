@@ -1,10 +1,11 @@
 var n = 0;
+var count = 0;
 var loops = false;
-var sceneWrapper, view;
+var sceneWrapper, view, gui;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, gui, scene, tubeMP, matListener, state;
+	var tubeMeshBuilder, scene, tubeMP, matListener, state, thickness;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
@@ -29,10 +30,14 @@ window.onload = function() {
 		}
 		
 		if (Detector.webgl)
-			renderer = new THREE.WebGLRenderer();
+        {
+			if (typeof screenShot != 'undefined')
+				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+			else
+				renderer = new THREE.WebGLRenderer();
+       }
 		else
             location.href = 'snag.html';
-			//renderer = new THREE.CanvasRenderer();
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -42,8 +47,6 @@ window.onload = function() {
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
 		scene = sceneWrapper;
-	
-	    
 		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
 		state = 'creator';
@@ -68,16 +71,16 @@ window.onload = function() {
     
 	function animate() {
 		requestAnimationFrame( animate );
-		render();
-        
-        if (typeof screenShot != 'undefined')
-        {
-            if (count==10)
-                screenie();
-
-            count++;
-        }
-
+		render();      
+		
+		if (typeof screenShot != 'undefined')
+		{
+			if (count==10)
+				screenie();
+			else if (count == 20)               
+				killSelf();
+			count++;
+       }
 	}
 
 	function render() {
@@ -93,7 +96,8 @@ window.onload = function() {
 		{
 			initialSetup();
 			$('#idBackButton').fadeOut(0);
-			$("#sliderContainer").fadeOut(0);			
+			$("#sliderContainer").fadeOut(0);
+			$("#thicknessContainer").fadeOut(0);				
 			$("#materials").fadeOut(0);
 			$("#idLoopText").fadeOut(0);
 			$("#idmaterialDetailContainer").fadeOut(0);
@@ -124,6 +128,7 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeIn(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
@@ -148,6 +153,7 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
@@ -172,6 +178,7 @@ window.onload = function() {
 			$("#materials").fadeIn(450);
 			$("#idmaterialDetailContainer").fadeIn(450);
 			$("#sliderContainer").fadeIn(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -185,6 +192,8 @@ window.onload = function() {
 			tubeMeshBuilder.calculateDimensions('xyz');
 			matListener.panelUpdate();
 			getNewPrice();
+			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
+			updateThickness();
 		}
 		else if (state == 'publish')
 		{
@@ -199,6 +208,7 @@ window.onload = function() {
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
+			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
@@ -260,7 +270,14 @@ window.onload = function() {
         else
             saveButtonAction();
 	}
-    
+	
+	document.getElementById('idSaveStayButton').onclick = function()
+	{
+		if (typeof newuser !== 'undefined' && newuser)
+				createNewUser();
+			else
+				saveShape();
+	}
     
     function saveButtonAction()
     {
@@ -284,8 +301,6 @@ window.onload = function() {
 		saveShape();
     }
 
-	
-	
 	document.getElementById('idBackButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
@@ -366,12 +381,12 @@ window.onload = function() {
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
 		{
-			currentMesh['Scale'] = 5;
+			currentMesh['Scale'] = 1;
 			currentMesh['Modify'] = 5;
 			currentMesh['Depth'] = 1;
 			currentMesh['Stretch'] = 1;
 			currentMesh['Loops'] = 2;
-			currentMesh['Thickness'] = 4;
+			currentMesh['Thickness'] = 1.75;
 			currentMesh['Rotation X'] = 0;
 			currentMesh['Rotation Y'] = 0;
 			view.targetX = 0;
@@ -389,11 +404,12 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			currentMesh.figure.scale.x = 5;
-			currentMesh.figure.scale.y = 5;
-			currentMesh.figure.scale.z = 5;
+			currentMesh.figure.scale.x = 1;
+			currentMesh.figure.scale.y = 1;
+			currentMesh.figure.scale.z = 1;
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
+			$( "#thickslider" ).slider( "value", 1.75 );
 			tubeMeshBuilder.calculateDimensions('xyz');
 		
 			sceneWrapper.redrawMesh(currentMesh);
@@ -440,6 +456,40 @@ window.onload = function() {
 	document.getElementById('screen').onclick = function()
 	{
 		getJson(sceneWrapper.currentMesh);
+		console.log(sceneWrapper.torusMesh);
+	}
+	
+	document.getElementById('thickslider').onmousedown = function()
+	{
+		event.preventDefault();
+		
+		document.addEventListener( 'mouseup', releaseThickSlider, false );
+		document.addEventListener( 'mousemove', moveThickSlider, false );
+	}
+	
+	function moveThickSlider()
+	{
+		var sliderValue = $( "#thickslider" ).slider( "value" );
+		sceneWrapper.currentMesh['Thickness'] = sliderValue;
+		
+		scene.redrawMesh(scene.currentMesh);
+		updateThickness(true);
+	}
+	
+	function releaseThickSlider()
+	{
+		event.preventDefault();
+		
+		var sliderValue = $( "#thickslider" ).slider( "value" );
+		sceneWrapper.currentMesh['Thickness'] = sliderValue;
+		document.removeEventListener( 'mouseup', releaseThickSlider, false );
+		document.removeEventListener( 'mousemove', moveThickSlider, false );
+		
+		scene.redrawMesh(scene.currentMesh);
+		tubeMeshBuilder.calculateDimensions('xyz');
+		getNewPrice();
+		updateThickness();
+		gui.__controllers[0].setValue(sliderValue);
 	}
 	
 	document.getElementById('slider').onmousedown = function()
@@ -450,16 +500,16 @@ window.onload = function() {
 		document.addEventListener( 'mousemove', moveSlider, false );
 	}
 	
+	
 	function moveSlider()
 	{
 		var sliderValue = $( "#slider" ).slider( "value" );
-		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
+		var newScale = sliderValue / 100;
+		sceneWrapper.updateScale(newScale);
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		
-		tubeMeshBuilder.calculateDimensions('xy');
-		
-		scene.redrawMesh(scene.currentMesh);
+		tubeMeshBuilder.calculateDimensions('xyz');
+		updateThickness();
 	}
 	
 	function releaseSlider()
@@ -467,15 +517,38 @@ window.onload = function() {
 		event.preventDefault();
 		
 		var sliderValue = $( "#slider" ).slider( "value" );
-		sceneWrapper.currentMesh.figure.scale.x = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.y = sliderValue/ 20;
-		sceneWrapper.currentMesh.figure.scale.z = sliderValue/ 20;
+		var newScale = sliderValue / 100;
+		sceneWrapper.updateScale(newScale);
 		document.removeEventListener( 'mouseup', releaseSlider, false );
 		document.removeEventListener( 'mousemove', moveSlider, false );
 		
 		scene.redrawMesh(scene.currentMesh);
 		tubeMeshBuilder.calculateDimensions('xyz');
 		getNewPrice();
+		updateThickness();
+	}
+	
+	function updateThickness(isMove)
+	{
+		thickness = sceneWrapper.currentMesh.figure.scale.x * sceneWrapper.currentMesh['Thickness'] * 25.4;
+		
+		if (thickness < 9)
+		{
+			$("#thicknessContainer").fadeIn(0);
+			//$("#thicknessContainer").animate({top:'0'}, 2000);
+			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
+			document.getElementById('increasesize').innerHTML = 'Please either increase thickness or increase the scale.';
+		}
+		else
+		{
+			if (isMove)
+			{
+				document.getElementById('shapethin').innerHTML = "You\'re all set!";
+				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable thickness.';
+			}
+			else
+				$("#thicknessContainer").fadeOut(0);
+		}
 	}
 	
 	function getNewPrice()
@@ -519,10 +592,11 @@ window.onload = function() {
 		{
 			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			updateSelected(mouse);
+
+			//updateSelected(mouse);
 		}
 	};
-	
+/*	
 	function updateSelected(mouse)
 	{
 		if ( sceneWrapper.torusDefined )
@@ -570,6 +644,10 @@ window.onload = function() {
 		
 		}
 	}
+
+		}
+	};
+*/
 }
 
 function loadFromLib(hash)
@@ -601,7 +679,7 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', .5, 20);
+	controller = gui.add(currentMesh, 'Thickness', .5, 10);
 	setUpController(controller, 'Thickness');
 
 	controller = gui.add(currentMesh, 'Depth', 0.05,3.5);

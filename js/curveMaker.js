@@ -20,7 +20,7 @@ var curveMaker = function (tMP) {
 			ty = (2 + Math.cos(q * t)) * Math.sin(l * t),
 			tz = Math.sin(q * t);
 		
-			scalar = 20;
+			scalar = 8.5;
 		}
 	
 		//Granny Knot
@@ -31,7 +31,7 @@ var curveMaker = function (tMP) {
 			ty = -0.1 * Math.cos(2 * t) - 0.27 * Math.sin(2 * t) + 0.38 * Math.cos(4 * t) + 0.46 * Math.sin((l+2) * t),
 			tz = 0.7 * Math.cos((q-2) * t) - 0.4 * Math.sin(3 * t);
 		
-			scalar = 40;
+			scalar = 25;
 		}
 	
 		//Knot Curve
@@ -42,7 +42,7 @@ var curveMaker = function (tMP) {
 			ty = Math.cos(t) * ((2*q) + (q+45) * Math.cos(t*l)),
 			tz = Math.sin(t) * ((2*q) + (q+45) * Math.cos(t*l));
 		
-			scalar = 1;
+			scalar = .41;
 		}
 	
 		//Trefoil Knot
@@ -53,7 +53,7 @@ var curveMaker = function (tMP) {
 			ty = (2 + Math.cos((q-2) * t*3)) * Math.sin(l * t),//(2 + Math.cos(3 * t)) * Math.sin(2 * t),
 			tz = Math.sin((q-2) * t);
 		
-			scalar = 15;
+			scalar = 8.5;
 		}
 		
 		//Torus Knot
@@ -64,7 +64,7 @@ var curveMaker = function (tMP) {
 				ty = (2 + Math.cos((q-1) * t)) * Math.sin((l+1) * t),
 				tz = Math.sin((q-1) * t);
 		
-			scalar = 20;
+			scalar = 8.5;
 		}
 	
 		//DecoratedTorusKnot4a
@@ -75,7 +75,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin(l * t) * (1 + 0.6 * (Math.cos(5 * t) + 0.75 * Math.cos((q+5) * t))),
 			tz = 0.35 * Math.sin(5 * t);
 		
-			scalar = 35;
+			scalar = 38;
 		}
 	
 	//DecoratedTorusKnot4b
@@ -86,7 +86,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin(l * fi) * (1 + 0.45 * Math.cos((q-2) * fi) + 0.4 * Math.cos(9 * fi)),
 			tz = 0.2 * Math.sin(9 * fi);
 		
-			scalar = 40;
+			scalar = 14;
 		}
 	
 		//DecoratedTorusKnot5a
@@ -97,7 +97,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin((l+1) * fi) * (1 + 0.3 * Math.cos(5 * fi) + 0.5 * Math.cos((q+5) * fi)),
 			tz = 0.2 * Math.sin((q+15) * fi);
 		
-			scalar = 40;
+			scalar = 12;
 		}
 	
 		//DecoratedTorusKnot4c
@@ -108,7 +108,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin((l+2) * fi) * (1 + 0.5 * (Math.cos(5 * fi) + 0.4 * Math.cos((q+15)* fi))),
 			tz = 0.35 * Math.sin((q+10) * fi);
 		
-			scalar = 40;
+			scalar = 13;
 		}
 		
 
@@ -121,7 +121,7 @@ var curveMaker = function (tMP) {
 			ty = 2 * Math.sin(t*(q-4)) - Math.sin(2*t),
 			tz = Math.sqrt(8) * Math.cos(t*(l-2) / 2);
 
-			scalar = 20;
+			scalar = 9;
 		}
 		
 		//Basebeall Seam
@@ -134,7 +134,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin(( l - 1 ) * Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t)) * Math.sin((q-4) * t / 2 + ( (l-1)*a * Math.sin( 2 * t ))),
 			tz = Math.cos(Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t));
 
-			scalar = 40;
+			scalar = 30;
 		}
 		
 		//Modified Baseball Seam
@@ -147,7 +147,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin(( l - 1 ) * Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t)) * Math.sin((q-4) * t / 2 + ( a * Math.sin( 2 * t ))),
 			tz = Math.cos(Math.PI / 2 - (Math.PI / 2 - a) * Math.cos(t));
 
-			scalar = 40;
+			scalar = 25;
 		}
 		
 		//Heart Curve
@@ -158,7 +158,7 @@ var curveMaker = function (tMP) {
 			ty = 13 * Math.cos(t*(1)) - 5 * Math.cos((2) * t) - 2 * Math.cos((q-2) * t)- Math.cos((q-1) * t),
 			tz = 1;
 
-			scalar = 3.5;
+			scalar = 1.5;
 		}
 	
 		//Viviani's Curve
@@ -171,10 +171,11 @@ var curveMaker = function (tMP) {
 			ty = a * Math.sin(t*(l-1)),
 			tz = 2 * a * Math.sin((t*(q-4)) / (2)) + z;
 			
-			scalar = 1;
+			scalar = .63;
 
 		}
 		
+		//Helix
 		else if (w == 15) {
 			var t2 = 2 * Math.PI * t * q;
 			
@@ -182,7 +183,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin(t2) * (l+28),
 			tz = (l+148) * t;
 	
-			scalar = .8;
+			scalar = .7;
 
 		}
 	

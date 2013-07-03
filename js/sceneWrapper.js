@@ -8,7 +8,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.scene = new THREE.Scene();
 	this.sceneCube = new SceneCubeWrapper(textureCube);
 
-	this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
+	this.camera = new THREE.PerspectiveCamera( 8, window.innerWidth / window.innerHeight, 500, 100000 );
 	this.camera.position.z = 1000;
 
 	var ambient = new THREE.AmbientLight( 0x050505 );
@@ -132,7 +132,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.currentMesh.figure.rotation.y = yRotation;	
 
         this.scene.add( this.currentMesh.figure );
-		
+		this.updateScale(scale);
 		if (this.torusDefined)
 		{
 			this.scene.remove(this.torusMesh);
@@ -143,14 +143,9 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			
 			this.scene.add(this.torusMesh);
 		}
-		this.updateScale(scale);
 	};
 
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
-		if (this.torusDefined)
-		{
-			this.torusMesh.scale.set(newVal, newVal, newVal);
-		}
     };
 }
