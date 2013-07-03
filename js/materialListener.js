@@ -575,10 +575,5 @@ var materialListener = function(sW, tMB){
 		document.getElementById('idM1').src = img1;
 		document.getElementById('idM2').src = img2;
 		document.getElementById('idMaterialDescription').textContent = description;
-		
-		
-		$( "#matname" ).val(name);
-		$( "#matdesc" ).val(description);
-		$( "#matcost" ).val(cost);
 	}
 }
