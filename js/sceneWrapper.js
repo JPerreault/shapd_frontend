@@ -53,14 +53,14 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.tubeMeshParams = new TubeMeshParams();
 		else
 			this.tubeMeshParams = tMP;
-		console.log('pre thing: ', this.tubeMeshParams['Face Index']);
+		var fIndex = this.tubeMeshParams['Face Index'];
+		console.log('1: ', fIndex);
 		this.addMesh( this.tubeMeshBuilder.build(this.tubeMeshParams) );
-		
-		console.log('post thing: ', this.tubeMeshParams['Face Index']);
-		if (this.tubeMeshParams['Face Index'] != -1)
+		console.log('2: ', this.tubeMeshParams['Face Index']);
+		if (fIndex != -1)
 		{
 			this.torusDefined = true;
-			this.tubeMeshBuilder.fIndex = this.tubeMeshParams['Face Index'];
+			this.tubeMeshBuilder.fIndex = fIndex;
 			this.torusMesh = this.tubeMeshBuilder.createTorus();
 			this.redrawMesh(this.tubeMeshParams);
 		}
