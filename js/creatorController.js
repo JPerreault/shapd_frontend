@@ -241,7 +241,7 @@ window.onload = function() {
 	var saveSTL = document.createElement('div');
 	saveSTL.style.position = 'absolute';
 	saveSTL.style.bottom = '0px';
-	saveSTL.style.left = '0px';
+	saveSTL.style.left = '50%';
 	saveSTL.style.zIndex = '1000';
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
@@ -250,7 +250,7 @@ window.onload = function() {
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
     screen.style.bottom = '28px';
-    screen.style.left = '0px';
+    screen.style.left = '50%';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
     screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
