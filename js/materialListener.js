@@ -13,6 +13,7 @@ var materialListener = function(sW, tMB){
 	var ourHandling = 3;
 	var estShippingFrom = 3;
 	var estShippingTo = 3;
+	var imgDesc = '';
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
@@ -26,6 +27,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 1.5;
 		feeperCM3 = 1.4;
 		shipsinBizDays = 8;
+		imgDesc = 'Regular plastic on the left, polished on the right.';
 
 		that.materialChange();
 	}
@@ -42,6 +44,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 1.75;
 		feeperCM3 = 1.75;
 		shipsinBizDays = 8;
+		imgDesc = '';
 		
 		that.materialChange();
 	}
@@ -58,6 +61,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.00;
 		feeperCM3 = 1.5;
 		shipsinBizDays = 12;
+		imgDesc = 'Regular plastic on the left, polished on the right.';
 		
 		that.materialChange();
 	}
@@ -74,6 +78,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.00;
 		feeperCM3 = 1.5;
 		shipsinBizDays = 12;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -89,6 +94,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.00;
 		feeperCM3 = 1.5;
 		shipsinBizDays = 12;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -104,6 +110,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.00;
 		feeperCM3 = 1.5;
 		shipsinBizDays = 12;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -119,6 +126,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.00;
 		feeperCM3 = 1.5;
 		shipsinBizDays = 12;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -134,6 +142,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 8;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -149,6 +158,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 8;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -195,6 +205,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -210,6 +221,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -225,6 +237,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -240,6 +253,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -255,6 +269,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -270,6 +285,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -285,6 +301,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -300,6 +317,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -315,6 +333,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 2.50;
 		feeperCM3 = 2.99;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -329,6 +348,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 1.5;
 		feeperCM3 = 1.75;
 		shipsinBizDays = 8;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -343,6 +363,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 1.50;
 		feeperCM3 = 2.00;
 		shipsinBizDays = 12;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -358,6 +379,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = '';
 		feeperCM3 = '';
 		shipsinBizDays = 20;
+		imgDesc = 'Gold-plated brass on the left, regular brass on the right.';
 		that.materialChange();
 	}
 	
@@ -373,6 +395,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = '';
 		feeperCM3 = '';
 		shipsinBizDays = 20;
+		imgDesc = 'Gold-plated brass on the left, regular brass on the right.';
 		that.materialChange();
 	}
 	
@@ -388,6 +411,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 6.00;
 		feeperCM3 = 8.00;
 		shipsinBizDays = 12;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -409,6 +433,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 7.50;
 		feeperCM3 = 8.00;
 		shipsinBizDays = 16;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -424,6 +449,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 7.50;
 		feeperCM3 = 8.00;
 		shipsinBizDays = 16;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -439,6 +465,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 9.00;
 		feeperCM3 = 8.00;
 		shipsinBizDays = 16;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -454,6 +481,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 9.00;
 		feeperCM3 = 8.00;
 		shipsinBizDays = 16;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -469,6 +497,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 30;
 		feeperCM3 = 20;
 		shipsinBizDays = 15;
+		imgDesc = 'Regular silver on the left, glossy (non-premium) silver on the right.';
 		that.materialChange();
 	}
 	
@@ -484,6 +513,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 35;
 		feeperCM3 = 20;
 		shipsinBizDays = 15;
+		imgDesc = 'Regular silver on the left, glossy (non-premium) silver on the right.';
 		that.materialChange();
 	}
 	
@@ -499,6 +529,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = 78;
 		feeperCM3 = 28;
 		shipsinBizDays = 15;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -514,6 +545,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = '';
 		feeperCM3 = '';
 		shipsinBizDays = 20;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -529,6 +561,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = '';
 		feeperCM3 = '';
 		shipsinBizDays = 20;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -544,6 +577,7 @@ var materialListener = function(sW, tMB){
 		feeFlat = '';
 		feeperCM3 = '';
 		shipsinBizDays = 20;
+		imgDesc = '';
 		that.materialChange();
 	}
 	
@@ -565,6 +599,11 @@ var materialListener = function(sW, tMB){
 	function updatePrice(data)
 	{
 		$( "#cost" ).val('$'.concat(data+''));
+	}
+	
+	this.getImgDesc = function()
+	{
+		return imgDesc;	
 	}
 	
 	this.panelUpdate = function()
