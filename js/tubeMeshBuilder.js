@@ -260,6 +260,7 @@ this.calculateDimensions = function(variables)
 			tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
 			tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
 		}
+
 		if (this.sceneWrapper.tubeMeshBuilder.fIndex >= 0)
 			tubeMesh['Face Index'] = this.sceneWrapper.tubeMeshBuilder.fIndex;
 		else
@@ -274,7 +275,6 @@ this.calculateDimensions = function(variables)
 			}
 			hashend += tubeMesh[keys[x]]+"|"; 
 		}
-		console.log(hashend);
 	}
 };
 
@@ -296,7 +296,7 @@ var TubeMeshParams = function(){
 
             if (parseme == "")
                 throw "invalid";
-            
+            console.log('tube mp: ', this['Face Index']);
             return;
         }
         catch(e)
