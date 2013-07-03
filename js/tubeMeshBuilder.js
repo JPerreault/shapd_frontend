@@ -103,19 +103,19 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			
 			for (var i = 0; i < faces.length; i++)
 			{
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, true) + ' \n';
 				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a]);
-				stl += convertVertexToString(vertices[faces[i].b]);
-				stl += convertVertexToString(vertices[faces[i].c]);
+				stl += convertVertexToString(vertices[faces[i].a], true);
+				stl += convertVertexToString(vertices[faces[i].b], true);
+				stl += convertVertexToString(vertices[faces[i].c], true);
 				stl += 'endloop \n';
 				stl += 'endfacet \n';
 				
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, true) + ' \n';
 				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a]);
-				stl += convertVertexToString(vertices[faces[i].c]);
-				stl += convertVertexToString(vertices[faces[i].d]);
+				stl += convertVertexToString(vertices[faces[i].a], true);
+				stl += convertVertexToString(vertices[faces[i].c], true);
+				stl += convertVertexToString(vertices[faces[i].d], true);
 				stl += 'endloop \n';
 				stl += 'endfacet \n';
 			}
@@ -125,14 +125,17 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return stl;
 	}
 	
-	function convertVectorToString(vector)
+	function convertVectorToString(vector, isTorus)
 	{
-		return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
+		if (isTorus)
+			return ''+ vector.x*.4 + ' '+ vector.y*.4 + ' '+ vector.z*.4;
+		else
+			return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
 	}
 	
-	function convertVertexToString(vector)
+	function convertVertexToString(vector, isTorus)
 	{
-		return 'vertex '+ convertVectorToString(vector) + ' \n';
+		return 'vertex '+ convertVectorToString(vector, isTorus) + ' \n';
 	}
 	
 	//Adding loops:
@@ -282,7 +285,6 @@ this.calculateDimensions = function(variables)
 			$( "#xwidth" ).val(xVal+' inches');
 			$( "#yheight" ).val(yVal+' inches');
 		}
-		
 	}
 	
 	function updateHash(tubeMesh)
