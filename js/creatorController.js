@@ -1,11 +1,11 @@
 var n = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view;
+var sceneWrapper, view, gui;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, gui, scene, tubeMP, matListener, state, thickness;
+	var tubeMeshBuilder, scene, tubeMP, matListener, state, thickness;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
@@ -202,6 +202,7 @@ window.onload = function() {
 			matListener.panelUpdate();
 			getNewPrice();
 			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
+			updateThickness();
 		}
 		else if (state == 'publish')
 		{
@@ -481,7 +482,7 @@ window.onload = function() {
 		sceneWrapper.currentMesh['Thickness'] = sliderValue;
 		
 		scene.redrawMesh(scene.currentMesh);
-		updateThickness();
+		updateThickness(true);
 	}
 	
 	function releaseThickSlider()
@@ -489,7 +490,6 @@ window.onload = function() {
 		event.preventDefault();
 		
 		var sliderValue = $( "#thickslider" ).slider( "value" );
-		console.log(sliderValue);
 		sceneWrapper.currentMesh['Thickness'] = sliderValue;
 		document.removeEventListener( 'mouseup', releaseThickSlider, false );
 		document.removeEventListener( 'mousemove', moveThickSlider, false );
@@ -497,7 +497,8 @@ window.onload = function() {
 		scene.redrawMesh(scene.currentMesh);
 		tubeMeshBuilder.calculateDimensions('xyz');
 		getNewPrice();
-		updateThickness(true);
+		updateThickness();
+		gui.__controllers[0].setValue(sliderValue);
 	}
 	
 	document.getElementById('slider').onmousedown = function()
@@ -516,7 +517,7 @@ window.onload = function() {
 		sceneWrapper.updateScale(newScale);
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		
-		scene.redrawMesh(scene.currentMesh);
+		tubeMeshBuilder.calculateDimensions('xyz');
 		updateThickness();
 	}
 	
@@ -536,22 +537,26 @@ window.onload = function() {
 		updateThickness();
 	}
 	
-	function updateThickness(isRelease)
+	function updateThickness(isMove)
 	{
 		thickness = sceneWrapper.currentMesh.figure.scale.x * sceneWrapper.currentMesh['Thickness'] * 25.4;
-		//console.log(thickness);
 		
 		if (thickness < 9)
 		{
 			$("#thicknessContainer").fadeIn(0);
+			//$("#thicknessContainer").animate({top:'0'}, 2000);
+			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
+			document.getElementById('increasesize').innerHTML = 'Please either increase thickness or increase the scale.';
 		}
 		else
 		{
-			if (!isRelease)
+			if (isMove)
 			{
-				$("#thicknessContainer").fadeOut(0);
-				//console.log(isRelease);
+				document.getElementById('shapethin').innerHTML = "You\'re all set!";
+				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable thickness.';
 			}
+			else
+				$("#thicknessContainer").fadeOut(0);
 		}
 	}
 	

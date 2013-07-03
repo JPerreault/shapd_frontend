@@ -132,7 +132,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.currentMesh.figure.rotation.y = yRotation;	
 
         this.scene.add( this.currentMesh.figure );
-		
+		this.updateScale(scale);
 		if (this.torusDefined)
 		{
 			this.scene.remove(this.torusMesh);
@@ -143,14 +143,9 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			
 			this.scene.add(this.torusMesh);
 		}
-		this.updateScale(scale);
 	};
 
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
-		if (this.torusDefined)
-		{
-			this.torusMesh.scale.set(newVal, newVal, newVal);
-		}
     };
 }

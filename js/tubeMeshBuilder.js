@@ -151,10 +151,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.createTorus = function (tubeMeshParams)
 	{
-		if (tubeMeshParams['Thickness'] < 3)
-			var thick = tubeMeshParams['Thickness'];
-		else
-			var thick = 3;
+		var thick = 1;
 		var torus = new THREE.TorusGeometry( 5, thick, segments/10, 50 );
 		fIndex = this.calculateFaceIndex();
 		
@@ -186,13 +183,14 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 		// Create mesh and scale
 		torusLoop = new THREE.Mesh(torus, this.m);
-		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = tubeMeshParams['Scale'];
+		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .4;
 		
 		//Determine Face centroid positions
-		var cenPosX = geometry.faces[fIndex].centroid.x;
-		var cenPosY = geometry.faces[fIndex].centroid.y;
-		var cenPosZ = geometry.faces[fIndex].centroid.z;
-		
+		var scale = figure.scale.x / .4;
+		var cenPosX = geometry.faces[fIndex].centroid.x * scale;
+		var cenPosY = geometry.faces[fIndex].centroid.y * scale;
+		var cenPosZ = geometry.faces[fIndex].centroid.z * scale;
+
 		this.torusX = cenPosX;
 		this.torusY = cenPosY;
 		this.torusZ = cenPosZ;
@@ -255,34 +253,34 @@ var TubeMeshBuilder = function(materialsLibrary) {
 this.calculateDimensions = function(variables)
 	{
 		geometry.computeBoundingBox();
-		var boundingBox = figure.geometry.boundingBox;
+		var boundingBox = geometry.boundingBox;
 		var dimensions = [];
-		var scale = 10 / figure.scale.x;
+		var scale = figure.scale.x;
 		
-		var xMin = boundingBox.min.x / scale;
-		var yMin = boundingBox.min.y / scale;
-		var zMin = boundingBox.min.z / scale;
-		var xMax = boundingBox.max.x / scale;
-		var yMax = boundingBox.max.y / scale;
-		var zMax = boundingBox.max.z / scale;
+		var xMin = boundingBox.min.x * scale;
+		var yMin = boundingBox.min.y * scale;
+		var zMin = boundingBox.min.z * scale;
+		var xMax = boundingBox.max.x * scale;
+		var yMax = boundingBox.max.y * scale;
+		var zMax = boundingBox.max.z * scale;
 	
-		var xVal = (xMax - xMin) * 0.393701;
+		var xVal = (xMax - xMin) * 0.0393701;
 		xVal = Math.floor(xVal * 100) / 100;
-		var yVal = (yMax - yMin) * 0.393701;
+		var yVal = (yMax - yMin) * 0.0393701;
 		yVal = Math.floor(yVal * 100) / 100;
-		var zVal = (zMax - zMin) * 0.393701;
+		var zVal = (zMax - zMin) * 0.0393701;
 		zVal = Math.floor(zVal * 100) / 100;
 		
 		if (variables === 'xyz')
 		{
-			$( "#dimensions" ).val(xVal+''.concat(' by ').concat(yVal).concat(' by ').concat(zVal+'').concat(' inches'));
-			$( "#xwidth" ).val(xVal+''.concat(' inches'));
-			$( "#yheight" ).val(yVal+''.concat(' inches'));
+			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
+			$( "#xwidth" ).val(xVal+' inches');
+			$( "#yheight" ).val(yVal+' inches');
 		}
 		else if (variables === 'xy')
 		{
-			$( "#xwidth" ).val(xVal+''.concat(' inches'));
-			$( "#yheight" ).val(yVal+''.concat(' inches'));
+			$( "#xwidth" ).val(xVal+' inches');
+			$( "#yheight" ).val(yVal+' inches');
 		}
 		
 	}
@@ -310,8 +308,6 @@ this.calculateDimensions = function(variables)
 };
 
 var TubeMeshParams = function(){
-    if (typeof savedShape == 'undefined')
-	{
         try
         {
             var parseme = savedShape.split("|");
@@ -347,14 +343,4 @@ var TubeMeshParams = function(){
 		this['Material'] = 'Brass gold plated polished';
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
-	}
-	else
-	{
-		var parseme = savedShape.split("|");
-		var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Rotation X', 'Rotation Y'];
-		for (var x=0; x<transformations.length; x++)
-		{
-			this[transformations[x]] = parseFloat(parseme[x]);
-		}
-	}
 };
