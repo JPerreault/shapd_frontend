@@ -23,6 +23,24 @@ function generateDropDown(width, height, messageHTML)
     return div.id;
 }
 
+function generateLightbox(src)
+{
+    count++;
+
+    
+    var div = document.createElement("div");
+	var src = src;
+    div.setAttribute("id", "popup"+count);
+   div.style.left = '42%';
+	div.style.padding = '30px';
+    div.style.color = "white";
+    div.innerHTML = "<br><br><img src='" + src + "'>";
+    div.className = "swoop";
+    document.body.appendChild(div);
+    
+    return div.id;
+}
+
 function slideDown(id)
 {
     var div = document.getElementById(id);
@@ -55,7 +73,7 @@ function fadeIn(id)
     var div = document.getElementById(id);
     div.style.marginTop = "-"+parseInt(div.style.height)/2;
     div.style.display = "none";
-    div.style.top = "50%"
+    div.style.top = "25%";
     
     $("#blackout").fadeIn();
     $("#"+id).fadeIn();

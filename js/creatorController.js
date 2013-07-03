@@ -10,6 +10,7 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
 	var loops = false;
+	var fout;
 
 	init();
 	animate();
@@ -259,6 +260,28 @@ window.onload = function() {
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL();
+	}
+	
+	document.getElementById('blackout').onclick = function()
+	{
+		fadeOut(fout);
+	}
+	
+	
+	document.getElementById('idM1').onclick = function()
+	{
+		var imgSource = document.getElementById('idM1').src;
+		var d1 = generateLightbox(imgSource);
+		fout = d1;
+		fadeIn(d1);
+	}
+	
+	document.getElementById('idM2').onclick = function()
+	{
+		var imgSource = document.getElementById('idM2').src;
+		var d1 = generateLightbox(imgSource);
+		fout = d1;
+		fadeIn(d1);
 	}
 	
 	document.getElementById('idSaveButton').onclick = function()

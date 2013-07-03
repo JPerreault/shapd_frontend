@@ -336,6 +336,7 @@ function addMaterialSelector() {
 	m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
 	m1.height = 85;
 	m1.width = 85;
+	m1.style.cursor = 'pointer';
 	m1.style.zIndex = '1000';
 	matLibrary.appendChild(m1);
 			
