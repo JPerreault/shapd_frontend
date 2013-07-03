@@ -260,7 +260,10 @@ this.calculateDimensions = function(variables)
 			tubeMesh['Rotation X'] = tubeMesh.figure.rotation.x;
 			tubeMesh['Rotation Y'] = tubeMesh.figure.rotation.y;
 		}
-		tubeMesh['Face Index'] = this.fIndex;
+		if (tubeMesh['Face Index'] >= 0)
+			tubeMesh['Face Index'] = this.sceneWrapper.tubeMeshBuilder.fIndex;
+		else
+			tubeMesh['Face Index'] = -1;
 		hashend = "";
 		for (var x=0; x<keys.length; x++)
 		{
@@ -271,6 +274,7 @@ this.calculateDimensions = function(variables)
 			}
 			hashend += tubeMesh[keys[x]]+"|"; 
 		}
+		console.log(hashend);
 	}
 };
 
