@@ -535,7 +535,6 @@ window.onload = function() {
 		if (thickness < 9)
 		{
 			$("#thicknessContainer").fadeIn(0);
-			//$("#thicknessContainer").animate({top:'0'}, 2000);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
 			document.getElementById('increasesize').innerHTML = 'Please either increase thickness or increase the scale.';
 		}
@@ -560,7 +559,6 @@ window.onload = function() {
 	
 	function updatePrice(data)
 	{	
-		data = data + (data * .3);
 		$( "#cost" ).val('$'.concat(data+''));
 	}
 	
@@ -584,7 +582,7 @@ window.onload = function() {
 			}
 		}
 	};
-	
+	/*
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	function onDocumentMouseMove(event)
 	{
@@ -596,7 +594,7 @@ window.onload = function() {
 			//updateSelected(mouse);
 		}
 	};
-/*	
+	
 	function updateSelected(mouse)
 	{
 		if ( sceneWrapper.torusDefined )
@@ -652,9 +650,15 @@ window.onload = function() {
 
 function loadFromLib(hash)
 {
-//    if (typeof savedShape != 'undefined')
     window.savedShape = hash;
     var loadedShape = new TubeMeshParams();
+	if (loadedShape['Face Index'] != -1)
+	{
+		window.sceneWrapper.torusDefined = true;
+		window.sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
+		window.sceneWrapper.torusMesh = window.sceneWrapper.tubeMeshBuilder.createTorus();
+	}
+	
     window.sceneWrapper.redrawMesh(loadedShape, true);
     window.sceneWrapper.currentMesh = loadedShape;
     window.sceneWrapper.tubeMeshParams = loadedShape;

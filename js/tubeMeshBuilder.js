@@ -1,11 +1,10 @@
 var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
-	var knot, geometry, stl, closed, figure, torusLoop, scale;
-	var fIndex, intersects;
+	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
-	
+	this.fIndex;
 	
 	//Scoping out of functions
 	var segments = 600, radiusSegments = 10;
@@ -96,6 +95,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 				stl += 'endfacet \n';
 			}
 		}
+
 		if (typeof torusLoop != 'undefined')
 		{
 			faces = torusLoop.geometry.faces;
@@ -146,65 +146,53 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		if (intersects.length > 0)
 		{
-			fIndex = intersects[0].faceIndex;
+			this.fIndex = intersects[0].faceIndex;
 			return true;
 		}
 		return false;
 	}
 	
-	this.createTorus = function (tubeMeshParams)
+	this.createTorus = function ()
 	{
-		var thick = 1;
-		var torus = new THREE.TorusGeometry( 5, thick, segments/10, 50 );
-		fIndex = this.calculateFaceIndex();
-		
-		//Get face normal
-		var faceNormal = geometry.faces[fIndex].normal;
+		var torus = new THREE.TorusGeometry( 5, 1, segments/10, 50 );
+		this.fIndex = this.calculateFaceIndex();
+		var faceNormal = geometry.faces[this.fIndex].normal;
 		faceNormal.normalize();
 		
-		//Determine Face centroid position
-		var faceCentroid = geometry.faces[fIndex].centroid;
+		var faceCentroid = geometry.faces[this.fIndex].centroid;
 
-		//Determine vertices a and b on the face - the "long side"of face4	
-		var v1 = geometry.vertices[geometry.faces[fIndex].a];
-		var v2 = geometry.vertices[geometry.faces[fIndex].b];
+		var v1 = geometry.vertices[geometry.faces[this.fIndex].a];
+		var v2 = geometry.vertices[geometry.faces[this.fIndex].b];
 
-		//Determine midpoint of line AB
 		var midX = (v1.x + v2.x) / 2;
 		var midY = (v1.y + v2.y) / 2;
 		var midZ = (v1.z + v2.z) / 2;
 		
 		var midpoint = new THREE.Vector3( midX, midY, midZ );
 		
-		//Don't use position, rotate, scale
 		torus.matrixAutoUpdate = false;
 		
-		//use matrix.lookAt to align torus to create rotation matrix aligned to two orthogonal vectors
-		//Rotate to align with face
 		var alignMatrix = new THREE.Matrix4().lookAt( midpoint, faceCentroid, faceNormal );
 		torus.applyMatrix(alignMatrix);
 
-		// Create mesh and scale
 		torusLoop = new THREE.Mesh(torus, this.m);
 		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .4;
-		
-		//Determine Face centroid positions
+
 		var scale = figure.scale.x / .4;
-		var cenPosX = geometry.faces[fIndex].centroid.x * scale;
-		var cenPosY = geometry.faces[fIndex].centroid.y * scale;
-		var cenPosZ = geometry.faces[fIndex].centroid.z * scale;
+		var cenPosX = geometry.faces[this.fIndex].centroid.x * scale;
+		var cenPosY = geometry.faces[this.fIndex].centroid.y * scale;
+		var cenPosZ = geometry.faces[this.fIndex].centroid.z * scale;
 
 		this.torusX = cenPosX;
 		this.torusY = cenPosY;
 		this.torusZ = cenPosZ;
 
-		//Move the rotated torus around the centroid
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
 
-		//Move the rotated torus around the centroid
 		torusLoop.geometry.computeCentroids();
 		torusLoop.geometry.computeFaceNormals();
 		torusLoop.geometry.computeVertexNormals();
+		torus = torusLoop;
 		
 		return torusLoop;
 	}
@@ -213,7 +201,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.calculateFaceIndex = function()
 	{
 		//Calculate the face furthest away from the origin. Trying to put loop on the "outside" of the spline
-		var sectionNumber = Math.floor(fIndex / radiusSegments);
+		var sectionNumber = Math.floor(this.fIndex / radiusSegments);
 		var high = -1, fIndexHigh = -1;
 		var newFace, newValue;
 		for (var i = 0; i < radiusSegments; i++)
@@ -290,7 +278,7 @@ var TubeMeshParams = function(){
         try
         {
             var parseme = savedShape.split("|");
-            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Rotation X', 'Rotation Y'];
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Face Index', 'Rotation X', 'Rotation Y'];
             for (var x=0; x<transformations.length; x++)
             {
                 if (transformations[x] == 'Material')
@@ -320,6 +308,7 @@ var TubeMeshParams = function(){
 		this['Starting Shape'] = 1;
 		this['Thickness'] = 1.75;
 		this['Material'] = 'Brass gold plated polished';
+		this['Face Index'] = -1;
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
 };
