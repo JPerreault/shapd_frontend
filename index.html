@@ -124,12 +124,8 @@
 		<div id = "container" z-index="100"></div>
         <iframe id="shape_stage" style="left:0;right:0;position:absolute;top:0;"frameborder=0 height=250 width=250></iframe>
         <div id = "blackout"></div>
-		
-		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 20%; left: 40%; position: absolute; height: 10px; width: 200px;" id = "sliderContainer">
-			<p><label for = "cost">Cost: </label>
-			<input type = "text" id = "cost" style="border: 0; color: #000000; font-weight: bold; width: 45px" />
-			<p><label for = "scale">Scale: </label>
-			<input type = "text" id = "scale" style="border: 0; color: #000000; font-weight: bold; width: 45px" />
+        		
+		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 11%; left: 45%; position: absolute; height: 10px; width: 200px;" id = "sliderContainer">
 			<div id = "slider" class="menuHeader"></div>
 		</div>
 		
@@ -140,13 +136,27 @@
 		</div>
 		
 		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; top: 50%; left: 0%; position: absolute; z-index: 1001; height: 30px; width: 200px;" id = "idDimensions">
+       		<p><label for = "cost">Cost: </label>
+			<input type = "text" id = "cost" style="border: 0; color: #000000; font-weight: bold; width: 45px" />
 			<p><label for = "dimensions">Dimensions: </label>
 			<input type = "text" id = "dimensions" style="border: 0; color: #000000; font-weight: bold; width: 185px" />
-			<p><label for = "xwidth">Width: </label>
-			<input type = "text" id = "xwidth" style="border: 0; color: #000000; font-weight: bold; width: 85px" />
-			<p><label for = "yheight">Height: </label>
-			<input type = "text" id = "yheight" style="border: 0; color: #000000; font-weight: bold; width: 85px" />
 		</div>
+        
+        <div id="dimensionXYContainer">
+        
+        	<div id = "idXDimensions" align = "center" style = "background-color: transparent; !important; bottom: 16%; left: 44.8%; position: absolute; z-index: 1001; height: 30px; width: 200px;">
+			<input type = "text" id = "xwidth" class="dimensionDisplay" />
+            <br>
+            <label for = "xwidth">Width (Inches)</label>
+		</div>
+        
+        	<div id = "idYDimensions" align = "center" style = "background-color: transparent; !important; top: 50%; left: 27%; position: absolute; z-index: 1001; height: 30px; width: 200px; ">
+			<input type = "text" id = "yheight" class="dimensionDisplay" />
+            <br>
+            <label for = "yheight">Height (Inches)</label>
+		</div>
+        
+        </div>
 		
 		
 		<div align = "left" style = "display: none; font-size: 80%; background-color: transparent; position: absolute; padding: 0 !important; top: 1%; left: 1%" id = "materials">

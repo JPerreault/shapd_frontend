@@ -29,3 +29,9 @@ body {
 	/* Material CSS */
 	
 	.materialHeader { background-color:#000; color:#fff; }
+	
+	
+	/* Slider CSS */
+	
+	.dimensionDisplay { border: 0; color: #2fa1d7; font-weight: bold; font-size:22px; background: #FFF; width: 42px }
+	

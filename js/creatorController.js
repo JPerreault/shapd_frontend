@@ -103,7 +103,7 @@ window.onload = function() {
 			$("#idLoopText").fadeOut(0);
 			$("#idmaterialDetailContainer").fadeOut(0);
 			$('#idMaterialPanel').fadeOut(0);
-			$('#idDimensions').fadeOut(0);
+			$('#dimensionXYContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
 			if (typeof viewer !== 'undefined' && viewer)
 			{
@@ -135,6 +135,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			$('#dimensionXYContainer').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
@@ -159,6 +160,7 @@ window.onload = function() {
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$('#dimensionXYContainer').fadeOut(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
@@ -183,6 +185,7 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$('#dimensionXYContainer').fadeIn(450);
 			$('#materialDetailContainer').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
@@ -211,6 +214,7 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(450);
 			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
+			$('#dimensionXYContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#materialDetailContainer').fadeOut(450);
@@ -242,7 +246,7 @@ window.onload = function() {
 	var saveSTL = document.createElement('div');
 	saveSTL.style.position = 'absolute';
 	saveSTL.style.bottom = '0px';
-	saveSTL.style.left = '50%';
+	saveSTL.style.left = '15%';
 	saveSTL.style.zIndex = '1000';
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
@@ -251,7 +255,7 @@ window.onload = function() {
     var screen = document.createElement('div');
     screen.style.position = 'absolute';
     screen.style.bottom = '28px';
-    screen.style.left = '50%';
+    screen.style.left = '15%';
     screen.style.zIndex = '1000';
     screen.style.background= '#999';
     screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
