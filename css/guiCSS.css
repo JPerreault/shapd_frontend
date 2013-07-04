@@ -24,4 +24,8 @@ body {
 	.menuHeader { background-color:#2fa1d7;}
 	.buttonImg:hover { opacity:0.7; cursor: pointer; }	
 	.galleryImg:hover { opacity:0.6; cursor: pointer; }	
-	.rounded { -moz-border-radius: 8px; border-radius: 8px; }		
+	.rounded { -moz-border-radius: 8px; border-radius: 8px; }
+	
+	/* Material CSS */
+	
+	.materialHeader { background-color:#000; color:#fff; }
