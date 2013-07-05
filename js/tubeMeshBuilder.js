@@ -4,10 +4,13 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
+	this.faceIndexIncrementor = 0;
+	this.torusRotation = 0;
+	this.torusRotationNinety = 0;
 	this.fIndex;
 	
 	//Scoping out of functions
-	var segments = 600, radiusSegments = 10;
+	var segments = 600, radiusSegments = 6;
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
@@ -163,6 +166,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 		var v1 = geometry.vertices[geometry.faces[this.fIndex].a];
 		var v2 = geometry.vertices[geometry.faces[this.fIndex].b];
+		var v3 = new THREE.Vector3();
+		v3.subVectors(v1, v2);
+		v3.normalize();
 
 		var midX = (v1.x + v2.x) / 2;
 		var midY = (v1.y + v2.y) / 2;
@@ -173,6 +179,10 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		torus.matrixAutoUpdate = false;
 		
 		var alignMatrix = new THREE.Matrix4().lookAt( midpoint, faceCentroid, faceNormal );
+		torus.applyMatrix(alignMatrix);
+		alignMatrix = new THREE.Matrix4().makeRotationAxis( faceNormal, this.torusRotationNinety );
+		torus.applyMatrix(alignMatrix);
+		alignMatrix = new THREE.Matrix4().makeRotationAxis( v3, this.torusRotation );
 		torus.applyMatrix(alignMatrix);
 
 		torusLoop = new THREE.Mesh(torus, this.m);
@@ -200,7 +210,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.calculateFaceIndex = function()
 	{
-		//Calculate the face furthest away from the origin. Trying to put loop on the "outside" of the spline
 		var sectionNumber = Math.floor(this.fIndex / radiusSegments);
 		var high = -1, fIndexHigh = -1;
 		var newFace, newValue;
@@ -210,15 +219,18 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			newValue = Math.abs(newFace.centroid.x) + Math.abs(newFace.centroid.y);
 			if (newValue > high)
 			{
-				high = Math.max(high, newValue);
+				high = newValue;
 				fIndexHigh = sectionNumber*radiusSegments + i;
 			}
 		}
 		
+		var fIndexDiff = fIndexHigh - sectionNumber*radiusSegments;
+		var incr = (this.faceIndexIncrementor+fIndexDiff)%radiusSegments;
+		fIndexHigh = sectionNumber*radiusSegments + incr;
 		return fIndexHigh;
 	}
 	
-this.calculateDimensions = function(variables)
+	this.calculateDimensions = function(variables)
 	{
 		geometry.computeBoundingBox();
 		var boundingBox = geometry.boundingBox;
@@ -254,7 +266,6 @@ this.calculateDimensions = function(variables)
 	
 	function updateHash(tubeMesh)
 	{
-			console.log('tmb 1: ',tubeMesh['Face Index']);
 		var keys = Object.keys(tubeMesh);
 		if (typeof tubeMesh.figure != 'undefined')
 		{
@@ -266,7 +277,6 @@ this.calculateDimensions = function(variables)
 			tubeMesh['Face Index'] = this.sceneWrapper.tubeMeshBuilder.fIndex;
 		else
 			tubeMesh['Face Index'] = -1;
-		console.log('tmb 2: ',tubeMesh['Face Index']);
 		hashend = "";
 		for (var x=0; x<keys.length; x++)
 		{

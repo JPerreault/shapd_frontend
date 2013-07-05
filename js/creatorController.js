@@ -104,6 +104,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(0);
 			$('#idDimensions').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
+			$('#loopControls').fadeOut(0);
 			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
@@ -138,6 +139,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
+			$('#loopControls').fadeOut(450);
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -163,6 +165,8 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
+			if (sceneWrapper.torusDefined == true)
+				$('#loopControls').fadeIn(450);
 			loops = true;
 		}
 		else if (state == 'finalize')
@@ -188,6 +192,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
 			$('#idDimensions').fadeIn(450);
+			$('#loopControls').fadeOut(450);
 			loops = false;
 			tubeMeshBuilder.calculateDimensions('xyz');
 			matListener.panelUpdate();
@@ -218,6 +223,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
+			$('#loopControls').fadeOut(450);
 			loops = false;
 		}
 	}
@@ -232,6 +238,7 @@ window.onload = function() {
 		addLoops();
 		addSavedLibrary();
 		addDatGui();
+		addLoopControls();
 	}
 	
 	customContainer = document.getElementById('container');	
@@ -319,7 +326,6 @@ window.onload = function() {
 			state = 'finalize';
 			setupInterface();
 		}
-		saveShape();
 	}
 	
 	document.getElementById('idProgressImg').onclick = function()
@@ -403,6 +409,7 @@ window.onload = function() {
 			scene.torusDefined = false;
 			sceneWrapper.currentMesh['Face Index'] = -1;
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
+			$('#loopControls').fadeOut(0);
 		}
 		else if (state == 'finalize')
 		{
@@ -455,10 +462,34 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('screen').onclick = function()
+	document.getElementById('rotateAroundF').onclick = function()
 	{
-		getJson(sceneWrapper.currentMesh);
-		console.log(sceneWrapper.torusMesh);
+		tubeMeshBuilder.faceIndexIncrementor += 1;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotateAroundB').onclick = function()
+	{
+		tubeMeshBuilder.faceIndexIncrementor -= 1;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotatePlaceF').onclick = function()
+	{
+		tubeMeshBuilder.torusRotation += 0.0872664626;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotatePlaceB').onclick = function()
+	{
+		tubeMeshBuilder.torusRotation -= 0.0872664626;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotate90').onclick = function()
+	{
+		tubeMeshBuilder.torusRotationNinety += 1.57079633;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
 	document.getElementById('thickslider').onmousedown = function()
@@ -580,7 +611,9 @@ window.onload = function() {
 			if (inBounds === true)
 			{
 				scene.torusDefined = true;
+				tubeMeshBuilder.faceIndexIncrementor = 0;
 				scene.redrawMesh(scene.currentMesh);
+				$('#loopControls').fadeIn(0);
 			}
 		}
 	};

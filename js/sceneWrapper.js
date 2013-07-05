@@ -1,4 +1,5 @@
 var SceneWrapper = function(tMB, textureCube, tMP) {
+	var fIndex;
 	this.currentMesh;
 	this.torusMesh;
 	this.torusDefined = false;
@@ -53,7 +54,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.tubeMeshParams = new TubeMeshParams();
 		else
 			this.tubeMeshParams = tMP;
-		var fIndex = this.tubeMeshParams['Face Index'];
+		fIndex = this.tubeMeshParams['Face Index'];
 		this.addMesh( this.tubeMeshBuilder.build(this.tubeMeshParams) );
 		if (fIndex != -1)
 		{
