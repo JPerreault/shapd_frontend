@@ -46,6 +46,14 @@ function addSave() {
 			saveButtonContainer.style.right = '0%';
 			document.body.appendChild(saveButtonContainer);	
 			
+			var saveBackButtonContainer = document.createElement('div');
+			saveBackButtonContainer.id = 'idSaveBackButtonContainer';
+			saveBackButtonContainer.style.zIndex = '900';
+			saveBackButtonContainer.style.position = 'relative';
+			saveBackButtonContainer.style.margin = '0px 0px 2px 0px';
+			saveBackButtonContainer.style.display = 'inline-block';
+			saveButtonContainer.appendChild(saveBackButtonContainer);	
+			
 			var saveStayButton = document.createElement('img');
 			saveStayButton.id = 'idSaveStayButton';
 			saveStayButton.style.zIndex = '1000';
@@ -53,20 +61,22 @@ function addSave() {
 			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
 			saveStayButton.style.display = 'block';
 			saveStayButton.style.margin = '1px 1px 10px 10px';
-			saveButtonContainer.appendChild(saveStayButton);
+			saveBackButtonContainer.appendChild(saveStayButton);
 			
 			var backButton = document.createElement('img');
 			backButton.id = 'idBackButton';
 			backButton.style.zIndex = '1000';
 			backButton.className = 'buttonImg';
+			backButton.style.display = 'block';
 			backButton.src = 'assets/imgs/buttons/back.png';
 			backButton.style.margin = '1px 1px 10px 10px';
-			saveButtonContainer.appendChild(backButton);
+			saveBackButtonContainer.appendChild(backButton);
 		
 			var saveButton = document.createElement('img');
 			saveButton.id = 'idSaveButton';
 			saveButton.style.zIndex = '1000';
 			saveButton.className = 'buttonImg';
+			saveButton.style.display = 'inline-block';
 			saveButton.src = 'assets/imgs/buttons/save.png';
 			saveButton.style.margin = '1px 1px 10px 10px';
 			saveButtonContainer.appendChild(saveButton);
@@ -143,7 +153,7 @@ function addResetButtons() {
 	var resetContainer = document.createElement('div');
 	resetContainer.id = 'idResetContainer';
 	resetContainer.style.position = 'absolute';
-	resetContainer.style.top = '192px';
+	resetContainer.style.bottom = '1%';
 	resetContainer.style.left = '1%';			
 	resetContainer.style.zIndex = '1000';
 	container.appendChild(resetContainer);
@@ -201,7 +211,7 @@ function addStartingShapes() {
 	shapeContainer.style.margin = '15 15 15 15';
 	shapeContainer.style.color = '#fff';
 	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '2%';
+	shapeContainer.style.bottom = '10%';
 	shapeContainer.style.left = '0.05%';	
 	shapeContainer.style.width = '215px';			
 	shapeContainer.style.zIndex = '1000';
@@ -260,7 +270,7 @@ function addMaterialSelector() {
 	materialDetailContainer.align = 'center';
 	materialDetailContainer.style.background = '#000';
 	materialDetailContainer.style.top = '1%';
-	materialDetailContainer.style.right = '20%';	
+	materialDetailContainer.style.right = '1%';	
 	materialDetailContainer.style.width = '190px';			
 	materialDetailContainer.style.zIndex = '1000';
 	document.body.appendChild(materialDetailContainer);		
@@ -326,6 +336,7 @@ function addMaterialSelector() {
 	m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
 	m1.height = 85;
 	m1.width = 85;
+	m1.style.cursor = 'pointer';
 	m1.style.zIndex = '1000';
 	matLibrary.appendChild(m1);
 			

@@ -8,9 +8,6 @@
 
 /* NOTE: Manually changed css style from lines 805, and 872*/
 
-
-
-
 /* Layout helpers
 ----------------------------------*/
 .ui-helper-hidden {
@@ -809,11 +806,10 @@ body .ui-tooltip {
 .ui-widget-content {
 	/* border: 1px solid #aaaaaa; */
 	
-	/* NOTE: Manually changed the below line */
+	/* NOTE: Manually changed the below line Now background should be transparent, and we can apply our own CSS */
 	
 	/*background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;*/
 	
-	background: #e6e6e6e;
 	color: #fff;
 }
 .ui-widget-content a {

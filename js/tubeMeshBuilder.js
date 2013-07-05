@@ -254,13 +254,13 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		if (variables === 'xyz')
 		{
 			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
-			$( "#xwidth" ).val(xVal+' inches');
-			$( "#yheight" ).val(yVal+' inches');
+			$( "#xwidth" ).val(xVal);
+			$( "#yheight" ).val(yVal);
 		}
 		else if (variables === 'xy')
 		{
-			$( "#xwidth" ).val(xVal+' inches');
-			$( "#yheight" ).val(yVal+' inches');
+			$( "#xwidth" ).val(xVal);
+			$( "#yheight" ).val(yVal);
 		}
 	}
 	
