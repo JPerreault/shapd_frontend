@@ -390,6 +390,56 @@ function addLoops(){
 	document.body.appendChild(loopText);
 }
 
+function addLoopControls(){
+	var loopControls = document.createElement('div');
+	loopControls.id = 'loopControls';
+	loopControls.style.position = 'absolute';
+	loopControls.style.top = '0%';
+	loopControls.style.left = '0%';
+	loopControls.style.zIndex = '1000';
+	document.body.appendChild(loopControls);
+	
+	var rotAroundF = document.createElement('div');
+    rotAroundF.style.position = 'absolute';
+	rotAroundF.style.top = '0px';
+    rotAroundF.style.zIndex = '1000';
+    rotAroundF.style.background= '#999';
+    rotAroundF.innerHTML = '<input id="rotateAroundF" type="button" value="Rotate Forward Around Shape">';
+    loopControls.appendChild(rotAroundF);
+	
+	var rotAroundB = document.createElement('div');
+    rotAroundB.style.position = 'absolute';
+	rotAroundB.style.top = '28px';
+    rotAroundB.style.zIndex = '1000';
+    rotAroundB.style.background= '#999';
+    rotAroundB.innerHTML = '<input id="rotateAroundB" type="button" value="Rotate Backward Around Shape">';
+    loopControls.appendChild(rotAroundB);
+	
+	var rotPlaceF = document.createElement('div');
+    rotPlaceF.style.position = 'absolute';
+	rotPlaceF.style.top = '56px';
+    rotPlaceF.style.zIndex = '1000';
+    rotPlaceF.style.background= '#999';
+    rotPlaceF.innerHTML = '<input id="rotatePlaceF" type="button" value="Rotate Forward In Place">';
+    loopControls.appendChild(rotPlaceF);
+	
+	var rotPlaceB = document.createElement('div');
+    rotPlaceB.style.position = 'absolute';
+	rotPlaceB.style.top = '84px';
+    rotPlaceB.style.zIndex = '1000';
+    rotPlaceB.style.background= '#999';
+    rotPlaceB.innerHTML = '<input id="rotatePlaceB" type="button" value="Rotate Backward In Place">';
+    loopControls.appendChild(rotPlaceB);
+	
+	var rotNinety = document.createElement('div');
+    rotNinety.style.position = 'absolute';
+	rotNinety.style.top = '110px';
+    rotNinety.style.zIndex = '1000';
+    rotNinety.style.background= '#999';
+    rotNinety.innerHTML = '<input id="rotate90" type="button" value="Rotate 90 Degrees">';
+    loopControls.appendChild(rotNinety);
+}
+
 function addDatGui(){
 	var datgui = document.createElement('div');
 	datgui.id = 'datGuiStuff';

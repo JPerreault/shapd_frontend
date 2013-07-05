@@ -105,6 +105,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(0);
 			$('#dimensionXYContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
+			$('#loopControls').fadeOut(0);
 			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
@@ -140,6 +141,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
+			$('#loopControls').fadeOut(450);
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -166,6 +168,8 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
+			if (sceneWrapper.torusDefined == true)
+				$('#loopControls').fadeIn(450);
 			loops = true;
 		}
 		else if (state == 'finalize')
@@ -192,6 +196,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
 			$('#idDimensions').fadeIn(450);
+			$('#loopControls').fadeOut(450);
 			loops = false;
 			tubeMeshBuilder.calculateDimensions('xyz');
 			matListener.panelUpdate();
@@ -223,6 +228,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
+			$('#loopControls').fadeOut(450);
 			loops = false;
 			
 			var publishCSS = "<br><br><span style='font-size: 3em; font-weight: bold;'>Congratulations!</span><br><br><span style='font-size: 1.5em; font-weight: bold;'>You've made a pendant!</span><br>(and its awesome)<br><br><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='170px' height='170' style='border: 1px'></img><br><br><span style='font-size: 1.1em; font-weight: bold;'>Now, you can either:</span><br><br><br><div id='publishActionContainer' width='100%'><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Publish</button></form></div><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Order</button></form></div>";
@@ -243,6 +249,7 @@ window.onload = function() {
 		addLoops();
 		addSavedLibrary();
 		addDatGui();
+		addLoopControls();
 	}
 	
 	customContainer = document.getElementById('container');	
@@ -354,7 +361,6 @@ window.onload = function() {
 			state = 'finalize';
 			setupInterface();
 		}
-		saveShape();
 	}
 	
 	document.getElementById('idProgressImg').onclick = function()
@@ -438,6 +444,7 @@ window.onload = function() {
 			scene.torusDefined = false;
 			sceneWrapper.currentMesh['Face Index'] = -1;
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
+			$('#loopControls').fadeOut(0);
 		}
 		else if (state == 'finalize')
 		{
@@ -490,10 +497,34 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('screen').onclick = function()
+	document.getElementById('rotateAroundF').onclick = function()
 	{
-		getJson(sceneWrapper.currentMesh);
-		console.log(sceneWrapper.torusMesh);
+		tubeMeshBuilder.faceIndexIncrementor += 1;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotateAroundB').onclick = function()
+	{
+		tubeMeshBuilder.faceIndexIncrementor -= 1;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotatePlaceF').onclick = function()
+	{
+		tubeMeshBuilder.torusRotation += 0.0872664626;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotatePlaceB').onclick = function()
+	{
+		tubeMeshBuilder.torusRotation -= 0.0872664626;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+	}
+	
+	document.getElementById('rotate90').onclick = function()
+	{
+		tubeMeshBuilder.torusRotationNinety += 1.57079633;
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
 	document.getElementById('thickslider').onmousedown = function()
@@ -615,7 +646,9 @@ window.onload = function() {
 			if (inBounds === true)
 			{
 				scene.torusDefined = true;
+				tubeMeshBuilder.faceIndexIncrementor = 0;
 				scene.redrawMesh(scene.currentMesh);
+				$('#loopControls').fadeIn(0);
 			}
 		}
 	};
