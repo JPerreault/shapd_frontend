@@ -216,7 +216,7 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#dimensionXYContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
-			$('#idSaveButton').fadeIn(450);
+			$('#idSaveButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
@@ -224,6 +224,12 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
 			loops = false;
+			
+			var publishCSS = "<br><br><span style='font-size: 3em; font-weight: bold;'>Congratulations!</span><br><br><span style='font-size: 1.5em; font-weight: bold;'>You've made a pendant!</span><br>(and its awesome)<br><br><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='170px' height='170' style='border: 1px'></img><br><br><span style='font-size: 1.1em; font-weight: bold;'>Now, you can either:</span><br><br><br><div id='publishActionContainer' width='100%'><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Publish</button></form></div><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Order</button></form></div>";
+			var d1 = generateDropDown(800, 600, publishCSS );
+			fout = d1;
+			fadeIn(d1);
+			
 		}
 	}
 	
