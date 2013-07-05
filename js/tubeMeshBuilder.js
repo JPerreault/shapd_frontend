@@ -10,7 +10,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.fIndex;
 	
 	//Scoping out of functions
-	var segments = 600, radiusSegments = 6;
+	var segments = 600, radiusSegments = 8;
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
@@ -166,9 +166,13 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
 		var v1 = geometry.vertices[geometry.faces[this.fIndex].a];
 		var v2 = geometry.vertices[geometry.faces[this.fIndex].b];
-		var v3 = new THREE.Vector3();
-		v3.subVectors(v1, v2);
-		v3.normalize();
+		var v3 = geometry.vertices[geometry.faces[this.fIndex].c]; 
+		var forwardVector = new THREE.Vector3();
+		if (this.torusRotationNinety === 0)
+			forwardVector.subVectors(v1, v2);
+		else
+			forwardVector.subVectors(v2, v3);
+		forwardVector.normalize();
 
 		var midX = (v1.x + v2.x) / 2;
 		var midY = (v1.y + v2.y) / 2;
@@ -182,7 +186,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		torus.applyMatrix(alignMatrix);
 		alignMatrix = new THREE.Matrix4().makeRotationAxis( faceNormal, this.torusRotationNinety );
 		torus.applyMatrix(alignMatrix);
-		alignMatrix = new THREE.Matrix4().makeRotationAxis( v3, this.torusRotation );
+		alignMatrix = new THREE.Matrix4().makeRotationAxis( forwardVector, this.torusRotation );
 		torus.applyMatrix(alignMatrix);
 
 		torusLoop = new THREE.Mesh(torus, this.m);
@@ -211,8 +215,10 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.calculateFaceIndex = function()
 	{
 		var sectionNumber = Math.floor(this.fIndex / radiusSegments);
+		console.log('section: ',sectionNumber);
 		var high = -1, fIndexHigh = -1;
 		var newFace, newValue;
+		console.log('face orig: ',sectionNumber*radiusSegments);
 		for (var i = 0; i < radiusSegments; i++)
 		{
 			newFace = geometry.faces[sectionNumber*radiusSegments + i];
@@ -227,6 +233,13 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var fIndexDiff = fIndexHigh - sectionNumber*radiusSegments;
 		var incr = (this.faceIndexIncrementor+fIndexDiff)%radiusSegments;
 		fIndexHigh = sectionNumber*radiusSegments + incr;
+		console.log('face end: ', fIndexHigh);
+		
+		var sectionNumber = Math.floor(this.fIndex / radiusSegments);
+		console.log('section2: ',sectionNumber);
+		
+		console.log('----------------------');
+		
 		return fIndexHigh;
 	}
 	

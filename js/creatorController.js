@@ -445,6 +445,8 @@ window.onload = function() {
 			sceneWrapper.currentMesh['Face Index'] = -1;
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
 			$('#loopControls').fadeOut(0);
+			tubeMeshBuilder.torusRotation = 0;
+			tubeMeshBuilder.torusRotationNinety = 0;
 		}
 		else if (state == 'finalize')
 		{
@@ -511,19 +513,24 @@ window.onload = function() {
 	
 	document.getElementById('rotatePlaceF').onclick = function()
 	{
-		tubeMeshBuilder.torusRotation += 0.0872664626;
+		if (tubeMeshBuilder.torusRotation < 0.7853981634)
+			tubeMeshBuilder.torusRotation += 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
 	document.getElementById('rotatePlaceB').onclick = function()
 	{
-		tubeMeshBuilder.torusRotation -= 0.0872664626;
+		if (tubeMeshBuilder.torusRotation > -0.7853981634)
+			tubeMeshBuilder.torusRotation -= 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
 	document.getElementById('rotate90').onclick = function()
 	{
-		tubeMeshBuilder.torusRotationNinety += 1.57079633;
+		if (tubeMeshBuilder.torusRotationNinety === 0)
+			tubeMeshBuilder.torusRotationNinety = 1.57079633;
+		else
+			tubeMeshBuilder.torusRotationNinety = 0;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
