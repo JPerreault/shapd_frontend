@@ -763,10 +763,10 @@ function setupDatGui(sC) {
 	controller = gui.add(currentMesh, 'Thickness', .5, 10);
 	setUpController(controller, 'Thickness');
 
-	controller = gui.add(currentMesh, 'Depth', .00005,3.5);
+	controller = gui.add(currentMesh, 'Depth', 0.0005, 3.5);
 	setUpController(controller, 'Depth');
 
-	controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);
+	controller = gui.add(currentMesh, 'Stretch', 0.00005, 1.75);
 	setUpController(controller, 'Stretch');
 	
 	
