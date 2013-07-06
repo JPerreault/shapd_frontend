@@ -422,21 +422,10 @@ window.onload = function() {
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
 		{
-			currentMesh['Scale'] = 1;
-			currentMesh['Modify'] = 5;
-			currentMesh['Depth'] = 1;
-			currentMesh['Stretch'] = 1;
-			currentMesh['Loops'] = 2;
-			currentMesh['Thickness'] = 1.75;
-			currentMesh['Rotation X'] = 0;
-			currentMesh['Rotation Y'] = 0;
-			view.targetX = 0;
-			view.targetY = 0;
+			resetAllParams(0);
 		
 			sceneWrapper.redrawMesh(currentMesh);
 			setupDatGui(sceneWrapper);
-			
-			
 		}
 		else if (state == 'loops')
 		{
@@ -463,40 +452,40 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idS1').onclick = function()
+	function resetAllParams()
 	{
-		sceneWrapper.currentMesh['Starting Shape'] = 1;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		var currentMesh = sceneWrapper.currentMesh;
+		
+		currentMesh['Scale'] = 1;
+		currentMesh['Modify'] = 5;
+		currentMesh['Depth'] = 1;
+		currentMesh['Stretch'] = 1;
+		currentMesh['Loops'] = 2;
+		currentMesh['Thickness'] = 1.75;
+		currentMesh['Rotation X'] = 0;
+		currentMesh['Rotation Y'] = 0;
+		view.targetX = 0;
+		view.targetY = 0;
+		
+		currentMesh.figure.scale.x = 1;
+		currentMesh.figure.scale.y = 1;
+		currentMesh.figure.scale.z = 1;
+		$( "#slider" ).slider( "value", 100 );
+		$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
+		$( "#thickslider" ).slider( "value", 1.75 );
+		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 	}
 	
-	document.getElementById('idS2').onclick = function()
+	document.getElementById('idShapeLibrary').onclick = function()
 	{
-		sceneWrapper.currentMesh['Starting Shape'] = 2;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-	}
-	
-	document.getElementById('idS3').onclick = function()
-	{
-		sceneWrapper.currentMesh['Starting Shape'] = 3;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-	}
-	
-	document.getElementById('idS4').onclick = function()
-	{
-		sceneWrapper.currentMesh['Starting Shape'] = 4;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-	}
-	
-	document.getElementById('idS5').onclick = function()
-	{
-		sceneWrapper.currentMesh['Starting Shape'] = 5;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-	}
-	
-	document.getElementById('idS6').onclick = function()
-	{
-		sceneWrapper.currentMesh['Starting Shape'] = 6;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		if (event.toElement.tagName === 'IMG')
+		{
+			var shapeNumber = event.toElement.id.substr(3, event.toElement.id.length);
+			sceneWrapper.currentMesh['Starting Shape'] = parseInt(shapeNumber);
+			resetAllParams();
+			
+			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+		}
 	}
 	
 	document.getElementById('rotateAroundF').onclick = function()

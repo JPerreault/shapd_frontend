@@ -35,6 +35,8 @@ var InputView = function(sW, rend, tMP) {
         
         if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
             return;
+		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary')
+			return;
         
 		var fovMAX = 80;
 		var fovMIN = 1.05;

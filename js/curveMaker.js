@@ -75,7 +75,7 @@ var curveMaker = function (tMP) {
 			ty = Math.sin(l * t) * (1 + 0.6 * (Math.cos(5 * t) + 0.75 * Math.cos((q+5) * t))),
 			tz = 0.35 * Math.sin(5 * t);
 		
-			scalar = 38;
+			scalar = 14;
 		}
 	
 	//DecoratedTorusKnot4b

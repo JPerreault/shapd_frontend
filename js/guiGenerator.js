@@ -219,13 +219,16 @@ function addStartingShapes() {
 			
 	var shapeLibrary = document.createElement('div');
 	shapeLibrary.id = 'idShapeLibrary';
+	shapeLibrary.style.height = '300px';
+	shapeLibrary.style.width = '217px';
+	shapeLibrary.style.overflow = 'auto';
 	shapeContainer.appendChild(shapeLibrary);
 
 	var s1 = document.createElement('img');
 	s1.id = 'idS1';
 	s1.className = 'galleryImg';
 	s1.style.margin = '5px 5px 5px 5px';
-	s1.src = 'assets/imgs/shapes/1.jpg';
+	s1.src = 'assets/imgs/shapes/1.png';
 	s1.height = 90;
 	s1.width = 90;
 	s1.style.zIndex = '1000';
@@ -233,17 +236,17 @@ function addStartingShapes() {
 			
 	var s2 = s1.cloneNode(true);
 	s2.id = 'idS2';
-	s2.src = 'assets/imgs/shapes/2.jpg'
+	s2.src = 'assets/imgs/shapes/2.png'
 	shapeLibrary.appendChild(s2);
 	
 	var s3 = s1.cloneNode(true);
 	s3.id = 'idS3';
-	s3.src = 'assets/imgs/shapes/3.jpg'
+	s3.src = 'assets/imgs/shapes/3.png'
 	shapeLibrary.appendChild(s3);
 			
 	var s4 = s1.cloneNode(true);
 	s4.id = 'idS4';
-	s4.src = 'assets/imgs/shapes/4.jpg'
+	s4.src = 'assets/imgs/shapes/4.png'
 	shapeLibrary.appendChild(s4);	
 	
 	var s5 = s1.cloneNode(true);
@@ -255,6 +258,51 @@ function addStartingShapes() {
 	s6.id = 'idS6';
 	s6.src = 'assets/imgs/shapes/6.png'
 	shapeLibrary.appendChild(s6);	
+
+	var s7 = s1.cloneNode(true);
+	s7.id = 'idS7';
+	s7.src = 'assets/imgs/shapes/7.png'
+	shapeLibrary.appendChild(s7);	
+	
+	var s8 = s1.cloneNode(true);
+	s8.id = 'idS8';
+	s8.src = 'assets/imgs/shapes/8.png'
+	shapeLibrary.appendChild(s8);	
+	
+	var s9 = s1.cloneNode(true);
+	s9.id = 'idS9';
+	s9.src = 'assets/imgs/shapes/9.png'
+	shapeLibrary.appendChild(s9);		
+	
+	var s10 = s1.cloneNode(true);
+	s10.id = 'idS10';
+	s10.src = 'assets/imgs/shapes/10.png'
+	shapeLibrary.appendChild(s10);		
+	
+	var s11 = s1.cloneNode(true);
+	s11.id = 'idS11';
+	s11.src = 'assets/imgs/shapes/11.png'
+	shapeLibrary.appendChild(s11);		
+	
+	var s12 = s1.cloneNode(true);
+	s12.id = 'idS12';
+	s12.src = 'assets/imgs/shapes/12.png'
+	shapeLibrary.appendChild(s12);		
+	
+	var s13 = s1.cloneNode(true);
+	s13.id = 'idS13';
+	s13.src = 'assets/imgs/shapes/13.png'
+	shapeLibrary.appendChild(s13);		
+	
+	var s14 = s1.cloneNode(true);
+	s14.id = 'idS14';
+	s14.src = 'assets/imgs/shapes/14.png'
+	shapeLibrary.appendChild(s14);		
+	
+	var s15 = s1.cloneNode(true);
+	s15.id = 'idS15';
+	s15.src = 'assets/imgs/shapes/15.png'
+	shapeLibrary.appendChild(s15);		
 }
 
 function addMaterialSelector() {

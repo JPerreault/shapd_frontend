@@ -585,7 +585,6 @@ var materialListener = function(sW, tMB){
 	
 	this.materialChange = function()
 	{
-		console.log('test', sceneWrapper.currentMesh);
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
 		this.panelUpdate();
