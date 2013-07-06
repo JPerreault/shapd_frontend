@@ -34,7 +34,7 @@ var materialListener = function(sW, tMB){
 	
 	document.getElementById('blackregularplastic').onclick = function()
 	{
-		sceneWrapper.tubeMeshParams['Material'] = 'Black regular black';
+		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular black';
 		name = 'Black Regular Plastic';
 		cost = '$';
 		smooth = 'Low';
@@ -339,7 +339,8 @@ var materialListener = function(sW, tMB){
 	
 	document.getElementById('regularalumide').onclick = function()
 	{
-		name = 'Regular Alumide';
+		sceneWrapper.tubeMeshParams['Material'] = 'Alumide regular';
+		name = 'Alumide regular';
 		cost = '$';
 		smooth = 'Low';
 		img1 = 'assets/imgs/materialExamples/alumide_1.jpg';
@@ -354,7 +355,8 @@ var materialListener = function(sW, tMB){
 	
 	document.getElementById('polishedalumide').onclick = function()
 	{
-		name = 'Polished Alumide';
+		sceneWrapper.tubeMeshParams['Material'] = 'Alumide polished';
+		name = 'Alumide polished';
 		cost = '$';
 		smooth = 'Low';
 		img1 = 'assets/imgs/materialExamples/polishedAlumide_1.jpg';
@@ -583,6 +585,7 @@ var materialListener = function(sW, tMB){
 	
 	this.materialChange = function()
 	{
+		console.log('test', sceneWrapper.currentMesh);
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
 		this.panelUpdate();

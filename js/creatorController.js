@@ -198,7 +198,7 @@ window.onload = function() {
 			$('#idDimensions').fadeIn(450);
 			$('#loopControls').fadeOut(450);
 			loops = false;
-			tubeMeshBuilder.calculateDimensions('xyz');
+			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 			matListener.panelUpdate();
 			getNewPrice();
 			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
@@ -276,7 +276,7 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		tubeMeshBuilder.saveSTL();
+		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
 	}
 	
 	document.getElementById('blackout').onclick = function()
@@ -456,7 +456,7 @@ window.onload = function() {
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 			$( "#thickslider" ).slider( "value", 1.75 );
-			tubeMeshBuilder.calculateDimensions('xyz');
+			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		
 			sceneWrapper.redrawMesh(currentMesh);
 			getNewPrice();
@@ -561,7 +561,7 @@ window.onload = function() {
 		document.removeEventListener( 'mousemove', moveThickSlider, false );
 		
 		scene.redrawMesh(scene.currentMesh);
-		tubeMeshBuilder.calculateDimensions('xyz');
+		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		getNewPrice();
 		updateThickness();
 		gui.__controllers[0].setValue(sliderValue);
@@ -583,7 +583,7 @@ window.onload = function() {
 		sceneWrapper.updateScale(newScale);
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		
-		tubeMeshBuilder.calculateDimensions('xyz');
+		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		updateThickness();
 	}
 	
@@ -598,7 +598,7 @@ window.onload = function() {
 		document.removeEventListener( 'mousemove', moveSlider, false );
 		
 		scene.redrawMesh(scene.currentMesh);
-		tubeMeshBuilder.calculateDimensions('xyz');
+		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		getNewPrice();
 		updateThickness();
 	}
@@ -763,7 +763,7 @@ function setupDatGui(sC) {
 	controller = gui.add(currentMesh, 'Thickness', .5, 10);
 	setUpController(controller, 'Thickness');
 
-	controller = gui.add(currentMesh, 'Depth', 0.05,3.5);
+	controller = gui.add(currentMesh, 'Depth', .00005,3.5);
 	setUpController(controller, 'Depth');
 
 	controller = gui.add(currentMesh, 'Stretch', 0.00005,1.75);

@@ -7,7 +7,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.faceIndexIncrementor = 0;
 	this.torusRotation = 0;
 	this.torusRotationNinety = 0;
-	this.fIndex;
+	this.fIndex = -1;
 	
 	//Scoping out of functions
 	var segments = 600, radiusSegments = 8;
@@ -62,15 +62,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	}
 	
 	//Saves the shape (currently to your computer) as an STL file.
-	this.saveSTL = function()
+	this.saveSTL = function(torusDefined)
 	{
-		var stlFile = createSTL();
+		var stlFile = createSTL(torusDefined);
 		var blob = new Blob ([stlFile], {type: 'text/plain'});
 		saveAs (blob, 'test.stl');
 	}
 	
 	//Generates an STL file using the shape currently on the screen.
-	function createSTL()
+	function createSTL(torusDefined)
 	{
 		var vertices = geometry.vertices;
 		var faces = geometry.faces;
@@ -99,7 +99,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			}
 		}
 
-		if (typeof torusLoop != 'undefined')
+		if (torusDefined)
 		{
 			faces = torusLoop.geometry.faces;
 			vertices = torusLoop.geometry.vertices;
@@ -215,10 +215,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.calculateFaceIndex = function()
 	{
 		var sectionNumber = Math.floor(this.fIndex / radiusSegments);
-		console.log('section: ',sectionNumber);
 		var high = -1, fIndexHigh = -1;
 		var newFace, newValue;
-		console.log('face orig: ',sectionNumber*radiusSegments);
 		for (var i = 0; i < radiusSegments; i++)
 		{
 			newFace = geometry.faces[sectionNumber*radiusSegments + i];
@@ -232,21 +230,18 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		var fIndexDiff = fIndexHigh - sectionNumber*radiusSegments;
 		var incr = (this.faceIndexIncrementor+fIndexDiff)%radiusSegments;
+		if (incr < 0)
+			incr = radiusSegments + incr;
 		fIndexHigh = sectionNumber*radiusSegments + incr;
-		console.log('face end: ', fIndexHigh);
-		
-		var sectionNumber = Math.floor(this.fIndex / radiusSegments);
-		console.log('section2: ',sectionNumber);
-		
-		console.log('----------------------');
 		
 		return fIndexHigh;
 	}
 	
-	this.calculateDimensions = function(variables)
+	this.calculateDimensions = function(variables, torusDefined)
 	{
 		geometry.computeBoundingBox();
 		var boundingBox = geometry.boundingBox;
+		
 		var dimensions = [];
 		var scale = figure.scale.x;
 		
@@ -256,6 +251,33 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var xMax = boundingBox.max.x * scale;
 		var yMax = boundingBox.max.y * scale;
 		var zMax = boundingBox.max.z * scale;
+		
+		if (torusDefined)
+		{
+			torusLoop.geometry.computeBoundingBox();
+			var torusBox = torusLoop.geometry.boundingBox;
+			
+			var torusxMin = torusBox.min.x * .4;
+			var torusyMin = torusBox.min.y * .4;
+			var toruszMin = torusBox.min.z * .4;
+			var torusxMax = torusBox.max.x * .4;
+			var torusyMax = torusBox.max.y * .4;
+			var toruszMax = torusBox.max.z * .4;
+			
+			if (torusxMin < xMin)
+				xMin = torusxMin;
+			if (torusyMin < yMin)
+				yMin = torusyMin;
+			if (toruszMin < zMin)
+				zMin = toruszMin;
+			if (torusxMax > xMax)
+				xMin = torusxMin;
+			if (torusyMax > yMax)
+				yMax = torusyMax;
+			if (toruszMax > zMax)
+				zMax = toruszMax;
+		}
+		
 	
 		var xVal = (xMax - xMin) * 0.0393701;
 		xVal = Math.floor(xVal * 100) / 100;
