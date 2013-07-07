@@ -2,6 +2,7 @@ var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop;
+	var xDim, yDim, zDim, xDimMm, yDimMm, zDimMm;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
 	this.faceIndexIncrementor = 0;
@@ -251,6 +252,11 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var xMax = boundingBox.max.x * scale;
 		var yMax = boundingBox.max.y * scale;
 		var zMax = boundingBox.max.z * scale;
+		var xVal, yVal, zVal;
+	
+		xDim = (xMax - xMin) * 0.0393701;
+		yDim = (yMax - yMin) * 0.0393701;
+		zDim = (zMax - zMin) * 0.0393701;
 		
 		if (torusDefined)
 		{
@@ -278,25 +284,80 @@ var TubeMeshBuilder = function(materialsLibrary) {
 				zMax = toruszMax;
 		}
 		
-	
-		var xVal = (xMax - xMin) * 0.0393701;
-		xVal = Math.floor(xVal * 100) / 100;
-		var yVal = (yMax - yMin) * 0.0393701;
-		yVal = Math.floor(yVal * 100) / 100;
-		var zVal = (zMax - zMin) * 0.0393701;
-		zVal = Math.floor(zVal * 100) / 100;
-		
 		if (variables === 'xyz')
 		{
+			xVal = Math.floor(xDim * 100) / 100;
+			yVal = Math.floor(yDim * 100) / 100;
+			zVal = Math.floor(zDim * 100) / 100;
+			
 			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
 			$( "#xwidth" ).val(xVal);
 			$( "#yheight" ).val(yVal);
 		}
 		else if (variables === 'xy')
 		{
+			xVal = Math.floor(xDim * 100) / 100;
+			yVal = Math.floor(yDim * 100) / 100;
+			zVal = Math.floor(zDim * 100) / 100;
+		
 			$( "#xwidth" ).val(xVal);
 			$( "#yheight" ).val(yVal);
 		}
+	}
+	
+	this.checkDimensions = function()
+	{
+		var dimensionsPrintable = 'success';
+		xDimMm = xDim * 25.4;
+		yDimMm = yDim * 25.4;
+		zDimMm = zDim * 25.4;
+	
+		if (this.m.name.indexOf('Stainless steel') !== -1)
+		{
+			if (!(xDimMm > 3.5 && yDimMm > 3.5 && zDimMm > 3.5))
+				dimensionsPrintable = 'small';
+			else if (!(this.checkUpperDimensions()))
+				dimensionsPrintable = 'large';
+		}
+		else
+		{
+			if (!(xDimMm > 2 && yDimMm > 2 && zDimMm > 2))
+				dimensionsPrintable = 'small';
+			else if (!(this.checkUpperDimensions()))
+				dimensionsPrintable = 'large';
+		}
+		
+		return dimensionsPrintable;
+	}
+	
+	this.checkUpperDimensions = function()
+	{
+		var fitsBounds;
+		
+		if (this.m.name === 'Plastic regular white' || this.m.name === 'Plastic regular black')
+			fitsBounds = (xDimMm < 220 && yDimMm < 170 && zDimMm < 300);
+		else if (this.m.name.indexOf('Plastic regular' !== -1))
+			fitsBounds = (xDimMm < 140 && yDimMm < 140 && zDimMm < 140);
+		else if (this.m.name.indexOf('Plastic detail' !== -1))
+			fitsBounds = (xDimMm < 240 && yDimMm < 240 && zDimMm < 190);
+		else if (this.m.name.indexOf('Transparent resin' !== -1))
+			fitsBounds = (xDimMm < 2090 && yDimMm < 690 && zDimMm < 790);
+		else if (this.m.name.indexOf('Alumide' !== -1))
+			fitsBounds = (xDimMm < 300 && yDimMm < 220 && zDimMm < 170);
+		else if (this.m.name.indexOf('Brass' !== -1))
+			fitsBounds = (xDimMm < 85 && yDimMm < 60 && zDimMm < 120);
+		else if (this.m.name.indexOf('Stainless steel' !== -1))
+			fitsBounds = (xDimMm < 990	 && yDimMm < 440 && zDimMm < 170);
+		else if (this.m.name === 'Silver regular' || this.m.name === 'Silver glossy')
+			fitsBounds = (xDimMm < 105	 && yDimMm < 105 && zDimMm < 28);
+		else if (this.m.name === 'Silver premium')	
+			fitsBounds = (xDimMm < 95	 && yDimMm < 95 && zDimMm < 28);
+		else if (this.m.name.indexOf('Titanium' !== -1))
+			fitsBounds = (xDimMm < 240 && yDimMm < 240 && zDimMm < 390);
+		else if (this.m.name.indexOf('Gold' !== -1))
+			fitsBounds = (xDimMm < 85 && yDimMm < 60 && zDimMm < 120);
+
+		return fitsBounds;
 	}
 	
 	function updateHash(tubeMesh)
