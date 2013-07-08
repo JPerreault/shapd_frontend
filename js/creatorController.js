@@ -106,6 +106,9 @@ window.onload = function() {
 			$('#dimensionXYContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
 			$('#loopControls').fadeOut(0);
+			
+			$('#idDimContainer').fadeIn(0);
+			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
@@ -251,6 +254,7 @@ window.onload = function() {
 		addSavedLibrary();
 		addDatGui();
 		addLoopControls();
+		scaleGUI()
 	}
 	
 	customContainer = document.getElementById('container');	

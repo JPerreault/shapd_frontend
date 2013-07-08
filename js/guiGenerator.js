@@ -1,6 +1,7 @@
 function scaleGUI() {
-			container = document.createElement('div');
-			document.body.appendChild(container);
+			var dimContainer = document.createElement('div');
+			dimContainer.id = 'idDimContainer';
+			document.body.appendChild(dimContainer);
 				
 			var hShapeDiv = document.createElement('div');
 			hShapeDiv.id = 'idHShapeDiv';
@@ -8,15 +9,18 @@ function scaleGUI() {
 			hShapeDiv.style.bottom = '25%';
 			hShapeDiv.style.width = '50%';
 			hShapeDiv.style.right = '40%';
-		
-			container.appendChild(hShapeDiv);
+			hShapeDiv.style.zIndex = '1000';
+			dimContainer.appendChild(hShapeDiv);
 			
 			var vShapeDiv = document.createElement('div');
 			vShapeDiv.id = 'idVShapeDiv';
 			vShapeDiv.style.position = 'absolute';
+			vShapeDiv.style.color = '#000';
 			vShapeDiv.style.top = '20%';
 			vShapeDiv.style.right = '32.5%';
-			container.appendChild(vShapeDiv);
+			vShapeDiv.style.display = 'inline-block';
+			vShapeDiv.style.zIndex = '1000';
+			dimContainer.appendChild(vShapeDiv);
 	
 			var hRulerImg = document.createElement('img');
 			hRulerImg.id = 'idHRuler';
@@ -32,9 +36,11 @@ function scaleGUI() {
 			vRulerImg.style.marginTop = '5px';
 			vRulerImg.src = 'assets/imgs/buttons/vRuler2.png';
 			vRulerImg.style.position = 'absolute';
+			vRulerImg.style.display = 'inline-block';
 			vRulerImg.style.cursor = 'move';
 			vRulerImg.style.zIndex = '1000';
 			vShapeDiv.appendChild(vRulerImg);
+			
 }
 
 function addSave() {
