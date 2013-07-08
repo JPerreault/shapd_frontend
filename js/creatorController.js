@@ -106,6 +106,7 @@ window.onload = function() {
 			$('#dimensionXYContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
 			$('#loopControls').fadeOut(0);
+			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
 				$("#datGuiStuff").fadeOut(0);
@@ -231,10 +232,11 @@ window.onload = function() {
 			$('#loopControls').fadeOut(450);
 			loops = false;
 			
-			var publishCSS = "<br><br><span style='font-size: 3em; font-weight: bold;'>Congratulations!</span><br><br><span style='font-size: 1.5em; font-weight: bold;'>You've made a pendant!</span><br>(and its awesome)<br><br><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='170px' height='170' style='border: 1px'></img><br><br><span style='font-size: 1.1em; font-weight: bold;'>Now, you can either:</span><br><br><br><div id='publishActionContainer' width='100%'><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Publish</button></form></div><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Order</button></form></div>";
+			var publishCSS = "<br><br><span style='font-size: 3em; font-weight: bold;'>Congratulations!</span><br><br><span style='font-size: 1.5em; font-weight: bold;'>You've made a pendant!</span><br>(and it's awesome)<br><br><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='170px' height='170' style='border: 1px'></img><br><br><span style='font-size: 1.1em; font-weight: bold;'>Now, you can either:</span><br><br><br><div id='publishActionContainer' width='100%'><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Publish</button></form></div><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Order</button></form></div>";
 			var d1 = generateDropDown(800, 600, publishCSS );
 			fout = d1;
-			fadeIn(d1);
+			fadeIn(d1); // I prefer slideDown though
+            //document.getElementById("blackout").onclick = null;
 			
 		}
 	}
@@ -288,7 +290,7 @@ window.onload = function() {
 	document.getElementById('idM1').onclick = function()
 	{
 		var imgSource = document.getElementById('idM1').src;
-		var imgDesc = matListener.getImgDesc();
+		var imgDesc = matListener.getImgDesc1();
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
@@ -297,7 +299,7 @@ window.onload = function() {
 	document.getElementById('idM2').onclick = function()
 	{
 		var imgSource = document.getElementById('idM2').src;
-		var imgDesc = matListener.getImgDesc();
+		var imgDesc = matListener.getImgDesc2();
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
@@ -665,6 +667,10 @@ window.onload = function() {
 			}
 		}
 	};
+    
+    $(function () {
+      $('.antiscroll-wrap').antiscroll();
+      });
 	/*
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	function onDocumentMouseMove(event)
@@ -797,4 +803,5 @@ function setupDatGui(sC) {
 	gui.domElement.style.left = '-15px';
 	gui.domElement.style.zIndex = '1000';
 	datGuiContainer.appendChild(gui.domElement);
+    
 }
