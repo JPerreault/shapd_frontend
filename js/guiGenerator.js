@@ -204,19 +204,25 @@ function addSavedLibrary() {
 function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
-	shapeContainer.className = 'rounded antiscroll-wrap';
-	shapeContainer.innerHTML += 'Shape Library<br>';
+	shapeContainer.className = 'rounded';
+	shapeContainer.innerHTML += 'Starting Shape<br>Library<br><br>';
 	shapeContainer.style.position = 'absolute';
+	shapeContainer.style.fontFamily = 'Verdana, Geneva, sans-serif';
+	shapeContainer.style.fontWeight = '600';
 	shapeContainer.style.border = '10px solid #000';
-	shapeContainer.style.margin = '15 15 15 15';
+	shapeContainer.style.margin = '10';
 	shapeContainer.style.color = '#fff';
 	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '10%';
-	shapeContainer.style.left = '0.05%';	
+	shapeContainer.style.bottom = '25%';
+	shapeContainer.style.left = '0.1%';	
 	shapeContainer.style.zIndex = '1000';
     shapeContainer.style.overflow = 'hidden';
-
-	document.body.appendChild(shapeContainer);			
+	document.body.appendChild(shapeContainer);	
+	
+	var scrollWrapper = document.createElement('div');
+	scrollWrapper.id = 'idScrollWrapper';
+	scrollWrapper.className = 'rounded antiscroll-wrap';	
+	shapeContainer.appendChild(scrollWrapper);	
 			
 	var shapeLibrary = document.createElement('div');
 	shapeLibrary.id = 'idShapeLibrary';
@@ -224,7 +230,7 @@ function addStartingShapes() {
 	shapeLibrary.style.height = '300px';
 	shapeLibrary.style.width = '217px';
 	shapeLibrary.style.overflow = 'auto';
-	shapeContainer.appendChild(shapeLibrary);
+	scrollWrapper.appendChild(shapeLibrary);
 
 	var s1 = document.createElement('img');
 	s1.id = 'idS1';
