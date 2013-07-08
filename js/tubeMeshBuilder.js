@@ -2,7 +2,7 @@ var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop;
-	var xDim, yDim, zDim, xDimMm, yDimMm, zDimMm;
+	var xDim, yDim, zDim, xDimMm, yDimMm, zDimMm, radius;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
 	this.faceIndexIncrementor = 0;
@@ -15,7 +15,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 
     this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
-		var radius = tubeMeshParams['Thickness'];
+		radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
 		this.m = materialsLibrary.getMaterial(tubeMeshParams['Material']);
 		closed = this.isClosed (tubeMeshParams);
@@ -191,9 +191,18 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		torus.applyMatrix(alignMatrix);
 
 		torusLoop = new THREE.Mesh(torus, this.m);
-		torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .4;
-
-		var scale = figure.scale.x / .4;
+		
+		if (this.m.name.indexOf('Stainless steel') !== -1)
+		{
+			torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .53;
+			var scale = figure.scale.x / .53;
+		}
+		else
+		{
+			torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .4;
+			var scale = figure.scale.x / .4;
+		}
+		
 		var cenPosX = geometry.faces[this.fIndex].centroid.x * scale;
 		var cenPosY = geometry.faces[this.fIndex].centroid.y * scale;
 		var cenPosZ = geometry.faces[this.fIndex].centroid.z * scale;
@@ -311,17 +320,20 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		xDimMm = xDim * 25.4;
 		yDimMm = yDim * 25.4;
 		zDimMm = zDim * 25.4;
+		
+		var thicknessOfWire = radius * figure.scale.x;
+		console.log(thicknessOfWire);
 	
 		if (this.m.name.indexOf('Stainless steel') !== -1)
 		{
-			if (!(xDimMm > 3.5 && yDimMm > 3.5 && zDimMm > 3.5))
+			if (!(xDimMm > 3.5 && yDimMm > 3.5 && zDimMm > 3.5 && thicknessOfWire > 1.75))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
 		}
 		else
 		{
-			if (!(xDimMm > 2 && yDimMm > 2 && zDimMm > 2))
+			if (!(xDimMm > 2 && yDimMm > 2 && zDimMm > 2 && thicknessOfWire > 1))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
@@ -391,7 +403,7 @@ var TubeMeshParams = function(){
         try
         {
             var parseme = savedShape.split("|");
-            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Face Index', 'Rotation X', 'Rotation Y'];
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Face Index', 'Face Index Incrementor', 'Torus Rotation', 'Torus 90 Rotations', 'Rotation X', 'Rotation Y'];
             for (var x=0; x<transformations.length; x++)
             {
                 if (transformations[x] == 'Material')
@@ -421,6 +433,9 @@ var TubeMeshParams = function(){
 		this['Thickness'] = 1.75;
 		this['Material'] = 'Brass gold plated polished';
 		this['Face Index'] = -1;
+		this['Face Index Incrementor'] = 0;
+		this['Torus Rotation'] = 0;
+		this['Torus 90 Rotations'] = 0;
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
 };

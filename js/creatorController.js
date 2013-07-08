@@ -591,7 +591,7 @@ window.onload = function() {
 	{
 		var isOkay = tubeMeshBuilder.checkDimensions();
 
-		if (isOkay === 'small')
+		if (isOkay === 'small'|| isOkay === 'thin')
 		{
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
@@ -719,6 +719,13 @@ function loadFromLib(hash)
 {
     window.savedShape = hash;
     var loadedShape = new TubeMeshParams();
+	window.view.targetX = loadedShape['Rotation X'];
+	window.view.targetY = loadedShape['Rotation Y'];
+	
+	window.sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
+	window.sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
+	window.sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
+	
 	if (typeof window.sceneWrapper.torusMesh !== 'undefined')
 		window.sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 	if (loadedShape['Face Index'] != -1)
@@ -731,8 +738,6 @@ function loadFromLib(hash)
     window.sceneWrapper.redrawMesh(loadedShape, true);
     window.sceneWrapper.currentMesh = loadedShape;
     window.sceneWrapper.tubeMeshParams = loadedShape;
-	window.view.targetX = loadedShape['Rotation X'];
-	window.view.targetY = loadedShape['Rotation Y'];
 	setupDatGui(window.sceneWrapper);
 }
 	
