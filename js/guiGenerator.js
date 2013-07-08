@@ -40,7 +40,43 @@ function scaleGUI() {
 			vRulerImg.style.cursor = 'move';
 			vRulerImg.style.zIndex = '1000';
 			vShapeDiv.appendChild(vRulerImg);
+}
+
+function addDimensions() {
+			var dimsContainer = document.createElement('div');
+			dimsContainer.id = 'idDimsContainer';
+			document.body.appendChild(dimsContainer);
+				
+			var hDimDiv = document.createElement('div');
+			hDimDiv.id = 'idHShapeDiv';
+			hDimDiv.style.position = 'absolute';
+			hDimDiv.className = 'rounded';
+			hDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			hDimDiv.style.background = '#000';
+			hDimDiv.style.color = '#fff';
+			hDimDiv.style.padding = '15px';
+			hDimDiv.style.bottom = '14%';
+			hDimDiv.style.width = '60px';
+			hDimDiv.style.right = '50%';
+			hDimDiv.style.marginRight = '-45px';
+			hDimDiv.style.zIndex = '1000';
+			dimsContainer.appendChild(hDimDiv);
 			
+			var vDimDiv = document.createElement('div');
+			vDimDiv.id = 'idVShapeDiv';
+			vDimDiv.style.position = 'absolute';
+			vDimDiv.className = 'rounded';
+			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			vDimDiv.style.background = '#000';
+			vDimDiv.style.padding = '15px';
+			vDimDiv.style.color = '#fff';
+			vDimDiv.style.width = '60px';
+			vDimDiv.style.top = '50%';
+			hDimDiv.style.marginTop = '-45px';
+			vDimDiv.style.right = '29%';
+			vDimDiv.style.zIndex = '1000';
+			dimsContainer.appendChild(vDimDiv);
+	
 }
 
 function addSave() {
