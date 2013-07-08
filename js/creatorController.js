@@ -289,7 +289,7 @@ window.onload = function() {
 	document.getElementById('idM1').onclick = function()
 	{
 		var imgSource = document.getElementById('idM1').src;
-		var imgDesc = matListener.getImgDesc();
+		var imgDesc = matListener.getImgDesc1();
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
@@ -298,7 +298,7 @@ window.onload = function() {
 	document.getElementById('idM2').onclick = function()
 	{
 		var imgSource = document.getElementById('idM2').src;
-		var imgDesc = matListener.getImgDesc();
+		var imgDesc = matListener.getImgDesc2();
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
