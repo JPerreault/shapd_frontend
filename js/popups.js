@@ -43,8 +43,6 @@ function generateLightbox(src, imgDesc)
     div.style.marginTop = "-"+parseInt(div.clientHeight)/2;
 	div.style.marginLeft = "-"+parseInt(div.clientWidth)/2;
 	
-
-	
     return div.id;
 }
 
