@@ -48,6 +48,8 @@ function getJson(currentMesh)
 	
 	else
 	{
+		var mat = [];
+		mat.push(material);
 		data = {
 			"volume": volume,
 			"area": surfaceArea,
@@ -57,7 +59,7 @@ function getJson(currentMesh)
 			"yBoundMax": dimensions[3],
 			"zBoundMin": dimensions[4],
 			"zBoundMax": dimensions[5],
-			"materials": material,
+			"materials": mat,
 		};
 		jsonString = JSON.stringify(data);
 	}

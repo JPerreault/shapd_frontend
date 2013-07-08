@@ -5,7 +5,7 @@ var sceneWrapper, view, gui;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, state, thickness;
+	var tubeMeshBuilder, scene, tubeMP, matListener, state;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
@@ -273,7 +273,7 @@ window.onload = function() {
     screen.style.background= '#999';
     screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
     customContainer.appendChild(screen);
-	
+
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
@@ -456,7 +456,6 @@ window.onload = function() {
 	{
 		var currentMesh = sceneWrapper.currentMesh;
 		
-		currentMesh['Scale'] = 1;
 		currentMesh['Modify'] = 5;
 		currentMesh['Depth'] = 1;
 		currentMesh['Stretch'] = 1;
@@ -467,11 +466,6 @@ window.onload = function() {
 		view.targetX = 0;
 		view.targetY = 0;
 		
-		currentMesh.figure.scale.x = 1;
-		currentMesh.figure.scale.y = 1;
-		currentMesh.figure.scale.z = 1;
-		$( "#slider" ).slider( "value", 100 );
-		$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 		$( "#thickslider" ).slider( "value", 1.75 );
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 	}
@@ -537,6 +531,7 @@ window.onload = function() {
 		sceneWrapper.currentMesh['Thickness'] = sliderValue;
 		
 		scene.redrawMesh(scene.currentMesh);
+		tubeMeshBuilder.calculateDimensions();
 		updateThickness(true);
 	}
 	
@@ -594,20 +589,26 @@ window.onload = function() {
 	
 	function updateThickness(isMove)
 	{
-		thickness = sceneWrapper.currentMesh.figure.scale.x * sceneWrapper.currentMesh['Thickness'] * 25.4;
-		
-		if (thickness < 9)
+		var isOkay = tubeMeshBuilder.checkDimensions();
+
+		if (isOkay === 'small'|| isOkay === 'thin')
 		{
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-			document.getElementById('increasesize').innerHTML = 'Please either increase thickness or increase the scale.';
+			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+		}
+		else if (isOkay === 'large')
+		{
+			$("#thicknessContainer").fadeIn(0);
+			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
+			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
 		}
 		else
 		{
 			if (isMove)
 			{
 				document.getElementById('shapethin').innerHTML = "You\'re all set!";
-				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable thickness.';
+				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
 			}
 			else
 				$("#thicknessContainer").fadeOut(0);
@@ -718,6 +719,15 @@ function loadFromLib(hash)
 {
     window.savedShape = hash;
     var loadedShape = new TubeMeshParams();
+	window.view.targetX = loadedShape['Rotation X'];
+	window.view.targetY = loadedShape['Rotation Y'];
+	
+	window.sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
+	window.sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
+	window.sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
+	
+	if (typeof window.sceneWrapper.torusMesh !== 'undefined')
+		window.sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 	if (loadedShape['Face Index'] != -1)
 	{
 		window.sceneWrapper.torusDefined = true;
@@ -728,8 +738,6 @@ function loadFromLib(hash)
     window.sceneWrapper.redrawMesh(loadedShape, true);
     window.sceneWrapper.currentMesh = loadedShape;
     window.sceneWrapper.tubeMeshParams = loadedShape;
-	window.view.targetX = loadedShape['Rotation X'];
-	window.view.targetY = loadedShape['Rotation Y'];
 	setupDatGui(window.sceneWrapper);
 }
 	
