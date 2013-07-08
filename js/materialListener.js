@@ -615,8 +615,31 @@ var materialListener = function(sW, tMB){
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
 		this.panelUpdate();
+		sceneWrapper.tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
+		updateThickness();
 	}
 	
+	function updateThickness(i)
+	{
+		var isOkay = tubeMeshBuilder.checkDimensions();
+
+		if (isOkay === 'small'|| isOkay === 'thin')
+		{
+			$("#thicknessContainer").fadeIn(0);
+			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
+			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+		}
+		else if (isOkay === 'large')
+		{
+			$("#thicknessContainer").fadeIn(0);
+			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
+			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
+		}
+		else
+		{
+				$("#thicknessContainer").fadeOut(0);
+		}
+	}
 	
 	function getNewPrice()
 	{

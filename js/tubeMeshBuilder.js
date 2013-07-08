@@ -132,9 +132,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	function convertVectorToString(vector, isTorus)
 	{
 		if (isTorus)
-			return ''+ vector.x*.4 + ' '+ vector.y*.4 + ' '+ vector.z*.4;
-		else
-			return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
+            return ''+ vector.x*torusLoop.scale.x + ' '+ vector.y*torusLoop.scale.x + ' '+ vector.z*torusLoop.scale.x;
+        else
+            return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
 	}
 	
 	function convertVertexToString(vector, isTorus)
@@ -156,18 +156,45 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return false;
 	}
 	
-	this.createTorus = function ()
+	this.createTorus = function (material)
 	{
-		var torus = new THREE.TorusGeometry( 5, 1, segments/10, 50 );
+		var thickness, scale;
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1)
+		{
+			thickness = 1.5;
+			scale = .5;
+		}
+		else if (material === 'Alumide regular')
+		{
+			thickness = 1.6;
+			scale = .55;
+		}
+		else if (material === 'Alumide polished')
+		{
+			thickness = 1.65;
+			scale = .6;
+		}
+		else if (material.indexOf('Stainless steel') !== -1)
+		{
+			thickness = 2.0;
+			scale = .7;
+		}
+		else //Precious metals and brass
+		{
+			thickness = 1.5;
+			scale = .42;
+		}
+		
+		var torus = new THREE.TorusGeometry( 5, thickness, segments/10, 50 );
 		this.fIndex = this.calculateFaceIndex();
 		var faceNormal = geometry.faces[this.fIndex].normal;
 		faceNormal.normalize();
 		
 		var faceCentroid = geometry.faces[this.fIndex].centroid;
-
 		var v1 = geometry.vertices[geometry.faces[this.fIndex].a];
 		var v2 = geometry.vertices[geometry.faces[this.fIndex].b];
 		var v3 = geometry.vertices[geometry.faces[this.fIndex].c]; 
+		
 		var forwardVector = new THREE.Vector3();
 		if (this.torusRotationNinety === 0)
 			forwardVector.subVectors(v1, v2);
@@ -189,30 +216,20 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		torus.applyMatrix(alignMatrix);
 		alignMatrix = new THREE.Matrix4().makeRotationAxis( forwardVector, this.torusRotation );
 		torus.applyMatrix(alignMatrix);
-
 		torusLoop = new THREE.Mesh(torus, this.m);
 		
-		if (this.m.name.indexOf('Stainless steel') !== -1)
-		{
-			torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .53;
-			var scale = figure.scale.x / .53;
-		}
-		else
-		{
-			torusLoop.scale.x = torusLoop.scale.y = torusLoop.scale.z = .4;
-			var scale = figure.scale.x / .4;
-		}
-		
-		var cenPosX = geometry.faces[this.fIndex].centroid.x * scale;
-		var cenPosY = geometry.faces[this.fIndex].centroid.y * scale;
-		var cenPosZ = geometry.faces[this.fIndex].centroid.z * scale;
+		var centerScale = figure.scale.x/scale;
+		var cenPosX = geometry.faces[this.fIndex].centroid.x * centerScale;
+		var cenPosY = geometry.faces[this.fIndex].centroid.y * centerScale;
+		var cenPosZ = geometry.faces[this.fIndex].centroid.z * centerScale;
 
 		this.torusX = cenPosX;
 		this.torusY = cenPosY;
 		this.torusZ = cenPosZ;
 
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
-
+		torusLoop.scale.set(scale, scale, scale);
+		
 		torusLoop.geometry.computeCentroids();
 		torusLoop.geometry.computeFaceNormals();
 		torusLoop.geometry.computeVertexNormals();
@@ -254,7 +271,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		var dimensions = [];
 		var scale = figure.scale.x;
-		
+
 		var xMin = boundingBox.min.x * scale;
 		var yMin = boundingBox.min.y * scale;
 		var zMin = boundingBox.min.z * scale;
@@ -263,21 +280,23 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var zMax = boundingBox.max.z * scale;
 		var xVal, yVal, zVal;
 	
-		xDim = (xMax - xMin) * 0.0393701;
-		yDim = (yMax - yMin) * 0.0393701;
-		zDim = (zMax - zMin) * 0.0393701;
+		
+		xDim = (xMax - xMin);
+		yDim = (yMax - yMin);
+		zDim = (zMax - zMin);
 		
 		if (torusDefined)
 		{
 			torusLoop.geometry.computeBoundingBox();
 			var torusBox = torusLoop.geometry.boundingBox;
+			var torusScale = torusLoop.scale.x;
 			
-			var torusxMin = torusBox.min.x * .4;
-			var torusyMin = torusBox.min.y * .4;
-			var toruszMin = torusBox.min.z * .4;
-			var torusxMax = torusBox.max.x * .4;
-			var torusyMax = torusBox.max.y * .4;
-			var toruszMax = torusBox.max.z * .4;
+			var torusxMin = torusBox.min.x * torusScale;
+			var torusyMin = torusBox.min.y * torusScale;
+			var toruszMin = torusBox.min.z * torusScale;
+			var torusxMax = torusBox.max.x * torusScale;
+			var torusyMax = torusBox.max.y * torusScale;
+			var toruszMax = torusBox.max.z * torusScale;
 			
 			if (torusxMin < xMin)
 				xMin = torusxMin;
@@ -293,11 +312,16 @@ var TubeMeshBuilder = function(materialsLibrary) {
 				zMax = toruszMax;
 		}
 		
+		var inchConversion = 0.0393701;
+		xDimSize = (xMax - xMin) * inchConversion;
+		yDimSize = (yMax - yMin) * inchConversion;
+		zDimSize = (zMax - zMin) * inchConversion;
+		
 		if (variables === 'xyz')
 		{
-			xVal = Math.floor(xDim * 100) / 100;
-			yVal = Math.floor(yDim * 100) / 100;
-			zVal = Math.floor(zDim * 100) / 100;
+			xVal = Math.floor(xDimSize * 100) / 100;
+			yVal = Math.floor(yDimSize * 100) / 100;
+			zVal = Math.floor(zDimSize * 100) / 100;
 			
 			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
 			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches)<span>';
@@ -306,9 +330,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		}
 		else if (variables === 'xy')
 		{
-			xVal = Math.floor(xDim * 100) / 100;
-			yVal = Math.floor(yDim * 100) / 100;
-			zVal = Math.floor(zDim * 100) / 100;
+			xVal = Math.floor(xDimSize * 100) / 100;
+			yVal = Math.floor(yDimSize * 100) / 100;
+			zVal = Math.floor(zDimSize * 100) / 100;
 		
 			$( "#xwidth" ).val(xVal);
 			$( "#yheight" ).val(yVal);
@@ -318,23 +342,40 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.checkDimensions = function()
 	{
 		var dimensionsPrintable = 'success';
-		xDimMm = xDim * 25.4;
-		yDimMm = yDim * 25.4;
-		zDimMm = zDim * 25.4;
-		
+		var material = this.m.name;
 		var thicknessOfWire = radius * figure.scale.x;
-		console.log(thicknessOfWire);
-	
-		if (this.m.name.indexOf('Stainless steel') !== -1)
+
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1)
 		{
-			if (!(xDimMm > 3.5 && yDimMm > 3.5 && zDimMm > 3.5 && thicknessOfWire > 1.75))
+			if (!(thicknessOfWire > .75))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
 		}
-		else
+		else if (material === 'Alumide regular')
 		{
-			if (!(xDimMm > 2 && yDimMm > 2 && zDimMm > 2 && thicknessOfWire > 1))
+			if (!(thicknessOfWire > .875))
+				dimensionsPrintable = 'small';
+			else if (!(this.checkUpperDimensions()))
+				dimensionsPrintable = 'large';
+		}
+		else if (material === 'Alumide polished')
+		{
+			if (!(thicknessOfWire > 1))
+				dimensionsPrintable = 'small';
+			else if (!(this.checkUpperDimensions()))
+				dimensionsPrintable = 'large';
+		}
+		else if (material.indexOf('Stainless steel') !== -1)
+		{
+			if (!(thicknessOfWire > 1.625))
+				dimensionsPrintable = 'small';
+			else if (!(this.checkUpperDimensions()))
+				dimensionsPrintable = 'large';
+		}
+		else //Precious metals and brass
+		{
+			if (!(thicknessOfWire > .625))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
@@ -346,29 +387,30 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.checkUpperDimensions = function()
 	{
 		var fitsBounds;
+		var material = this.m.name;
 		
-		if (this.m.name === 'Plastic regular white' || this.m.name === 'Plastic regular black')
-			fitsBounds = (xDimMm < 220 && yDimMm < 170 && zDimMm < 300);
-		else if (this.m.name.indexOf('Plastic regular' !== -1))
-			fitsBounds = (xDimMm < 140 && yDimMm < 140 && zDimMm < 140);
-		else if (this.m.name.indexOf('Plastic detail' !== -1))
-			fitsBounds = (xDimMm < 240 && yDimMm < 240 && zDimMm < 190);
-		else if (this.m.name.indexOf('Transparent resin' !== -1))
-			fitsBounds = (xDimMm < 2090 && yDimMm < 690 && zDimMm < 790);
-		else if (this.m.name.indexOf('Alumide' !== -1))
-			fitsBounds = (xDimMm < 300 && yDimMm < 220 && zDimMm < 170);
-		else if (this.m.name.indexOf('Brass' !== -1))
-			fitsBounds = (xDimMm < 85 && yDimMm < 60 && zDimMm < 120);
-		else if (this.m.name.indexOf('Stainless steel' !== -1))
-			fitsBounds = (xDimMm < 990	 && yDimMm < 440 && zDimMm < 170);
-		else if (this.m.name === 'Silver regular' || this.m.name === 'Silver glossy')
-			fitsBounds = (xDimMm < 105	 && yDimMm < 105 && zDimMm < 28);
-		else if (this.m.name === 'Silver premium')	
-			fitsBounds = (xDimMm < 95	 && yDimMm < 95 && zDimMm < 28);
-		else if (this.m.name.indexOf('Titanium' !== -1))
-			fitsBounds = (xDimMm < 240 && yDimMm < 240 && zDimMm < 390);
-		else if (this.m.name.indexOf('Gold' !== -1))
-			fitsBounds = (xDimMm < 85 && yDimMm < 60 && zDimMm < 120);
+		if (material === 'Plastic regular white' || material === 'Plastic regular black')
+			fitsBounds = (xDim < 220 && yDim < 170 && zDim < 300);
+		else if (material.indexOf('Plastic regular' !== -1))
+			fitsBounds = (xDim < 140 && yDim < 140 && zDim < 140);
+		else if (material.indexOf('Plastic detail' !== -1))
+			fitsBounds = (xDim < 240 && yDim < 240 && zDim < 190);
+		else if (material.indexOf('Transparent resin' !== -1))
+			fitsBounds = (xDim < 2090 && yDim < 690 && zDim < 790);
+		else if (material.indexOf('Alumide' !== -1))
+			fitsBounds = (xDim < 300 && yDim < 220 && zDim < 170);
+		else if (material.indexOf('Brass' !== -1))
+			fitsBounds = (xDim < 85 && yDim < 60 && zDim < 120);
+		else if (material.indexOf('Stainless steel' !== -1))
+			fitsBounds = (xDim < 990	 && yDim < 440 && zDim < 170);
+		else if (material === 'Silver regular' || material === 'Silver glossy')
+			fitsBounds = (xDim < 105	 && yDim < 105 && zDim < 28);
+		else if (material === 'Silver premium')	
+			fitsBounds = (xDim < 95	 && yDim < 95 && zDim < 28);
+		else if (material.indexOf('Titanium' !== -1))
+			fitsBounds = (xDim < 240 && yDim < 240 && zDim < 390);
+		else if (material.indexOf('Gold' !== -1))
+			fitsBounds = (xDim < 85 && yDim < 60 && zDim < 120);
 
 		return fitsBounds;
 	}
