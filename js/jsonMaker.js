@@ -42,7 +42,7 @@ function getJson(currentMesh)
 		};
 		data.models = models;
 		data.shipmentInfo = shipmentInfo;
-		
+
 		jsonString = JSON.stringify(data);
 	}
 	
@@ -121,6 +121,8 @@ function calculateVolume(figure, scale)
 	totalVolume /= 6;
 	totalVolume *= (Math.pow(scale, 3));
 	totalVolume /= 1000; //conversion to cm^3
+	if (websiteName == 'shapeways')
+		totalVolume /= 1000000;
 		
 	return totalVolume;
 }
@@ -158,6 +160,8 @@ function calculateSurfaceArea(figure, scale)
 	}
 	surfaceArea *= (Math.pow(scale, 2));
 	surfaceArea /= 100; //conversion to cm^2
+	if (websiteName == 'shapeways')
+		surfaceArea /= 10000;
 		
 	return surfaceArea;
 }
@@ -187,9 +191,9 @@ function calculateXYZ(figure, scale)
 	}
 	else 
 	{
-		xVal /= 10;
-		yVal /= 10;
-		zVal /= 10;
+		xVal /= 100;
+		yVal /= 100;
+		zVal /= 100;
 		
 		dimensions.push(0);
 		dimensions.push(xVal);

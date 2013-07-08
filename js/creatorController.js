@@ -547,7 +547,7 @@ window.onload = function() {
 		sceneWrapper.currentMesh['Thickness'] = sliderValue;
 		
 		scene.redrawMesh(scene.currentMesh);
-		tubeMeshBuilder.calculateDimensions();
+		tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
 		updateThickness(true);
 	}
 	
@@ -583,7 +583,7 @@ window.onload = function() {
 		sceneWrapper.updateScale(newScale);
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		
-		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
+		tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
 		updateThickness();
 	}
 	
