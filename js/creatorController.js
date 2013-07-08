@@ -491,6 +491,8 @@ window.onload = function() {
 			sceneWrapper.currentMesh['Modify'] = 5;
 			sceneWrapper.currentMesh['Loops'] = 2;
 
+			if (typeof sceneWrapper.torusMesh !== 'undefined')
+				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 			setupDatGui(window.sceneWrapper);
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		}
