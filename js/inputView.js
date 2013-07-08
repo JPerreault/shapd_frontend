@@ -33,7 +33,7 @@ var InputView = function(sW, rend, tMP) {
 	
 	function onDocumentMouseWheel ( event ) {
         
-        if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.id == "idSavedShapeLibrary"))
+        if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.parentElement.id == "idSavedShapeLibrary"))
             return;
 		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary')
 			return;

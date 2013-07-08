@@ -204,7 +204,7 @@ function addSavedLibrary() {
 function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
-	shapeContainer.className = 'rounded';
+	shapeContainer.className = 'rounded antiscroll-wrap';
 	shapeContainer.innerHTML += 'Shape Library<br>';
 	shapeContainer.style.position = 'absolute';
 	shapeContainer.style.border = '10px solid #000';
@@ -213,12 +213,14 @@ function addStartingShapes() {
 	shapeContainer.style.background = '#000';
 	shapeContainer.style.bottom = '10%';
 	shapeContainer.style.left = '0.05%';	
-	shapeContainer.style.width = '215px';			
 	shapeContainer.style.zIndex = '1000';
+    shapeContainer.style.overflow = 'hidden';
+
 	document.body.appendChild(shapeContainer);			
 			
 	var shapeLibrary = document.createElement('div');
 	shapeLibrary.id = 'idShapeLibrary';
+    shapeLibrary.className = 'antiscroll-inner';
 	shapeLibrary.style.height = '300px';
 	shapeLibrary.style.width = '217px';
 	shapeLibrary.style.overflow = 'auto';
@@ -227,82 +229,23 @@ function addStartingShapes() {
 	var s1 = document.createElement('img');
 	s1.id = 'idS1';
 	s1.className = 'galleryImg';
-	s1.style.margin = '5px 5px 5px 5px';
 	s1.src = 'assets/imgs/shapes/1.png';
-	s1.height = 90;
-	s1.width = 90;
+	s1.height = 100;
+	s1.width = 100;
 	s1.style.zIndex = '1000';
 	shapeLibrary.appendChild(s1);
+    var br = document.createElement("br");
 			
-	var s2 = s1.cloneNode(true);
-	s2.id = 'idS2';
-	s2.src = 'assets/imgs/shapes/2.png'
-	shapeLibrary.appendChild(s2);
+    for (var x=2; x<=15; x++)
+    {
+        var sX = s1.cloneNode(true);
+        sX.id = 'idS'+x;
+        sX.src = 'assets/imgs/shapes/'+x+'.png'
+        if (x%2 == 1)
+            shapeLibrary.appendChild(br.cloneNode());
+        shapeLibrary.appendChild(sX);
+    }
 	
-	var s3 = s1.cloneNode(true);
-	s3.id = 'idS3';
-	s3.src = 'assets/imgs/shapes/3.png'
-	shapeLibrary.appendChild(s3);
-			
-	var s4 = s1.cloneNode(true);
-	s4.id = 'idS4';
-	s4.src = 'assets/imgs/shapes/4.png'
-	shapeLibrary.appendChild(s4);	
-	
-	var s5 = s1.cloneNode(true);
-	s5.id = 'idS5';
-	s5.src = 'assets/imgs/shapes/5.png'
-	shapeLibrary.appendChild(s5);	
-	
-	var s6 = s1.cloneNode(true);
-	s6.id = 'idS6';
-	s6.src = 'assets/imgs/shapes/6.png'
-	shapeLibrary.appendChild(s6);	
-
-	var s7 = s1.cloneNode(true);
-	s7.id = 'idS7';
-	s7.src = 'assets/imgs/shapes/7.png'
-	shapeLibrary.appendChild(s7);	
-	
-	var s8 = s1.cloneNode(true);
-	s8.id = 'idS8';
-	s8.src = 'assets/imgs/shapes/8.png'
-	shapeLibrary.appendChild(s8);	
-	
-	var s9 = s1.cloneNode(true);
-	s9.id = 'idS9';
-	s9.src = 'assets/imgs/shapes/9.png'
-	shapeLibrary.appendChild(s9);		
-	
-	var s10 = s1.cloneNode(true);
-	s10.id = 'idS10';
-	s10.src = 'assets/imgs/shapes/10.png'
-	shapeLibrary.appendChild(s10);		
-	
-	var s11 = s1.cloneNode(true);
-	s11.id = 'idS11';
-	s11.src = 'assets/imgs/shapes/11.png'
-	shapeLibrary.appendChild(s11);		
-	
-	var s12 = s1.cloneNode(true);
-	s12.id = 'idS12';
-	s12.src = 'assets/imgs/shapes/12.png'
-	shapeLibrary.appendChild(s12);		
-	
-	var s13 = s1.cloneNode(true);
-	s13.id = 'idS13';
-	s13.src = 'assets/imgs/shapes/13.png'
-	shapeLibrary.appendChild(s13);		
-	
-	var s14 = s1.cloneNode(true);
-	s14.id = 'idS14';
-	s14.src = 'assets/imgs/shapes/14.png'
-	shapeLibrary.appendChild(s14);		
-	
-	var s15 = s1.cloneNode(true);
-	s15.id = 'idS15';
-	s15.src = 'assets/imgs/shapes/15.png'
-	shapeLibrary.appendChild(s15);		
 }
 
 function addMaterialSelector() {
