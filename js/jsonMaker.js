@@ -277,11 +277,6 @@ function calculateMaterial(figure)
 		websiteName = 'shapeways';
 		return 23;
 	}	
-	
-	else if (figure.material.name == 'Stainless steel medieval pewter'){
-		websiteName = 'iMaterialise';
-		return '1ff61659-a26b-4ee6-97b7-de642dfe1263';
-	}
 				
 	else if (figure.material.name == 'Stainless steel bronze matte'){
 		websiteName = 'shapeways';
@@ -374,10 +369,6 @@ function calculateFinishId(figure)
 	else if (figure.material.name == 'Brass gold plated polished'){
 		return '53248ecd-b95e-43f4-9c6f-74fa9ba9f9a4';
 	}
-	
-	else if (figure.material.name == 'Stainless steel medieval pewter'){
-		return '8111e78a-dbee-4351-8d98-e70911efcef2';
-	}	
 	
 	else if (figure.material.name == 'Titanium unpolished'){
 		return 'c9c27ce3-eee4-47e4-a896-a9010a7971fd';
