@@ -628,7 +628,12 @@ window.onload = function() {
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh);
 		if (typeof authToken !== 'undefined')
-			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		{
+			if (typeof jsonString.currency === 'undefined')
+				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+			else
+				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		}
 	}
 	
 	function updatePrice(data)

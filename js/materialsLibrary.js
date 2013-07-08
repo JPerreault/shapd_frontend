@@ -77,10 +77,10 @@ var MaterialsLibrary = function() {
 				"Titanium unpolished":	new THREE.MeshLambertMaterial({color: 0xD6D6D6, map: THREE.ImageUtils.loadTexture('textures/unpolishedtitanium.jpg'), shading: THREE.FlatShading}),
 				"Titanium polished": 	new THREE.MeshLambertMaterial({color: 0xffffff, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.textureCube, reflectivity: .55}),
 				
-				"Transparent resin white": 	new THREE.MeshLambertMaterial({color: 0xC2E6ED, opacity: .65, transparent: true}),
+				"Transparent resin white": 	new THREE.MeshLambertMaterial({color: 0xC2E6ED, opacity: .45, transparent: true}),
 				"Transparent resin black": 	new THREE.MeshLambertMaterial({color: 0x2E2E2E, opacity: .65, transparent: true}),
 				"Transparent resin red": 	new THREE.MeshLambertMaterial({color: 0xA31212, opacity: .65, transparent: true}),
-				"Transparent resin blue": 	new THREE.MeshLambertMaterial({color: 0x101991, opacity: .65, transparent: true}),
+				"Transparent resin blue": 	new THREE.MeshLambertMaterial({color: 0x008080, opacity: .65, transparent: true}),
 				"Transparent resin green": 	new THREE.MeshLambertMaterial({color: 0x31870F, opacity: .65, transparent: true}),
 				"Transparent resin gray": 	new THREE.MeshLambertMaterial({color: 0xA3A3A3, opacity: .65, transparent: true}),
 				"Transparent resin yellow": new THREE.MeshLambertMaterial({color: 0xFFFF00, opacity: .65, transparent: true}),
