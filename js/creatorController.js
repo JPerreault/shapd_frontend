@@ -266,15 +266,6 @@ window.onload = function() {
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
-    
-    var screen = document.createElement('div');
-    screen.style.position = 'absolute';
-    screen.style.bottom = '28px';
-    screen.style.left = '15%';
-    screen.style.zIndex = '1000';
-    screen.style.background= '#999';
-    screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
-    customContainer.appendChild(screen);
 
 	document.getElementById('save').onclick = function()
 	{
