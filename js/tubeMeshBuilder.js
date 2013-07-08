@@ -382,7 +382,12 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		}
 		
 		if (this.sceneWrapper.tubeMeshBuilder.fIndex >= 0)
+		{
 			tubeMesh['Face Index'] = this.sceneWrapper.tubeMeshBuilder.fIndex;
+			tubeMesh['Face Index Incrementor'] = this.sceneWrapper.tubeMeshBuilder.faceIndexIncrementor;
+			tubeMesh['Torus Rotation'] = this.sceneWrapper.tubeMeshBuilder.torusRotation;
+			tubeMesh['Torus 90 Rotations'] = this.sceneWrapper.tubeMeshBuilder.torusRotationNinety;
+		}
 		else
 			tubeMesh['Face Index'] = -1;
 		hashend = "";
