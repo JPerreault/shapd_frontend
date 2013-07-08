@@ -300,8 +300,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			zVal = Math.floor(zDim * 100) / 100;
 			
 			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
-			$( "#xwidth" ).val(xVal);
-			$( "#yheight" ).val(yVal);
+			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			
 		}
 		else if (variables === 'xy')
 		{

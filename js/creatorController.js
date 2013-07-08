@@ -106,6 +106,7 @@ window.onload = function() {
 			$('#dimensionXYContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
 			$('#loopControls').fadeOut(0);
+			$('#idDimsContainer').fadeOut(0);
 			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
@@ -137,6 +138,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			$('#idDimsContainer').fadeOut(450);
 			$('#dimensionXYContainer').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
@@ -166,6 +168,7 @@ window.onload = function() {
 			$('#dimensionXYContainer').fadeOut(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeIn(450);
+			$('#idDimsContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
@@ -194,6 +197,7 @@ window.onload = function() {
 			$('#materialDetailContainer').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
+			$('#idDimsContainer').fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
 			$('#idDimensions').fadeIn(450);
@@ -226,6 +230,7 @@ window.onload = function() {
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
+			$('#idDimsContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idDimensions').fadeOut(450);
@@ -250,6 +255,7 @@ window.onload = function() {
 		addProgressBar();
 		addLoops();
 		addSavedLibrary();
+		addDimensions()
 		addDatGui();
 		addLoopControls();
 	}
