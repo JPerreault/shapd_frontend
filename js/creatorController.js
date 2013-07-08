@@ -435,6 +435,7 @@ window.onload = function() {
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
 			$('#loopControls').fadeOut(0);
 			tubeMeshBuilder.torusRotation = 0;
+			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotationNinety = 0;
 		}
 		else if (state == 'finalize')
@@ -478,6 +479,19 @@ window.onload = function() {
 			sceneWrapper.currentMesh['Starting Shape'] = parseInt(shapeNumber);
 			resetAllParams();
 			
+			tubeMeshBuilder.fIndex = -1;
+			tubeMeshBuilder.torusRotation = 0;
+			tubeMeshBuilder.torusRotation = 0;
+			tubeMeshBuilder.torusRotationNinety = 0;
+			sceneWrapper.torusDefined = false;
+			
+			sceneWrapper.currentMesh['Thickness'] = 1.75;
+			sceneWrapper.currentMesh['Depth'] = 1;
+			sceneWrapper.currentMesh['Stretch'] = 1;
+			sceneWrapper.currentMesh['Modify'] = 5;
+			sceneWrapper.currentMesh['Loops'] = 2;
+
+			setupDatGui(window.sceneWrapper);
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		}
 	}
