@@ -15,7 +15,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	//Scoping out of functions
 	var segments = 600, radiusSegments = 8;
 
-    this.build = function(tubeMeshParams) {c
+    this.build = function(tubeMeshParams) {
 		updateHash(tubeMeshParams);
 		radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
