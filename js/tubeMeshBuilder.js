@@ -232,6 +232,12 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
 		torusLoop.scale.set(scale, scale, scale);
 		
+		//Now translate from centroid up an amount along normal vector
+		var upAmount = 1.25;
+		var fromFace = faceNormal.setLength(upAmount);
+		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(fromFace.x, fromFace.y, fromFace.z));
+		
+		
 		torusLoop.geometry.computeCentroids();
 		torusLoop.geometry.computeFaceNormals();
 		torusLoop.geometry.computeVertexNormals();
@@ -325,9 +331,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			yVal = Math.floor(yDimSize * 100) / 100;
 			zVal = Math.floor(zDimSize * 100) / 100;
 			
-			$( "#dimensions" ).val(xVal+' by '.concat(yVal+' by ').concat(zVal+' inches'));
-			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches)<span>';
-			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			document.getElementById('idCostDim').innerHTML = xVal + ' (w) x '  + yVal + ' (h) x ' + zVal + ' (d)<br><br>Dimensions in Inches';
+			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches high)<span>';
+			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches wide)<span>';		
 			
 		}
 		else if (variables === 'xy')

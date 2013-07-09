@@ -103,7 +103,7 @@ window.onload = function() {
 			$("#idLoopText").fadeOut(0);
 			$("#idmaterialDetailContainer").fadeOut(0);
 			$('#idMaterialPanel').fadeOut(0);
-			$('#dimensionXYContainer').fadeOut(0);
+			$('#idCostDataContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
 			$('#loopControls').fadeOut(0);
 			$('#idDimsContainer').fadeOut(0);
@@ -139,11 +139,10 @@ window.onload = function() {
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeOut(450);
-			$('#dimensionXYContainer').fadeOut(450);
+			$('#idCostDataContainer').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
-			$('#idDimensions').fadeOut(450);
 			$('#loopControls').fadeOut(450);
 			loops = false;
 		}
@@ -165,13 +164,12 @@ window.onload = function() {
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
-			$('#dimensionXYContainer').fadeOut(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeIn(450);
 			$('#idDimsContainer').fadeOut(450);
+			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
-			$('#idDimensions').fadeOut(450);
 			if (sceneWrapper.torusDefined == true)
 				$('#loopControls').fadeIn(450);
 			loops = true;
@@ -193,14 +191,13 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
-			$('#dimensionXYContainer').fadeIn(450);
 			$('#materialDetailContainer').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeIn(450);
+			$('#idCostDataContainer').fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
-			$('#idDimensions').fadeIn(450);
 			$('#loopControls').fadeOut(450);
 			loops = false;
 			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
@@ -224,16 +221,15 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(450);
 			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
-			$('#dimensionXYContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeOut(450);
+			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
-			$('#idDimensions').fadeOut(450);
 			$('#loopControls').fadeOut(450);
 			loops = false;
 			
@@ -257,6 +253,7 @@ window.onload = function() {
 		addSavedLibrary();
 		addDimensions()
 		addDatGui();
+		addCost()
 		addLoopControls();
 	}
 	
@@ -630,8 +627,6 @@ window.onload = function() {
 		}
 	}
 	
-	
-	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	function onDocumentMouseDown(event)
 	{
@@ -808,5 +803,5 @@ function getNewPrice()
 	
 function updatePrice(data)
 {	
-	$( "#cost" ).val('$'.concat(data+''));
+	document.getElementById('idCostData').innerHTML = '$' + data;	
 }
