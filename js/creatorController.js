@@ -269,15 +269,6 @@ window.onload = function() {
 	saveSTL.style.background = '#999';
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
-    
-    var screen = document.createElement('div');
-    screen.style.position = 'absolute';
-    screen.style.bottom = '28px';
-    screen.style.left = '15%';
-    screen.style.zIndex = '1000';
-    screen.style.background= '#999';
-    screen.innerHTML = '<input id="screen" type="button" value="Volume Test">';
-    customContainer.appendChild(screen);
 
 	document.getElementById('save').onclick = function()
 	{
@@ -640,7 +631,12 @@ window.onload = function() {
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh);
 		if (typeof authToken !== 'undefined')
-			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		{
+			if (jsonString.indexOf('currency') === -1)
+				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+			else
+				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		}
 	}
 	
 	function updatePrice(data)

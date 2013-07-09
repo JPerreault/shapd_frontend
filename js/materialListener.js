@@ -644,8 +644,12 @@ var materialListener = function(sW, tMB){
 	function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh);
+		console.log(jsonString.indexOf('currency') === -1);
 		if (typeof authToken !== 'undefined')
-			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+			if (jsonString.indexOf('currency') === -1)
+				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+			else
+				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 	}
 	
 	function updatePrice(data)
