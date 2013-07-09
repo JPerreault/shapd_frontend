@@ -57,7 +57,7 @@ function addDimensions() {
 			hDimDiv.style.padding = '5px 15px 10px 15px';
 			hDimDiv.style.bottom = '14%';
 			hDimDiv.style.right = '50%';
-			hDimDiv.style.marginRight = '-45px';
+			hDimDiv.style.marginRight = '-57px';
 			hDimDiv.style.zIndex = '1000';
 			dimsContainer.appendChild(hDimDiv);
 			
@@ -80,13 +80,12 @@ function addCost() {
 			costDiv.id = 'idCostDiv';
 			costDiv.style.position = 'absolute';
 			costDiv.className = 'rounded';
-			//costDiv.style.fontFamily = 'Verdana, Geneva, sans-serif';
 			costDiv.style.background = '#2ea1d7';
 			costDiv.style.color = '#fff';
 			costDiv.style.border = '2px solid #000';
 			costDiv.style.padding = '10px';
 			costDiv.style.bottom = '1%';
-			costDiv.style.right = '15%';
+			costDiv.style.right = '285px';
 			costDiv.style.zIndex = '1000';
 			costDataContainer.appendChild(costDiv);
 			
