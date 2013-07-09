@@ -630,8 +630,11 @@ window.onload = function() {
 	function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh);
+        
 		if (typeof authToken !== 'undefined')
 		{
+            document.getElementById('idCostData').innerHTML = 'Pricing...';
+
 			if (jsonString.indexOf('currency') === -1)
 				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 			else
