@@ -1,26 +1,28 @@
 var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
-	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop;
-	var xDim, yDim, zDim, xDimMm, yDimMm, zDimMm, radius;
+	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop, radius;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
 	this.faceIndexIncrementor = 0;
 	this.torusRotation = 0;
 	this.torusRotationNinety = 0;
 	this.fIndex = -1;
+	this.xDim = 0; 
+	this.yDim = 0; 
+	this.zDim = 0; 
 	
 	//Scoping out of functions
 	var segments = 600, radiusSegments = 8;
 
-    this.build = function(tubeMeshParams) {
+    this.build = function(tubeMeshParams) {c
 		updateHash(tubeMeshParams);
 		radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
 		this.m = materialsLibrary.getMaterial(tubeMeshParams['Material']);
 		closed = this.isClosed (tubeMeshParams);
 		knot = new curveMaker(tubeMeshParams);
-        geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false); //6 is default 'curviness', or how rounded the lines are
+        geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false);
 		var vertices = geometry.vertices;
 		
 		//Check if caps are needed on open ends.
@@ -287,9 +289,9 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var xVal, yVal, zVal;
 	
 		
-		xDim = (xMax - xMin);
-		yDim = (yMax - yMin);
-		zDim = (zMax - zMin);
+		this.xDim = (xMax - xMin);
+		this.yDim = (yMax - yMin);
+		this.zDim = (zMax - zMin);
 		
 		if (torusDefined)
 		{
@@ -396,27 +398,27 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var material = this.m.name;
 		
 		if (material === 'Plastic regular white' || material === 'Plastic regular black')
-			fitsBounds = (xDim < 220 && yDim < 170 && zDim < 300);
+			fitsBounds = (this.xDim < 220 && this.yDim < 170 && this.zDim < 300);
 		else if (material.indexOf('Plastic regular' !== -1))
-			fitsBounds = (xDim < 140 && yDim < 140 && zDim < 140);
+			fitsBounds = (this.xDim < 140 && this.yDim < 140 && this.zDim < 140);
 		else if (material.indexOf('Plastic detail' !== -1))
-			fitsBounds = (xDim < 240 && yDim < 240 && zDim < 190);
+			fitsBounds = (this.xDim < 240 && this.yDim < 240 && this.zDim < 190);
 		else if (material.indexOf('Transparent resin' !== -1))
-			fitsBounds = (xDim < 2090 && yDim < 690 && zDim < 790);
+			fitsBounds = (this.xDim < 2090 && this.yDim < 690 && this.zDim < 790);
 		else if (material.indexOf('Alumide' !== -1))
-			fitsBounds = (xDim < 300 && yDim < 220 && zDim < 170);
+			fitsBounds = (this.xDim < 300 && this.yDim < 220 && this.zDim < 170);
 		else if (material.indexOf('Brass' !== -1))
-			fitsBounds = (xDim < 85 && yDim < 60 && zDim < 120);
+			fitsBounds = (this.xDim < 85 && this.yDim < 60 && this.zDim < 120);
 		else if (material.indexOf('Stainless steel' !== -1))
-			fitsBounds = (xDim < 990	 && yDim < 440 && zDim < 170);
+			fitsBounds = (this.xDim < 990	 && this.yDim < 440 && this.zDim < 170);
 		else if (material === 'Silver regular' || material === 'Silver glossy')
-			fitsBounds = (xDim < 105	 && yDim < 105 && zDim < 28);
+			fitsBounds = (this.xDim < 105	 && this.yDim < 105 && this.zDim < 28);
 		else if (material === 'Silver premium')	
-			fitsBounds = (xDim < 95	 && yDim < 95 && zDim < 28);
+			fitsBounds = (this.xDim < 95	 && this.yDim < 95 && this.zDim < 28);
 		else if (material.indexOf('Titanium' !== -1))
-			fitsBounds = (xDim < 240 && yDim < 240 && zDim < 390);
+			fitsBounds = (this.xDim < 240 && this.yDim < 240 && this.zDim < 390);
 		else if (material.indexOf('Gold' !== -1))
-			fitsBounds = (xDim < 85 && yDim < 60 && zDim < 120);
+			fitsBounds = (this.xDim < 85 && this.yDim < 60 && this.zDim < 120);
 
 		return fitsBounds;
 	}

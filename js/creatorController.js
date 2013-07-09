@@ -627,27 +627,6 @@ window.onload = function() {
 		}
 	}
 	
-	function getNewPrice()
-	{
-		var jsonString = getJson(sceneWrapper.currentMesh);
-        
-		if (typeof authToken !== 'undefined')
-		{
-            document.getElementById('idCostData').innerHTML = 'Pricing...';
-
-			if (jsonString.indexOf('currency') === -1)
-				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-			else
-				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-		}
-	}
-	
-	function updatePrice(data)
-	{	
-		
-		document.getElementById('idCostData').innerHTML = '$' + data;		
-	}
-	
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	function onDocumentMouseDown(event)
 	{
@@ -807,4 +786,22 @@ function setupDatGui(sC) {
 	gui.domElement.style.zIndex = '1000';
 	datGuiContainer.appendChild(gui.domElement);
     
+}
+
+function getNewPrice()
+	{
+		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
+
+		if (typeof authToken !== 'undefined')
+		{
+			if (jsonString.indexOf('currency') === -1)
+				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+			else
+				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		}
+	}
+	
+function updatePrice(data)
+{	
+	document.getElementById('idCostData').innerHTML = '$' + data;	
 }
