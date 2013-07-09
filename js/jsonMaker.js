@@ -1,6 +1,6 @@
 var websiteName = '';
 
-function getJson(currentMesh)
+function getJson(currentMesh, sw)
 {
 	var jsonString = '';
 	var data = [];
@@ -8,9 +8,10 @@ function getJson(currentMesh)
 	var scale = figure.scale.x;
 	figure.material.name = currentMesh['Material'];
 	var material = calculateMaterial(figure);
-	var volume = calculateVolume(figure, scale);
+	var volume = calculateVolume(figure, scale, sw);
 	var surfaceArea = calculateSurfaceArea(figure, scale);
 	var dimensions = calculateXYZ(figure, scale);
+	
 	if (websiteName == 'iMaterialise')
 	{
 		var quantity = 1;
@@ -72,8 +73,53 @@ function getJson(currentMesh)
 	return jsonString;
 }
 
-function calculateVolume(figure, scale)
+function calculateVolume(figure, scale, sw)
 {
+	// var cube_geometry = new THREE.CubeGeometry( 3, 3, 3 );
+		// var cube_mesh = new THREE.Mesh( cube_geometry );
+		// cube_mesh.position.x = -7;
+		// var cube_bsp = new ThreeBSP( cube_mesh );
+
+		// var sphere_geometry = new THREE.SphereGeometry( 1.8, 32, 32 );
+		// var sphere_mesh = new THREE.Mesh( sphere_geometry );
+		// sphere_mesh.position.x = -7;
+		// var sphere_bsp = new ThreeBSP( sphere_mesh );
+
+		// var subtract_bsp = cube_bsp.subtract( sphere_bsp );
+		// var result = subtract_bsp.toMesh( figure.material );
+		// result.geometry.computeVertexNormals();
+		// sw.scene.add( result );
+		// var xDim = sw.tubeMeshBuilder.xDim;
+		// var yDim = sw.tubeMeshBuilder.yDim;
+		// var zDim = sw.tubeMeshBuilder.zDim;
+		// console.log('xdim: ', xDim, ' ydim: ', yDim, ' zdim: ', zDim);
+		// var cube_geometry = new THREE.CubeGeometry( xDim, yDim, zDim );
+		// var cube_mesh = new THREE.Mesh( cube_geometry, figure.material );
+		// var cube_bsp = new ThreeBSP( cube_mesh );
+		// var test = figure.geometry;
+		// test.computeCentroids();
+		// test.computeFaceNormals();
+		// test.computeVertexNormals();
+		// test.computeMorphNormals();
+		// test.computeTangents();
+		// test.computeBoundingBox();
+		// test.computeBoundingSphere();
+		// test.mergeVertices();
+		// test.computeLineDistances();
+		// try{
+		// var figureBSP = new ThreeBSP(test);
+		// }
+		// catch (e)
+		// {
+			// console.log('Error: ', e, ' Figure: ', figureBSP);
+		// }
+
+		//var subtract_bsp = cube_bsp.subtract( figureBSP );
+		//var result = subtract_bsp.toMesh( figure.material );
+		//result.geometry.computeVertexNormals();
+		//sw.scene.add( result );
+
+
 	var vertices = figure.geometry.vertices;
 	var faces = figure.geometry.faces;
 	var totalVolume = 0;
