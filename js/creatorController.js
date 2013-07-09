@@ -439,6 +439,7 @@ window.onload = function() {
 			currentMesh.figure.scale.x = 1;
 			currentMesh.figure.scale.y = 1;
 			currentMesh.figure.scale.z = 1;
+			currentMesh['Scale'] = 1;
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 			$( "#thickslider" ).slider( "value", 1.75 );
@@ -798,9 +799,7 @@ function getNewPrice()
 		
 		if (typeof authToken !== 'undefined')
 		{
-			if (tubeMeshBuilder.m.name.indexOf('Transparent resin') !== -1)
-				updatePrice(pre(sceneWrapper.currentMesh.figure));
-			else if (jsonString.indexOf('currency') === -1)
+			if (jsonString.indexOf('currency') === -1)
 				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 			else
 				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});

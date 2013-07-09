@@ -156,5 +156,6 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
+		this.currentMesh['Scale'] = newVal;
     };
 }
