@@ -85,7 +85,7 @@ function addCost() {
 			costDiv.style.border = '2px solid #000';
 			costDiv.style.padding = '10px';
 			costDiv.style.bottom = '1%';
-			costDiv.style.right = '285px';
+			costDiv.style.right = '260px';
 			costDiv.style.zIndex = '1000';
 			costDataContainer.appendChild(costDiv);
 			
