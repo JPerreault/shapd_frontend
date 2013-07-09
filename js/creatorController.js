@@ -791,10 +791,16 @@ function setupDatGui(sC) {
 function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
-
+		document.getElementById('idCostData').innerHTML = 'Pricing...';	
+		if (window.sceneWrapper.tubeMeshBuilder.m.name.indexOf('Transparent resin') !== -1)
+				updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+		
+		
 		if (typeof authToken !== 'undefined')
 		{
-			if (jsonString.indexOf('currency') === -1)
+			if (tubeMeshBuilder.m.name.indexOf('Transparent resin') !== -1)
+				updatePrice(pre(sceneWrapper.currentMesh.figure));
+			else if (jsonString.indexOf('currency') === -1)
 				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 			else
 				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
@@ -804,4 +810,16 @@ function getNewPrice()
 function updatePrice(data)
 {	
 	document.getElementById('idCostData').innerHTML = '$' + data;	
+}
+
+function pre(figure)
+{
+	var p = 0;
+	var v = calculateVolume (figure, figure.scale.x);
+	v *= 1000;
+	
+	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
+	p = Math.floor(p * 100) / 100;
+	
+	return p;
 }
