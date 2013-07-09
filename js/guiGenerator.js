@@ -51,7 +51,7 @@ function addDimensions() {
 			hDimDiv.id = 'idHShapeDiv';
 			hDimDiv.style.position = 'absolute';
 			hDimDiv.className = 'rounded';
-			hDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			hDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 H</b></span><br><span style="font-size: 14px">(Inches)<span>';
 			hDimDiv.style.background = '#000';
 			hDimDiv.style.color = '#fff';
 			hDimDiv.style.padding = '5px 15px 10px 15px';
@@ -63,7 +63,7 @@ function addDimensions() {
 			
 			var vDimDiv = hDimDiv.cloneNode(true);
 			vDimDiv.id = 'idVShapeDiv';
-			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 W</b></span><br><span style="font-size: 14px">(Inches)<span>';
 			vDimDiv.style.top = '50%';
 			vDimDiv.style.marginTop = '-35px';
 			vDimDiv.style.right = '30%';

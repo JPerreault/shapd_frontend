@@ -1,20 +1,20 @@
 var materialListener = function(sW, tMB){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
-	var name = 'Premium Gold';
-	var description = 'Not some thin plating, this is pure, 14k solid gold. Incredible, valuable, and timeless, your piece will be polished to a beautiful finish. Please note: Since it is polished by hand, some interior surfaces may remain unpolished if we can\'t reach them.';
-	var cost = '$$$';
+	var name = 'Gold-Plated Solid Brass';
+	var description = 'Solid brass with 18k gold plating. Extremely polished and smooth. Heavy feel with a dazzling gold finish (without the price tag of solid gold). One of our favorite materials, your piece will be simply stunning. Please click on the examples to compare regular vs. gold-plated brass and get a feel for this wonderful material.';
+	var cost = '$$';
 	var smooth = 'High'
 	var that = this;
-	var img1 = 'assets/imgs/materialExamples/gold_1.jpg';
-	var img2 = 'assets/imgs/materialExamples/gold_2.jpg';
+	var img1 = 'assets/imgs/materialExamples/brass_1.jpg';
+	var img2 = 'assets/imgs/materialExamples/brass_2.jpg';
 	var feeFlat, feePerCM3;
-	var shipsinBizDays;
+	var shipsinBizDays = 20;
 	var ourHandling = 3;
 	var estShippingFrom = 3;
 	var estShippingTo = 3;
-	var imgDesc1 = '';
-	var imgDesc2 = '';
+	var imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
+	var imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
 	
 	document.getElementById('whiteregularplastic').onclick = function()
 	{
@@ -393,7 +393,7 @@ var materialListener = function(sW, tMB){
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Brass regular';
 		name = 'Regular Solid Brass';
-		cost = '$$$';
+		cost = '$$';
 		smooth = 'Med';
 		img1 = 'assets/imgs/materialExamples/brass_1.jpg';
 		img2 = 'assets/imgs/materialExamples/brass_2.jpg';
@@ -410,8 +410,8 @@ var materialListener = function(sW, tMB){
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Brass gold plated polished';
 		name = 'Gold-Plated Solid Brass';
-		cost = '$$$';
-		smooth = 'Low';
+		cost = '$$';
+		smooth = 'High';
 		img1 = 'assets/imgs/materialExamples/brass_1.jpg';
 		img2 = 'assets/imgs/materialExamples/brass_2.jpg';
 		description = 'Solid brass with 18k gold plating. Extremely polished and smooth. Heavy feel with a dazzling gold finish (without the price tag of solid gold). One of our favorite materials, your piece will be simply stunning. Please click on the examples to compare regular vs. gold-plated brass and get a feel for this wonderful material.';
