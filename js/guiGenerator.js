@@ -54,29 +54,70 @@ function addDimensions() {
 			hDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02</b></span><br><span style="font-size: 14px">(Inches)<span>';
 			hDimDiv.style.background = '#000';
 			hDimDiv.style.color = '#fff';
-			hDimDiv.style.padding = '15px';
+			hDimDiv.style.padding = '5px 15px 10px 15px';
 			hDimDiv.style.bottom = '14%';
-			hDimDiv.style.width = '60px';
 			hDimDiv.style.right = '50%';
 			hDimDiv.style.marginRight = '-45px';
 			hDimDiv.style.zIndex = '1000';
 			dimsContainer.appendChild(hDimDiv);
 			
-			var vDimDiv = document.createElement('div');
+			var vDimDiv = hDimDiv.cloneNode(true);
 			vDimDiv.id = 'idVShapeDiv';
-			vDimDiv.style.position = 'absolute';
-			vDimDiv.className = 'rounded';
 			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02</b></span><br><span style="font-size: 14px">(Inches)<span>';
-			vDimDiv.style.background = '#000';
-			vDimDiv.style.padding = '15px';
-			vDimDiv.style.color = '#fff';
-			vDimDiv.style.width = '60px';
 			vDimDiv.style.top = '50%';
-			hDimDiv.style.marginTop = '-45px';
-			vDimDiv.style.right = '29%';
-			vDimDiv.style.zIndex = '1000';
+			vDimDiv.style.marginTop = '-35px';
+			vDimDiv.style.right = '30%';
+			vDimDiv.style.bottom = '';
 			dimsContainer.appendChild(vDimDiv);
-	
+}
+
+function addCost() {
+			var costDataContainer = document.createElement('div');
+			costDataContainer.id = 'idCostDataContainer';
+			document.body.appendChild(costDataContainer);
+				
+			var costDiv = document.createElement('div');
+			costDiv.id = 'idCostDiv';
+			costDiv.style.position = 'absolute';
+			costDiv.className = 'rounded';
+			//costDiv.style.fontFamily = 'Verdana, Geneva, sans-serif';
+			costDiv.style.background = '#2ea1d7';
+			costDiv.style.color = '#fff';
+			costDiv.style.border = '2px solid #000';
+			costDiv.style.padding = '10px';
+			costDiv.style.bottom = '1%';
+			costDiv.style.right = '15%';
+			costDiv.style.zIndex = '1000';
+			costDataContainer.appendChild(costDiv);
+			
+			var costLabel = document.createElement('div');
+			costLabel.id = 'idCostLabel';
+			costLabel.style.position = 'relative';
+			costLabel.innerHTML += 'Cost:';
+			costLabel.style.fontSize = '20px';
+			costLabel.style.fontWeight = '500';
+			costDiv.appendChild(costLabel);
+			
+			var costData = document.createElement('div');
+			costData.id = 'idCostData';
+			costData.style.position = 'relative';
+			costData.innerHTML += '$15.77';
+			costData.style.fontSize = '30px';
+			costData.style.fontWeight = '700';
+			costData.style.paddingBottom = '15px';
+			costData.style.paddingTop = '3px';
+			costDiv.appendChild(costData);
+			
+			var costDim = document.createElement('div');
+			costDim.id = 'idCostDim';
+			costDim.style.position = 'relative';
+			costDim.style.fontFamily = 'Verdana, Geneva, sans-serif';
+			costDim.className = 'rounded';
+			costDim.innerHTML += '0.02 (h) x 0.04 (w) x 0.04 (d)<br><br>Dimensions in Inches';
+			costDim.style.fontSize = '14px';
+			costDim.style.background = '#000';
+			costDim.style.padding = '10px';
+			costDiv.appendChild(costDim);
 }
 
 function addSave() {
@@ -242,7 +283,6 @@ function addSavedLibrary() {
     }
 }
 
-
 function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
@@ -255,11 +295,11 @@ function addStartingShapes() {
 	shapeContainer.style.margin = '10';
 	shapeContainer.style.color = '#fff';
 	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '25%';
+	shapeContainer.style.bottom = '10%';
 	shapeContainer.style.left = '0.1%';	
 	shapeContainer.style.zIndex = '1000';
     shapeContainer.style.overflow = 'hidden';
-	document.body.appendChild(shapeContainer);	
+	document.body.appendChild(shapeContainer);
 	
 	var scrollWrapper = document.createElement('div');
 	scrollWrapper.id = 'idScrollWrapper';
@@ -293,7 +333,6 @@ function addStartingShapes() {
             shapeLibrary.appendChild(br.cloneNode());
         shapeLibrary.appendChild(sX);
     }
-	
 }
 
 function addMaterialSelector() {
@@ -304,7 +343,7 @@ function addMaterialSelector() {
 	materialDetailContainer.className = 'rounded';
 	materialDetailContainer.style.fontWeight = '500';
 	materialDetailContainer.style.position = 'absolute';
-	materialDetailContainer.style.border = '7px solid #000';
+	materialDetailContainer.style.border = '4px solid #000';
 	materialDetailContainer.style.color = '#fff';
 	materialDetailContainer.align = 'center';
 	materialDetailContainer.style.background = '#000';
@@ -319,8 +358,8 @@ function addMaterialSelector() {
 	materialNameContainer.align = 'center';
 	materialNameContainer.className = 'rounded';
 	materialNameContainer.style.position = 'relative';
-	materialNameContainer.style.padding = '5px';
-	materialNameContainer.style.margin = '2px 7px 5px 5px';
+	materialNameContainer.style.padding = '4px';
+	materialNameContainer.style.margin = '5px 5px 5px 5px';
 	materialNameContainer.style.color = '#000';
 	materialNameContainer.style.background = '#2ea1d7';		
 	materialNameContainer.style.zIndex = '1000';
@@ -371,7 +410,7 @@ function addMaterialSelector() {
 
 	var m1 = document.createElement('img');
 	m1.id = 'idM1';
-	m1.style.margin = '7px 2px 4px 5px';
+	m1.style.margin = '7px 3px 4px 0px';
 	m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
 	m1.height = 85;
 	m1.width = 85;
@@ -382,7 +421,7 @@ function addMaterialSelector() {
 	var m2 = m1.cloneNode(true);
 	m2.id = 'idM2';
 	m2.src = 'assets/imgs/materialExamples/alumide_2.jpg';
-	m2.style.margin = '7px 5px 4px 2px';
+	m2.style.margin = '7px 0px 4px 3px';
 	matLibrary.appendChild(m2);
 	
 	var materialDescriptionContainer = document.createElement('div');
@@ -390,8 +429,8 @@ function addMaterialSelector() {
 	materialDescriptionContainer.align = 'center';
 	materialDescriptionContainer.className = 'rounded';
 	materialDescriptionContainer.style.position = 'relative';
-	materialDescriptionContainer.style.margin = '3px 5px 4px 5px';
-	materialDescriptionContainer.style.padding = '7px';
+	materialDescriptionContainer.style.margin = '4px 4px 4px 4px';
+	materialDescriptionContainer.style.padding = '6px';
 	materialDescriptionContainer.style.color = '#000';
 	materialDescriptionContainer.style.background = '#2ea1d7';		
 	materialDescriptionContainer.style.zIndex = '1000';
