@@ -482,11 +482,8 @@ window.onload = function() {
 			tubeMeshBuilder.torusRotationNinety = 0;
 			sceneWrapper.torusDefined = false;
 			
-			sceneWrapper.currentMesh['Thickness'] = 1.75;
-			sceneWrapper.currentMesh['Depth'] = 1;
-			sceneWrapper.currentMesh['Stretch'] = 1;
-			sceneWrapper.currentMesh['Modify'] = 5;
-			sceneWrapper.currentMesh['Loops'] = 2;
+			sceneWrapper.updateScale(1);
+			$( "#slider" ).slider( "value", 100 );
 
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
