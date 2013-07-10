@@ -26,6 +26,7 @@ body {
 	.galleryImg:hover { opacity:0.6; cursor: pointer; }	
 	.rounded { -moz-border-radius: 8px; border-radius: 8px; }
 	
+	
 	/* Material CSS */
 	
 	.materialHeader { background-color:#000; color:#fff; }

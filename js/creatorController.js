@@ -105,7 +105,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(0);
 			$('#idCostDataContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
-			$('#loopControls').fadeOut(0);
+			$('#idLoopRotContainer').fadeOut(0);
 			$('#idDimsContainer').fadeOut(0);
 			
 			if (typeof viewer !== 'undefined' && viewer)
@@ -143,7 +143,7 @@ window.onload = function() {
 			$('#materialDetailContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
-			$('#loopControls').fadeOut(450);
+			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -171,7 +171,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			if (sceneWrapper.torusDefined == true)
-				$('#loopControls').fadeIn(450);
+				$('#idLoopRotContainer').fadeIn(450);
 			loops = true;
 		}
 		else if (state == 'finalize')
@@ -198,7 +198,7 @@ window.onload = function() {
 			$('#idCostDataContainer').fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
-			$('#loopControls').fadeOut(450);
+			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
 			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 			matListener.panelUpdate();
@@ -230,7 +230,7 @@ window.onload = function() {
 			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
-			$('#loopControls').fadeOut(450);
+			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
 			
 			var publishCSS = "<br><br><span style='font-size: 3em; font-weight: bold;'>Congratulations!</span><br><br><span style='font-size: 1.5em; font-weight: bold;'>You've made a pendant!</span><br>(and it's awesome)<br><br><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='170px' height='170' style='border: 1px'></img><br><br><span style='font-size: 1.1em; font-weight: bold;'>Now, you can either:</span><br><br><br><div id='publishActionContainer' width='100%'><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Publish</button></form></div><div style='display:inline'><form action='http://www.shapd.co'><button style='cursor:pointer;' type='submit'>Order</button></form></div>";
@@ -251,10 +251,10 @@ window.onload = function() {
 		addProgressBar();
 		addLoops();
 		addSavedLibrary();
-		addDimensions()
+		loopRotations();
+		addDimensions();
 		addDatGui();
-		addCost()
-		addLoopControls();
+		addCost();
 	}
 	
 	customContainer = document.getElementById('container');	
@@ -413,6 +413,18 @@ window.onload = function() {
 		view.targetY = 0;
 	}
     
+	document.getElementById('idRemoveLoop').onclick = function()
+	{
+		scene.scene.remove(scene.torusMesh);
+		scene.torusDefined = false;
+		sceneWrapper.currentMesh['Face Index'] = -1;
+		sceneWrapper.tubeMeshBuilder.fIndex = -1;
+		$('#idLoopRotContainer').fadeOut(0);
+		tubeMeshBuilder.torusRotation = 0;
+		tubeMeshBuilder.torusRotation = 0;
+		tubeMeshBuilder.torusRotationNinety = 0;
+	}
+	
     document.getElementById('idResetShapdImg').onclick = function()
 	{
 		var currentMesh = sceneWrapper.currentMesh;
@@ -429,7 +441,7 @@ window.onload = function() {
 			scene.torusDefined = false;
 			sceneWrapper.currentMesh['Face Index'] = -1;
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
-			$('#loopControls').fadeOut(0);
+			$('#idLoopRotContainer').fadeOut(0);
 			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotationNinety = 0;
@@ -494,33 +506,33 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('rotateAroundF').onclick = function()
+	document.getElementById('idLoopAroundRightImg').onclick = function()
 	{
 		tubeMeshBuilder.faceIndexIncrementor += 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('rotateAroundB').onclick = function()
+	document.getElementById('idLoopAroundLeftImg').onclick = function()
 	{
 		tubeMeshBuilder.faceIndexIncrementor -= 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('rotatePlaceF').onclick = function()
+	document.getElementById('idLoopMoreangle').onclick = function()
 	{
 		if (tubeMeshBuilder.torusRotation < 0.7853981634)
 			tubeMeshBuilder.torusRotation += 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('rotatePlaceB').onclick = function()
+	document.getElementById('idLoopLessangle').onclick = function()
 	{
 		if (tubeMeshBuilder.torusRotation > -0.7853981634)
 			tubeMeshBuilder.torusRotation -= 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('rotate90').onclick = function()
+	document.getElementById('idSpinButton').onclick = function()
 	{
 		if (tubeMeshBuilder.torusRotationNinety === 0)
 			tubeMeshBuilder.torusRotationNinety = 1.57079633;
@@ -645,7 +657,7 @@ window.onload = function() {
 				scene.torusDefined = true;
 				tubeMeshBuilder.faceIndexIncrementor = 0;
 				scene.redrawMesh(scene.currentMesh);
-				$('#loopControls').fadeIn(0);
+				$('#idLoopRotContainer').fadeIn(0);
 			}
 		}
 	};
