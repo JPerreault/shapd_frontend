@@ -723,7 +723,6 @@ function loadFromLib(hash)
     var loadedShape = new TubeMeshParams();
 	window.view.targetX = loadedShape['Rotation X'];
 	window.view.targetY = loadedShape['Rotation Y'];
-	$( "#slider" ).slider( "value", this.tubeMeshParams['Scale'] * 100 );
 	
 	window.sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
 	window.sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];

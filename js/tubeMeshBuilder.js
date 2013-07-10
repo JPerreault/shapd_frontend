@@ -165,7 +165,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.createTorus = function (material)
 	{
-		console.log('create torus ': material);
 		var thickness, scale;
 		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
@@ -236,8 +235,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		this.torusZ = cenPosZ;
 
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
-		if (typeof screenShot !== 'undefined')
-			scale *= 1/figure.scale.x;
 		torusLoop.scale.set(scale, scale, scale);
 		
 		//Now translate from centroid up an amount along normal vector
@@ -483,6 +480,7 @@ var TubeMeshParams = function(){
 
             if (parseme == "")
                 throw "invalid";
+				$( "#slider" ).slider( "value", loadedShape.tubeMeshParams['Scale'] * 100 );
             return;
         }
         catch(e)
