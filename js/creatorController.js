@@ -791,7 +791,10 @@ function getNewPrice()
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
 		if (window.sceneWrapper.tubeMeshBuilder.m.name.indexOf('Transparent resin') !== -1)
-				updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+		{
+			updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+			return;
+		}
 		
 		
 		if (typeof authToken !== 'undefined')
@@ -805,7 +808,25 @@ function getNewPrice()
 	
 function updatePrice(data)
 {	
-	document.getElementById('idCostData').innerHTML = '$' + data;	
+	var material = window.sceneWrapper.currentMesh['Material'];
+	
+	data = Math.floor(data * 100) / 100;
+	if (data > 0)
+		document.getElementById('idCostData').innerHTML = '$' + data;
+	else if (material === 'Titanium unpolished')
+		document.getElementById('idCostData').innerHTML = '$1250.00+';
+	else if (material === 'Titanium polished')
+		document.getElementById('idCostData').innerHTML = '$3250.00+';
+	else if (material === 'Bronze regular')
+		document.getElementById('idCostData').innerHTML = '$3250.00+';
+	else if (material === 'Brass gold plated polished')
+		document.getElementById('idCostData').innerHTML = '$3250.00+';
+	else if (material === 'Gold regular')
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
+	else if (material === 'Prime gray')
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
+	else
+		document.getElementById('idCostData').innerHTML = 'Error';
 }
 
 function pre(figure)
