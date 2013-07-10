@@ -38,14 +38,19 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
 		if (typeof screenShot !== 'undefined')
+		{
 			this.m.opacity = 1;
+		}
         figure = new THREE.Mesh(geometry, this.m);
 		
         figure.rotation.x = tubeMeshParams['Rotation X'];
         figure.rotation.y = tubeMeshParams['Rotation Y'];
         figure.rotation.z = 0;	
 
-        figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
+		if (typeof screenShot === 'undefined')
+			figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
+		else
+			figure.scale.x = figure.scale.y = figure.scale.z = 1;
         tubeMeshParams.figure = figure;
 		
         return tubeMeshParams;
