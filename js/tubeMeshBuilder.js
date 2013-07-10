@@ -480,7 +480,7 @@ var TubeMeshParams = function(){
 
             if (parseme == "")
                 throw "invalid";
-				$( "#slider" ).slider( "value", loadedShape.tubeMeshParams['Scale'] * 100 );
+				$( "#slider" ).slider( "value", this['Scale'] * 100 );
             return;
         }
         catch(e)
