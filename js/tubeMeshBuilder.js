@@ -235,6 +235,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		this.torusZ = cenPosZ;
 
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
+		if (typeof screenShot !== 'undefined')
+			scale *= 1/figure.scale.x;
 		torusLoop.scale.set(scale, scale, scale);
 		
 		//Now translate from centroid up an amount along normal vector
