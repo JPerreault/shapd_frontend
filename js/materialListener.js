@@ -174,7 +174,7 @@ var materialListener = function(sW, tMB){
 	
 	document.getElementById('highdetailgrayplastic').onclick = function()
 	{
-		sceneWrapper.tubeMeshParams['Material'] = 'Transparent Detail Plastic';
+		sceneWrapper.tubeMeshParams['Material'] = 'Prime gray';
 		name = 'Premium Smooth Gray Plastic';
 		cost = '$$$';
 		smooth = 'High';

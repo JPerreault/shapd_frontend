@@ -451,6 +451,7 @@ window.onload = function() {
 			currentMesh.figure.scale.x = 1;
 			currentMesh.figure.scale.y = 1;
 			currentMesh.figure.scale.z = 1;
+			currentMesh['Scale'] = 1;
 			$( "#slider" ).slider( "value", 100 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 			$( "#thickslider" ).slider( "value", 1.75 );
@@ -493,11 +494,8 @@ window.onload = function() {
 			tubeMeshBuilder.torusRotationNinety = 0;
 			sceneWrapper.torusDefined = false;
 			
-			sceneWrapper.currentMesh['Thickness'] = 1.75;
-			sceneWrapper.currentMesh['Depth'] = 1;
-			sceneWrapper.currentMesh['Stretch'] = 1;
-			sceneWrapper.currentMesh['Modify'] = 5;
-			sceneWrapper.currentMesh['Loops'] = 2;
+			sceneWrapper.updateScale(1);
+			$( "#slider" ).slider( "value", 100 );
 
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
@@ -803,7 +801,25 @@ function setupDatGui(sC) {
 function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
-
+		document.getElementById('idCostData').innerHTML = 'Pricing...';	
+		var material = window.sceneWrapper.currentMesh['Material'];
+		
+		if (material.indexOf('Transparent resin') !== -1)
+		{
+			updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+			return;
+		}
+		else if (material === 'Gold regular')
+		{
+			document.getElementById('idCostData').innerHTML = 'Unavailable';
+				return;
+		}
+		else if (material === 'Prime gray')
+		{
+			document.getElementById('idCostData').innerHTML = 'Unavailable';
+			return;
+		}
+		
 		if (typeof authToken !== 'undefined')
 		{
 			if (jsonString.indexOf('currency') === -1)
@@ -815,5 +831,31 @@ function getNewPrice()
 	
 function updatePrice(data)
 {	
-	document.getElementById('idCostData').innerHTML = '$' + data;	
+	var material = window.sceneWrapper.currentMesh['Material'];
+	
+	data = Math.floor(data * 100) / 100;
+	if (data > 0)
+		document.getElementById('idCostData').innerHTML = '$' + data;
+	else if (material === 'Titanium unpolished')
+		document.getElementById('idCostData').innerHTML = '$1250.00+';
+	else if (material === 'Titanium polished')
+		document.getElementById('idCostData').innerHTML = '$3250.00+';
+	else if (material === 'Brass regular')
+		document.getElementById('idCostData').innerHTML = '$3250.00+';
+	else if (material === 'Brass gold plated polished')
+		document.getElementById('idCostData').innerHTML = '$3250.00+';
+	else
+		document.getElementById('idCostData').innerHTML = 'Error';
+}
+
+function pre(figure)
+{
+	var p = 0;
+	var v = calculateVolume (figure, figure.scale.x);
+	v *= 1000;
+	
+	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
+	p = Math.floor(p * 100) / 100;
+	
+	return p;
 }

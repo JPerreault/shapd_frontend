@@ -117,4 +117,20 @@ Biggest takeaways:
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(cenPosX, cenPosY, cenPosZ));
 		
 		
+		VOLUME OF RESIN THING AND STUFF
+		function priceOfResin(figure)
+		{
+			var price = 0;
+			var volume = calculateVolume (figure, figure.scale.x);
+			volume *= 1000;
+			
+			if (volume < 20000)
+				price = 4.5069 * Math.log(volume) + 30.805;
+			else
+				price = 0.0012 * volume + 62.55;
+			
+			return price * 1.28 * 1.3;
+		}
+		
+		
 	*/	

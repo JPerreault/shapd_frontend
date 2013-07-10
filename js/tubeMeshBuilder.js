@@ -38,14 +38,27 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
 		if (typeof screenShot !== 'undefined')
+		{
 			this.m.opacity = 1;
+		}
+		
+		//var imgTexture2 = THREE.ImageUtils.loadTexture( "moon_1024.jpg" );
+		//imgTexture2.wrapS = imgTexture2.wrapT = THREE.RepeatWrapping;
+		//imgTexture2.anisotropy = 16;
+		//imgTexture2.repeat.set(4.5, 4.5);
+		//this.m.map = imgTexture2;
+		//console.log(imgTexture2);	
+		
         figure = new THREE.Mesh(geometry, this.m);
 		
         figure.rotation.x = tubeMeshParams['Rotation X'];
         figure.rotation.y = tubeMeshParams['Rotation Y'];
         figure.rotation.z = 0;	
 
-        figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
+		if (typeof screenShot === 'undefined')
+			figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
+		else
+			figure.scale.x = figure.scale.y = figure.scale.z = 1;
         tubeMeshParams.figure = figure;
 		
         return tubeMeshParams;
@@ -161,7 +174,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.createTorus = function (material)
 	{
 		var thickness, scale;
-		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1)
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
 			thickness = 1.5;
 			scale = .5;
@@ -353,7 +366,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var material = this.m.name;
 		var thicknessOfWire = radius * figure.scale.x;
 
-		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1)
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
 			if (!(thicknessOfWire > .75))
 				dimensionsPrintable = 'small';
@@ -403,6 +416,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			fitsBounds = (this.xDim < 140 && this.yDim < 140 && this.zDim < 140);
 		else if (material.indexOf('Plastic detail' !== -1))
 			fitsBounds = (this.xDim < 240 && this.yDim < 240 && this.zDim < 190);
+		else if (material.indexOf('Prime gray' !== -1))
+			fitsBounds = (this.xDim < 240 && this.yDim < 240 && this.zDim < 225);
 		else if (material.indexOf('Transparent resin' !== -1))
 			fitsBounds = (this.xDim < 2090 && this.yDim < 690 && this.zDim < 790);
 		else if (material.indexOf('Alumide' !== -1))
@@ -473,6 +488,7 @@ var TubeMeshParams = function(){
 
             if (parseme == "")
                 throw "invalid";
+				$( "#slider" ).slider( "value", this['Scale'] * 100 );
             return;
         }
         catch(e)

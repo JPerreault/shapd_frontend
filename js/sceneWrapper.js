@@ -65,7 +65,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		{
 			this.torusDefined = true;
 			this.tubeMeshBuilder.fIndex = fIndex;
-			this.torusMesh = this.tubeMeshBuilder.createTorus();
+			this.torusMesh = this.tubeMeshBuilder.createTorus(this.tubeMeshParams['Material']);
 			this.redrawMesh(this.tubeMeshParams);
 		}
 	};
@@ -156,5 +156,6 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);
+		this.currentMesh['Scale'] = newVal;
     };
 }
