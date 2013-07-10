@@ -790,7 +790,9 @@ function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
-		if (window.sceneWrapper.tubeMeshBuilder.m.name.indexOf('Transparent resin') !== -1)
+		var material = window.sceneWrapper.currentMesh['Material'];
+		
+		if (material.indexOf('Transparent resin') !== -1)
 		{
 			updatePrice(pre(window.sceneWrapper.currentMesh.figure));
 			return;
