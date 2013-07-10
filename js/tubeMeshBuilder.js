@@ -161,7 +161,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.createTorus = function (material)
 	{
 		var thickness, scale;
-		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1)
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
 			thickness = 1.5;
 			scale = .5;
@@ -353,7 +353,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var material = this.m.name;
 		var thicknessOfWire = radius * figure.scale.x;
 
-		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1)
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
 			if (!(thicknessOfWire > .75))
 				dimensionsPrintable = 'small';
@@ -403,6 +403,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			fitsBounds = (this.xDim < 140 && this.yDim < 140 && this.zDim < 140);
 		else if (material.indexOf('Plastic detail' !== -1))
 			fitsBounds = (this.xDim < 240 && this.yDim < 240 && this.zDim < 190);
+		else if (material.indexOf('Prime gray' !== -1))
+			fitsBounds = (this.xDim < 240 && this.yDim < 240 && this.zDim < 225);
 		else if (material.indexOf('Transparent resin' !== -1))
 			fitsBounds = (this.xDim < 2090 && this.yDim < 690 && this.zDim < 790);
 		else if (material.indexOf('Alumide' !== -1))

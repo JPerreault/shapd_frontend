@@ -60,6 +60,8 @@ var MaterialsLibrary = function() {
 				"Plastic detail white": new THREE.MeshLambertMaterial({color: 0xE3E3E3, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shading: THREE.FlatShading}),
 				"Plastic detail black": new THREE.MeshLambertMaterial({color: 0x757575, map: THREE.ImageUtils.loadTexture('textures/blackdetail.jpg'),  shading: THREE.FlatShading}),
 				
+				"Prime gray": new THREE.MeshLambertMaterial({color: 0x696868}),
+				
 				"Stainless steel regular":			new THREE.MeshLambertMaterial({color: 0xffffff, map: THREE.ImageUtils.loadTexture('textures/roughmetal.jpg'), shading: THREE.FlatShading}),
 				
 				"Stainless steel bronze matte": 	new THREE.MeshLambertMaterial({color: 0x8C6D45, map: THREE.ImageUtils.loadTexture('textures/bronzematte.jpg'), shading: THREE.FlatShading}),

@@ -299,6 +299,11 @@ function calculateMaterial(figure)
 		return 7;
 	}
 	
+	else if (figure.material.name == 'Prime gray'){
+		websiteName = 'iMaterialise';
+		return '2e7b80e9-634b-485a-bc40-5e4324078b54'
+	}
+	
 	else if (figure.material.name.indexOf('Transparent') !== -1){
 		websiteName = 'iMaterialise';
 		return '7bd84076-b86d-45c5-b498-766484b02ad9';
@@ -372,7 +377,10 @@ function calculateMaterial(figure)
 
 function calculateFinishId(figure)
 {
-	if (figure.material.name == 'Transparent resin white'){
+	if (figure.material.name == 'Prime gray'){
+		return '0261af53-8fed-4854-a248-4b111d759f8d';
+	}
+	else if (figure.material.name == 'Transparent resin white'){
 		return 'e1b52251-6eba-4a26-a46b-66898f3831d7';
 	}	
 	
