@@ -63,9 +63,10 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.addMesh( this.tubeMeshBuilder.build(this.tubeMeshParams) );
 		if (fIndex != -1)
 		{
+			console.log('init ': this.tubeMeshParams['Material']);
 			this.torusDefined = true;
 			this.tubeMeshBuilder.fIndex = fIndex;
-			this.torusMesh = this.tubeMeshBuilder.createTorus();
+			this.torusMesh = this.tubeMeshBuilder.createTorus(this.tubeMeshParams['Material']);
 			this.redrawMesh(this.tubeMeshParams);
 		}
 	};
@@ -145,6 +146,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		if (this.torusDefined)
 		{
 			this.scene.remove(this.torusMesh);
+			console.log('redraw ': this.currentMesh['Material']);
 			this.torusMesh = this.tubeMeshBuilder.createTorus(this.currentMesh['Material']);
 			
 			this.torusMesh.rotation.x = xRotation;
