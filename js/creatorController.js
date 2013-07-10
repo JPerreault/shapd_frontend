@@ -795,7 +795,16 @@ function getNewPrice()
 			updatePrice(pre(window.sceneWrapper.currentMesh.figure));
 			return;
 		}
-		
+		else if (material === 'Gold regular')
+		{
+			document.getElementById('idCostData').innerHTML = 'Unavailable';
+				return;
+		}
+		else if (material === 'Prime gray')
+		{
+			document.getElementById('idCostData').innerHTML = 'Unavailable';
+			return;
+		}
 		
 		if (typeof authToken !== 'undefined')
 		{
@@ -817,14 +826,10 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = '$1250.00+';
 	else if (material === 'Titanium polished')
 		document.getElementById('idCostData').innerHTML = '$3250.00+';
-	else if (material === 'Bronze regular')
+	else if (material === 'Brass regular')
 		document.getElementById('idCostData').innerHTML = '$3250.00+';
 	else if (material === 'Brass gold plated polished')
 		document.getElementById('idCostData').innerHTML = '$3250.00+';
-	else if (material === 'Gold regular')
-		document.getElementById('idCostData').innerHTML = 'Unavailable';
-	else if (material === 'Prime gray')
-		document.getElementById('idCostData').innerHTML = 'Unavailable';
 	else
 		document.getElementById('idCostData').innerHTML = 'Error';
 }
