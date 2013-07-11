@@ -5,7 +5,7 @@ var sceneWrapper, view, gui;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, state;
+	var tubeMeshBuilder, scene, tubeMP, matListener, state, printable;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
@@ -333,8 +333,11 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			state = 'publish';
-			setupInterface();
+			if (printable)
+			{
+				state = 'publish';
+				setupInterface();
+			}
 		}
 		saveShape();
     }
@@ -377,12 +380,6 @@ window.onload = function() {
 			setupInterface();
 	}
 	
-	document.getElementById('idProgressImg4').onclick = function()
-	{
-			state = 'publish';
-			setupInterface();
-	}
-	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
 			state = 'creator';
@@ -398,12 +395,6 @@ window.onload = function() {
 	document.getElementById('idProgressImgNamesId3').onclick = function()
 	{
 			state = 'finalize';
-			setupInterface();
-	}
-	
-	document.getElementById('idProgressImgNamesId4').onclick = function()
-	{
-			state = 'publish';
 			setupInterface();
 	}
 	
@@ -615,12 +606,16 @@ window.onload = function() {
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
 			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+			document.getElementById('idSaveButton').style.opacity = .5;
+			printable = false;
 		}
 		else if (isOkay === 'large')
 		{
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
 			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
+			document.getElementById('idSaveButton').style.opacity = .5;
+			printable = false;
 		}
 		else
 		{
@@ -631,6 +626,8 @@ window.onload = function() {
 			}
 			else
 				$("#thicknessContainer").fadeOut(0);
+			document.getElementById('idSaveButton').style.opacity = 1;
+			printable = true;
 		}
 	}
 	
