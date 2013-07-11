@@ -23,6 +23,27 @@ function generateDropDown(width, height, messageHTML)
     return div.id;
 }
 
+function generateWhiteDropDown(width, height, messageHTML)
+{
+    count++;
+    
+    var div = document.createElement("div");
+    
+    div.setAttribute("id", "popup"+count);
+    div.style.width = ""+width+"px";
+    div.style.marginLeft = "-"+(width/2)+"px";
+    div.style.height = ""+height+"px";
+    div.style.top = "-"+height+"px";
+    
+    div.style.color = "white";
+    div.innerHTML = messageHTML;
+    div.className = "whiteSwoop";
+    
+    document.body.appendChild(div);
+    
+    return div.id;
+}
+
 function generateLightbox(src, imgDesc)
 {
     count++;
