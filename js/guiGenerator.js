@@ -347,7 +347,7 @@ function addSavedLibrary() {
     {
         var savedShapeContainer = document.createElement('div');
         savedShapeContainer.id = 'idSavedShapeContainer';
-        savedShapeContainer.className = 'rounded antiscroll-wrap';
+        savedShapeContainer.className = 'rounded';
         savedShapeContainer.innerHTML += '<b>Your Saved Shapes</b><br>';
         savedShapeContainer.style.position = 'absolute';
         savedShapeContainer.style.border = '10px solid #000';
@@ -357,14 +357,18 @@ function addSavedLibrary() {
         savedShapeContainer.style.right = '0.75%';	
         savedShapeContainer.style.width = '217px';			
         savedShapeContainer.style.zIndex = '1000';
-        document.body.appendChild(savedShapeContainer);			
+        document.body.appendChild(savedShapeContainer);
+        
+        var scrollWrapper = document.createElement('div');
+        scrollWrapper.className = 'rounded antiscroll-wrap';
+        savedShapeContainer.appendChild(scrollWrapper);
                 
         var savedShapeLibrary = document.createElement('div');
         savedShapeLibrary.id = 'idSavedShapeLibrary';
         savedShapeLibrary.innerHTML = shapeLib;
         savedShapeLibrary.style.background = '#000';
         savedShapeLibrary.className = 'antiscroll-inner';
-        savedShapeContainer.appendChild(savedShapeLibrary);
+        scrollWrapper.appendChild(savedShapeLibrary);
     }
 }
 
