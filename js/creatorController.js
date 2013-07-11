@@ -421,7 +421,6 @@ window.onload = function() {
 		sceneWrapper.tubeMeshBuilder.fIndex = -1;
 		$('#idLoopRotContainer').fadeOut(0);
 		tubeMeshBuilder.torusRotation = 0;
-		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotationNinety = 0;
 	}
 	
@@ -442,7 +441,6 @@ window.onload = function() {
 			sceneWrapper.currentMesh['Face Index'] = -1;
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
 			$('#idLoopRotContainer').fadeOut(0);
-			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotationNinety = 0;
 		}
@@ -489,7 +487,6 @@ window.onload = function() {
 			resetAllParams();
 			
 			tubeMeshBuilder.fIndex = -1;
-			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotationNinety = 0;
 			sceneWrapper.torusDefined = false;
@@ -654,6 +651,7 @@ window.onload = function() {
 			{
 				scene.torusDefined = true;
 				tubeMeshBuilder.faceIndexIncrementor = 0;
+				tubeMeshBuilder.torusRotation = 0;
 				scene.redrawMesh(scene.currentMesh);
 				$('#idLoopRotContainer').fadeIn(0);
 			}
@@ -740,13 +738,17 @@ function loadFromLib(hash)
 	window.sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
 	window.sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
 	
-	if (typeof window.sceneWrapper.torusMesh !== 'undefined')
-		window.sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 	if (loadedShape['Face Index'] != -1)
 	{
 		window.sceneWrapper.torusDefined = true;
 		window.sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
 		window.sceneWrapper.torusMesh = window.sceneWrapper.tubeMeshBuilder.createTorus();
+	}
+	else
+	{
+		window.sceneWrapper.scene.remove(window.sceneWrapper.torusMesh);
+		window.sceneWrapper.torusDefined = false;
+		window.sceneWrapper.tubeMeshBuilder.fIndex = -1;
 	}
 	
     window.sceneWrapper.redrawMesh(loadedShape, true);
@@ -771,10 +773,10 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', .5, 10);
+	controller = gui.add(currentMesh, 'Thickness', .5, 6.5);
 	setUpController(controller, 'Thickness');
 
-	controller = gui.add(currentMesh, 'Depth', 0.0005, 3.5);
+	controller = gui.add(currentMesh, 'Depth', 0.0005, 2);
 	setUpController(controller, 'Depth');
 
 	controller = gui.add(currentMesh, 'Stretch', 0.00005, 1.75);

@@ -1,7 +1,7 @@
 var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
-	var knot, geometry, stl, closed, figure, scale, intersects, torusLoop, radius;
+	var knot, geometry, stl, figure, closed, scale, intersects, torusLoop, radius;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
 	this.faceIndexIncrementor = 0;
@@ -24,9 +24,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		knot = new curveMaker(tubeMeshParams);
         geometry = new THREE.TubeGeometry(knot, segments, radius, radiusSegments, closed, false);
 		var vertices = geometry.vertices;
-		
-		//Check if caps are needed on open ends.
-		if (!closed) {				
+				
+		if (!closed) {
 			var cap = new capSpline(knot, segments, radius, radiusSegments, closed, false);
 			THREE.GeometryUtils.merge(geometry, cap);
 		}
@@ -57,7 +56,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
         return tubeMeshParams;
     }
 	
-	//Sees if the lines should be attempted to be closed or not
 	this.isClosed = function(tubeMeshParams)
 	{
 		if (tubeMeshParams['Starting Shape'] < 10)
@@ -65,6 +63,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		else
 			return false;
 	}
+	
 	this.nameMaterial= function (material)
 	{
 		this.m.name = material;
@@ -96,7 +95,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			stl += 'endloop \n';
 			stl += 'endfacet \n';
 			//Make the corresponding triangle unless the face in question is the cap.
-			if ((i < faces.length - (2 * (radiusSegments - 2)) && closed == false) || closed == true)
+			if (i < faces.length - (2 * (radiusSegments - 2)))
 			{
 				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
 				stl += 'outer loop \n';
@@ -348,8 +347,8 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			yVal = Math.floor(yDimSize * 100) / 100;
 			zVal = Math.floor(zDimSize * 100) / 100;
 		
-			$( "#xwidth" ).val(xVal);
-			$( "#yheight" ).val(yVal);
+			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches wide)<span>';	
+			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches high)<span>';
 		}
 	}
 	
