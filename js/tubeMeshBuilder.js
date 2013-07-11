@@ -42,13 +42,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			this.m.opacity = 1;
 		}
 		
-		//var imgTexture2 = THREE.ImageUtils.loadTexture( "moon_1024.jpg" );
-		//imgTexture2.wrapS = imgTexture2.wrapT = THREE.RepeatWrapping;
-		//imgTexture2.anisotropy = 16;
-		//imgTexture2.repeat.set(4.5, 4.5);
-		//this.m.map = imgTexture2;
-		//console.log(imgTexture2);	
-		
         figure = new THREE.Mesh(geometry, this.m);
 		
         figure.rotation.x = tubeMeshParams['Rotation X'];
