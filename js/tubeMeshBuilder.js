@@ -60,8 +60,12 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	//Sees if the lines should be attempted to be closed or not
 	this.isClosed = function(tubeMeshParams)
 	{
-		if (tubeMeshParams['Starting Shape'] < 10)
+		var a = tubeMeshParams['Starting Shape'];
+		if (a === 1 || a === 7 || a === 8 || a === 9 || a === 10 || a === 11 || a === 12 || a === 13 || a === 14 || a === 15 || a === 16  )
+		{
+			console.log('true',1);
 			return true;
+		}
 		else
 			return false;
 	}
@@ -494,7 +498,7 @@ var TubeMeshParams = function(){
 		this['Depth'] = 1;
 		this['Stretch'] = 1;
 		this['Loops'] = 2;
-		this['Starting Shape'] = 1;
+		this['Starting Shape'] = 2;
 		this['Thickness'] = 1.75;
 		this['Material'] = 'Brass gold plated polished';
 		this['Face Index'] = -1;
