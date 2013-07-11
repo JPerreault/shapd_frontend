@@ -5,7 +5,7 @@ var sceneWrapper, view, gui;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, state;
+	var tubeMeshBuilder, scene, tubeMP, matListener, state, printable;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
@@ -333,8 +333,11 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			state = 'publish';
-			setupInterface();
+			if (printable)
+			{
+				state = 'publish';
+				setupInterface();
+			}
 		}
 		saveShape();
     }
@@ -377,12 +380,6 @@ window.onload = function() {
 			setupInterface();
 	}
 	
-	document.getElementById('idProgressImg4').onclick = function()
-	{
-			state = 'publish';
-			setupInterface();
-	}
-	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
 			state = 'creator';
@@ -401,12 +398,6 @@ window.onload = function() {
 			setupInterface();
 	}
 	
-	document.getElementById('idProgressImgNamesId4').onclick = function()
-	{
-			state = 'publish';
-			setupInterface();
-	}
-	
 	document.getElementById('idResetRotationImg').onclick = function()
 	{
 		view.targetX = 0;
@@ -420,7 +411,6 @@ window.onload = function() {
 		sceneWrapper.currentMesh['Face Index'] = -1;
 		sceneWrapper.tubeMeshBuilder.fIndex = -1;
 		$('#idLoopRotContainer').fadeOut(0);
-		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotationNinety = 0;
 	}
@@ -442,7 +432,6 @@ window.onload = function() {
 			sceneWrapper.currentMesh['Face Index'] = -1;
 			sceneWrapper.tubeMeshBuilder.fIndex = -1;
 			$('#idLoopRotContainer').fadeOut(0);
-			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotationNinety = 0;
 		}
@@ -489,7 +478,6 @@ window.onload = function() {
 			resetAllParams();
 			
 			tubeMeshBuilder.fIndex = -1;
-			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotation = 0;
 			tubeMeshBuilder.torusRotationNinety = 0;
 			sceneWrapper.torusDefined = false;
@@ -618,12 +606,16 @@ window.onload = function() {
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
 			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+			document.getElementById('idSaveButton').style.opacity = .5;
+			printable = false;
 		}
 		else if (isOkay === 'large')
 		{
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
 			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
+			document.getElementById('idSaveButton').style.opacity = .5;
+			printable = false;
 		}
 		else
 		{
@@ -634,6 +626,8 @@ window.onload = function() {
 			}
 			else
 				$("#thicknessContainer").fadeOut(0);
+			document.getElementById('idSaveButton').style.opacity = 1;
+			printable = true;
 		}
 	}
 	
@@ -654,6 +648,7 @@ window.onload = function() {
 			{
 				scene.torusDefined = true;
 				tubeMeshBuilder.faceIndexIncrementor = 0;
+				tubeMeshBuilder.torusRotation = 0;
 				scene.redrawMesh(scene.currentMesh);
 				$('#idLoopRotContainer').fadeIn(0);
 			}
@@ -740,13 +735,17 @@ function loadFromLib(hash)
 	window.sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
 	window.sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
 	
-	if (typeof window.sceneWrapper.torusMesh !== 'undefined')
-		window.sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 	if (loadedShape['Face Index'] != -1)
 	{
 		window.sceneWrapper.torusDefined = true;
 		window.sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
 		window.sceneWrapper.torusMesh = window.sceneWrapper.tubeMeshBuilder.createTorus();
+	}
+	else
+	{
+		window.sceneWrapper.scene.remove(window.sceneWrapper.torusMesh);
+		window.sceneWrapper.torusDefined = false;
+		window.sceneWrapper.tubeMeshBuilder.fIndex = -1;
 	}
 	
     window.sceneWrapper.redrawMesh(loadedShape, true);
@@ -771,10 +770,10 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', .5, 10);
+	controller = gui.add(currentMesh, 'Thickness', .5, 6.5);
 	setUpController(controller, 'Thickness');
 
-	controller = gui.add(currentMesh, 'Depth', 0.0005, 3.5);
+	controller = gui.add(currentMesh, 'Depth', 0.0005, 2);
 	setUpController(controller, 'Depth');
 
 	controller = gui.add(currentMesh, 'Stretch', 0.00005, 1.75);
