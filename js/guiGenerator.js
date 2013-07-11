@@ -266,21 +266,21 @@ function addProgressBar() {
 		progressImg.className = 'buttonImg';
 		progressImg.src = 'assets/imgs/progress/progressSection1.png';
 		progressContainer.appendChild(progressImg);	
-	
+
 		var progressImg2 = progressImg.cloneNode(true);
 		progressImg2.id = 'idProgressImg2';
 		progressImg2.src = 'assets/imgs/progress/progressSectionOpaque.png';
 		progressContainer.appendChild(progressImg2);	
-	
+
 		var progressImg3 = progressImg.cloneNode(true);
 		progressImg3.id = 'idProgressImg3';
 		progressImg3.src = 'assets/imgs/progress/progressSectionOpaque.png';
 		progressContainer.appendChild(progressImg3);	
-	
-		var progressImg4 = progressImg.cloneNode(true);
+
+		var progressImg4 = document.createElement('img');
 		progressImg4.id = 'idProgressImg4';
 		progressImg4.src = 'assets/imgs/progress/progressSectionOpaque.png';
-		progressContainer.appendChild(progressImg4);	
+		progressContainer.appendChild(progressImg4);		
 	
 	var progressNameContainer = document.createElement('div');
 	progressNameContainer.id = 'idProgressNameContainer';
@@ -310,11 +310,11 @@ function addProgressBar() {
 		progressImgNames3.src = 'assets/imgs/progress/progressNames3_opaque.png';
 		progressNameContainer.appendChild(progressImgNames3);	
 	
-		var progressImgNames4 = progressImgNames1.cloneNode(true);
+		var progressImgNames4 = document.createElement('img');
 		progressImgNames4.id = 'idProgressImgNamesId4';
 		progressImgNames4.style.margin = '3px 3px 0px 0px';
 		progressImgNames4.src = 'assets/imgs/progress/progressNames4_opaque.png';
-		progressNameContainer.appendChild(progressImgNames4);	
+		progressNameContainer.appendChild(progressImgNames4);		
 }
 
 function addResetButtons() {
