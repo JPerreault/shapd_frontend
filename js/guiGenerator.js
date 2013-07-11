@@ -42,6 +42,92 @@ function scaleGUI() {
 			vShapeDiv.appendChild(vRulerImg);
 }
 
+function loopRotations(){
+	
+			var loopRotContainer = document.createElement('div');
+			loopRotContainer.id = 'idLoopRotContainer';
+			document.body.appendChild(loopRotContainer);
+			
+			var loopAroundDiv = document.createElement('div');
+			loopAroundDiv.id = 'idloopAroundDiv';
+			loopAroundDiv.style.position = 'absolute';
+			loopAroundDiv.innerHTML = 'Align Your Loop:<br><br>';
+			loopAroundDiv.style.fontFamily = 'Verdana, Geneva, sans-serif';
+			loopAroundDiv.style.fontSize = '18px';
+			loopAroundDiv.style.fontWeight = '600';
+			loopAroundDiv.className = 'rounded';
+			loopAroundDiv.style.color = '#000';
+			loopAroundDiv.style.top = '18%';
+			loopAroundDiv.style.left = '18%';
+			loopAroundDiv.style.zIndex = '1000';
+			loopRotContainer.appendChild(loopAroundDiv);
+			
+			var rotateDiv = document.createElement('div');
+			rotateDiv.id = 'idRotateDiv';
+			rotateDiv.style.zIndex = '1000';
+			loopAroundDiv.appendChild(rotateDiv);
+
+			var loopAroundLeftImg = document.createElement('img');
+			loopAroundLeftImg.id = 'idLoopAroundLeftImg';
+			loopAroundLeftImg.style.zIndex = '1000';
+			loopAroundLeftImg.className = 'buttonImg';
+			loopAroundLeftImg.src = 'assets/imgs/buttons/rotateLoopLeft.png';
+			loopAroundLeftImg.style.margin = '5px';
+			loopAroundLeftImg.style.display = 'inline';
+			loopAroundLeftImg.style.zIndex = '1000';
+			rotateDiv.appendChild(loopAroundLeftImg);
+			
+			var loopAroundRightImg = loopAroundLeftImg.cloneNode(true);
+			loopAroundRightImg.id = 'idLoopAroundRightImg';
+			loopAroundRightImg.src = 'assets/imgs/buttons/rotateLoopRight.png';
+			rotateDiv.appendChild(loopAroundRightImg);
+			
+			var angleDiv = document.createElement('div');
+			angleDiv.id = 'idAngleDiv';
+			angleDiv.style.zIndex = '1000';
+			loopAroundDiv.appendChild(angleDiv);
+			
+			var loopLessAngle = loopAroundLeftImg.cloneNode(true);
+			loopLessAngle.style.display = 'inline';
+			loopLessAngle.id = 'idLoopLessangle';
+			loopLessAngle.src= 'assets/imgs/buttons/lessAngle.png';
+			angleDiv.appendChild(loopLessAngle);
+			
+			var loopMoreAngle = loopLessAngle.cloneNode(true);
+			loopMoreAngle.id = 'idLoopMoreangle';
+			loopMoreAngle.src= 'assets/imgs/buttons/moreAngle.png';
+			angleDiv.appendChild(loopMoreAngle);
+			
+			var spinDiv = document.createElement('div');
+			spinDiv.id = 'idAngleDiv';
+			spinDiv.align = 'center';
+			spinDiv.style.zIndex = '1000';
+			loopAroundDiv.appendChild(spinDiv);
+			
+			var spinButton = loopAroundLeftImg.cloneNode(true);
+			spinButton.style.display = 'inline';
+			spinButton.id = 'idSpinButton';
+			spinButton.src= 'assets/imgs/buttons/spin.png';
+			spinDiv.appendChild(spinButton);
+			
+			var removeLoopDiv = document.createElement('div');
+			removeLoopDiv.id = 'idloopAroundDiv';
+			removeLoopDiv.style.position = 'absolute';
+			removeLoopDiv.className = 'rounded';
+			removeLoopDiv.style.top = '30%';
+			removeLoopDiv.style.right = '18%';
+			removeLoopDiv.style.zIndex = '1000';
+			loopRotContainer.appendChild(removeLoopDiv);
+			
+			var removeLoop = document.createElement('img');
+			removeLoop.id = 'idRemoveLoop';
+			removeLoop.style.zIndex = '1000';
+			removeLoop.className = 'buttonImg';
+			removeLoop.src = 'assets/imgs/buttons/removeLoop.png';
+			removeLoop.style.zIndex = '1000';
+			removeLoopDiv.appendChild(removeLoop);
+}
+
 function addDimensions() {
 			var dimsContainer = document.createElement('div');
 			dimsContainer.id = 'idDimsContainer';
@@ -469,56 +555,6 @@ function addLoops(){
 	loopText.align = 'center';			
 	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
-}
-
-function addLoopControls(){
-	var loopControls = document.createElement('div');
-	loopControls.id = 'loopControls';
-	loopControls.style.position = 'absolute';
-	loopControls.style.top = '0%';
-	loopControls.style.left = '0%';
-	loopControls.style.zIndex = '1000';
-	document.body.appendChild(loopControls);
-	
-	var rotAroundF = document.createElement('div');
-    rotAroundF.style.position = 'absolute';
-	rotAroundF.style.top = '0px';
-    rotAroundF.style.zIndex = '1000';
-    rotAroundF.style.background= '#999';
-    rotAroundF.innerHTML = '<input id="rotateAroundF" type="button" value="Rotate Forward Around Shape">';
-    loopControls.appendChild(rotAroundF);
-	
-	var rotAroundB = document.createElement('div');
-    rotAroundB.style.position = 'absolute';
-	rotAroundB.style.top = '28px';
-    rotAroundB.style.zIndex = '1000';
-    rotAroundB.style.background= '#999';
-    rotAroundB.innerHTML = '<input id="rotateAroundB" type="button" value="Rotate Backward Around Shape">';
-    loopControls.appendChild(rotAroundB);
-	
-	var rotPlaceF = document.createElement('div');
-    rotPlaceF.style.position = 'absolute';
-	rotPlaceF.style.top = '56px';
-    rotPlaceF.style.zIndex = '1000';
-    rotPlaceF.style.background= '#999';
-    rotPlaceF.innerHTML = '<input id="rotatePlaceF" type="button" value="Rotate Forward In Place">';
-    loopControls.appendChild(rotPlaceF);
-	
-	var rotPlaceB = document.createElement('div');
-    rotPlaceB.style.position = 'absolute';
-	rotPlaceB.style.top = '84px';
-    rotPlaceB.style.zIndex = '1000';
-    rotPlaceB.style.background= '#999';
-    rotPlaceB.innerHTML = '<input id="rotatePlaceB" type="button" value="Rotate Backward In Place">';
-    loopControls.appendChild(rotPlaceB);
-	
-	var rotNinety = document.createElement('div');
-    rotNinety.style.position = 'absolute';
-	rotNinety.style.top = '110px';
-    rotNinety.style.zIndex = '1000';
-    rotNinety.style.background= '#999';
-    rotNinety.innerHTML = '<input id="rotate90" type="button" value="Rotate 90 Degrees">';
-    loopControls.appendChild(rotNinety);
 }
 
 function addDatGui(){
