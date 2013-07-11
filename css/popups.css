@@ -15,6 +15,24 @@
         a:active {color:#fff;}  /* selected link */
     
     }
+	
+	.whiteSwoop
+    {
+        z-index: 100000;
+        background-color:#fff;
+        color: white;
+        font-family: helvetica, arial;
+        border-radius: 20px;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        text-align: center;
+        
+        a:link {color:#fff;}      /* unvisited link */
+        a:visited {color:#fff;}  /* visited link */
+        a:active {color:#fff;}  /* selected link */
+    
+    }
     
     input
     {
