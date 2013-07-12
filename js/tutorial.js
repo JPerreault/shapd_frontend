@@ -3,6 +3,7 @@ var Tutorial = function(view, doTutorial)
 	var rotationsDone = 0;
 	this.tutorialOn = doTutorial;
 	this.shapeLibClicked = 0;
+	this.controllerMoved = 0;
 	var that = this;
 	
 	if (doTutorial)
@@ -30,7 +31,7 @@ var Tutorial = function(view, doTutorial)
 		{
 			fadeOut(fout);
 
-			if (that.tutorialOn === true && (Math.abs(view.targetX) > 5 || Math.abs(view.targetY) > 5))
+			if (that.tutorialOn === true && (Math.abs(view.targetX) > 3 || Math.abs(view.targetY) > 3))
 			{
 				document.removeEventListener( 'mousedown', onTwoClick, false );
 				tut2();
@@ -40,12 +41,16 @@ var Tutorial = function(view, doTutorial)
 
 	function tut1() {
 		fadeOut(fout);
-		var tut = 'Welcome!<br><br>This is the starting shape which you\'re going to turn into a pendant. You rotate it by clicking and dragging, or you can zoom in and out with the mouse wheel.<br><img src = "assets/imgs/shapes/1.png"><br><br>Give it a shot!';
+		var tut = 'Welcome!<br><br>This is the starting shape which you\'re going to turn into a pendant. You rotate it by clicking and dragging, or you can zoom in and out with the mouse wheel.<br><img src = "assets/imgs/shapes/1.png"><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
 		var d1 = generateTutorialMsg(tut, 300);
 		fout = d1;
 		slideDownCustBotR(d1, '45%', '300px');	
 		
 		document.getElementById('popup2').onclick = function()
+		{
+			fadeOut(fout);
+		}
+		document.getElementById('giveShot').onclick = function()
 		{
 			fadeOut(fout);
 		}
@@ -64,7 +69,7 @@ var Tutorial = function(view, doTutorial)
 		{
 			document.getElementById('idShapeContainer').style.zIndex = 1000;
 			fadeOut(fout);
-			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Nice!<br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
+			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
 			var d1 = generateTutorialMsg(tut, 250);
 			fout = d1;
 			slideDownCustTopL(d1, '18%', '1%');	
@@ -80,10 +85,17 @@ var Tutorial = function(view, doTutorial)
 		{
 			$(".dg.main")[0].style.zIndex = 1000;
 			highlight = 'idSaveButtonContainer';
-			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>';
-			var d1 = generateTutorialMsg(tut, 200, highlight);
+			var tut = 'Neat, huh?<br><br>When you find a shape you like, save and go to the next step.<br><br><button id = "okay" class="tutButton buttonImg">Okay!</button><br><img src = "assets/imgs/misc/arrowWhiteDown.png">';
+			var d1 = generateTutorialMsg(tut, 230, highlight);
 			fout = d1;
+			
+			this.controllerMoved++;
 			slideDownCustBotR(d1, '200px', '30px');
+			
+			document.getElementById('okay').onclick = function()
+			{
+				fadeOut(fout);
+			}
 			
 			document.removeEventListener( 'mouseup', releaseSlider, false );
 		}
