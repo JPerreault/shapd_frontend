@@ -11,7 +11,7 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var doTutorial = true;
+	var doTutorial = false;
 	
 	init();
 	animate();
