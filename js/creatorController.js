@@ -276,6 +276,7 @@ window.onload = function() {
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		// calculateVolume(sceneWrapper.currentMesh.figure, sceneWrapper.currentMesh.figure.scale.x, sceneWrapper);
 		
 		// var canvas = document.createElement('canvas');
 		// canvas.style.width = 250;

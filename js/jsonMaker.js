@@ -89,6 +89,7 @@ function calculateVolume(figure, scale, sw)
 		// var result = subtract_bsp.toMesh( figure.material );
 		// result.geometry.computeVertexNormals();
 		// sw.scene.add( result );
+		
 		// var xDim = sw.tubeMeshBuilder.xDim;
 		// var yDim = sw.tubeMeshBuilder.yDim;
 		// var zDim = sw.tubeMeshBuilder.zDim;
@@ -97,6 +98,15 @@ function calculateVolume(figure, scale, sw)
 		// var cube_mesh = new THREE.Mesh( cube_geometry, figure.material );
 		// var cube_bsp = new ThreeBSP( cube_mesh );
 		// var test = figure.geometry;
+
+		// try{
+		// var figureBSP = new ThreeBSP(test);
+		// }
+		// catch (e)
+		// {
+			// console.log('Error: ', e, ' Figure: ', figureBSP);
+		// }
+
 		// test.computeCentroids();
 		// test.computeFaceNormals();
 		// test.computeVertexNormals();
@@ -106,14 +116,7 @@ function calculateVolume(figure, scale, sw)
 		// test.computeBoundingSphere();
 		// test.mergeVertices();
 		// test.computeLineDistances();
-		// try{
-		// var figureBSP = new ThreeBSP(test);
-		// }
-		// catch (e)
-		// {
-			// console.log('Error: ', e, ' Figure: ', figureBSP);
-		// }
-
+		
 		//var subtract_bsp = cube_bsp.subtract( figureBSP );
 		//var result = subtract_bsp.toMesh( figure.material );
 		//result.geometry.computeVertexNormals();
@@ -218,12 +221,12 @@ function calculateXYZ(figure, scale)
 	var boundingBox = figure.geometry.boundingBox;
 	var dimensions = [];
 		
-	var xMin = boundingBox.min.x * scale / 10;
-	var yMin = boundingBox.min.y * scale / 10;
-	var zMin = boundingBox.min.z * scale / 10;
-	var xMax = boundingBox.max.x * scale / 10;
-	var yMax = boundingBox.max.y * scale / 10;
-	var zMax = boundingBox.max.z * scale / 10;
+	var xMin = boundingBox.min.x * scale;
+	var yMin = boundingBox.min.y * scale;
+	var zMin = boundingBox.min.z * scale;
+	var xMax = boundingBox.max.x * scale;
+	var yMax = boundingBox.max.y * scale;
+	var zMax = boundingBox.max.z * scale;
 	
 	var xVal = (xMax - xMin);
 	var yVal = (yMax - yMin);
@@ -237,9 +240,9 @@ function calculateXYZ(figure, scale)
 	}
 	else 
 	{
-		xVal /= 100;
-		yVal /= 100;
-		zVal /= 100;
+		xVal /= 1000;
+		yVal /= 1000;
+		zVal /= 1000;
 		
 		dimensions.push(0);
 		dimensions.push(xVal);
