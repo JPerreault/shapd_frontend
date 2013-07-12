@@ -38,7 +38,7 @@ window.onload = function() {
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 			else
 				renderer = new THREE.WebGLRenderer();
-       }
+		}
 		else
             location.href = 'snag.html';
 		view = new InputView(sceneWrapper, renderer, tubeMP);
@@ -278,6 +278,28 @@ window.onload = function() {
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		
+		// var canvas = document.createElement('canvas');
+		// canvas.style.width = 250;
+		// canvas.style.height = 250;
+		
+		// var canvMaterialsLibrary = new MaterialsLibrary();
+		// var canvTubeMeshBuilder = new TubeMeshBuilder(canvMaterialsLibrary);
+		
+		// var canvSceneWrapper = new SceneWrapper(canvTubeMeshBuilder, canvMaterialsLibrary.textureCube);
+		// var canvRenderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+
+		// var canvView = new InputView(canvSceneWrapper, canvRenderer);
+		
+		// canvRenderer.setSize( 250,250 );
+		// canvRenderer.setFaceCulling( THREE.CullFaceNone );
+		// canvRenderer.autoClear = false;
+
+		// canvView.addMeshElement(canvRenderer.domElement)
+		// canvSceneWrapper.init();
+		// document.write(canvas.toDataURL())
+		//window.open(canvas, '_blank');
+		//renderer.domElement.toDataURL("image/png");
 	}
 	
 	document.getElementById('blackout').onclick = function()
@@ -758,7 +780,6 @@ function loadFromLib(hash)
 	{
 		window.sceneWrapper.torusDefined = true;
 		window.sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
-		window.sceneWrapper.torusMesh = window.sceneWrapper.tubeMeshBuilder.createTorus();
 	}
 	else
 	{
@@ -769,7 +790,6 @@ function loadFromLib(hash)
 	
     window.sceneWrapper.redrawMesh(loadedShape, true);
     window.sceneWrapper.currentMesh = loadedShape;
-    window.sceneWrapper.tubeMeshParams = loadedShape;
 	setupDatGui(window.sceneWrapper);
 }
 	

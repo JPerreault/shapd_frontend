@@ -11,6 +11,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.xDim = 0; 
 	this.yDim = 0; 
 	this.zDim = 0; 
+	this.matLib = materialsLibrary;
 	
 	//Scoping out of functions
 	var segments = 600, radiusSegments = 8;
@@ -169,6 +170,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.createTorus = function (material)
 	{
 		var thickness, scale;
+
 		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
 			thickness = 1.5;
