@@ -13,6 +13,29 @@ var Tutorial = function(view, doTutorial)
 		var d1 = generateDropDown(400, 340, tut);
 		fout = d1;
 		fadeIn(d1);
+		
+		document.getElementById('noThanks').onclick = function()
+		{
+			that.tutorialOn = false;
+			fadeOut(fout);
+		}
+		
+		document.getElementById('yesPlease').onclick = function()
+		{
+			tut1();
+		}	
+		
+		document.addEventListener( 'mousedown', onTwoClick, false );
+		function onTwoClick( event ) 
+		{
+			fadeOut(fout);
+
+			if (that.tutorialOn === true && (Math.abs(view.targetX) > 5 || Math.abs(view.targetY) > 5))
+			{
+				document.removeEventListener( 'mousedown', onTwoClick, false );
+				tut2();
+			}
+		}
 	}
 
 	function tut1() {
@@ -62,28 +85,5 @@ var Tutorial = function(view, doTutorial)
 	function noTut() {
 		fadeOut(fout);
 		tutorialOn = false;
-	}
-	
-	document.getElementById('noThanks').onclick = function()
-	{
-		this.tutorialOn = false;
-		fadeOut(fout);
-	}
-	
-	document.getElementById('yesPlease').onclick = function()
-	{
-		tut1();
-	}	
-	
-	document.addEventListener( 'mousedown', onTwoClick, false );
-	function onTwoClick( event ) 
-	{
-		fadeOut(fout);
-
-		if (that.tutorialOn === true && (Math.abs(view.targetX) > 5 || Math.abs(view.targetY) > 5))
-		{
-			document.removeEventListener( 'mousedown', onTwoClick, false );
-			tut2();
-		}
 	}
 }

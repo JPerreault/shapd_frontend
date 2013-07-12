@@ -67,15 +67,15 @@ var MaterialsLibrary = function(isScreenshot) {
 	}
 };
 
-function buildTextureCube(screenShot){
-	if (!screenShot)
+function buildTextureCube(isScreenShot){
+	if (!isScreenShot)
 	{
 		var r = "src/textures/cube/skybox/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",
 					 r + "py.jpg", r + "ny.jpg",
 					 r + "pz.jpg", r + "nz.jpg" ];
 	}
-	else
+	else if (isScreenShot || typeof screenShot !== 'undefined')
 	{
 	var r = "src/textures/cube/skybox/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",
