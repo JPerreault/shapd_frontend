@@ -17,6 +17,8 @@ function generateDropDown(width, height, messageHTML)
     div.style.color = "white";
     div.innerHTML = messageHTML;
     div.className = "swoop";
+	div.style.top = '0px';
+	div.style.left = '50%';
     
     document.body.appendChild(div);
     
@@ -99,24 +101,49 @@ function slideDown(id)
     $("#"+id).animate({top:0});
 }
 
-function slideDownCustTop(id, fromTop, left)
+function slideDownCustTopL(id, fromTop, left)
 {
 	
     var div = document.getElementById(id);
-	div.style.left = left + "%";
+	div.style.left = left;
     div.style.display = "block";
+	div.className = "swoop top left";
     
     $("#blackout").fadeIn();
     $("#"+id).animate({top:fromTop});
 }
 
-function slideDownCustBot(id, fromBot, left)
+function slideDownCustBotR(id, fromBot, right)
 {
 	
     var div = document.getElementById(id);
-	div.style.left = left + "%";
+	div.style.right = right;
     div.style.display = "block";
-	div.className = "swoopbot";
+	div.className = "swoop bot right";
+    
+    $("#blackout").fadeIn();
+    $("#"+id).animate({bottom:fromBot});
+}
+
+function slideDownCustBotL(id, fromBot, left)
+{
+	
+    var div = document.getElementById(id);
+	div.style.left = left;
+    div.style.display = "block";
+	div.className = "swoop bot left";
+    
+    $("#blackout").fadeIn();
+    $("#"+id).animate({bottom:fromBot});
+}
+
+function slideDownCustBotR(id, fromBot, right)
+{
+	
+    var div = document.getElementById(id);
+	div.style.right = right;
+    div.style.display = "block";
+	div.className = "swoop bot right";
     
     $("#blackout").fadeIn();
     $("#"+id).animate({bottom:fromBot});

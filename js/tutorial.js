@@ -43,7 +43,7 @@ var Tutorial = function(view, doTutorial)
 		var tut = 'Welcome!<br><br>This is the starting shape which you\'re going to turn into a pendant. You rotate it by clicking and dragging, or you can zoom in and out with the mouse wheel.<br><img src = "assets/imgs/shapes/1.png"><br><br>Give it a shot!';
 		var d1 = generateTutorialMsg(tut, 300);
 		fout = d1;
-		slideDownCustBot(d1, '45%', '65%');	
+		slideDownCustBotR(d1, '45%', '300px');	
 		
 		document.getElementById('popup2').onclick = function()
 		{
@@ -56,18 +56,18 @@ var Tutorial = function(view, doTutorial)
 		var tut = 'Great!<br><br> Now, select a base shape from the library. You can scroll down to see more shapes.<br><img src = "assets/imgs/misc/arrowWhite.png">';
 		var d1 = generateTutorialMsg(tut, 250, highlight);
 		fout = d1;
-		slideDownCustBot(d1, '22%', '18%');	
+		slideDownCustBotL(d1, '22%', '18%');	
 	}
 
 	this.tut3 = function() {
 		if (this.shapeLibClicked === 0)
 		{
-			document.getElementById('idShapeLibrary').style.zIndex = 1000;
+			document.getElementById('idShapeContainer').style.zIndex = 1000;
 			fadeOut(fout);
 			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Nice!<br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
 			var d1 = generateTutorialMsg(tut, 250);
 			fout = d1;
-			slideDownCustTop(d1, '18%', '1%');	
+			slideDownCustTopL(d1, '18%', '1%');	
 			
 			this.shapeLibClicked++;
 			$(".dg.main")[0].style.zIndex = 100000;
@@ -75,11 +75,12 @@ var Tutorial = function(view, doTutorial)
 	}
 
 	this.tut4 = function() {
+		$(".dg.main")[0].style.zIndex = 1000;
 		highlight = 'idSaveButtonContainer';
-		var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
-		var d1 = generateTutorialMsg(tut, 250, highlight);
+		var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>';
+		var d1 = generateTutorialMsg(tut, 200, highlight);
 		fout = d1;
-		slideDownCustTop(d1, '18%', '1%');
+		slideDownCustBotR(d1, '200px', '30px');
 	}
 
 	function noTut() {
