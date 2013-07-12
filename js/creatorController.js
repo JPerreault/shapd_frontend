@@ -11,7 +11,7 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var doTutorial = true;
+	var doTutorial = false;
 	
 	init();
 	animate();
@@ -63,6 +63,8 @@ window.onload = function() {
         parent.hideTheBeast();
         idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
+		if (state === 'finalize')
+			getNewPrice();
     }
     
     function screenie()
@@ -275,7 +277,8 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		 tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		// tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		// calculateVolume(sceneWrapper.currentMesh.figure, sceneWrapper.currentMesh.figure.scale.x, sceneWrapper);
 		
 		// var canvas = document.createElement('canvas');
@@ -409,6 +412,8 @@ window.onload = function() {
 	{
 			state = 'finalize';
 			setupInterface();
+			if (typeof shapeID === 'undefined')
+				saveShape();
 	}
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
@@ -427,6 +432,8 @@ window.onload = function() {
 	{
 			state = 'finalize';
 			setupInterface();
+			if (typeof shapeID === 'undefined')
+				saveShape();
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()

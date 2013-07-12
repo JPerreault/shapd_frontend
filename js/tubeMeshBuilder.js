@@ -30,7 +30,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			var cap = new capSpline(knot, segments, radius, radiusSegments, closed, false);
 			THREE.GeometryUtils.merge(geometry, cap);
 		}
-		
+				
 		geometry.mergeVertices();
 		geometry.computeCentroids();
 		geometry.computeFaceNormals();
@@ -99,7 +99,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			stl += 'endloop \n';
 			stl += 'endfacet \n';
 			//Make the corresponding triangle unless the face in question is the cap.
-			if (i < faces.length - (2 * (radiusSegments - 2)))
+			if ((i < faces.length - (2 * (radiusSegments - 2)) && closed == false) || closed == true)
 			{
 				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
 				stl += 'outer loop \n';

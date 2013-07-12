@@ -2,7 +2,7 @@
 window.ThreeBSP = (function() {
 	
 	var ThreeBSP,
-		EPSILON = 1e-2,
+		EPSILON = 1e-1,
 		COPLANAR = 0,
 		FRONT = 1,
 		BACK = 2,
