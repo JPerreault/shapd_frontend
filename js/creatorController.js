@@ -11,7 +11,7 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var doTutorial = true;
+	var doTutorial = false;
 	
 	init();
 	animate();
@@ -309,7 +309,6 @@ window.onload = function() {
 	{
 		fadeOut(fout);
 		$(".swoop").fadeOut();
-		$(".swoopbot").fadeOut();
 	}
 	
 	document.getElementById('idM1').onclick = function()
@@ -803,7 +802,7 @@ function setupDatGui(sC) {
 			currentMesh[fieldName] = newVal;
 			this.color = [ 0, 128, 225];
 			scene.redrawMesh(currentMesh);
-			
+
 			if (tutorial.tutorialOn)
 			{
 				if (fieldName ==='Modify' || fieldName === 'Loops')
@@ -841,11 +840,17 @@ function setupDatGui(sC) {
 
 function resetDatGui()
 {
-	gui.__controllers[0].setValue(1.75);
-	gui.__controllers[1].setValue(1);
-	gui.__controllers[2].setValue(1);
-	gui.__folders['Shape Alteration'].__controllers[0].setValue(5);
-	gui.__folders['Shape Alteration'].__controllers[1].setValue(2);
+	var currentMesh = sceneWrapper.currentMesh;
+	currentMesh['Thickness'] = 1.75;
+	currentMesh['Depth'] = 1;
+	currentMesh['Stretch'] = 1;
+	currentMesh['Modify'] = 5;
+	currentMesh['Loops'] = 2;
+	gui.__controllers[0].updateDisplay();
+	gui.__controllers[1].updateDisplay();
+	gui.__controllers[2].updateDisplay();
+	gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
+	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
 }
 
 function getNewPrice()
