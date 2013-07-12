@@ -1,5 +1,8 @@
-var MaterialsLibrary = function() {
-	this.textureCube = buildTextureCube();3
+var MaterialsLibrary = function(isScreenshot) {
+	if (isScreenshot)
+		this.textureCube = buildTextureCube(true);
+	else
+		this.textureCube = buildTextureCube();
 	var mlib = {
 				"Alumide regular":  new THREE.MeshLambertMaterial({color: 0xB4BECF, map: createGrainyTexture(4, 4),  shading: THREE.FlatShading}),
 				"Alumide polished":	new THREE.MeshLambertMaterial({color: 0xB4BECF, map: createGrainyTexture(12.5, 12.5), shading: THREE.FlatShading}),
@@ -64,8 +67,8 @@ var MaterialsLibrary = function() {
 	}
 };
 
-function buildTextureCube(){
-	if (n%2 == 0)
+function buildTextureCube(screenShot){
+	if (!screenShot)
 	{
 		var r = "src/textures/cube/skybox/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",
@@ -73,13 +76,6 @@ function buildTextureCube(){
 					 r + "pz.jpg", r + "nz.jpg" ];
 	}
 	else
-	{
-		var r = "src/textures/cube/Bridge2/";
-		var urls = [ r + "posx.jpg", r + "negx.jpg",
-					 r + "posy.jpg", r + "negy.jpg",
-					 r + "posz.jpg", r + "negz.jpg" ];
-	}
-	if (typeof screenShot !== 'undefined')
 	{
 	var r = "src/textures/cube/skybox/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",
