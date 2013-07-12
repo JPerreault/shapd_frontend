@@ -309,7 +309,6 @@ window.onload = function() {
 	{
 		fadeOut(fout);
 		$(".swoop").fadeOut();
-		$(".swoopbot").fadeOut();
 	}
 	
 	document.getElementById('idM1').onclick = function()
