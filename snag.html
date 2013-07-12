@@ -119,8 +119,13 @@
         <script>
             function checkBrowser()
             {
+                
                 var ua = navigator.userAgent.toLowerCase();
-            if (ua.indexOf("safari") > -1)
+                if (ua.indexOf("chrome") > -1 || ua.indexOf("chromium") > -1)
+                {
+                    chromeError();
+                }
+                else if (ua.indexOf("safari") > -1)
                 {
                     if (parseInt(ua.charAt(ua.indexOf("version/")+8))>= 5)
                     errorSafariWebGL();
@@ -130,10 +135,6 @@
                 else if (ua.indexOf("firefox") > -1)
                 {
                     firefoxError();
-                }
-                else if (ua.indexOf("chrome") > -1)
-                {
-                    chromeError();
                 }
                 
             }
