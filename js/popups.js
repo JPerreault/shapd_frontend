@@ -23,6 +23,7 @@ function generateDropDown(width, height, messageHTML)
     return div.id;
 }
 
+
 function generateWhiteDropDown(width, height, messageHTML)
 {
     count++;
@@ -40,6 +41,25 @@ function generateWhiteDropDown(width, height, messageHTML)
     div.className = "whiteSwoop";
     
     document.body.appendChild(div);
+    
+    return div.id;
+}
+
+function generateTutorialMsg(messageHTML, width, lightUpID)
+{
+    count++;
+    
+    var div = document.createElement("div");
+    
+    div.setAttribute("id", "popup"+count);
+    div.style.color = "white";
+	div.style.width = ""+width+"px";
+	div.style.padding = '20px';
+    div.innerHTML = messageHTML;
+    div.className = "swoop";
+    
+    document.body.appendChild(div);
+	document.getElementById(lightUpID).style.zIndex = '100000';
     
     return div.id;
 }
@@ -76,6 +96,29 @@ function slideDown(id)
     
     $("#blackout").fadeIn();
     $("#"+id).animate({top:0});
+}
+
+function slideDownCustTop(id, fromTop, left)
+{
+	
+    var div = document.getElementById(id);
+	div.style.left = left + "%";
+    div.style.display = "block";
+    
+    $("#blackout").fadeIn();
+    $("#"+id).animate({top:fromTop});
+}
+
+function slideDownCustBot(id, fromBot, left)
+{
+	
+    var div = document.getElementById(id);
+	div.style.left = left + "%";
+    div.style.display = "block";
+	div.className = "swoopbot";
+    
+    $("#blackout").fadeIn();
+    $("#"+id).animate({bottom:fromBot});
 }
 
 function slideUp(id)

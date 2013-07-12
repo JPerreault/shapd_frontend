@@ -4,6 +4,8 @@
         background-color:#2fa1d6;
         color: white;
         font-family: helvetica, arial;
+		font-size:18px;
+		font-weight:500;
         border-radius: 20px;
         position: fixed;
         top: 0;
@@ -13,7 +15,25 @@
         a:link {color:#fff;}      /* unvisited link */
         a:visited {color:#fff;}  /* visited link */
         a:active {color:#fff;}  /* selected link */
-    
+    }
+	
+	.swoopbot
+    {
+        z-index: 100000;
+        background-color:#2fa1d6;
+        color: white;
+        font-family: helvetica, arial;
+		font-size:18px;
+		font-weight:500;
+        border-radius: 20px;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        text-align: center;
+        
+        a:link {color:#fff;}      /* unvisited link */
+        a:visited {color:#fff;}  /* visited link */
+        a:active {color:#fff;}  /* selected link */
     }
 	
 	.whiteSwoop
@@ -85,7 +105,7 @@
         top: 0;
         left:0;
         position:fixed;
-        z-index:99999;
+        z-index:9999;
         display:none;
     }
     
@@ -97,8 +117,6 @@
     
     button
     {
-        width:150px;
-        height:35px;
         font-size:20px;
         background:#3e9ad2;
         color: white;
@@ -113,6 +131,7 @@
         -o-box-border-radius:15px; /*Opera*/
         -ms-box-border-radius:15px; /*Ms IE*/
         border-radius:15px; /*W3C*/
-
+	}
+	
 
 

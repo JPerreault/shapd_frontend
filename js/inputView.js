@@ -1,6 +1,7 @@
 var InputView = function(sW, rend, tMP) {		
 	var sceneWrapper = sW;
 	var renderer = rend;
+	var i = 0;
 
 	if (typeof tMP === 'undefined')
 	{
@@ -71,6 +72,13 @@ var InputView = function(sW, rend, tMP) {
 			mouseYOnMouseDown = event.clientY - that.currentWindowY;
 			targetYRotationOnMouseDown = that.targetY;
 			targetXRotationOnMouseDown = that.targetX;
+			
+			
+			if (targetYRotationOnMouseDown != 0 && i === 0 && tutorialOn == true){
+				tut2();
+				i++;
+			}
+			
 		}
 		
 	}
@@ -81,7 +89,8 @@ var InputView = function(sW, rend, tMP) {
 		mouseY = event.clientY - that.currentWindowY;
 
 		that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.02;
-		that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.02;			
+		that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.02;		
+		
 	}
 
 	function onDocumentMouseUp( event ) {

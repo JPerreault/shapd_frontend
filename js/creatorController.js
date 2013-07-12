@@ -2,6 +2,8 @@ var n = 0;
 var count = 0;
 var loops = false;
 var sceneWrapper, view, gui;
+var fout, highlight; 
+var tutorialOn = true;
 
 window.onload = function() {
 
@@ -10,8 +12,8 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected;
 	var firstTime = true;
 	var loops = false;
-	var fout;
-
+	var ti = 0;
+	
 	init();
 	animate();
 
@@ -53,8 +55,11 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
+		
+		if (tutorialOn == true)
+		tutorial();
 	}
-    
+
     function killSelf()
     {
         parent.hideTheBeast();
@@ -238,7 +243,6 @@ window.onload = function() {
 			fout = d1;
 			fadeIn(d1); // I prefer slideDown though
             //document.getElementById("blackout").onclick = null;
-			
 		}
 	}
 	
@@ -270,6 +274,7 @@ window.onload = function() {
 	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
 	customContainer.appendChild(saveSTL);
 
+	
 	document.getElementById('save').onclick = function()
 	{
 		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
@@ -278,8 +283,10 @@ window.onload = function() {
 	document.getElementById('blackout').onclick = function()
 	{
 		fadeOut(fout);
+		$(".swoop").fadeOut();
+		$(".swoopbot").fadeOut();
+		document.getElementById(highlight).style.zIndex = 1000;
 	}
-	
 	
 	document.getElementById('idM1').onclick = function()
 	{
@@ -473,6 +480,7 @@ window.onload = function() {
 	{
 		if (event.toElement.tagName === 'IMG')
 		{
+				
 			var shapeNumber = event.toElement.id.substr(3, event.toElement.id.length);
 			sceneWrapper.currentMesh['Starting Shape'] = parseInt(shapeNumber);
 			resetAllParams();
@@ -489,6 +497,17 @@ window.onload = function() {
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 			setupDatGui(window.sceneWrapper);
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+			
+			//code for tutorial. Should probably move out of here and trigger elsewhere. 
+			if (tutorialOn == true && ti === 0) {
+				fadeOut(fout);
+				
+				if (highlight)
+				document.getElementById(highlight).style.zIndex = 1000;
+				
+				ti++;
+				tut3();
+			}
 		}
 	}
 	
