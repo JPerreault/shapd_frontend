@@ -59,8 +59,11 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.isClosed = function(tubeMeshParams)
 	{
-		if (tubeMeshParams['Starting Shape'] < 10)
+		var a = tubeMeshParams['Starting Shape'];
+		if (a === 1 || a === 7 || a === 8 || a === 9 || a === 10 || a === 11 || a === 12 || a === 13 || a === 14 || a === 15 || a === 16  )
+		{
 			return true;
+		}
 		else
 			return false;
 	}

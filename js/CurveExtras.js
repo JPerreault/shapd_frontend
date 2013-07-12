@@ -402,4 +402,32 @@
 // //
 // //	}
 // //
+/*
+//Viviani's Curve - VERY good one for rings if depth is turned down
+		else if (w == 14) {
+			this.radius = 70;
+			t = t * 4 * Math.PI;
+		
+			var a = this.radius / 2;
+			tx = a * (1 + Math.cos(t* (l-1))),
+			ty = a * Math.sin(t* (l-1)),
+			tz = 2 * a * Math.sin((t*(q-4)) / (2)) + z;
+			
+			scalar = .63;
+*/
 // //);
+
+/*
+	//Helix
+		else if (w == 15) {
+			var t2 = 2 * Math.PI * t * q;
+			
+			tx = Math.cos(t2) * (q+25),
+			ty = Math.sin(t2) * (q+25),
+			tz = (l+148) * t;
+	
+			scalar = .7;
+
+		}
+
+*/

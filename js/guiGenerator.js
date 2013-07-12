@@ -58,7 +58,7 @@ function loopRotations(){
 			loopAroundDiv.className = 'rounded';
 			loopAroundDiv.style.color = '#000';
 			loopAroundDiv.style.top = '18%';
-			loopAroundDiv.style.left = '18%';
+			loopAroundDiv.style.left = '15%';
 			loopAroundDiv.style.zIndex = '1000';
 			loopRotContainer.appendChild(loopAroundDiv);
 			
@@ -413,7 +413,7 @@ function addStartingShapes() {
 	shapeLibrary.appendChild(s1);
     var br = document.createElement("br");
 			
-    for (var x=2; x<=15; x++)
+    for (var x=2; x<=16; x++)
     {
         var sX = s1.cloneNode(true);
         sX.id = 'idS'+x;

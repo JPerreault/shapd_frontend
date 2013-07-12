@@ -802,10 +802,10 @@ function setupDatGui(sC) {
 	
 	
 	var morphFolder = gui.addFolder ('Shape Alteration');
-	controller = morphFolder.add(currentMesh, 'Modify', 1, 12).step(1);
+	controller = morphFolder.add(currentMesh, 'Modify', 1, 10).step(1);
 	setUpController(controller, 'Modify');
 	
-	controller = morphFolder.add(currentMesh, 'Loops', 1, 12, 0x000000).step(1);
+	controller = morphFolder.add(currentMesh, 'Loops', 1, 10, 0x000000).step(1);
 	setUpController(controller, 'Loops');
 
 	morphFolder.open();
