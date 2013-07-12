@@ -62,7 +62,7 @@ var Tutorial = function(view, doTutorial)
 	this.tut3 = function() {
 		if (this.shapeLibClicked === 0)
 		{
-			document.getElementById('idShapeLibrary').style.zIndex = 1000;
+			document.getElementById('idShapeContainer').style.zIndex = 1000;
 			fadeOut(fout);
 			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Nice!<br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
 			var d1 = generateTutorialMsg(tut, 250);
@@ -75,6 +75,7 @@ var Tutorial = function(view, doTutorial)
 	}
 
 	this.tut4 = function() {
+		$(".dg.main")[0].style.zIndex = 1000;
 		highlight = 'idSaveButtonContainer';
 		var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>';
 		var d1 = generateTutorialMsg(tut, 200, highlight);
