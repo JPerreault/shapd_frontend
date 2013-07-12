@@ -1,18 +1,17 @@
 var n = 0;
+var changedModify = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view, gui;
-var fout, highlight; 
-var tutorialOn = true;
+var sceneWrapper, view, gui, tutorial;
 
 window.onload = function() {
 
 	var tubeMeshBuilder, scene, tubeMP, matListener, state, printable;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
-	var projector, mouse = { x: 0, y: 0 }, intersected;
+	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var ti = 0;
+	var doTutorial = true;
 	
 	init();
 	animate();
@@ -56,8 +55,7 @@ window.onload = function() {
 		setupInterface();
 		setupDatGui(sceneWrapper);	
 		
-		if (tutorialOn == true)
-		tutorial();
+		tutorial = new Tutorial(view, doTutorial);
 	}
 
     function killSelf()
@@ -282,7 +280,10 @@ window.onload = function() {
 		// var canvas = document.createElement('canvas');
 		// canvas.style.width = 250;
 		// canvas.style.height = 250;
-		
+		// canvas.id = 'supnerd';
+		// console.log(canvas);
+		// document.body.appendChild(canvas);
+		 
 		// var canvMaterialsLibrary = new MaterialsLibrary();
 		// var canvTubeMeshBuilder = new TubeMeshBuilder(canvMaterialsLibrary);
 		
@@ -297,8 +298,10 @@ window.onload = function() {
 
 		// canvView.addMeshElement(canvRenderer.domElement)
 		// canvSceneWrapper.init();
+		// window.open(document.getElementById('supnerd').toDataURL(), "_blank");
+		 
 		// document.write(canvas.toDataURL())
-		//window.open(canvas, '_blank');
+		// window.open(canvas, '_blank');
 		//renderer.domElement.toDataURL("image/png");
 	}
 	
@@ -307,7 +310,6 @@ window.onload = function() {
 		fadeOut(fout);
 		$(".swoop").fadeOut();
 		$(".swoopbot").fadeOut();
-		document.getElementById(highlight).style.zIndex = 1000;
 	}
 	
 	document.getElementById('idM1').onclick = function()
@@ -452,6 +454,7 @@ window.onload = function() {
 			resetAllParams(0);
 		
 			sceneWrapper.redrawMesh(currentMesh);
+			resetDatGui();
 			setupDatGui(sceneWrapper);
 		}
 		else if (state == 'loops')
@@ -517,19 +520,12 @@ window.onload = function() {
 
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
+			resetDatGui();
 			setupDatGui(window.sceneWrapper);
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 			
-			//code for tutorial. Should probably move out of here and trigger elsewhere. 
-			if (tutorialOn == true && ti === 0) {
-				fadeOut(fout);
-				
-				if (highlight)
-				document.getElementById(highlight).style.zIndex = 1000;
-				
-				ti++;
-				tut3();
-			}
+			if (tutorial.tutorialOn)
+				tutorial.tut3();
 		}
 	}
 	
@@ -790,6 +786,7 @@ function loadFromLib(hash)
 	
     window.sceneWrapper.redrawMesh(loadedShape, true);
     window.sceneWrapper.currentMesh = loadedShape;
+	resetDatGui();
 	setupDatGui(window.sceneWrapper);
 }
 	
@@ -806,6 +803,14 @@ function setupDatGui(sC) {
 			currentMesh[fieldName] = newVal;
 			this.color = [ 0, 128, 225];
 			scene.redrawMesh(currentMesh);
+			
+			if (tutorial.tutorialOn)
+			{
+				if (fieldName ==='Modify' || fieldName === 'Loops')
+					changedModify = Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);
+				if (changedModify === 3)
+					tutorial.tut4();
+			}
 		});
 	};
 	
@@ -817,7 +822,6 @@ function setupDatGui(sC) {
 
 	controller = gui.add(currentMesh, 'Stretch', 0.00005, 1.75);
 	setUpController(controller, 'Stretch');
-	
 	
 	var morphFolder = gui.addFolder ('Shape Alteration');
 	controller = morphFolder.add(currentMesh, 'Modify', 1, 10).step(1);
@@ -833,7 +837,15 @@ function setupDatGui(sC) {
 	gui.domElement.style.left = '-15px';
 	gui.domElement.style.zIndex = '1000';
 	datGuiContainer.appendChild(gui.domElement);
-    
+}
+
+function resetDatGui()
+{
+	gui.__controllers[0].setValue(1.75);
+	gui.__controllers[1].setValue(1);
+	gui.__controllers[2].setValue(1);
+	gui.__folders['Shape Alteration'].__controllers[0].setValue(5);
+	gui.__folders['Shape Alteration'].__controllers[1].setValue(2);
 }
 
 function getNewPrice()
@@ -844,7 +856,8 @@ function getNewPrice()
 		
 		if (material.indexOf('Transparent resin') !== -1)
 		{
-			updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+			var price = updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: price});
 			return;
 		}
 		else if (material === 'Gold regular')

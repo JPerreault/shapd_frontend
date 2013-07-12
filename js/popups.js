@@ -1,14 +1,14 @@
 
-var count = 0;
+var dropdownCount = 0;
 
 // pos should be "TOP", "CENTER", "BOTTOM", or any ID of an element
 function generateDropDown(width, height, messageHTML)
 {
-    count++;
+    dropdownCount++;
     
     var div = document.createElement("div");
     
-    div.setAttribute("id", "popup"+count);
+    div.setAttribute("id", "popup"+dropdownCount);
     div.style.width = ""+width+"px";
     div.style.marginLeft = "-"+(width/2)+"px";
     div.style.height = ""+height+"px";
@@ -26,11 +26,11 @@ function generateDropDown(width, height, messageHTML)
 
 function generateWhiteDropDown(width, height, messageHTML)
 {
-    count++;
+    dropdownCount++;
     
     var div = document.createElement("div");
     
-    div.setAttribute("id", "popup"+count);
+    div.setAttribute("id", "popup"+dropdownCount);
     div.style.width = ""+width+"px";
     div.style.marginLeft = "-"+(width/2)+"px";
     div.style.height = ""+height+"px";
@@ -47,11 +47,11 @@ function generateWhiteDropDown(width, height, messageHTML)
 
 function generateTutorialMsg(messageHTML, width, lightUpID)
 {
-    count++;
+    dropdownCount++;
     
     var div = document.createElement("div");
     
-    div.setAttribute("id", "popup"+count);
+    div.setAttribute("id", "popup"+dropdownCount);
     div.style.color = "white";
 	div.style.width = ""+width+"px";
 	div.style.padding = '20px';
@@ -59,20 +59,21 @@ function generateTutorialMsg(messageHTML, width, lightUpID)
     div.className = "swoop";
     
     document.body.appendChild(div);
-	document.getElementById(lightUpID).style.zIndex = '100000';
+	if (typeof lightUpID !== 'undefined')
+		document.getElementById(lightUpID).style.zIndex = '100000';
     
     return div.id;
 }
 
 function generateLightbox(src, imgDesc)
 {
-    count++;
+    dropdownCount++;
 
     var div = document.createElement("div");
 	var src = src;
 	var imgD = imgDesc;
 	
-    div.setAttribute("id", "popup"+count);
+    div.setAttribute("id", "popup"+dropdownCount);
    	div.style.left = '50%';
 	div.style.padding = '30px';
     div.style.color = "white";

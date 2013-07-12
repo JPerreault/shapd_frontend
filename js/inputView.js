@@ -72,15 +72,7 @@ var InputView = function(sW, rend, tMP) {
 			mouseYOnMouseDown = event.clientY - that.currentWindowY;
 			targetYRotationOnMouseDown = that.targetY;
 			targetXRotationOnMouseDown = that.targetX;
-			
-			
-			if (targetYRotationOnMouseDown != 0 && i === 0 && tutorialOn == true){
-				tut2();
-				i++;
-			}
-			
 		}
-		
 	}
 
 	function onDocumentMouseMove( event ) {
