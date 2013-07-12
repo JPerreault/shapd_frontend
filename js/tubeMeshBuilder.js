@@ -170,7 +170,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.createTorus = function (material)
 	{
 		var thickness, scale;
-		console.log('tmb: ',material);
+
 		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
 		{
 			thickness = 1.5;
