@@ -236,7 +236,7 @@ window.onload = function() {
 			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
 			
-			var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><form action='http://www.shapd.co'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><form action='http://www.shapd.co'><button class='publishButtonCSS buttonImg' type='submit'>Order</button></form></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+			var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
 			var d1 = generateWhiteDropDown(700, 700, publishCSS );
 			fout = d1;
 			fadeIn(d1); // I prefer slideDown though
@@ -903,6 +903,11 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = '$3250.00+';
 	else
 		document.getElementById('idCostData').innerHTML = 'Error';
+}
+
+function makeProduct()
+{
+    $.post("/produce", {authenticity_token: authToken, id: shapeID});
 }
 
 function pre(figure)
