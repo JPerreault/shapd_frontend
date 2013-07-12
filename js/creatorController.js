@@ -761,7 +761,6 @@ function loadFromLib(hash)
 	{
 		window.sceneWrapper.torusDefined = true;
 		window.sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
-		window.sceneWrapper.torusMesh = window.sceneWrapper.tubeMeshBuilder.createTorus();
 	}
 	else
 	{
