@@ -61,7 +61,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var a = tubeMeshParams['Starting Shape'];
 		if (a === 1 || a === 7 || a === 8 || a === 9 || a === 10 || a === 11 || a === 12 || a === 13 || a === 14 || a === 15 || a === 16  )
 		{
-			console.log('true',1);
 			return true;
 		}
 		else
