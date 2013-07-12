@@ -3,6 +3,7 @@ var Tutorial = function(view, doTutorial)
 	var rotationsDone = 0;
 	this.tutorialOn = doTutorial;
 	this.shapeLibClicked = 0;
+	this.controllerMoved = 0;
 	var that = this;
 	
 	if (doTutorial)
@@ -30,7 +31,7 @@ var Tutorial = function(view, doTutorial)
 		{
 			fadeOut(fout);
 
-			if (that.tutorialOn === true && (Math.abs(view.targetX) > 5 || Math.abs(view.targetY) > 5))
+			if (that.tutorialOn === true && (Math.abs(view.targetX) > 3 || Math.abs(view.targetY) > 3))
 			{
 				document.removeEventListener( 'mousedown', onTwoClick, false );
 				tut2();
@@ -76,8 +77,10 @@ var Tutorial = function(view, doTutorial)
 
 	this.tut4 = function() {
 		$(".dg.main")[0].style.zIndex = 1000;
+		fadeOut(fout);
+		this.controllerMoved++;
 		highlight = 'idSaveButtonContainer';
-		var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>';
+		var tut = '<br>Great!<br><br><img src = "assets/imgs/misc/arrowWhiteDown.png">';
 		var d1 = generateTutorialMsg(tut, 200, highlight);
 		fout = d1;
 		slideDownCustBotR(d1, '200px', '30px');

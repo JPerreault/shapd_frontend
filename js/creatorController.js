@@ -804,7 +804,7 @@ function setupDatGui(sC) {
 			this.color = [ 0, 128, 225];
 			scene.redrawMesh(currentMesh);
 
-			if (tutorial.tutorialOn)
+			if (tutorial.tutorialOn && tutorial.controllerMoved === 0)
 			{
 				if (fieldName ==='Modify' || fieldName === 'Loops')
 					changedModify = Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);

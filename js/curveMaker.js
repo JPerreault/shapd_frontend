@@ -167,9 +167,10 @@ var curveMaker = function (tMP) {
 		//Modified Trefoil Knot
 		else if (w == 14) {
 			t *= Math.PI * 2;
+			a = q + 1;
 			
-			tx = (2 + (q-4)*Math.cos(2* t*3)) * Math.cos(l * t),//tx = (2 + Math.cos(3 * t)) * Math.cos(2 * t),
-			ty = (2 + (q-4)*Math.cos(2*  t*3)) * Math.sin(l * t),//(2 + Math.cos(3 * t)) * Math.sin(2 * t),
+			tx = (2 + (a-4)*Math.cos(2* t*3)) * Math.cos(l * t),//tx = (2 + Math.cos(3 * t)) * Math.cos(2 * t),
+			ty = (2 + (a-4)*Math.cos(2*  t*3)) * Math.sin(l * t),//(2 + Math.cos(3 * t)) * Math.sin(2 * t),
 			tz = Math.sin(3 * t);
 		
 			scalar = 8.5;
