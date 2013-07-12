@@ -11,7 +11,7 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var doTutorial = false;
+	var doTutorial = true;
 	
 	init();
 	animate();
@@ -807,9 +807,18 @@ function setupDatGui(sC) {
 			if (tutorial.tutorialOn)
 			{
 				if (fieldName ==='Modify' || fieldName === 'Loops')
-					changedModify = Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);
-				if (changedModify === 3)
-					tutorial.tut4();
+					changedModify += Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);
+				if (changedModify >= 3 && changedModify < 20)
+				{
+					tutorial.tut4()
+					changedModify = 20;
+					
+
+				}
+					currentMesh['Modify'] = sceneWrapper.currentMesh['Modify'];
+					currentMesh['Loops'] = sceneWrapper.currentMesh['Loops'];
+					gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
+					gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
 			}
 		});
 	};

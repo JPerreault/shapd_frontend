@@ -75,12 +75,18 @@ var Tutorial = function(view, doTutorial)
 	}
 
 	this.tut4 = function() {
-		$(".dg.main")[0].style.zIndex = 1000;
-		highlight = 'idSaveButtonContainer';
-		var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>';
-		var d1 = generateTutorialMsg(tut, 200, highlight);
-		fout = d1;
-		slideDownCustBotR(d1, '200px', '30px');
+		document.addEventListener( 'mouseup', releaseSlider, false );
+		function releaseSlider( event ) 
+		{
+			$(".dg.main")[0].style.zIndex = 1000;
+			highlight = 'idSaveButtonContainer';
+			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Great!<br><br>';
+			var d1 = generateTutorialMsg(tut, 200, highlight);
+			fout = d1;
+			slideDownCustBotR(d1, '200px', '30px');
+			
+			document.removeEventListener( 'mouseup', releaseSlider, false );
+		}
 	}
 
 	function noTut() {
