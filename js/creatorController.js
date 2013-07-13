@@ -920,7 +920,7 @@ function getNewPrice()
 	
 function updatePrice(data)
 {	
-	data = data.toFixed(2);
+	data = parseFloat(data).toFixed(2);
 	if (data > 0)
 		document.getElementById('idCostData').innerHTML = '$' + data;
 	else
