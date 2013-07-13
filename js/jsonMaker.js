@@ -65,7 +65,7 @@ function getJson(currentMesh, sw)
 		jsonString = JSON.stringify(data);
 	}
 	
-	//console.log('Volume: ', volume);
+	console.log('Volume: ', volume);
 	//console.log('Surface Area: ', surfaceArea);
 	//console.log('Length: ', dimensions[1]);
 	//console.log('----------------------');
@@ -89,40 +89,38 @@ function calculateVolume(figure, scale, sw)
 		// var result = subtract_bsp.toMesh( figure.material );
 		// result.geometry.computeVertexNormals();
 		// sw.scene.add( result );
-		
 		// var xDim = sw.tubeMeshBuilder.xDim;
 		// var yDim = sw.tubeMeshBuilder.yDim;
 		// var zDim = sw.tubeMeshBuilder.zDim;
 		// console.log('xdim: ', xDim, ' ydim: ', yDim, ' zdim: ', zDim);
-		// var cube_geometry = new THREE.CubeGeometry( xDim, yDim, zDim );
+		// var cube_geometry = new THREE.CubeGeometry( xDim, yDim/2, zDim );
 		// var cube_mesh = new THREE.Mesh( cube_geometry, figure.material );
 		// var cube_bsp = new ThreeBSP( cube_mesh );
 		// var test = figure.geometry;
 
 		// try{
-		// var figureBSP = new ThreeBSP(test);
+		//console.log(test);
+		//var figureBSP = new ThreeBSP(test);
 		// }
 		// catch (e)
 		// {
-			// console.log('Error: ', e, ' Figure: ', figureBSP);
-		// }
+		//	console.log('Error: ', e, ' Figure: ', figureBSP);
+		//}
 
-		// test.computeCentroids();
-		// test.computeFaceNormals();
-		// test.computeVertexNormals();
-		// test.computeMorphNormals();
-		// test.computeTangents();
-		// test.computeBoundingBox();
-		// test.computeBoundingSphere();
-		// test.mergeVertices();
-		// test.computeLineDistances();
-		
 		//var subtract_bsp = cube_bsp.subtract( figureBSP );
-		//var result = subtract_bsp.toMesh( figure.material );
-		//result.geometry.computeVertexNormals();
-		//sw.scene.add( result );
+		//var subtract_bsp = figureBSP.subtract( cube_bsp );
+		// var result = subtract_bsp.toMesh( figure.material );
+		
+		// result.geometry.mergeVertices();
+		// result.geometry.computeCentroids();
+		// result.geometry.computeFaceNormals();
+		// result.geometry.computeVertexNormals();
+		
+		// sw.scene.add( result );
+		// sw.scene.remove(sceneWrapper.currentMesh.figure);
+		// sceneWrapper.currentMesh.figure = result;
 
-
+		
 	var vertices = figure.geometry.vertices;
 	var faces = figure.geometry.faces;
 	var totalVolume = 0;

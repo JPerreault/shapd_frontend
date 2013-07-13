@@ -63,6 +63,8 @@ window.onload = function() {
         parent.hideTheBeast();
         idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
+		if (state === 'finalize')
+			getNewPrice();
     }
     
     function screenie()
@@ -275,7 +277,8 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		 tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		// tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		// calculateVolume(sceneWrapper.currentMesh.figure, sceneWrapper.currentMesh.figure.scale.x, sceneWrapper);
 		
 		// var canvas = document.createElement('canvas');
@@ -409,6 +412,8 @@ window.onload = function() {
 	{
 			state = 'finalize';
 			setupInterface();
+			if (typeof shapeID === 'undefined')
+				saveShape();
 	}
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
@@ -427,6 +432,8 @@ window.onload = function() {
 	{
 			state = 'finalize';
 			setupInterface();
+			if (typeof shapeID === 'undefined')
+				saveShape();
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
@@ -807,9 +814,18 @@ function setupDatGui(sC) {
 			if (tutorial.tutorialOn && tutorial.controllerMoved === 0)
 			{
 				if (fieldName ==='Modify' || fieldName === 'Loops')
-					changedModify = Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);
-				if (changedModify === 3)
-					tutorial.tut4();
+					changedModify += Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);
+				if (changedModify >= 3 && changedModify < 20)
+				{
+					tutorial.tut4()
+					changedModify = 20;
+					
+
+				}
+					currentMesh['Modify'] = sceneWrapper.currentMesh['Modify'];
+					currentMesh['Loops'] = sceneWrapper.currentMesh['Loops'];
+					gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
+					gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
 			}
 		});
 	};

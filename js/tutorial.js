@@ -81,18 +81,24 @@ var Tutorial = function(view, doTutorial, state)
 	}
 
 	this.tut4 = function() {
-		$(".dg.main")[0].style.zIndex = 1000;
-		fadeOut(fout);
-		this.controllerMoved++;
-		highlight = 'idSaveButtonContainer';
-		var tut = 'Neat, huh?<br><br>When you find a shape you like, save and go to the next step.<br><br><button id = "okay" class="tutButton buttonImg">Okay!</button><br><img src = "assets/imgs/misc/arrowWhiteDown.png">';
-		var d1 = generateTutorialMsg(tut, 230, highlight);
-		fout = d1;
-		slideDownCustBotR(d1, '200px', '30px');
-		
-		document.getElementById('okay').onclick = function()
+		document.addEventListener( 'mouseup', releaseSlider, false );
+		function releaseSlider( event ) 
 		{
-			fadeOut(fout);
+			$(".dg.main")[0].style.zIndex = 1000;
+			highlight = 'idSaveButtonContainer';
+			var tut = 'Neat, huh?<br><br>When you find a shape you like, save and go to the next step.<br><br><button id = "okay" class="tutButton buttonImg">Okay!</button><br><img src = "assets/imgs/misc/arrowWhiteDown.png">';
+			var d1 = generateTutorialMsg(tut, 230, highlight);
+			fout = d1;
+			
+			this.controllerMoved++;
+			slideDownCustBotR(d1, '200px', '30px');
+			
+			document.getElementById('okay').onclick = function()
+			{
+				fadeOut(fout);
+			}
+			
+			document.removeEventListener( 'mouseup', releaseSlider, false );
 		}
 	}
 	

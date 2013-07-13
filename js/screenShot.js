@@ -1,5 +1,3 @@
-
-
 function loadBlank()
 {
     document.getElementById('shape_stage').src = "blank.html";

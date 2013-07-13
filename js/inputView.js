@@ -80,9 +80,8 @@ var InputView = function(sW, rend, tMP) {
 		mouseX = event.clientX - that.currentWindowX;
 		mouseY = event.clientY - that.currentWindowY;
 
-		that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.02;
-		that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.02;		
-		
+        that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.02;
+        that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.02; 	
 	}
 
 	function onDocumentMouseUp( event ) {
