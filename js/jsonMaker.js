@@ -65,7 +65,7 @@ function getJson(currentMesh, sw)
 		jsonString = JSON.stringify(data);
 	}
 	
-	console.log('Volume: ', volume);
+	//console.log('Volume: ', volume);
 	//console.log('Surface Area: ', surfaceArea);
 	//console.log('Length: ', dimensions[1]);
 	//console.log('----------------------');

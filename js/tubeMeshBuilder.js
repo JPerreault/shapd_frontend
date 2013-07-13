@@ -81,6 +81,20 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		saveAs (blob, 'test.stl');
 	}
 	
+	this.removeFaces = function()
+	{
+		var oldGeometry = geometry;
+		var oldFaces = oldGeometry.faces;
+		var oldVertices = oldGeometry.vertices;
+		var oldNormals = oldGeometry.normals;
+		
+		var newGeometry = new THREE.Geometry();
+		
+		//Adding to arrays: newGeometry.vertices.push(vertex);
+		//Remove from array (say, at position 4): newGeometry.vertices.splice(4, 1);
+			//The second parameter allows you to remove multiple things, so if you made that a two, it would delete what is in positions 4 and 5, etc.
+	}
+	
 	//Generates an STL file using the shape currently on the screen.
 	function createSTL(torusDefined)
 	{
@@ -335,12 +349,12 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		yDimSize = (yMax - yMin) * inchConversion;
 		zDimSize = (zMax - zMin) * inchConversion;
 		
+		xVal = xDimSize.toFixed(2);
+		yVal = yDimSize.toFixed(2);
+		zVal = zDimSize.toFixed(2);
+		
 		if (variables === 'xyz')
 		{
-			xVal = Math.floor(xDimSize * 100) / 100;
-			yVal = Math.floor(yDimSize * 100) / 100;
-			zVal = Math.floor(zDimSize * 100) / 100;
-			
 			document.getElementById('idCostDim').innerHTML = xVal + ' (w) x '  + yVal + ' (h) x ' + zVal + ' (d)<br><br>Dimensions in Inches';
 			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches high)<span>';
 			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches wide)<span>';		
@@ -348,10 +362,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		}
 		else if (variables === 'xy')
 		{
-			xVal = Math.floor(xDimSize * 100) / 100;
-			yVal = Math.floor(yDimSize * 100) / 100;
-			zVal = Math.floor(zDimSize * 100) / 100;
-		
 			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches wide)<span>';	
 			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches high)<span>';
 		}

@@ -277,7 +277,17 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		 tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		 
+		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
+		// tubeMeshBuilder.removeFaces();
+		 /* To change the figure being displayed to your new figure:
+			1) Return a mesh in the removeFaces method (return new THREE.Mesh(newGeometry, this.m);
+			2) Change the tubeMeshBuilder.removeFaces(); call to be var newFigure = tubeMeshBuilder.removeFaces();
+			3) sceneWrapper.currentMesh.figure = newFigure;
+			4) If you wanted to just remove the figure from the scene, do sceneWrapper.scene.remove(sceneWrapper.scene(sceneWrapper.currentMesh.figure)); */
+		 
+		 
 		// tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		// calculateVolume(sceneWrapper.currentMesh.figure, sceneWrapper.currentMesh.figure.scale.x, sceneWrapper);
 		
@@ -528,7 +538,7 @@ window.onload = function() {
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 			resetDatGui();
-			setupDatGui(window.sceneWrapper);
+			setupDatGui(sceneWrapper);
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 			
 			if (tutorial.tutorialOn)
@@ -775,26 +785,32 @@ function loadFromLib(hash)
 	window.view.targetX = loadedShape['Rotation X'];
 	window.view.targetY = loadedShape['Rotation Y'];
 	
-	window.sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
-	window.sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
-	window.sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
+	sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
+	sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
+	sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
 	
 	if (loadedShape['Face Index'] != -1)
 	{
-		window.sceneWrapper.torusDefined = true;
-		window.sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
+		sceneWrapper.torusDefined = true;
+		sceneWrapper.tubeMeshBuilder.fIndex = loadedShape['Face Index'];
 	}
 	else
 	{
-		window.sceneWrapper.scene.remove(window.sceneWrapper.torusMesh);
-		window.sceneWrapper.torusDefined = false;
-		window.sceneWrapper.tubeMeshBuilder.fIndex = -1;
+		dceneWrapper.scene.remove(sceneWrapper.torusMesh);
+		dceneWrapper.torusDefined = false;
+		sceneWrapper.tubeMeshBuilder.fIndex = -1;
 	}
 	
-    window.sceneWrapper.redrawMesh(loadedShape, true);
-    window.sceneWrapper.currentMesh = loadedShape;
-	resetDatGui();
-	setupDatGui(window.sceneWrapper);
+    sceneWrapper.redrawMesh(loadedShape, true);
+    sceneWrapper.currentMesh = loadedShape;
+
+	gui.__controllers[0].updateDisplay();
+	gui.__controllers[1].updateDisplay();
+	gui.__controllers[2].updateDisplay();
+	gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
+	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
+	
+	setupDatGui(sceneWrapper);
 }
 	
 function setupDatGui(sC) {
@@ -874,11 +890,11 @@ function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
-		var material = window.sceneWrapper.currentMesh['Material'];
+		var material = sceneWrapper.currentMesh['Material'];
 		
 		if (material.indexOf('Transparent resin') !== -1)
 		{
-			var price = updatePrice(pre(window.sceneWrapper.currentMesh.figure));
+			var price = updatePrice(pre(sceneWrapper.currentMesh.figure));
 			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: price});
 			return;
 		}
@@ -893,7 +909,7 @@ function getNewPrice()
 			return;
 		}
 		
-		if (typeof authToken !== 'undefined')
+		if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
 			if (jsonString.indexOf('currency') === -1)
 				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
@@ -904,21 +920,11 @@ function getNewPrice()
 	
 function updatePrice(data)
 {	
-	var material = window.sceneWrapper.currentMesh['Material'];
-	
-	data = Math.floor(data * 100) / 100;
+	data = data.toFixed(2);
 	if (data > 0)
 		document.getElementById('idCostData').innerHTML = '$' + data;
-	else if (material === 'Titanium unpolished')
-		document.getElementById('idCostData').innerHTML = '$1250.00+';
-	else if (material === 'Titanium polished')
-		document.getElementById('idCostData').innerHTML = '$3250.00+';
-	else if (material === 'Brass regular')
-		document.getElementById('idCostData').innerHTML = '$3250.00+';
-	else if (material === 'Brass gold plated polished')
-		document.getElementById('idCostData').innerHTML = '$3250.00+';
 	else
-		document.getElementById('idCostData').innerHTML = 'Error';
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
 }
 
 function makeProduct()
@@ -933,7 +939,6 @@ function pre(figure)
 	v *= 1000;
 	
 	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
-	p = Math.floor(p * 100) / 100;
 	
 	return p;
 }
