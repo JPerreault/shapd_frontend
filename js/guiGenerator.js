@@ -546,12 +546,13 @@ function addLoops(){
 	var loopText = document.createElement('div');
 	loopText.id = 'idLoopText';
 	loopText.style.position = 'absolute';
+	loopText.className = 'menuHeader veryRounded verdana padding';
 	loopText.style.color = '#fff';
-	loopText.innerHTML = 'Now we need a loop for the attachment.<br>Please click anywhere on your piece to place it.';
-	loopText.style.bottom = '7%';
-	loopText.style.width = '100%';
+	loopText.innerHTML = 'Click anywhere on your piece<br>to place a loop for the necklace.';
+	loopText.style.bottom = '12%';
 	loopText.style.fontSize = 'x-large';
-	loopText.style.fontFamily = 'Verdana, Geneva, sans-serif';
+	loopText.style.left = '50%';
+	loopText.style.marginLeft = '-200px';
 	loopText.align = 'center';			
 	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
