@@ -925,6 +925,8 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = '$' + data;
 	else
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
+    
+    return data
 }
 
 function makeProduct()
