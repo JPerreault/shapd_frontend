@@ -882,7 +882,9 @@ function getNewPrice()
 		
 		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
-			var data = pre(sceneWrapper.currentMesh.figure);
+			var data = 0;
+			if (tubeMeshBuilder.checkDimensions === 'Success')
+				data = pre(sceneWrapper.currentMesh.figure);
 			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 		}
 		else if (material === 'Gold regular')
