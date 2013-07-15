@@ -11,7 +11,10 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var doTutorial = false;
+    if (typeof notSignedIn === 'undefined')
+        var doTutorial = false;
+    else
+        var doTutorial = true;
 	
 	init();
 	animate();
@@ -60,11 +63,9 @@ window.onload = function() {
 
     function killSelf()
     {
-        parent.hideTheBeast();
+        parent.hideTheBeast("finalize");
         idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
-		if (state === 'finalize')
-			getNewPrice();
     }
     
     function screenie()
@@ -83,8 +84,8 @@ window.onload = function() {
 		{
 			if (count==10)
 				screenie();
-			else if (count == 20)               
-				killSelf();
+//			else if (count == 20)               
+//				killSelf();
 			count++;
        }
 	}
@@ -733,8 +734,8 @@ function loadFromLib(hash)
 	}
 	else
 	{
-		dceneWrapper.scene.remove(sceneWrapper.torusMesh);
-		dceneWrapper.torusDefined = false;
+		sceneWrapper.scene.remove(sceneWrapper.torusMesh);
+		sceneWrapper.torusDefined = false;
 		sceneWrapper.tubeMeshBuilder.fIndex = -1;
 	}
 	
@@ -874,7 +875,7 @@ function getNewPrice()
 	
 function updatePrice(data)
 {	
-	data = data.toFixed(2);
+	data = parseFloat(data).toFixed(2);
 	if (data > 0)
 	{
 		document.getElementById('idCostData').innerHTML = '$' + data;
@@ -885,6 +886,8 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
 		makeClickable(false);
 	}
+	
+	return data;
 }
 
 function makeProduct()
