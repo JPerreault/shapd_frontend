@@ -349,6 +349,10 @@ window.onload = function() {
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
+		document.getElementById(d1).onclick = function()
+		{
+			fadeOut(fout);
+		}
 	}
 	
 	document.getElementById('idM2').onclick = function()
@@ -358,6 +362,10 @@ window.onload = function() {
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
+		document.getElementById(d1).onclick = function()
+		{
+			fadeOut(fout);
+		}
 	}
 	
 	document.getElementById('idSaveButton').onclick = function()
