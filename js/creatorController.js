@@ -150,6 +150,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
+			saveButtonClick(true);
 		}
 		else if (state == 'loops')
 		{
@@ -178,6 +179,7 @@ window.onload = function() {
 			if (sceneWrapper.torusDefined == true)
 				$('#idLoopRotContainer').fadeIn(450);
 			loops = true;
+			saveButtonClick(true);
 		}
 		else if (state == 'finalize')
 		{
@@ -280,7 +282,7 @@ window.onload = function() {
 		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
 		 
 		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
-		// tubeMeshBuilder.removeFaces();
+		//tubeMeshBuilder.removeFaces();
 		 /* To change the figure being displayed to your new figure:
 			1) Return a mesh in the removeFaces method (return new THREE.Mesh(newGeometry, this.m);
 			2) Change the tubeMeshBuilder.removeFaces(); call to be var newFigure = tubeMeshBuilder.removeFaces();
@@ -368,12 +370,14 @@ window.onload = function() {
 		{
 			state = 'loops';
 			setupInterface();
+			saveShape();
 		}
 		else if (state == 'loops')
 		{
 			state = 'finalize';
 			loops = false;
 			setupInterface();
+			saveShape();
 		}
 		else if (state == 'finalize')
 		{
@@ -381,9 +385,9 @@ window.onload = function() {
 			{
 				state = 'publish';
 				setupInterface();
+				saveShape();
 			}
 		}
-		saveShape();
     }
 
 	document.getElementById('idBackButton').onclick = function()
@@ -660,8 +664,7 @@ window.onload = function() {
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
 			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
-			document.getElementById('idSaveButton').style.opacity = .5;
-			printable = false;
+			saveButtonClick(false);
 		}
 		else if (isOkay === 'large')
 		{
@@ -669,7 +672,7 @@ window.onload = function() {
 			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
 			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
 			document.getElementById('idSaveButton').style.opacity = .5;
-			printable = false;
+			saveButtonClick(false);
 		}
 		else
 		{
@@ -680,8 +683,6 @@ window.onload = function() {
 			}
 			else
 				$("#thicknessContainer").fadeOut(0);
-			document.getElementById('idSaveButton').style.opacity = 1;
-			printable = true;
 		}
 	}
 	
@@ -712,70 +713,6 @@ window.onload = function() {
     $(function () {
       $('.antiscroll-wrap').antiscroll();
       });
-	/*
-	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	function onDocumentMouseMove(event)
-	{
-		if (loops)
-		{
-			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-			//updateSelected(mouse);
-		}
-	};
-	
-	function updateSelected(mouse)
-	{
-		if ( sceneWrapper.torusDefined )
-		{
-			var projector = new THREE.Projector();
-			var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-			//sceneWrapper.torusMesh.name = 'torusMeshName';
-			projector.unprojectVector( vector, sceneWrapper.camera );
-			var ray = new THREE.Raycaster( sceneWrapper.camera.position, vector.sub( sceneWrapper.camera.position ).normalize() );
-			// create an array containing all objects in the scene with which the ray intersects
-			var intersects = ray.intersectObjects( sceneWrapper.scene.children );
-
-
-		// INTERSECTED = the object in the scene currently closest to the camera 
-		//		and intersected by the Ray projected from the mouse position 	
-	
-			// if there is one (or more) intersections
-			if ( intersects.length > 0 )
-			{
-				console.log(intersects);
-			// if the closest object intersected is not the currently stored intersection object
-				if ( intersects[ 0 ].object != intersected ) 
-				{  			//console.log(intersects[ 0 ]);
-			    // restore previous intersection object (if it exists) to its original color
-					if ( intersected ) 
-						intersected.material.color.setHex( intersected.currentHex );
-				// store reference to closest object as current intersection object
-					intersected = intersects[ 0 ].object;
-					//console.log(intersected);
-				// store color of closest object (for later restoration)
-					intersected.currentHex = intersected.material.color.getHex();
-				// set a new color for closest object
-					intersected.material.color.setHex( 0xffff00 );
-				}
-			} 
-			else // there are no intersections
-			{
-			// restore previous intersection object (if it exists) to its original color
-				if ( intersected ) 
-					intersected.material.color.setHex( intersected.currentHex );
-			// remove previous intersection object reference
-			//     by setting current intersection object to "nothing"
-				intersected = null;
-			}
-		
-		}
-	}
-
-		}
-	};
-*/
 }
 
 function loadFromLib(hash)
@@ -886,17 +823,34 @@ function resetDatGui()
 	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
 }
 
+function saveButtonClick(isClickable)
+{
+	var saveButton = document.getElementById('idSaveButton');
+	if (isClickable === true)
+	{
+		saveButton.style.opacity = 1;
+		saveButton.className = 'buttonImg';
+		printable = true;
+	}
+	else
+	{
+		saveButton.style.opacity = .5;
+		saveButton.className = '';
+		printable = false;
+	}
+}
+
 function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
+		saveButtonClick(false);
 		var material = sceneWrapper.currentMesh['Material'];
 		
 		if (material.indexOf('Transparent resin') !== -1)
 		{
-			var price = updatePrice(pre(sceneWrapper.currentMesh.figure));
-			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: price});
-			return;
+			var data = pre(sceneWrapper.currentMesh.figure);
+			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 		}
 		else if (material === 'Gold regular')
 		{
@@ -922,9 +876,15 @@ function updatePrice(data)
 {	
 	data = data.toFixed(2);
 	if (data > 0)
+	{
 		document.getElementById('idCostData').innerHTML = '$' + data;
+		makeClickable(true);
+	}
 	else
+	{
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
+		makeClickable(false);
+	}
 }
 
 function makeProduct()

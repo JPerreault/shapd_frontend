@@ -200,7 +200,7 @@ var curveMaker = function (tMP) {
 	
 		ty *= m;
 		tz *= z;
-
+		
 		return new THREE.Vector3(tx, ty, tz).multiplyScalar(scalar);
 	});
 	

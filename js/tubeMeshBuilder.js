@@ -88,11 +88,28 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var oldVertices = oldGeometry.vertices;
 		var oldNormals = oldGeometry.normals;
 		
-		var newGeometry = new THREE.Geometry();
+		console.log('oldFaces',oldFaces.length);
+
+		oldGeometry.faces.splice(1,2);
+		var modNormals = oldGeometry.normals.splice(1,2);
+		var modVertices = oldGeometry.vertices.splice(1,2);
 		
-		//Adding to arrays: newGeometry.vertices.push(vertex);
-		//Remove from array (say, at position 4): newGeometry.vertices.splice(4, 1);
-			//The second parameter allows you to remove multiple things, so if you made that a two, it would delete what is in positions 4 and 5, etc.
+		console.log('modfaces', oldFaces.length);
+		
+		var newGeometry = new THREE.Geometry();
+		var tempFacesGeometry = new THREE.Geometry();
+		
+		for (var q = 0; q < oldFaces.length; q++) {
+			THREE.GeometryUtils.merge (newGeometry, tempFacesGeometry);	
+		}
+		
+		//newGeometry.faces.push( modFaces );
+		newGeometry.normals.push( modNormals );
+		newGeometry.vertices.push( modVertices );
+		
+		var newMesh = new THREE.Mesh(newGeometry, this.m)
+		console.log('mesh faces',newMesh.geometry.faces)
+		return newMesh;
 	}
 	
 	//Generates an STL file using the shape currently on the screen.
