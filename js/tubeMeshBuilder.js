@@ -2,8 +2,10 @@ var hashend;
 
 var TubeMeshBuilder = function(materialsLibrary) {
 	var knot, geometry, stl, figure, closed, scale, intersects, torusLoop, radius;
+	var inchConversion = 0.0393701;
 	this.m = materialsLibrary.getMaterial( "Brass gold plated polished" );
 	this.m.name = 'Brass gold plated polished';
+	this.officialName = 'Gold-Plated Solid Brass';
 	this.faceIndexIncrementor = 0;
 	this.torusRotation = 0;
 	this.torusRotationNinety = 0;
@@ -17,7 +19,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	var segments = 600, radiusSegments = 8;
 
     this.build = function(tubeMeshParams) {
-		updateHash(tubeMeshParams);
+		updateHash(tubeMeshParams, this);
 		radius = tubeMeshParams['Thickness'];
 		scale = tubeMeshParams['Scale'];
 		this.m = materialsLibrary.getMaterial(tubeMeshParams['Material']);
@@ -361,7 +363,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 				zMax = toruszMax;
 		}
 		
-		var inchConversion = 0.0393701;
 		xDimSize = (xMax - xMin) * inchConversion;
 		yDimSize = (yMax - yMin) * inchConversion;
 		zDimSize = (zMax - zMin) * inchConversion;
@@ -462,8 +463,14 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		return fitsBounds;
 	}
 	
-	function updateHash(tubeMesh)
+	function updateHash(tubeMesh, tubeMeshBuilder)
 	{
+		var xInches = (tubeMeshBuilder.xDim*inchConversion).toFixed(2);
+		var yInches = (tubeMeshBuilder.yDim*inchConversion).toFixed(2);
+		var zInches = (tubeMeshBuilder.zDim*inchConversion).toFixed(2);
+		
+		tubeMesh['Description'] = xInches +' by '+ yInches +' by '+ zInches +' inch piece in ' +tubeMeshBuilder.officialName +'.';
+		
 		var keys = Object.keys(tubeMesh);
 		if (typeof tubeMesh.figure != 'undefined')
 		{
@@ -483,7 +490,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		hashend = "";
 		for (var x=0; x<keys.length; x++)
 		{
-			if (keys[x] == 'Rotation Y')
+			if (keys[x] == 'Description')
 			{
 				hashend += tubeMesh[keys[x]];
 				break;
@@ -498,10 +505,10 @@ var TubeMeshParams = function(){
         try
         {
             var parseme = savedShape.split("|");
-            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Face Index', 'Face Index Incrementor', 'Torus Rotation', 'Torus 90 Rotations', 'Rotation X', 'Rotation Y'];
+            var transformations = ['Scale', 'Modify', 'Depth', 'Stretch', 'Loops', 'Starting Shape', 'Thickness', 'Material', 'Face Index', 'Face Index Incrementor', 'Torus Rotation', 'Torus 90 Rotations', 'Rotation X', 'Rotation Y', 'Description'];
             for (var x=0; x<transformations.length; x++)
             {
-                if (transformations[x] == 'Material')
+                if (transformations[x] == 'Material' || transformations[x] == 'Description')
                     this[transformations[x]] = parseme[x];
                 else
                     this[transformations[x]] = parseFloat(parseme[x]);
@@ -534,4 +541,5 @@ var TubeMeshParams = function(){
 		this['Torus 90 Rotations'] = 0;
 		this['Rotation X'] = 0;
 		this['Rotation Y'] = 0;
+		this['Description'] = '';
 };
