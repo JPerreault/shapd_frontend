@@ -59,6 +59,9 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
+		matListener.materialChange();
+		
+		tutorial = new Tutorial(view, doTutorial);
 	}
 
     function killSelf()
@@ -669,7 +672,6 @@ window.onload = function() {
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		getNewPrice();
 		updateThickness();
-
 	}
 	
 	function updateThickness(isMove)
@@ -833,6 +835,37 @@ function saveButtonClick(isClickable)
 	}
 }
 
+function updateThickness(isMove)
+{
+	var isOkay = sceneWrapper.tubeMeshBuilder.checkDimensions();
+
+	if (isOkay === 'small'|| isOkay === 'thin')
+	{
+		$("#thicknessContainer").fadeIn(0);
+		document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
+		document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+		saveButtonClick(false);
+	}
+	else if (isOkay === 'large')
+	{
+		$("#thicknessContainer").fadeIn(0);
+		document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
+		document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
+		document.getElementById('idSaveButton').style.opacity = .5;
+		saveButtonClick(false);
+	}
+	else
+	{
+		if (isMove)
+		{
+			document.getElementById('shapethin').innerHTML = "You\'re all set!";
+			document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
+		}
+		else
+			$("#thicknessContainer").fadeOut(0);
+	}
+}
+
 function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
@@ -840,9 +873,11 @@ function getNewPrice()
 		saveButtonClick(false);
 		var material = sceneWrapper.currentMesh['Material'];
 		
-		if (material.indexOf('Transparent resin') !== -1)
+		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
-			var data = pre(sceneWrapper.currentMesh.figure);
+			var data = 0;
+			if (sceneWrapper.tubeMeshBuilder.checkDimensions === 'Success')
+				data = pre(sceneWrapper.currentMesh.figure);
 			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 		}
 		else if (material === 'Gold regular')
@@ -900,21 +935,21 @@ function pre(figure)
 
 function onDocumentMouseDown(event)
 	{
-			var projector = new THREE.Projector();
-			
-			event.preventDefault();
-			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-			projector.unprojectVector(vector, sceneWrapper.camera);
-			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
-			
-			var inBounds = sceneWrapper.tubeMeshBuilder.addLoop(raycaster);
-			if (inBounds === true)
-			{
-				sceneWrapper.torusDefined = true;
-				sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = 0;
-				sceneWrapper.tubeMeshBuilder.torusRotation = 0;
-				sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-				$('#idLoopRotContainer').fadeIn(0);
-				tutorial.tut6();
-			}
+		var projector = new THREE.Projector();
+		
+		event.preventDefault();
+		var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+		projector.unprojectVector(vector, sceneWrapper.camera);
+		var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
+		
+		var inBounds = sceneWrapper.tubeMeshBuilder.addLoop(raycaster);
+		if (inBounds === true)
+		{
+			sceneWrapper.torusDefined = true;
+			sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = 0;
+			sceneWrapper.tubeMeshBuilder.torusRotation = 0;
+			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+			$('#idLoopRotContainer').fadeIn(0);
+			tutorial.tut6();
+		}
 	};

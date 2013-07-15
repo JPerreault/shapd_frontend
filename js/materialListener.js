@@ -612,6 +612,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	this.materialChange = function()
 	{
+		tubeMeshBuilder.officialName = name;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		getNewPrice();
 		this.panelUpdate();
@@ -620,28 +621,6 @@ var materialListener = function(sW, tMB, tutorial){
 		
 		if (tutorial.tutorialOn === true) {
 			tutorial.tut10();
-		}
-	}
-	
-	function updateThickness(i)
-	{
-		var isOkay = tubeMeshBuilder.checkDimensions();
-
-		if (isOkay === 'small'|| isOkay === 'thin')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
-		}
-		else if (isOkay === 'large')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
-			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
-		}
-		else
-		{
-				$("#thicknessContainer").fadeOut(0);
 		}
 	}
 	
