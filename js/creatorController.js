@@ -879,12 +879,12 @@ function updatePrice(data)
 	if (data > 0)
 	{
 		document.getElementById('idCostData').innerHTML = '$' + data;
-		makeClickable(true);
+		saveButtonClick(true);
 	}
 	else
 	{
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
-		makeClickable(false);
+		saveButtonClick(false);
 	}
 	
 	return data;
