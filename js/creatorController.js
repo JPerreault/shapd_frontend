@@ -296,14 +296,7 @@ window.onload = function() {
 		//sceneWrapper.scene.add(newFigure );
 		//sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
 		//sceneWrapper.currentMesh.figure = newFigure;
-		 
-		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
-		//tubeMeshBuilder.removeFaces();
-		 /* To change the figure being displayed to your new figure:
-			1) Return a mesh in the removeFaces method (return new THREE.Mesh(newGeometry, this.m);
-			2) Change the tubeMeshBuilder.removeFaces(); call to be var newFigure = tubeMeshBuilder.removeFaces();
-			3) sceneWrapper.currentMesh.figure = newFigure;
-			4) If you wanted to just remove the figure from the scene, do sceneWrapper.scene.remove(sceneWrapper.scene(sceneWrapper.currentMesh.figure)); */
+		
 		 
 		 
 		// tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
@@ -783,7 +776,7 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', .5, 6.5);
+	controller = gui.add(currentMesh, 'Thickness', .5, 5);
 	setUpController(controller, 'Thickness');
 
 	controller = gui.add(currentMesh, 'Depth', 0.0005, 2);

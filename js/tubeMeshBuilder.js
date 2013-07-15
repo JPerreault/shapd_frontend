@@ -95,39 +95,60 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		//Construct new geometry
 		var testBox = new THREE.CubeGeometry( 50, 50, 50);
 		console.log('oldFaces',oldFaces.length);
-
-		oldGeometry.faces.splice(1,2);
-		var modNormals = oldGeometry.normals.splice(1,2);
-		var modVertices = oldGeometry.vertices.splice(1,2);
-		
-		console.log('modfaces', oldFaces.length);
 		
 		var newGeometry = new THREE.Geometry();
 		var tempFacesGeometry = new THREE.Geometry();
+		figure.geometry.computeFaceNormals();
 		
 		for (var q = 0; q < oldFaces.length; q++) {
 			THREE.GeometryUtils.merge (newGeometry, tempFacesGeometry);	
 		}
 		
-		//newGeometry.faces.push( modFaces );
-		newGeometry.normals.push( modNormals );
-		newGeometry.vertices.push( modVertices );
-		
-		console.log(oldFaces.length);
-		
-		//var vector = new THREE.Vector3();
-		//vector.subVectors( oldFaces[2].b, oldFaces[2].a )
-		//console.log('v',oldVertices);
-		//	console.log('b',oldFaces[2].normal);
+		var unaffectedFaces = [];
 
 		for (var i = 0; i < oldFaces.length; i++){
-			var raycaster = new THREE.Raycaster ( oldFaces[i].centroid, oldFaces[i].normal );
-			intersects = raycaster.intersectObjects( figure );
-			console.log(i);
-			console.log('ray',intersects);
+			var vectAB = new THREE.Vector3();
+			var vectCD = new THREE.Vector3();
+			vectAB.subVectors(oldVertices[oldFaces[i].a], oldVertices[oldFaces[i].b]);
+			console.log('hmm ', vectAB);
+			vectCD.subVectors(oldVertices[oldFaces[i].c], oldVertices[oldFaces[i].d]);
+			
+			var raycasterAB = new THREE.Raycaster ( oldVertices[oldFaces[i].a], vectAB );
+			var lengthAB = vectAB.length();
+			intersectsAB = raycasterAB.intersectObject( figure );
+			
+			var raycasterCD = new THREE.Raycaster ( oldVertices[oldFaces[i].c], vectCD );
+			var lengthCD = vectCD.length();
+			intersectsCD = raycasterCD.intersectObject( sceneWrapper.currentMesh.figure );
+			
+			//console.log('AB Length: ', lengthAB);
+			//console.log('CD Length: ', lengthCD);
+			console.log('Current face: ', i);
+			console.log('AB Intersects: ',intersectsAB);
+			console.log('CD Intersects: ',intersectsCD);
+
+			if (intersectsAB.length === 0 && intersectsCD.length === 0)
+					unaffectedFaces.push(oldFaces[i]);
+			else if (intersectsAB.length > 0 && intersectsCD.length > 0)
+			{
+				if (intersectsAB[0].distance > lengthAB && intersectsCD[0].distance > lengthCD)
+					unaffectedFaces.push(oldFaces[i]);
+			}
+			else if (intersectsAB.length > 0)
+			{
+				if (intersectsAB[0].distance > lengthAB && intersectsCD.length === 0)
+					unaffectedFaces.push(oldFaces[i]);
+			}
+			else if(intersectsCD.length > 0)
+			{
+				if (intersectsAB.length === 0 && intersectsCD[0].distance > lengthCD)
+					unaffectedFaces.push(oldFaces[i]);
+			}
+			else
+				;//unaffectedFaces.push(oldFaces[i]);
 		}
 		
-		console.log('o',oldFaces[1].centroid);
+		console.log('faces',unaffectedFaces.length);
 		
 		
 		var modFaces = 	oldGeometry.faces.splice(0,300);
@@ -135,17 +156,13 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		for (var i = 0; i < oldVertices.length; i++){
 			newGeometry.vertices.push(oldVertices[i]);
 		}
-		for (var i = 0; i < modFaces.length; i++){
-			newGeometry.faces.push(modFaces[i]);
+		for (var i = 0; i < unaffectedFaces.length; i++){
+			newGeometry.faces.push(unaffectedFaces[i]);
 		}
-		
-		console.log('test',newGeometry.faces[2]);
 		
 		newGeometry.computeCentroids();
 		newGeometry.computeFaceNormals();
 		newGeometry.computeVertexNormals();
-		
-		//console.log('new',newGeometry.faces[10].normal);
 		
 		//merge and return new mesh
 		THREE.GeometryUtils.merge (newGeometry, testBox );
