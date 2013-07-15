@@ -286,12 +286,13 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		/*
-		//tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
-		var newFigure = tubeMeshBuilder.removeFaces();
-		sceneWrapper.scene.add(newFigure );
-		sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
-		sceneWrapper.currentMesh.figure = newFigure;
+
+		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		
+		//var newFigure = tubeMeshBuilder.removeFaces();
+		//sceneWrapper.scene.add(newFigure );
+		//sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
+		//sceneWrapper.currentMesh.figure = newFigure;
 		 
 		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
 		// tubeMeshBuilder.removeFaces();
