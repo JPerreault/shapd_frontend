@@ -222,15 +222,6 @@ function addSave() {
 			saveBackButtonContainer.style.display = 'inline-block';
 			saveButtonContainer.appendChild(saveBackButtonContainer);	
 			
-			var saveStayButton = document.createElement('img');
-			saveStayButton.id = 'idSaveStayButton';
-			saveStayButton.style.zIndex = '1000';
-			saveStayButton.className = 'buttonImg';
-			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
-			saveStayButton.style.display = 'block';
-			saveStayButton.style.margin = '1px 1px 10px 10px';
-			saveBackButtonContainer.appendChild(saveStayButton);
-			
 			var backButton = document.createElement('img');
 			backButton.id = 'idBackButton';
 			backButton.style.zIndex = '1000';
@@ -239,6 +230,15 @@ function addSave() {
 			backButton.src = 'assets/imgs/buttons/back.png';
 			backButton.style.margin = '1px 1px 10px 10px';
 			saveBackButtonContainer.appendChild(backButton);
+			
+			var saveStayButton = document.createElement('img');
+			saveStayButton.id = 'idSaveStayButton';
+			saveStayButton.style.zIndex = '1000';
+			saveStayButton.className = 'buttonImg';
+			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
+			saveStayButton.style.display = 'block';
+			saveStayButton.style.margin = '1px 1px 10px 10px';
+			saveBackButtonContainer.appendChild(saveStayButton);
 		
 			var saveButton = document.createElement('img');
 			saveButton.id = 'idSaveButton';

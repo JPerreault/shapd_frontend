@@ -11,7 +11,10 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var doTutorial = false;
+    if (typeof notSignedIn === 'undefined')
+        var doTutorial = false;
+    else
+        var doTutorial = true;
 	
 	init();
 	animate();
@@ -60,11 +63,9 @@ window.onload = function() {
 
     function killSelf()
     {
-        parent.hideTheBeast();
+        parent.hideTheBeast("finalize");
         idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
-		if (state === 'finalize')
-			getNewPrice();
     }
     
     function screenie()
@@ -83,8 +84,8 @@ window.onload = function() {
 		{
 			if (count==10)
 				screenie();
-			else if (count == 20)               
-				killSelf();
+//			else if (count == 20)               
+//				killSelf();
 			count++;
        }
 	}
@@ -151,6 +152,7 @@ window.onload = function() {
 			$('#idLoopRotContainer').fadeOut(450);
 			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
 			loops = false;
+			saveButtonClick(true);
 		}
 		else if (state == 'loops')
 		{
@@ -181,9 +183,10 @@ window.onload = function() {
 				
 			if (tutorial.tutorialOn === false)
 				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-			
+				
 			loops = true;
 			tutorial.tut5();
+			saveButtonClick(true);
 		}
 		else if (state == 'finalize')
 		{
@@ -295,7 +298,7 @@ window.onload = function() {
 		//sceneWrapper.currentMesh.figure = newFigure;
 		 
 		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
-		// tubeMeshBuilder.removeFaces();
+		//tubeMeshBuilder.removeFaces();
 		 /* To change the figure being displayed to your new figure:
 			1) Return a mesh in the removeFaces method (return new THREE.Mesh(newGeometry, this.m);
 			2) Change the tubeMeshBuilder.removeFaces(); call to be var newFigure = tubeMeshBuilder.removeFaces();
@@ -386,12 +389,14 @@ window.onload = function() {
 		{
 			state = 'loops';
 			setupInterface();
+			saveShape();
 		}
 		else if (state == 'loops')
 		{
 			state = 'finalize';
 			loops = false;
 			setupInterface();
+			saveShape();
 		}
 		else if (state == 'finalize')
 		{
@@ -399,9 +404,9 @@ window.onload = function() {
 			{
 				state = 'publish';
 				setupInterface();
+				saveShape();
 			}
 		}
-		saveShape();
     }
 
 	document.getElementById('idBackButton').onclick = function()
@@ -683,8 +688,7 @@ window.onload = function() {
 			$("#thicknessContainer").fadeIn(0);
 			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
 			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
-			document.getElementById('idSaveButton').style.opacity = .5;
-			printable = false;
+			saveButtonClick(false);
 		}
 		else if (isOkay === 'large')
 		{
@@ -692,7 +696,7 @@ window.onload = function() {
 			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
 			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
 			document.getElementById('idSaveButton').style.opacity = .5;
-			printable = false;
+			saveButtonClick(false);
 		}
 		else
 		{
@@ -703,78 +707,12 @@ window.onload = function() {
 			}
 			else
 				$("#thicknessContainer").fadeOut(0);
-			document.getElementById('idSaveButton').style.opacity = 1;
-			printable = true;
 		}
 	}
     
     $(function () {
       $('.antiscroll-wrap').antiscroll();
       });
-	/*
-	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	function onDocumentMouseMove(event)
-	{
-		if (loops)
-		{
-			mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-			//updateSelected(mouse);
-		}
-	};
-	
-	function updateSelected(mouse)
-	{
-		if ( sceneWrapper.torusDefined )
-		{
-			var projector = new THREE.Projector();
-			var vector = new THREE.Vector3( mouse.x, mouse.y, 1 );
-			//sceneWrapper.torusMesh.name = 'torusMeshName';
-			projector.unprojectVector( vector, sceneWrapper.camera );
-			var ray = new THREE.Raycaster( sceneWrapper.camera.position, vector.sub( sceneWrapper.camera.position ).normalize() );
-			// create an array containing all objects in the scene with which the ray intersects
-			var intersects = ray.intersectObjects( sceneWrapper.scene.children );
-
-
-		// INTERSECTED = the object in the scene currently closest to the camera 
-		//		and intersected by the Ray projected from the mouse position 	
-	
-			// if there is one (or more) intersections
-			if ( intersects.length > 0 )
-			{
-				console.log(intersects);
-			// if the closest object intersected is not the currently stored intersection object
-				if ( intersects[ 0 ].object != intersected ) 
-				{  			//console.log(intersects[ 0 ]);
-			    // restore previous intersection object (if it exists) to its original color
-					if ( intersected ) 
-						intersected.material.color.setHex( intersected.currentHex );
-				// store reference to closest object as current intersection object
-					intersected = intersects[ 0 ].object;
-					//console.log(intersected);
-				// store color of closest object (for later restoration)
-					intersected.currentHex = intersected.material.color.getHex();
-				// set a new color for closest object
-					intersected.material.color.setHex( 0xffff00 );
-				}
-			} 
-			else // there are no intersections
-			{
-			// restore previous intersection object (if it exists) to its original color
-				if ( intersected ) 
-					intersected.material.color.setHex( intersected.currentHex );
-			// remove previous intersection object reference
-			//     by setting current intersection object to "nothing"
-				intersected = null;
-			}
-		
-		}
-	}
-
-		}
-	};
-*/
 }
 
 function loadFromLib(hash)
@@ -795,8 +733,8 @@ function loadFromLib(hash)
 	}
 	else
 	{
-		dceneWrapper.scene.remove(sceneWrapper.torusMesh);
-		dceneWrapper.torusDefined = false;
+		sceneWrapper.scene.remove(sceneWrapper.torusMesh);
+		sceneWrapper.torusDefined = false;
 		sceneWrapper.tubeMeshBuilder.fIndex = -1;
 	}
 	
@@ -885,17 +823,34 @@ function resetDatGui()
 	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
 }
 
+function saveButtonClick(isClickable)
+{
+	var saveButton = document.getElementById('idSaveButton');
+	if (isClickable === true)
+	{
+		saveButton.style.opacity = 1;
+		saveButton.className = 'buttonImg';
+		printable = true;
+	}
+	else
+	{
+		saveButton.style.opacity = .5;
+		saveButton.className = '';
+		printable = false;
+	}
+}
+
 function getNewPrice()
 	{
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
+		saveButtonClick(false);
 		var material = sceneWrapper.currentMesh['Material'];
 		
 		if (material.indexOf('Transparent resin') !== -1)
 		{
-			var price = updatePrice(pre(sceneWrapper.currentMesh.figure));
-			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: price});
-			return;
+			var data = pre(sceneWrapper.currentMesh.figure);
+			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 		}
 		else if (material === 'Gold regular')
 		{
@@ -921,11 +876,17 @@ function updatePrice(data)
 {	
 	data = parseFloat(data).toFixed(2);
 	if (data > 0)
+	{
 		document.getElementById('idCostData').innerHTML = '$' + data;
+		saveButtonClick(true);
+	}
 	else
+	{
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
-    
-    return data
+		saveButtonClick(false);
+	}
+	
+	return data;
 }
 
 function makeProduct()

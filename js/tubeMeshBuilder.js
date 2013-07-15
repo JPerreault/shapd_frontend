@@ -94,7 +94,24 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		//Construct new geometry
 		var testBox = new THREE.CubeGeometry( 50, 50, 50);
+		console.log('oldFaces',oldFaces.length);
+
+		oldGeometry.faces.splice(1,2);
+		var modNormals = oldGeometry.normals.splice(1,2);
+		var modVertices = oldGeometry.vertices.splice(1,2);
+		
+		console.log('modfaces', oldFaces.length);
+		
 		var newGeometry = new THREE.Geometry();
+		var tempFacesGeometry = new THREE.Geometry();
+		
+		for (var q = 0; q < oldFaces.length; q++) {
+			THREE.GeometryUtils.merge (newGeometry, tempFacesGeometry);	
+		}
+		
+		//newGeometry.faces.push( modFaces );
+		newGeometry.normals.push( modNormals );
+		newGeometry.vertices.push( modVertices );
 		
 		console.log(oldFaces.length);
 		
