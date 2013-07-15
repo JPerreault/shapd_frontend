@@ -50,12 +50,12 @@ window.onload = function() {
 		sceneWrapper.init();
 		scene = sceneWrapper;
 		
-		matListener = new materialListener(sceneWrapper, tubeMeshBuilder);
+		tutorial = new Tutorial(view, doTutorial);
+		
+		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
 		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
-		
-		tutorial = new Tutorial(view, doTutorial);
 	}
 
     function killSelf()
@@ -149,6 +149,7 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
+			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
 			loops = false;
 		}
 		else if (state == 'loops')
@@ -177,7 +178,12 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			if (sceneWrapper.torusDefined == true)
 				$('#idLoopRotContainer').fadeIn(450);
+				
+			if (tutorial.turorialOn === false)
+				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			
 			loops = true;
+			tutorial.tut5();
 		}
 		else if (state == 'finalize')
 		{
@@ -204,7 +210,9 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
 			$('#idLoopRotContainer').fadeOut(450);
+			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
 			loops = false;
+			tutorial.tut7();
 			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 			matListener.panelUpdate();
 			getNewPrice();
@@ -237,6 +245,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
+			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
 			
 			var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
 			var d1 = generateWhiteDropDown(700, 700, publishCSS );
@@ -277,7 +286,12 @@ window.onload = function() {
 	
 	document.getElementById('save').onclick = function()
 	{
-		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		/*
+		//tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		var newFigure = tubeMeshBuilder.removeFaces();
+		sceneWrapper.scene.add(newFigure );
+		sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
+		sceneWrapper.currentMesh.figure = newFigure;
 		 
 		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
 		// tubeMeshBuilder.removeFaces();
@@ -323,6 +337,9 @@ window.onload = function() {
 	{
 		fadeOut(fout);
 		$(".swoop").fadeOut();
+		
+		if (tutorial.tutorialOn === true)
+		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	}
 	
 	document.getElementById('idM1').onclick = function()
@@ -645,10 +662,15 @@ window.onload = function() {
 		document.removeEventListener( 'mouseup', releaseSlider, false );
 		document.removeEventListener( 'mousemove', moveSlider, false );
 		
+		if (tutorial.tutorialOn === true) {
+			tutorial.tut9();
+		}
+		
 		scene.redrawMesh(scene.currentMesh);
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		getNewPrice();
 		updateThickness();
+
 	}
 	
 	function updateThickness(isMove)
@@ -684,30 +706,6 @@ window.onload = function() {
 			printable = true;
 		}
 	}
-	
-	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	function onDocumentMouseDown(event)
-	{
-		if (loops)
-		{
-			var projector = new THREE.Projector();
-			
-			event.preventDefault();
-			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-			projector.unprojectVector(vector, sceneWrapper.camera);
-			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
-			
-			var inBounds = tubeMeshBuilder.addLoop(raycaster);
-			if (inBounds === true)
-			{
-				scene.torusDefined = true;
-				tubeMeshBuilder.faceIndexIncrementor = 0;
-				tubeMeshBuilder.torusRotation = 0;
-				scene.redrawMesh(scene.currentMesh);
-				$('#idLoopRotContainer').fadeIn(0);
-			}
-		}
-	};
     
     $(function () {
       $('.antiscroll-wrap').antiscroll();
@@ -944,3 +942,24 @@ function pre(figure)
 	
 	return p;
 }
+
+function onDocumentMouseDown(event)
+	{
+			var projector = new THREE.Projector();
+			
+			event.preventDefault();
+			var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+			projector.unprojectVector(vector, sceneWrapper.camera);
+			var raycaster = new THREE.Raycaster (sceneWrapper.camera.position, vector.sub(sceneWrapper.camera.position).normalize());
+			
+			var inBounds = sceneWrapper.tubeMeshBuilder.addLoop(raycaster);
+			if (inBounds === true)
+			{
+				sceneWrapper.torusDefined = true;
+				sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = 0;
+				sceneWrapper.tubeMeshBuilder.torusRotation = 0;
+				sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
+				$('#idLoopRotContainer').fadeIn(0);
+				tutorial.tut6();
+			}
+	};
