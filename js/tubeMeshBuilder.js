@@ -85,11 +85,17 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	
 	this.removeFaces = function()
 	{
+		// Testing new functionality - does not work currently
 		var oldGeometry = geometry;
 		var oldFaces = oldGeometry.faces;
 		var oldVertices = oldGeometry.vertices;
 		var oldNormals = oldGeometry.normals;
+		var intersects;
+		var intersectedFaces;
+		var oneInter, twoInter;
 		
+		//Construct new geometry
+		var testBox = new THREE.CubeGeometry( 50, 50, 50);
 		console.log('oldFaces',oldFaces.length);
 
 		oldGeometry.faces.splice(1,2);
@@ -109,9 +115,49 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		newGeometry.normals.push( modNormals );
 		newGeometry.vertices.push( modVertices );
 		
+		console.log(oldFaces.length);
+		
+		//var vector = new THREE.Vector3();
+		//vector.subVectors( oldFaces[2].b, oldFaces[2].a )
+		//console.log('v',oldVertices);
+		//	console.log('b',oldFaces[2].normal);
+
+		for (var i = 0; i < oldFaces.length; i++){
+			var raycaster = new THREE.Raycaster ( oldFaces[i].centroid, oldFaces[i].normal );
+			intersects = raycaster.intersectObjects( figure );
+			console.log(i);
+			console.log('ray',intersects);
+		}
+		
+		console.log('o',oldFaces[1].centroid);
+		
+		
+		var modFaces = 	oldGeometry.faces.splice(0,300);
+		
+		for (var i = 0; i < oldVertices.length; i++){
+			newGeometry.vertices.push(oldVertices[i]);
+		}
+		for (var i = 0; i < modFaces.length; i++){
+			newGeometry.faces.push(modFaces[i]);
+		}
+		
+		console.log('test',newGeometry.faces[2]);
+		
+		newGeometry.computeCentroids();
+		newGeometry.computeFaceNormals();
+		newGeometry.computeVertexNormals();
+		
+		//console.log('new',newGeometry.faces[10].normal);
+		
+		//merge and return new mesh
+		THREE.GeometryUtils.merge (newGeometry, testBox );
+		
 		var newMesh = new THREE.Mesh(newGeometry, this.m)
-		console.log('mesh faces',newMesh.geometry.faces)
 		return newMesh;
+		
+		//Adding to arrays: newGeometry.vertices.push(vertex);
+		//Remove from array (say, at position 4): newGeometry.vertices.splice(4, 1);
+			//The second parameter allows you to remove multiple things, so if you made that a two, it would delete what is in positions 4 and 5, etc.
 	}
 	
 	//Generates an STL file using the shape currently on the screen.

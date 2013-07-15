@@ -1,4 +1,4 @@
-var materialListener = function(sW, tMB){
+var materialListener = function(sW, tMB, tutorial){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
 	var name = 'Gold-Plated Solid Brass';
@@ -618,6 +618,10 @@ var materialListener = function(sW, tMB){
 		this.panelUpdate();
 		sceneWrapper.tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		updateThickness();
+		
+		if (tutorial.tutorialOn === true) {
+			tutorial.tut10();
+		}
 	}
 	
 	this.getImgDesc1 = function()

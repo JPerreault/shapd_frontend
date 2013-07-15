@@ -13,7 +13,6 @@ function generateDropDown(width, height, messageHTML)
     div.style.marginLeft = "-"+(width/2)+"px";
     div.style.height = ""+height+"px";
     div.style.top = "-"+height+"px";
-    
     div.style.color = "white";
     div.innerHTML = messageHTML;
     div.className = "swoop";
@@ -47,13 +46,13 @@ function generateWhiteDropDown(width, height, messageHTML)
     return div.id;
 }
 
-function generateTutorialMsg(messageHTML, width, lightUpID)
+function generateTutorialMsg(messageHTML, width, lightUpID, lightUpID2)
 {
     dropdownCount++;
     
     var div = document.createElement("div");
     
-    div.setAttribute("id", "popup"+dropdownCount);
+    div.setAttribute("id", "popup" + dropdownCount);
     div.style.color = "white";
 	div.style.width = ""+width+"px";
 	div.style.padding = '20px';
@@ -63,6 +62,9 @@ function generateTutorialMsg(messageHTML, width, lightUpID)
     document.body.appendChild(div);
 	if (typeof lightUpID !== 'undefined')
 		document.getElementById(lightUpID).style.zIndex = '100000';
+		
+	if (typeof lightUpID2 !== 'undefined')
+		document.getElementById(lightUpID2).style.zIndex = '100000';
     
     return div.id;
 }
@@ -105,7 +107,15 @@ function slideDownCustTopL(id, fromTop, left)
 {
 	
     var div = document.getElementById(id);
-	div.style.left = left;
+	
+	if (left === 'center') {
+		left = parseFloat(div.style.width) / 2;
+		div.style.left = '50%';
+		div.style.marginRight = '-' + left + 'px';	
+	} else {
+		div.style.left = left;
+	}
+	
     div.style.display = "block";
 	div.className = "swoop top left";
     
@@ -113,23 +123,39 @@ function slideDownCustTopL(id, fromTop, left)
     $("#"+id).animate({top:fromTop});
 }
 
-function slideDownCustBotR(id, fromBot, right)
+function slideDownCustTopR(id, fromTop, right)
 {
 	
     var div = document.getElementById(id);
-	div.style.right = right;
+	
+	if (right === 'center') {
+		right = parseFloat(div.style.width) / 2;
+		div.style.right = '50%';
+		div.style.marginRight = '-' + right + 'px';	
+	} else {
+		div.style.right = right;
+	}
+	
     div.style.display = "block";
-	div.className = "swoop bot right";
+	div.className = "swoop top right";
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({bottom:fromBot});
+    $("#"+id).animate({top:fromTop});
 }
 
 function slideDownCustBotL(id, fromBot, left)
 {
 	
     var div = document.getElementById(id);
-	div.style.left = left;
+	
+	if (left === 'center') {
+		left = parseFloat(div.style.width) / 2;
+		div.style.left = '50%';
+		div.style.marginRight = '-' + left + 'px';	
+	} else {
+		div.style.left = left;
+	}
+	
     div.style.display = "block";
 	div.className = "swoop bot left";
     
@@ -141,7 +167,15 @@ function slideDownCustBotR(id, fromBot, right)
 {
 	
     var div = document.getElementById(id);
-	div.style.right = right;
+	
+	if (right === 'center') {
+		right = parseFloat(div.style.width) / 2;
+		div.style.right = '50%';
+		div.style.marginRight = '-' + right + 'px';	
+	} else {
+		div.style.right = right;
+	}
+	
     div.style.display = "block";
 	div.className = "swoop bot right";
     
