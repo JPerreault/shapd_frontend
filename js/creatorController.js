@@ -179,7 +179,7 @@ window.onload = function() {
 			if (sceneWrapper.torusDefined == true)
 				$('#idLoopRotContainer').fadeIn(450);
 				
-			if (tutorial.turorialOn === false)
+			if (tutorial.tutorialOn === false)
 				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 			
 			loops = true;
