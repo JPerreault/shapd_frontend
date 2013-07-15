@@ -57,8 +57,8 @@ function loopRotations(){
 			loopAroundDiv.style.fontWeight = '600';
 			loopAroundDiv.className = 'rounded';
 			loopAroundDiv.style.color = '#000';
-			loopAroundDiv.style.top = '18%';
-			loopAroundDiv.style.left = '15%';
+			loopAroundDiv.style.top = '16%';
+			loopAroundDiv.style.left = '7%';
 			loopAroundDiv.style.zIndex = '1000';
 			loopRotContainer.appendChild(loopAroundDiv);
 			
@@ -114,10 +114,10 @@ function loopRotations(){
 			removeLoopDiv.id = 'idloopAroundDiv';
 			removeLoopDiv.style.position = 'absolute';
 			removeLoopDiv.className = 'rounded';
-			removeLoopDiv.style.top = '30%';
-			removeLoopDiv.style.right = '18%';
+			removeLoopDiv.style.top = '370px';
+			removeLoopDiv.style.right = '70px';
 			removeLoopDiv.style.zIndex = '1000';
-			loopRotContainer.appendChild(removeLoopDiv);
+			loopAroundDiv.appendChild(removeLoopDiv);
 			
 			var removeLoop = document.createElement('img');
 			removeLoop.id = 'idRemoveLoop';
@@ -170,8 +170,8 @@ function addCost() {
 			costDiv.style.color = '#fff';
 			costDiv.style.border = '2px solid #000';
 			costDiv.style.padding = '10px';
-			costDiv.style.bottom = '1%';
-			costDiv.style.right = '260px';
+			costDiv.style.bottom = '40px';
+			costDiv.style.left = '1%';
 			costDiv.style.zIndex = '1000';
 			costDataContainer.appendChild(costDiv);
 			
@@ -237,7 +237,7 @@ function addSave() {
 			saveStayButton.className = 'buttonImg';
 			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
 			saveStayButton.style.display = 'block';
-			saveStayButton.style.margin = '1px 1px 10px 10px';
+			saveStayButton.style.margin = '1px 1px 7px 10px';
 			saveBackButtonContainer.appendChild(saveStayButton);
 		
 			var saveButton = document.createElement('img');
@@ -246,7 +246,7 @@ function addSave() {
 			saveButton.className = 'buttonImg';
 			saveButton.style.display = 'inline-block';
 			saveButton.src = 'assets/imgs/buttons/save.png';
-			saveButton.style.margin = '1px 1px 10px 10px';
+			saveButton.style.margin = '1px 1px 7px 10px';
 			saveButtonContainer.appendChild(saveButton);
 }
 
@@ -321,7 +321,7 @@ function addResetButtons() {
 	var resetContainer = document.createElement('div');
 	resetContainer.id = 'idResetContainer';
 	resetContainer.style.position = 'absolute';
-	resetContainer.style.bottom = '1%';
+	resetContainer.style.bottom = '7px';
 	resetContainer.style.left = '1%';			
 	resetContainer.style.zIndex = '1000';
 	container.appendChild(resetContainer);
@@ -381,11 +381,10 @@ function addStartingShapes() {
 	shapeContainer.style.fontFamily = 'Verdana, Geneva, sans-serif';
 	shapeContainer.style.fontWeight = '600';
 	shapeContainer.style.border = '10px solid #000';
-	shapeContainer.style.margin = '10';
+	shapeContainer.style.margin = '5';
 	shapeContainer.style.color = '#fff';
 	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '10%';
-	shapeContainer.style.left = '0.1%';	
+	shapeContainer.style.bottom = '10%';	
 	shapeContainer.style.zIndex = '1000';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
