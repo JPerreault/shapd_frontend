@@ -707,6 +707,7 @@ function loadFromLib(hash)
 	sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
 	sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
 	sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
+	sceneWrapper.tubeMeshBuilder.officialName = loadedShape['Description'];
 	
 	if (loadedShape['Face Index'] != -1)
 	{
