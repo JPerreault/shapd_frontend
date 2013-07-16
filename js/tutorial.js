@@ -124,8 +124,8 @@ var Tutorial = function(view, doTutorial)
 				clearHighlights();
 				fadeOut(fout);
 				this.loopPage = 1;
-				var tut = 'In this step, we\'ll add a loop for the necklace. Just click anywhere on your piece to place it.<br><br><span style="font-size:15px;">(Or you could just string a necklace through it, in which case you\'d skip this step by saving/continuing.)</span><br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
-				var d1 = generateTutorialMsg(tut, 300);
+				var tut = 'In this step, we\'ll add a loop for the necklace. Just click anywhere on your piece to place it.<br><br>(You don\'t have to. If not, just save & continue)<br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
+				var d1 = generateTutorialMsg(tut, 270);
 				fout = d1;
 				slideDownCustBotR(d1, 'center', 'center');
 
