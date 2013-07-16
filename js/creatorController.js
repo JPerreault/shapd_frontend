@@ -48,6 +48,7 @@ window.onload = function() {
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
+		state = 'creator';
 
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
