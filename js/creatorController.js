@@ -857,14 +857,14 @@ function getNewPrice()
 		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
 			var data = 0;
-			if (sceneWrapper.tubeMeshBuilder.checkDimensions === 'Success')
+			if (sceneWrapper.tubeMeshBuilder.checkDimensions() === 'success')
 				data = pre(sceneWrapper.currentMesh.figure);
 			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 		}
 		else if (material === 'Gold regular')
 		{
 			document.getElementById('idCostData').innerHTML = 'Unavailable';
-				return;
+            return;
 		}
 		else if (material === 'Prime gray')
 		{
@@ -872,7 +872,7 @@ function getNewPrice()
 			return;
 		}
 		
-		if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
+		else if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
 			if (jsonString.indexOf('currency') === -1)
 				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
