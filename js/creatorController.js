@@ -895,6 +895,9 @@ function makePublish()
 
 function makeProduct()
 {
+    slideUp(fout);
+    var d1 = generateWhiteDropDown(500, 200, "<br><h1>One moment...</h1>");
+    fadeIn(d1);
     $.post("/produce", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
 }
 
