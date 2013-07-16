@@ -263,7 +263,7 @@ function addProgressBar() {
 	
 		var progressImg = document.createElement('img');
 		progressImg.id = 'idProgressImg';
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			progressImg.className = 'buttonImg';
 		}
@@ -296,7 +296,7 @@ function addProgressBar() {
 	
 		var progressImgNames1 = document.createElement('img');
 		progressImgNames1.id = 'idProgressImgNamesId1';
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			progressImgNames1.className = 'buttonImg';
 		}

@@ -426,7 +426,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg').onclick = function()
 	{
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			state = 'creator';
 			setupInterface();
@@ -435,7 +435,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg2').onclick = function()
 	{
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			state = 'loops';
 			setupInterface();
@@ -444,7 +444,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg3').onclick = function()
 	{
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			state = 'finalize';
 			setupInterface();
@@ -455,7 +455,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			state = 'creator';
 			setupInterface();
@@ -464,7 +464,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId2').onclick = function()
 	{
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			state = 'loops';
 			setupInterface();
@@ -473,7 +473,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId3').onclick = function()
 	{
-		if (!(typeof newuser !== 'undefined' && newuser))
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
 			state = 'finalize';
 			setupInterface();

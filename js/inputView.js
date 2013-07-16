@@ -113,10 +113,10 @@ var InputView = function(sW, rend, tMP) {
 
 		}
 	}
-
 		this.addMeshElement = function(domElement) {
 		var demoSpace = document.getElementById('container');
 		domElement.style.zIndex = '100';
 		demoSpace.appendChild( domElement );
+		console.log(demoSpace);
 	};
 }
