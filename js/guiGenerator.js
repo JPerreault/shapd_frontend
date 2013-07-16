@@ -551,7 +551,7 @@ function addLoops(){
 	loopText.style.bottom = '12%';
 	loopText.style.fontSize = 'x-large';
 	loopText.style.left = '50%';
-	loopText.style.marginLeft = '-200px';
+	loopText.style.marginLeft = '-211px';
 	loopText.align = 'center';			
 	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
