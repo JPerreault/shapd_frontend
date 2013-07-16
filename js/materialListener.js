@@ -15,7 +15,6 @@ var materialListener = function(sW, tMB, tutorial){
 	var estShippingTo = 3;
 	var imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
 	var imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
-	document.getElementById(sceneWrapper.currentMesh['Material']).click();
 	
 	document.getElementById('Plastic regular white').onclick = function()
 	{
