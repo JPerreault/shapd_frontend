@@ -12,7 +12,7 @@ window.onload = function() {
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
@@ -59,9 +59,7 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
-		matListener.materialChange();
-		
-		tutorial = new Tutorial(view, doTutorial);
+	
 	}
 
     function killSelf()
@@ -299,14 +297,7 @@ window.onload = function() {
 		//sceneWrapper.scene.add(newFigure );
 		//sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
 		//sceneWrapper.currentMesh.figure = newFigure;
-		 
-		 //SATURDAY STUFF FOR JON: (Line 84 of tubeMeshBuilder)
-		//tubeMeshBuilder.removeFaces();
-		 /* To change the figure being displayed to your new figure:
-			1) Return a mesh in the removeFaces method (return new THREE.Mesh(newGeometry, this.m);
-			2) Change the tubeMeshBuilder.removeFaces(); call to be var newFigure = tubeMeshBuilder.removeFaces();
-			3) sceneWrapper.currentMesh.figure = newFigure;
-			4) If you wanted to just remove the figure from the scene, do sceneWrapper.scene.remove(sceneWrapper.scene(sceneWrapper.currentMesh.figure)); */
+		
 		 
 		 
 		// tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
@@ -345,7 +336,7 @@ window.onload = function() {
 		fadeOut(fout);
 		$(".swoop").fadeOut();
 		
-		if (tutorial.tutorialOn === true)
+		if (tutorial.tutorialOn === true && state === 'loops')
 		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	}
 	
@@ -356,6 +347,10 @@ window.onload = function() {
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
+		document.getElementById(d1).onclick = function()
+		{
+			fadeOut(fout);
+		}
 	}
 	
 	document.getElementById('idM2').onclick = function()
@@ -365,6 +360,10 @@ window.onload = function() {
 		var d1 = generateLightbox(imgSource, imgDesc);
 		fout = d1;
 		fadeIn(d1);
+		document.getElementById(d1).onclick = function()
+		{
+			fadeOut(fout);
+		}
 	}
 	
 	document.getElementById('idSaveButton').onclick = function()
@@ -785,7 +784,7 @@ function setupDatGui(sC) {
 		});
 	};
 	
-	controller = gui.add(currentMesh, 'Thickness', .5, 6.5);
+	controller = gui.add(currentMesh, 'Thickness', .5, 5);
 	setUpController(controller, 'Thickness');
 
 	controller = gui.add(currentMesh, 'Depth', 0.0005, 2);
@@ -828,6 +827,7 @@ function resetDatGui()
 function saveButtonClick(isClickable)
 {
 	var saveButton = document.getElementById('idSaveButton');
+	n++;
 	if (isClickable === true)
 	{
 		saveButton.style.opacity = 1;
@@ -836,16 +836,19 @@ function saveButtonClick(isClickable)
 	}
 	else
 	{
-		saveButton.style.opacity = .5;
-		saveButton.className = '';
-		printable = false;
+		if (n > 1)
+		{
+			saveButton.style.opacity = .5;
+			saveButton.className = '';
+			printable = false;
+		}
 	}
 }
 
 function updateThickness(isMove)
 {
 	var isOkay = sceneWrapper.tubeMeshBuilder.checkDimensions();
-
+	
 	if (isOkay === 'small'|| isOkay === 'thin')
 	{
 		$("#thicknessContainer").fadeIn(0);
@@ -920,7 +923,6 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
 		saveButtonClick(false);
 	}
-	
 	return data;
 }
 
