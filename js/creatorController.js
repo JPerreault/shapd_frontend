@@ -47,6 +47,7 @@ window.onload = function() {
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
+		renderer.setClearColor(0xffffff, 1);
 		renderer.autoClear = false;
 		state = 'creator';
 
