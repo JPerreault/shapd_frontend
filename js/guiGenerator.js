@@ -263,7 +263,10 @@ function addProgressBar() {
 	
 		var progressImg = document.createElement('img');
 		progressImg.id = 'idProgressImg';
-		progressImg.className = 'buttonImg';
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
+			progressImg.className = 'buttonImg';
+		}
 		progressImg.src = 'assets/imgs/progress/progressSection1.png';
 		progressContainer.appendChild(progressImg);	
 
@@ -293,7 +296,10 @@ function addProgressBar() {
 	
 		var progressImgNames1 = document.createElement('img');
 		progressImgNames1.id = 'idProgressImgNamesId1';
-		progressImgNames1.className = 'buttonImg';
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
+			progressImgNames1.className = 'buttonImg';
+		}
 		progressImgNames1.style.margin = '3px 3px 0px 0px';
 		progressImgNames1.src = 'assets/imgs/progress/progressNames1_solid.png';
 		progressNameContainer.appendChild(progressImgNames1);	

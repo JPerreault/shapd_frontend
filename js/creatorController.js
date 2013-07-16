@@ -47,6 +47,7 @@ window.onload = function() {
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
+		renderer.setClearColor(0xffffff, 1);
 		renderer.autoClear = false;
 		state = 'creator';
 
@@ -237,8 +238,9 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(450);
 			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
-			$('#idBackButton').fadeIn(450);
+			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeOut(450);
+			$('#idSaveStayButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
@@ -425,42 +427,60 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg').onclick = function()
 	{
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
 			state = 'creator';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImg2').onclick = function()
 	{
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
 			state = 'loops';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImg3').onclick = function()
 	{
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
 			state = 'finalize';
 			setupInterface();
 			if (typeof shapeID === 'undefined')
 				saveShape();
+		}
 	}
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
 			state = 'creator';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImgNamesId2').onclick = function()
 	{
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
 			state = 'loops';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImgNamesId3').onclick = function()
 	{
+		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		{
 			state = 'finalize';
 			setupInterface();
 			if (typeof shapeID === 'undefined')
 				saveShape();
+		}
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
@@ -687,6 +707,7 @@ function loadFromLib(hash)
 	sceneWrapper.tubeMeshBuilder.faceIndexIncrementor = loadedShape['Face Index Incrementor'];
 	sceneWrapper.tubeMeshBuilder.torusRotation = loadedShape['Torus Rotation'];
 	sceneWrapper.tubeMeshBuilder.torusRotationNinety = loadedShape['Torus 90 Rotations'];
+	sceneWrapper.tubeMeshBuilder.officialName = loadedShape['Description'];
 	
 	if (loadedShape['Face Index'] != -1)
 	{
@@ -895,6 +916,9 @@ function makePublish()
 
 function makeProduct()
 {
+    slideUp(fout);
+    var d1 = generateWhiteDropDown(500, 200, "<br><h1>One moment...</h1>");
+    fadeIn(d1);
     $.post("/produce", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
 }
 
