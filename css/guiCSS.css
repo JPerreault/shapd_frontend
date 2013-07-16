@@ -15,7 +15,7 @@ body {
 	a { color:skyblue; text-decoration:none }
 	canvas { pointer-events:none; z-index:10; position:relative; }
 
-	#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
+	#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000;background:#fff; }
 			
 			
 	.materialImg { height: 24px; width:  33px; }
