@@ -12,7 +12,7 @@ window.onload = function() {
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
@@ -755,8 +755,6 @@ function setupDatGui(sC) {
 				{
 					tutorial.tut4()
 					changedModify = 20;
-					
-
 				}
 					currentMesh['Modify'] = sceneWrapper.currentMesh['Modify'];
 					currentMesh['Loops'] = sceneWrapper.currentMesh['Loops'];

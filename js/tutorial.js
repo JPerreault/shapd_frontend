@@ -30,7 +30,7 @@ var Tutorial = function(view, doTutorial)
 	}
 
 	function tut1() {
-			
+			clearHighlights();
 			fadeOut(fout);
 			var tut = 'Welcome!<br><br>This is your starting pendant shape <br><br> You rotate it by clicking and dragging, or zoom in and out with the mouse wheel.<br><img src = "assets/imgs/shapes/1.png"><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
 			var d1 = generateTutorialMsg(tut, 300);
@@ -61,19 +61,28 @@ var Tutorial = function(view, doTutorial)
 
 	function tut2() {
 		if ( state === 'creator' ) {
+			clearHighlights();
 			highlight = 'idShapeContainer';
 			var tut = 'Great!<br><br> You can change base shapes from the library. <br><br>(Scroll down to see more).<br><img src = "assets/imgs/misc/arrowWhite.png">';
 			var d1 = generateTutorialMsg(tut, 250, highlight);
 			fout = d1;
 			slideDownCustBotL(d1, '32%', '430px');	
+			
+			document.addEventListener( 'mousedown', sliderClicked, false );
 		}
 	}
+	
+	function sliderClicked(event) {
+		if( event.target.className.indexOf('slider') !== -1)
+			fadeOut(fout);  
+	}
+		
 
 	this.tut3 = function() {
 			
 		if (this.shapeLibClicked === 0 )
 		{
-			document.getElementById('idShapeContainer').style.zIndex = 1000;
+			clearHighlights();
 			fadeOut(fout);
 			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
 			var d1 = generateTutorialMsg(tut, 250);
@@ -86,18 +95,18 @@ var Tutorial = function(view, doTutorial)
 
 	this.tut4 = function() {
 		
+		clearHighlights();
 		document.addEventListener( 'mouseup', releaseSlider, false );
 		function releaseSlider( event ) 
 		{
 			fadeOut(fout);
-			$(".dg.main")[0].style.zIndex = 1000;
 			highlight = 'idSaveButtonContainer';
 			var tut = 'Neat, huh?<br><br>When you find a shape you like, save and go to the next step.<br><br><button id = "okay" class="tutButton buttonImg">Okay!</button><br><img src = "assets/imgs/misc/arrowWhiteDown.png">';
 			var d1 = generateTutorialMsg(tut, 270, highlight);
 			fout = d1;
 			
 			this.controllerMoved++;
-			slideDownCustBotR(d1, '295px', '10%');
+			slideDownCustBotR(d1, '310px', '170px');
 			
 			document.getElementById('okay').onclick = function()
 			{
@@ -110,8 +119,7 @@ var Tutorial = function(view, doTutorial)
 	this.tut5 = function() {
 		
 			if (this.loopPage === 0 && that.tutorialOn === true ) {
-				
-				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
+				clearHighlights();
 				fadeOut(fout);
 				this.loopPage = 1;
 				var tut = 'In this step, we\'ll add a loop for the necklace. Just click anywhere on your piece to place it.<br><br><span style="font-size:15px;">(Or you could just string a necklace through it, in which case you\'d skip this step by saving/continuing.)</span><br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
@@ -130,8 +138,7 @@ var Tutorial = function(view, doTutorial)
 	this.tut6 = function() {
 		
 			if ( this.loopPage === 1 && that.tutorialOn === true ) {
-				
-				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
+				clearHighlights();
 				this.loopPage = 2;
 				highlight = 'idloopAroundDiv';
 				var tut = '<img src = "assets/imgs/misc/arrowWhite.png"><br><br>Good! Use these to adjust the loop further and continue when done.<br><br><button id = "okay3" class="tutButton buttonImg">Okay</button>';
@@ -149,8 +156,7 @@ var Tutorial = function(view, doTutorial)
 	this.tut7 = function() {
 		
 			if ( this.matsPage === 0 && that.tutorialOn === true) {
-				
-				document.getElementById('idloopAroundDiv').style.zIndex = 1000;
+				clearHighlights();
 				this.matsPage = 1;
 				var tut = 'Lastly we need to pick a material for your piece and size it!<br><br><button id = "okay4" class="tutButton buttonImg">Okay</button>';
 				var d1 = generateTutorialMsg(tut, 180);
@@ -167,6 +173,7 @@ var Tutorial = function(view, doTutorial)
 	function tut8() {
 		
 			if ( that.tutorialOn === true) {
+				clearHighlights();
 				fadeOut(fout);
 				highlight = 'sliderContainer';
 				var tut = 'Use this slider to adjust the size of your piece.<br><br><button id = "okay5" class="tutButton buttonImg">Okay</button> <img src = "assets/imgs/misc/arrowWhiteDown.png">';
@@ -184,7 +191,7 @@ var Tutorial = function(view, doTutorial)
 	this.tut9 = function() {
 		
 			if ( that.tutorialOn === true ) {
-				document.getElementById('sliderContainer').style.zIndex = 1000;
+				clearHighlights();
 				fadeOut(fout);
 				highlight = 'materials';
 				var tut = '<div style="padding:15px;"><img src = "assets/imgs/misc/arrowWhite.png"><br><br> Great!<br><br>Now use these drop downs to select a material.</div>';
@@ -197,7 +204,7 @@ var Tutorial = function(view, doTutorial)
 		this.tut10 = function() {
 		
 			if ( that.tutorialOn === true ) {
-				document.getElementById('materials').style.zIndex = 1000;
+				clearHighlights();
 				fadeOut(fout);
 				highlight = 'idCostDiv';
 				highlight2 = 'idmaterialDetailContainer';
@@ -218,5 +225,19 @@ var Tutorial = function(view, doTutorial)
 	function noTut() {
 		fadeOut(fout);
 		tutorialOn = false;
+	}
+	
+	function clearHighlights() {
+		
+		if($(".dg.main")[0])
+			$(".dg.main")[0].style.zIndex = 1000;
+		
+		document.getElementById('idShapeContainer').style.zIndex = 1000;
+		document.getElementById('materials').style.zIndex = 1000;
+		document.getElementById('sliderContainer').style.zIndex = 1000;
+		document.getElementById('idloopAroundDiv').style.zIndex = 1000;
+		document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
+		document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
+		document.getElementById('idShapeContainer').style.zIndex = 1000;
 	}
 }
