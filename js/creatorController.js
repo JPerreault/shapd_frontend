@@ -60,7 +60,7 @@ window.onload = function() {
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
 		setupInterface();
 		setupDatGui(sceneWrapper);	
-	
+		matListener.materialChange();
 	}
 
     function killSelf()
