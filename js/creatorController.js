@@ -238,8 +238,9 @@ window.onload = function() {
 			$("#sliderContainer").fadeOut(450);
 			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
-			$('#idBackButton').fadeIn(450);
+			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeOut(450);
+			$('#idSaveStayButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
