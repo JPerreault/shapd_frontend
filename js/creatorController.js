@@ -336,7 +336,7 @@ window.onload = function() {
 		fadeOut(fout);
 		$(".swoop").fadeOut();
 		
-		if (tutorial.tutorialOn === true)
+		if (tutorial.tutorialOn === true && state === 'loops')
 		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	}
 	

@@ -51,7 +51,7 @@ var Tutorial = function(view, doTutorial, state)
 			{
 				fadeOut(fout);
 
-				if (that.tutorialOn === true && (Math.abs(view.targetX) > 3 || Math.abs(view.targetY) > 3))
+				if (that.tutorialOn === true && (Math.abs(view.targetX) > 3 || Math.abs(view.targetY) > 6))
 				{
 					document.removeEventListener( 'mousedown', onTwoClick, false );
 					tut2();
@@ -108,7 +108,7 @@ var Tutorial = function(view, doTutorial, state)
 	
 	this.tut5 = function() {
 		
-			if (this.loopPage === 0 && doTutorial === true ) {
+			if (this.loopPage === 0 && that.tutorialOn === true ) {
 				
 				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
 				fadeOut(fout);
@@ -128,7 +128,7 @@ var Tutorial = function(view, doTutorial, state)
 	
 	this.tut6 = function() {
 		
-			if ( this.loopPage === 1 && doTutorial === true ) {
+			if ( this.loopPage === 1 && that.tutorialOn === true ) {
 				
 				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
 				this.loopPage = 2;
@@ -147,7 +147,7 @@ var Tutorial = function(view, doTutorial, state)
 	
 	this.tut7 = function() {
 		
-			if ( this.matsPage === 0 && doTutorial === true) {
+			if ( this.matsPage === 0 && that.tutorialOn === true) {
 				
 				document.getElementById('idloopAroundDiv').style.zIndex = 1000;
 				this.matsPage = 1;
@@ -165,7 +165,7 @@ var Tutorial = function(view, doTutorial, state)
 	
 	function tut8() {
 		
-			if ( doTutorial === true) {
+			if ( that.tutorialOn === true) {
 				fadeOut(fout);
 				highlight = 'sliderContainer';
 				var tut = '<div style="padding:15px;">Use this slider to adjust the size of your piece.<br><br><button id = "okay5" class="tutButton buttonImg">Okay</button> <img src = "assets/imgs/misc/arrowWhiteDown.png"></div>';
@@ -182,7 +182,7 @@ var Tutorial = function(view, doTutorial, state)
 	
 	this.tut9 = function() {
 		
-			if ( doTutorial === true ) {
+			if ( that.tutorialOn === true ) {
 				document.getElementById('sliderContainer').style.zIndex = 1000;
 				fadeOut(fout);
 				highlight = 'materials';
@@ -195,7 +195,7 @@ var Tutorial = function(view, doTutorial, state)
 	
 		this.tut10 = function() {
 		
-			if ( doTutorial === true ) {
+			if ( that.tutorialOn === true ) {
 				document.getElementById('materials').style.zIndex = 1000;
 				fadeOut(fout);
 				highlight = 'idCostDiv';
