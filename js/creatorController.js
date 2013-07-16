@@ -12,7 +12,7 @@ window.onload = function() {
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
@@ -59,9 +59,7 @@ window.onload = function() {
 		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
-		matListener.materialChange();
-		
-		tutorial = new Tutorial(view, doTutorial);
+	
 	}
 
     function killSelf()
