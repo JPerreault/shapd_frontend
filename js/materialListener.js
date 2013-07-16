@@ -15,8 +15,9 @@ var materialListener = function(sW, tMB, tutorial){
 	var estShippingTo = 3;
 	var imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
 	var imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
+	document.getElementById(sceneWrapper.currentMesh['Material']).click();
 	
-	document.getElementById('whiteregularplastic').onclick = function()
+	document.getElementById('Plastic regular white').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white';
 		name = 'Rough White Plastic';
@@ -34,7 +35,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('blackregularplastic').onclick = function()
+	document.getElementById('Plastic regular black').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular black';
 		name = 'Rough Black Plastic';
@@ -52,7 +53,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('whitepolishedplastic').onclick = function()
+	document.getElementById('Plastic regular white polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular white polished';
 		name = 'White Regular Plastic';
@@ -70,7 +71,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('redpolishedplastic').onclick = function()
+	document.getElementById('Plastic regular red polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular red polished';
 		name = 'Red Regular Plastic';
@@ -87,7 +88,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('bluepolishedplastic').onclick = function()
+	document.getElementById('Plastic regular blue polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular blue polished';
 		name = 'Blue Regular Plastic';
@@ -104,7 +105,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('pinkpolishedplastic').onclick = function()
+	document.getElementById('Plastic regular pink polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular pink polished';
 		name = 'Hot-Pink Regular Plastic';
@@ -121,7 +122,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('purplepolishedplastic').onclick = function()
+	document.getElementById('Plastic regular purple polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic regular purple polished';
 		name = 'Purple Regular Plastic';
@@ -138,7 +139,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('whitedetailplastic').onclick = function()
+	document.getElementById('Plastic detail white').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic detail white';
 		name = 'White Detail Plastic';
@@ -155,7 +156,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('blackdetailplastic').onclick = function()
+	document.getElementById('Plastic detail black').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Plastic detail black';
 		name = 'Black Detail Plastic';
@@ -172,7 +173,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('highdetailgrayplastic').onclick = function()
+	document.getElementById('Prime gray').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Prime gray';
 		name = 'Premium Smooth Gray Plastic';
@@ -205,7 +206,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	*/
-	document.getElementById('whitetransparentplastic').onclick = function()
+	document.getElementById('Transparent resin white').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin white';
 		name = 'Ultra-Premium Clear & Smooth Plastic';
@@ -222,7 +223,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('redtransparentplastic').onclick = function()
+	document.getElementById('Transparent resin red').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin red';
 		name = 'Ultra-Premium Clear & Smooth Red Plastic ';
@@ -239,7 +240,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('bluetransparentplastic').onclick = function()
+	document.getElementById('Transparent resin blue').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin blue';
 		name = 'Ultra-Premium Clear & Smooth Blue Plastic ';
@@ -256,7 +257,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('yellowtransparentplastic').onclick = function()
+	document.getElementById('Transparent resin yellow').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Transparent resin yellow';
 		name = 'Ultra-Premium Clear & Smooth Yellow Plastic ';
@@ -355,7 +356,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	*/
-	document.getElementById('regularalumide').onclick = function()
+	document.getElementById('Alumide regular').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Alumide regular';
 		name = 'Regular Alumide';
@@ -372,7 +373,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('polishedalumide').onclick = function()
+	document.getElementById('Alumide polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Alumide polished';
 		name = 'Alumide polished';
@@ -389,7 +390,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('regularbrass').onclick = function()
+	document.getElementById('Brass regular').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Brass regular';
 		name = 'Regular Solid Brass';
@@ -406,7 +407,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('goldplatedbrass').onclick = function()
+	document.getElementById('Brass gold plated polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Brass gold plated polished';
 		name = 'Gold-Plated Solid Brass';
@@ -423,7 +424,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('regularsteel').onclick = function()
+	document.getElementById('Stainless steel regular').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel regular';
 		name = 'Stainless Steel';
@@ -440,7 +441,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('bronzemattesteel').onclick = function()
+	document.getElementById('Stainless steel bronze matte').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel bronze matte';
 		name = 'Antique Bronze-Plated Matte Stainless Steel';
@@ -457,7 +458,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('bronzeglossysteel').onclick = function()
+	document.getElementById('Stainless steel bronze glossy').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel bronze glossy';
 		name = 'Antique Bronze-Plated Glossy Stainless Steel';
@@ -474,7 +475,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('goldmattesteel').onclick = function()
+	document.getElementById('Stainless steel gold matte').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel gold matte';
 		name = 'Gold-Plated Matte Stainless Steel';
@@ -491,7 +492,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('goldglossysteel').onclick = function()
+	document.getElementById('Stainless steel gold glossy').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Stainless steel gold glossy';
 		name = 'Gold-Plated Glossy Stainless Steel';
@@ -508,7 +509,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('regularsilver').onclick = function()
+	document.getElementById('Silver regular').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Silver regular';
 		name = 'Regular Sterling Silver';
@@ -525,7 +526,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('glossysilver').onclick = function()
+	document.getElementById('Silver glossy').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Silver glossy';
 		name = 'Glossy Sterling Silver';
@@ -542,7 +543,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('premiumsilver').onclick = function()
+	document.getElementById('Silver premium').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Silver premium';
 		name = 'Premium Glossy Sterling Silver';
@@ -559,7 +560,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('unpolishedtitanium').onclick = function()
+	document.getElementById('Titanium unpolished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Titanium unpolished';
 		name = 'Unpolished Solid Titanium';
@@ -576,7 +577,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('polishedtitanium').onclick = function()
+	document.getElementById('Titanium polished').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Titanium polished';
 		name = 'Polished Solid Titanium';
@@ -593,7 +594,7 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	document.getElementById('regulargold').onclick = function()
+	document.getElementById('Gold regular').onclick = function()
 	{
 		sceneWrapper.tubeMeshParams['Material'] = 'Gold regular';
 		name = 'Premium Solid Gold';
