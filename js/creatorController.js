@@ -2,17 +2,17 @@ var n = 0;
 var changedModify = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view, gui, tutorial;
+var sceneWrapper, view, gui, tutorial, state, printable;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, state, printable;
+	var tubeMeshBuilder, scene, tubeMP, matListener;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = true;
+        var doTutorial = false;
     else
         var doTutorial = true;
 	
@@ -63,7 +63,7 @@ window.onload = function() {
 
     function killSelf()
     {
-        parent.hideTheBeast("finalize");
+        parent.hideTheBeast(parent.state);
         idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
     }
@@ -180,10 +180,8 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			if (sceneWrapper.torusDefined == true)
 				$('#idLoopRotContainer').fadeIn(450);
-				
 			if (tutorial.tutorialOn === false)
 				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				
 			loops = true;
 			tutorial.tut5();
 			saveButtonClick(true);
@@ -221,6 +219,7 @@ window.onload = function() {
 			getNewPrice();
 			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
 			updateThickness();
+			saveButtonClick(false);
 		}
 		else if (state == 'publish')
 		{
@@ -247,14 +246,6 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
-			loops = false;
-			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
-			
-			var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
-			var d1 = generateWhiteDropDown(700, 700, publishCSS );
-			fout = d1;
-			fadeIn(d1); // I prefer slideDown though
-            //document.getElementById("blackout").onclick = null;
 		}
 	}
 	
@@ -368,24 +359,17 @@ window.onload = function() {
 	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-                
+
 		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
             saveButtonAction();
+		
 	}
 	
-	document.getElementById('idSaveStayButton').onclick = function()
+	function saveButtonAction()
 	{
-		if (typeof newuser !== 'undefined' && newuser)
-				createNewUser();
-			else
-				saveShape();
-	}
-    
-    function saveButtonAction()
-    {
-        firstTime = false;
+		firstTime = false;
 		if (state == 'creator')
 		{
 			state = 'loops';
@@ -408,7 +392,15 @@ window.onload = function() {
 				saveShape();
 			}
 		}
-    }
+	}	
+	
+	document.getElementById('idSaveStayButton').onclick = function()
+	{
+		if (typeof newuser !== 'undefined' && newuser)
+				createNewUser();
+			else
+				saveShape();
+	}
 
 	document.getElementById('idBackButton').onclick = function()
 	{
@@ -678,37 +670,6 @@ window.onload = function() {
 		getNewPrice();
 		updateThickness();
 	}
-	
-	function updateThickness(isMove)
-	{
-		var isOkay = tubeMeshBuilder.checkDimensions();
-
-		if (isOkay === 'small'|| isOkay === 'thin')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
-			saveButtonClick(false);
-		}
-		else if (isOkay === 'large')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
-			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
-			document.getElementById('idSaveButton').style.opacity = .5;
-			saveButtonClick(false);
-		}
-		else
-		{
-			if (isMove)
-			{
-				document.getElementById('shapethin').innerHTML = "You\'re all set!";
-				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
-			}
-			else
-				$("#thicknessContainer").fadeOut(0);
-		}
-	}
     
     $(function () {
       $('.antiscroll-wrap').antiscroll();
@@ -826,6 +787,7 @@ function resetDatGui()
 function saveButtonClick(isClickable)
 {
 	var saveButton = document.getElementById('idSaveButton');
+	n++;
 	if (isClickable === true)
 	{
 		saveButton.style.opacity = 1;
@@ -834,16 +796,19 @@ function saveButtonClick(isClickable)
 	}
 	else
 	{
-		saveButton.style.opacity = .5;
-		saveButton.className = '';
-		printable = false;
+		if (n > 1)
+		{
+			saveButton.style.opacity = .5;
+			saveButton.className = '';
+			printable = false;
+		}
 	}
 }
 
 function updateThickness(isMove)
 {
 	var isOkay = sceneWrapper.tubeMeshBuilder.checkDimensions();
-
+	
 	if (isOkay === 'small'|| isOkay === 'thin')
 	{
 		$("#thicknessContainer").fadeIn(0);
@@ -876,19 +841,20 @@ function getNewPrice()
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
 		saveButtonClick(false);
+
 		var material = sceneWrapper.currentMesh['Material'];
 		
 		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
 			var data = 0;
-			if (sceneWrapper.tubeMeshBuilder.checkDimensions === 'Success')
+			if (sceneWrapper.tubeMeshBuilder.checkDimensions() === 'success')
 				data = pre(sceneWrapper.currentMesh.figure);
 			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 		}
 		else if (material === 'Gold regular')
 		{
 			document.getElementById('idCostData').innerHTML = 'Unavailable';
-				return;
+            return;
 		}
 		else if (material === 'Prime gray')
 		{
@@ -896,7 +862,7 @@ function getNewPrice()
 			return;
 		}
 		
-		if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
+		else if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 		{
 			if (jsonString.indexOf('currency') === -1)
 				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
@@ -918,13 +884,17 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
 		saveButtonClick(false);
 	}
-	
 	return data;
+}
+
+function makePublish()
+{
+    $.post("/publish", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
 }
 
 function makeProduct()
 {
-    $.post("/produce", {authenticity_token: authToken, id: shapeID});
+    $.post("/produce", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
 }
 
 function pre(figure)
@@ -936,6 +906,17 @@ function pre(figure)
 	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
 	
 	return p;
+}
+
+function publishCreation()
+{
+    document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+    
+    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+    var d1 = generateWhiteDropDown(700, 700, publishCSS );
+    fout = d1;
+    fadeIn(d1); // I prefer slideDown though
+    document.getElementById("blackout").onclick = null;
 }
 
 function onDocumentMouseDown(event)
