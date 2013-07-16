@@ -1,6 +1,6 @@
 
 var dropdownCount = 0;
-var margin;
+var marginH, marginV;
 
 // pos should be "TOP", "CENTER", "BOTTOM", or any ID of an element
 function generateDropDown(width, height, messageHTML)
@@ -106,112 +106,88 @@ function slideDown(id)
 
 function slideDownCustTopL(id, fromTop, left)
 {
-	
     var div = document.getElementById(id);
-	
-	if (left === 'center') {
-		left = parseFloat(div.style.width) / 2;
-		div.style.left = '50%';
-		div.style.marginRight = '-' + left + 'px';	
-	} else {
-		div.style.left = left;
-	}
-	
-	if (fromTop === 'center') {
-		fromTop  = '50%';
-	} else {
-		div.style.top = fromTop;
-	}
-	
-	margin = -( $('#' + id).height() ) / 2;
-    div.style.display = "block";
+	div.style.display = "block";
 	div.className = "swoop top left";
-	console.log('test',div.style.paddingTop)
+	
+	if (left === 'center')
+		left = '50%';
+		
+	if (fromTop === 'center')
+		fromTop  = '50%';
+		
+	marginH = - parseFloat(div.style.width) / 2;
+	marginH += -( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
+	marginV = -( $('#' + id).height() ) / 2;
+	marginV += -( parseFloat(div.style.paddingTop) + parseFloat(div.style.paddingBottom) ) / 2;
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({top:fromTop, marginTop:margin});
+    $("#"+id).animate({top:fromTop, marginTop:marginV, left:left, marginLeft: marginH});
 }
 
 function slideDownCustTopR(id, fromTop, right)
 {
 	
-    var div = document.getElementById(id);
-	
-	if (right === 'center') {
-		right = parseFloat(div.style.width) / 2;
-		div.style.right = '50%';
-		div.style.marginRight = '-' + right + 'px';	
-	} else {
-		div.style.right = right;
-	}
-	
-	if (fromTop === 'center') {
-		fromTop  = '50%';
-	} else {
-		div.style.top = fromTop;
-	}
-	
-	margin = -( $('#' + id).height() ) / 2;
-	margin += ( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
-    div.style.display = "block";
+	var div = document.getElementById(id);
+	div.style.display = "block";
 	div.className = "swoop top right";
+	
+	if (right === 'center')
+		right = '50%';
+		
+	if (fromTop === 'center')
+		fromTop  = '50%';
+		
+	marginH = - parseFloat(div.style.width) / 2;
+	marginH += -( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
+	marginV = -( $('#' + id).height() ) / 2;
+	marginV += -( parseFloat(div.style.paddingTop) + parseFloat(div.style.paddingBottom) ) / 2;
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({top:fromTop, marginTop:margin});
+    $("#"+id).animate({top:fromTop, marginTop:marginV, right:right, marginRight: marginH});
 }
 
 function slideDownCustBotL(id, fromBot, left)
 {
-	
-    var div = document.getElementById(id);
-	
-	if (left === 'center') {
-		left = parseFloat(div.style.width) / 2;
-		div.style.left = '50%';
-		div.style.marginRight = '-' + left + 'px';	
-	} else {
-		div.style.left = left;
-	}
-	
-	if (fromBot === 'center') {
-		fromBot  = '50%';
-	} else {
-		div.style.bottom = fromBot;
-	}
-	
-	margin = -( $('#' + id).height() ) / 2;
-    div.style.display = "block";
+	var div = document.getElementById(id);
+	div.style.display = "block";
 	div.className = "swoop bot left";
+	
+	if (left === 'center')
+		left = '50%';
+		
+	if (fromBot === 'center')
+		fromBot  = '50%';
+		
+	marginH = - parseFloat(div.style.width) / 2;
+	marginH += -( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
+	marginV = -( $('#' + id).height() ) / 2;
+	marginV += -( parseFloat(div.style.paddingTop) + parseFloat(div.style.paddingBottom) ) / 2;
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({bottom:fromBot, marginBottom:margin});
+    $("#"+id).animate({bottom:fromBot, marginBottom:marginV, left:left, marginLeft: marginH});
 }
 
 function slideDownCustBotR(id, fromBot, right)
 {
-    var div = document.getElementById(id);
 	
-	if (right === 'center') {
-		right = parseFloat(div.style.width) / 2;
-		div.style.right = '50%';
-		div.style.marginRight = '-' + right + 'px';	
-	} else {
-		div.style.right = right;
-	}
-	
-	if (fromBot === 'center') {
-		fromBot  = '50%';
-	} else {
-		div.style.bottom = fromBot;
-	}
-	
-	margin = -( $('#' + id).height() ) / 2;
-	margin += ( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
-    div.style.display = "block";
+	var div = document.getElementById(id);
+	div.style.display = "block";
 	div.className = "swoop bot right";
+	
+	if (right === 'center')
+		right = '50%';
+		
+	if (fromBot === 'center')
+		fromBot  = '50%';
+		
+	marginH = - parseFloat(div.style.width) / 2;
+	marginH += -( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
+	marginV = -( $('#' + id).height() ) / 2;
+	marginV += -( parseFloat(div.style.paddingTop) + parseFloat(div.style.paddingBottom) ) / 2;
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({bottom:fromBot, marginBottom:margin});
+    $("#"+id).animate({bottom:fromBot, marginBottom:marginV, right:right, marginRight: marginH});
 }
 
 function slideUp(id)
