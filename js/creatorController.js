@@ -2,11 +2,11 @@ var n = 0;
 var changedModify = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view, gui, tutorial;
+var sceneWrapper, view, gui, tutorial, state;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, state, printable;
+	var tubeMeshBuilder, scene, tubeMP, matListener, printable;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
@@ -64,7 +64,7 @@ window.onload = function() {
 
     function killSelf()
     {
-        parent.hideTheBeast("finalize");
+        parent.hideTheBeast(parent.state);
         idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 500);
     }
@@ -249,13 +249,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
 			loops = false;
-			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
-			
-			var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
-			var d1 = generateWhiteDropDown(700, 700, publishCSS );
-			fout = d1;
-			fadeIn(d1); // I prefer slideDown though
-            //document.getElementById("blackout").onclick = null;
+
 		}
 	}
 	
@@ -926,9 +920,14 @@ function updatePrice(data)
 	return data;
 }
 
+function makePublish()
+{
+    $.post("/publish", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
+}
+
 function makeProduct()
 {
-    $.post("/produce", {authenticity_token: authToken, id: shapeID});
+    $.post("/produce", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
 }
 
 function pre(figure)
@@ -940,6 +939,17 @@ function pre(figure)
 	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
 	
 	return p;
+}
+
+function publishCreation()
+{
+    document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+    
+    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+    var d1 = generateWhiteDropDown(700, 700, publishCSS );
+    fout = d1;
+    fadeIn(d1); // I prefer slideDown though
+    document.getElementById("blackout").onclick = null;
 }
 
 function onDocumentMouseDown(event)
