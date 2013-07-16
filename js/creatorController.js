@@ -2,17 +2,17 @@ var n = 0;
 var changedModify = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view, gui, tutorial, state;
+var sceneWrapper, view, gui, tutorial, state, printable;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, printable;
+	var tubeMeshBuilder, scene, tubeMP, matListener;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = true;
+        var doTutorial = false;
     else
         var doTutorial = true;
 	
@@ -181,10 +181,8 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			if (sceneWrapper.torusDefined == true)
 				$('#idLoopRotContainer').fadeIn(450);
-				
 			if (tutorial.tutorialOn === false)
 				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				
 			loops = true;
 			tutorial.tut5();
 			saveButtonClick(true);
@@ -222,6 +220,7 @@ window.onload = function() {
 			getNewPrice();
 			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
 			updateThickness();
+			saveButtonClick(false);
 		}
 		else if (state == 'publish')
 		{
@@ -248,8 +247,6 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
-			loops = false;
-
 		}
 	}
 	
@@ -363,24 +360,17 @@ window.onload = function() {
 	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-                
+
 		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
             saveButtonAction();
+		
 	}
 	
-	document.getElementById('idSaveStayButton').onclick = function()
+	function saveButtonAction()
 	{
-		if (typeof newuser !== 'undefined' && newuser)
-				createNewUser();
-			else
-				saveShape();
-	}
-    
-    function saveButtonAction()
-    {
-        firstTime = false;
+		firstTime = false;
 		if (state == 'creator')
 		{
 			state = 'loops';
@@ -403,7 +393,15 @@ window.onload = function() {
 				saveShape();
 			}
 		}
-    }
+	}	
+	
+	document.getElementById('idSaveStayButton').onclick = function()
+	{
+		if (typeof newuser !== 'undefined' && newuser)
+				createNewUser();
+			else
+				saveShape();
+	}
 
 	document.getElementById('idBackButton').onclick = function()
 	{
@@ -673,37 +671,6 @@ window.onload = function() {
 		getNewPrice();
 		updateThickness();
 	}
-	
-	function updateThickness(isMove)
-	{
-		var isOkay = tubeMeshBuilder.checkDimensions();
-
-		if (isOkay === 'small'|| isOkay === 'thin')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
-			saveButtonClick(false);
-		}
-		else if (isOkay === 'large')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
-			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
-			document.getElementById('idSaveButton').style.opacity = .5;
-			saveButtonClick(false);
-		}
-		else
-		{
-			if (isMove)
-			{
-				document.getElementById('shapethin').innerHTML = "You\'re all set!";
-				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
-			}
-			else
-				$("#thicknessContainer").fadeOut(0);
-		}
-	}
     
     $(function () {
       $('.antiscroll-wrap').antiscroll();
@@ -875,6 +842,7 @@ function getNewPrice()
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
 		saveButtonClick(false);
+
 		var material = sceneWrapper.currentMesh['Material'];
 		
 		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
