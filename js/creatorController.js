@@ -53,10 +53,9 @@ window.onload = function() {
 		sceneWrapper.init();
 		scene = sceneWrapper;
 		
-		tutorial = new Tutorial(view, doTutorial);
+		tutorial = new Tutorial(view, doTutorial, state);
 		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
-		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
 	
