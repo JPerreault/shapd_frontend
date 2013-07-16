@@ -14,7 +14,7 @@ window.onload = function() {
     if (typeof notSignedIn === 'undefined')
         var doTutorial = true;
     else
-        var doTutorial = true;
+        var doTutorial = false;
 	
 	init();
 	animate();
@@ -222,6 +222,7 @@ window.onload = function() {
 			getNewPrice();
 			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
 			updateThickness();
+			saveButtonClick(false);
 		}
 		else if (state == 'publish')
 		{
@@ -383,33 +384,6 @@ window.onload = function() {
 			else
 				saveShape();
 	}
-    
-    function saveButtonAction()
-    {
-        firstTime = false;
-		if (state == 'creator')
-		{
-			state = 'loops';
-			setupInterface();
-			saveShape();
-		}
-		else if (state == 'loops')
-		{
-			state = 'finalize';
-			loops = false;
-			setupInterface();
-			saveShape();
-		}
-		else if (state == 'finalize')
-		{
-			if (printable)
-			{
-				state = 'publish';
-				setupInterface();
-				saveShape();
-			}
-		}
-    }
 
 	document.getElementById('idBackButton').onclick = function()
 	{
@@ -486,6 +460,33 @@ window.onload = function() {
 		$('#idLoopRotContainer').fadeOut(0);
 		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotationNinety = 0;
+	}
+	
+	function saveButtonAction()
+	{
+		firstTime = false;
+		if (state == 'creator')
+		{
+			state = 'loops';
+			setupInterface();
+			saveShape();
+		}
+		else if (state == 'loops')
+		{
+			state = 'finalize';
+			loops = false;
+			setupInterface();
+			saveShape();
+		}
+		else if (state == 'finalize')
+		{
+			if (printable)
+			{
+				state = 'publish';
+				setupInterface();
+				saveShape();
+			}
+		}
 	}
 	
     document.getElementById('idResetShapdImg').onclick = function()
@@ -679,37 +680,6 @@ window.onload = function() {
 		getNewPrice();
 		updateThickness();
 	}
-	
-	function updateThickness(isMove)
-	{
-		var isOkay = tubeMeshBuilder.checkDimensions();
-
-		if (isOkay === 'small'|| isOkay === 'thin')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-			document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
-			saveButtonClick(false);
-		}
-		else if (isOkay === 'large')
-		{
-			$("#thicknessContainer").fadeIn(0);
-			document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
-			document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
-			document.getElementById('idSaveButton').style.opacity = .5;
-			saveButtonClick(false);
-		}
-		else
-		{
-			if (isMove)
-			{
-				document.getElementById('shapethin').innerHTML = "You\'re all set!";
-				document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
-			}
-			else
-				$("#thicknessContainer").fadeOut(0);
-		}
-	}
     
     $(function () {
       $('.antiscroll-wrap').antiscroll();
@@ -881,6 +851,7 @@ function getNewPrice()
 		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
 		document.getElementById('idCostData').innerHTML = 'Pricing...';	
 		saveButtonClick(false);
+
 		var material = sceneWrapper.currentMesh['Material'];
 		
 		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
