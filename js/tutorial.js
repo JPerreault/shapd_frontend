@@ -51,7 +51,7 @@ var Tutorial = function(view, doTutorial, state)
 			{
 				fadeOut(fout);
 
-				if (that.tutorialOn === true && (Math.abs(view.targetX) > 3 || Math.abs(view.targetY) > 6))
+				if (that.tutorialOn === true && (Math.abs(view.targetX) > 3 || Math.abs(view.targetY) > 5))
 				{
 					document.removeEventListener( 'mousedown', onTwoClick, false );
 					tut2();
@@ -113,10 +113,10 @@ var Tutorial = function(view, doTutorial, state)
 				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
 				fadeOut(fout);
 				this.loopPage = 1;
-				var tut = '<div style="padding:30px;">Now we need a way to put your pendant on your neck.<br><br>Here you can add a necklace loop (or you can just string it through, in which case you\'d skip this step). Click anywhere on your piece to add it.<br><br><button id = "okay2" class="tutButton buttonImg">Okay</button></div>';
-				var d1 = generateDropDown(420, 300, tut);
+				var tut = 'Now we need to put your pendant on your neck.<br><br>In this step, we\'ll add a loop for a  necklace. Just click anywhere on your piece to place it.<br><br><span style="font-size:15px;">(Or you could just string a necklace through the it, in which case skip this step by saving and continuing.)</span><br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
+				var d1 = generateTutorialMsg(tut, 300);
 				fout = d1;
-				fadeIn(d1);
+				slideDownCustBotR(d1, '45%', 'center');
 
 					document.getElementById('okay2').onclick = function()
 					{
@@ -133,7 +133,7 @@ var Tutorial = function(view, doTutorial, state)
 				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
 				this.loopPage = 2;
 				highlight = 'idloopAroundDiv';
-				var tut = '<div style="padding:10px;"><img src = "assets/imgs/misc/arrowWhite.png"><br>Use these to adjust the loop further and continue when done. <button id = "okay3" class="tutButton buttonImg">Okay</button></div>';
+				var tut = '<div style="padding:10px;"><img src = "assets/imgs/misc/arrowWhite.png"><br><br>Good! Use these to adjust the loop further and continue when done.<br><br><button id = "okay3" class="tutButton buttonImg">Okay</button></div>';
 				var d1 = generateTutorialMsg(tut, 220, highlight);
 				fout = d1;
 				slideDownCustTopL(d1, '170px', '600px');
@@ -200,10 +200,11 @@ var Tutorial = function(view, doTutorial, state)
 				fadeOut(fout);
 				highlight = 'idCostDiv';
 				highlight2 = 'idmaterialDetailContainer';
-				var tut = '<div style="padding:15px;"><img src = "assets/imgs/misc/arrowWhiteRight.png"><br><br> Nice.<br><br>You\'ll see these update the material, price, and dimensions of your piece as you change the controls. The final price will be based on those factors, as well as the thickness and shape. When you\'ve made something beautiful, save and continue. <br><br> That\'s it for the tutorial! Have fun and we\'re so excited to see what you make!<br><bR><button id = "thanks" class="tutButton buttonImg">Thanks!</button><br><br><img src = "assets/imgs/misc/arrowWhiteDown.png"></div>';
+				var tut = '<div style="padding:15px;"><img src = "assets/imgs/misc/arrowWhiteRight.png"><br><br> Nice!<br><br>The dimensions, price, and material update as you size it and pick different options. If you go back and make another shape, you\'ll see that the thickness of your piece, the depth, the material, and the size all affect the price. When you\'ve made something beautiful, save and continue. <br><br> That\'s it for the tutorial. We\'re happy to have met you and thanks for trying our preview app! <br><br>We\'re excited to see what you make!<br><bR><button id = "thanks" class="tutButton buttonImg">Thanks!</button></div>';
 				var d1 = generateTutorialMsg(tut, 350, highlight, highlight2);
 				fout = d1;
 				slideDownCustTopR(d1, '100px', '250px');
+				that.tutorialOn = false;
 				
 				document.getElementById('thanks').onclick = function()
 					{
