@@ -12,7 +12,7 @@ window.onload = function() {
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = true;
+        var doTutorial = false;
     else
         var doTutorial = true;
 	

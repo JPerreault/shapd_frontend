@@ -51,7 +51,7 @@ var Tutorial = function(view, doTutorial)
 			{
 				fadeOut(fout);
 
-				if (that.tutorialOn === true && (Math.abs(view.targetX) > 6 || Math.abs(view.targetY) > 6))
+				if (that.tutorialOn === true && (Math.abs(view.targetX) > 5 || Math.abs(view.targetY) > 5))
 				{
 					document.removeEventListener( 'mousedown', onTwoClick, false );
 					tut2();
@@ -68,14 +68,14 @@ var Tutorial = function(view, doTutorial)
 			fout = d1;
 			slideDownCustBotL(d1, '32%', '430px');	
 			
-			document.addEventListener( 'mousedown', sliderClicked, false );
+			//document.addEventListener( 'mousedown', sliderClicked, false );
 		}
 	}
 	
 	function sliderClicked(event) {
 		if( event.target.className.indexOf('slider') !== -1) {
 			fadeOut(fout);  
-			document.removeEventListener( 'mousedown', sliderClicked, false );		
+			//document.removeEventListener( 'mousedown', sliderClicked, false );		
 		}
 	}
 		
