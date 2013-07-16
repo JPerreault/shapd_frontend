@@ -1,5 +1,6 @@
 
 var dropdownCount = 0;
+var margin;
 
 // pos should be "TOP", "CENTER", "BOTTOM", or any ID of an element
 function generateDropDown(width, height, messageHTML)
@@ -116,11 +117,19 @@ function slideDownCustTopL(id, fromTop, left)
 		div.style.left = left;
 	}
 	
+	if (fromTop === 'center') {
+		fromTop  = '50%';
+	} else {
+		div.style.top = fromTop;
+	}
+	
+	margin = -( $('#' + id).height() ) / 2;
     div.style.display = "block";
 	div.className = "swoop top left";
+	console.log('test',div.style.paddingTop)
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({top:fromTop});
+    $("#"+id).animate({top:fromTop, marginTop:margin});
 }
 
 function slideDownCustTopR(id, fromTop, right)
@@ -136,11 +145,19 @@ function slideDownCustTopR(id, fromTop, right)
 		div.style.right = right;
 	}
 	
+	if (fromTop === 'center') {
+		fromTop  = '50%';
+	} else {
+		div.style.top = fromTop;
+	}
+	
+	margin = -( $('#' + id).height() ) / 2;
+	margin += ( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
     div.style.display = "block";
 	div.className = "swoop top right";
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({top:fromTop});
+    $("#"+id).animate({top:fromTop, marginTop:margin});
 }
 
 function slideDownCustBotL(id, fromBot, left)
@@ -156,16 +173,22 @@ function slideDownCustBotL(id, fromBot, left)
 		div.style.left = left;
 	}
 	
+	if (fromBot === 'center') {
+		fromBot  = '50%';
+	} else {
+		div.style.bottom = fromBot;
+	}
+	
+	margin = -( $('#' + id).height() ) / 2;
     div.style.display = "block";
 	div.className = "swoop bot left";
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({bottom:fromBot});
+    $("#"+id).animate({bottom:fromBot, marginBottom:margin});
 }
 
 function slideDownCustBotR(id, fromBot, right)
 {
-	
     var div = document.getElementById(id);
 	
 	if (right === 'center') {
@@ -176,11 +199,19 @@ function slideDownCustBotR(id, fromBot, right)
 		div.style.right = right;
 	}
 	
+	if (fromBot === 'center') {
+		fromBot  = '50%';
+	} else {
+		div.style.bottom = fromBot;
+	}
+	
+	margin = -( $('#' + id).height() ) / 2;
+	margin += ( parseFloat(div.style.paddingLeft) + parseFloat(div.style.paddingRight) ) / 2;
     div.style.display = "block";
 	div.className = "swoop bot right";
     
     $("#blackout").fadeIn();
-    $("#"+id).animate({bottom:fromBot});
+    $("#"+id).animate({bottom:fromBot, marginBottom:margin});
 }
 
 function slideUp(id)

@@ -48,15 +48,15 @@ window.onload = function() {
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
 		renderer.autoClear = false;
+		state = 'creator';
 
 		view.addMeshElement(renderer.domElement)
 		sceneWrapper.init();
 		scene = sceneWrapper;
 		
-		tutorial = new Tutorial(view, doTutorial);
+		tutorial = new Tutorial(view, doTutorial, state);
 		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
-		state = 'creator';
 		setupInterface();
 		setupDatGui(sceneWrapper);	
 	
@@ -425,42 +425,60 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg').onclick = function()
 	{
+		if (!(typeof newuser !== 'undefined' && newuser))
+		{
 			state = 'creator';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImg2').onclick = function()
 	{
+		if (!(typeof newuser !== 'undefined' && newuser))
+		{
 			state = 'loops';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImg3').onclick = function()
 	{
+		if (!(typeof newuser !== 'undefined' && newuser))
+		{
 			state = 'finalize';
 			setupInterface();
 			if (typeof shapeID === 'undefined')
 				saveShape();
+		}
 	}
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
+		if (!(typeof newuser !== 'undefined' && newuser))
+		{
 			state = 'creator';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImgNamesId2').onclick = function()
 	{
+		if (!(typeof newuser !== 'undefined' && newuser))
+		{
 			state = 'loops';
 			setupInterface();
+		}
 	}
 	
 	document.getElementById('idProgressImgNamesId3').onclick = function()
 	{
+		if (!(typeof newuser !== 'undefined' && newuser))
+		{
 			state = 'finalize';
 			setupInterface();
 			if (typeof shapeID === 'undefined')
 				saveShape();
+		}
 	}
 	
 	document.getElementById('idResetRotationImg').onclick = function()
