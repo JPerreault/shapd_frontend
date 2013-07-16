@@ -828,6 +828,7 @@ function resetDatGui()
 function saveButtonClick(isClickable)
 {
 	var saveButton = document.getElementById('idSaveButton');
+	n++;
 	if (isClickable === true)
 	{
 		saveButton.style.opacity = 1;
@@ -836,16 +837,19 @@ function saveButtonClick(isClickable)
 	}
 	else
 	{
-		saveButton.style.opacity = .5;
-		saveButton.className = '';
-		printable = false;
+		if (n > 1)
+		{
+			saveButton.style.opacity = .5;
+			saveButton.className = '';
+			printable = false;
+		}
 	}
 }
 
 function updateThickness(isMove)
 {
 	var isOkay = sceneWrapper.tubeMeshBuilder.checkDimensions();
-
+	
 	if (isOkay === 'small'|| isOkay === 'thin')
 	{
 		$("#thicknessContainer").fadeIn(0);
@@ -920,7 +924,6 @@ function updatePrice(data)
 		document.getElementById('idCostData').innerHTML = 'Unavailable';
 		saveButtonClick(false);
 	}
-	
 	return data;
 }
 
