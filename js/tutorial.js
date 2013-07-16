@@ -68,14 +68,14 @@ var Tutorial = function(view, doTutorial)
 			fout = d1;
 			slideDownCustBotL(d1, '32%', '430px');	
 			
-			//document.addEventListener( 'mousedown', sliderClicked, false );
+			document.addEventListener( 'mousedown', sliderClicked, false );
 		}
 	}
 	
 	function sliderClicked(event) {
 		if( event.target.className.indexOf('slider') !== -1) {
 			fadeOut(fout);  
-			//document.removeEventListener( 'mousedown', sliderClicked, false );		
+			document.removeEventListener( 'mousedown', sliderClicked, false );		
 		}
 	}
 		
