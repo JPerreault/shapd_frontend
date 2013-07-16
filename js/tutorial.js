@@ -203,7 +203,7 @@ var Tutorial = function(view, doTutorial)
 	
 		this.tut10 = function() {
 		
-			if ( that.tutorialOn === true ) {
+			if ( that.tutorialOn === true && state === 'finalize') {
 				clearHighlights();
 				fadeOut(fout);
 				highlight = 'idCostDiv';
