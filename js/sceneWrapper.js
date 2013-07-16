@@ -59,6 +59,16 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.tubeMeshBuilder.faceIndexIncrementor = this.tubeMeshParams['Face Index Incrementor'];
 		this.tubeMeshBuilder.torusRotation = this.tubeMeshParams['Torus Rotation'];
 		this.tubeMeshBuilder.torusRotationNinety = this.tubeMeshParams['Torus 90 Rotations'];
+		
+		if (this.tubeMeshParams['Description'] !== '')
+		{
+			var nameParser = '';
+			for (var i = this.tubeMeshParams['Description'].indexOf('in ') + 3; i < this.tubeMeshParams['Description'].length; i++)
+			{
+				nameParser += this.tubeMeshParams['Description'][i];
+			}
+			this.tubeMeshBuilder.officialName = nameParser;
+		}
 	
 		this.addMesh( this.tubeMeshBuilder.build(this.tubeMeshParams) );
 		if (fIndex != -1)
