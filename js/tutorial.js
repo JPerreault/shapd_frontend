@@ -113,7 +113,7 @@ var Tutorial = function(view, doTutorial, state)
 				document.getElementById('idSaveButtonContainer').style.zIndex = 1000;
 				fadeOut(fout);
 				this.loopPage = 1;
-				var tut = 'Now we need to put your pendant on your neck.<br><br>In this step, we\'ll add a loop for a  necklace. Just click anywhere on your piece to place it.<br><br><span style="font-size:15px;">(Or you could just string a necklace through the it, in which case skip this step by saving and continuing.)</span><br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
+				var tut = 'Now we need to put your pendant on your neck.<br><br>In this step, we\'ll add a loop for a  necklace. Just click anywhere on your piece to place it.<br><br><span style="font-size:15px;">(Or you could just string a necklace through it, in which case skip this step by saving and continuing.)</span><br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
 				var d1 = generateTutorialMsg(tut, 300);
 				fout = d1;
 				slideDownCustBotR(d1, '45%', 'center');

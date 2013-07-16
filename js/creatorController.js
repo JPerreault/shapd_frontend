@@ -2,19 +2,19 @@ var n = 0;
 var changedModify = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view, gui, tutorial;
+var sceneWrapper, view, gui, tutorial, state, printable;
 
 window.onload = function() {
 
-	var tubeMeshBuilder, scene, tubeMP, matListener, state, printable;
+	var tubeMeshBuilder, scene, tubeMP, matListener;
 	var renderer, materialsLibrary, customContainer, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = true;
-    else
         var doTutorial = false;
+    else
+        var doTutorial = true;
 	
 	init();
 	animate();
@@ -181,10 +181,8 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(450);
 			if (sceneWrapper.torusDefined == true)
 				$('#idLoopRotContainer').fadeIn(450);
-				
 			if (tutorial.tutorialOn === false)
 				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				
 			loops = true;
 			tutorial.tut5();
 			saveButtonClick(true);
@@ -249,9 +247,6 @@ window.onload = function() {
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
-			loops = false;
-			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
-			
 			var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='assets/imgs/materialExamples/titaniumPolished_2.jpg' width='155px' height='155' style='border: 1px'></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' type='submit'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
 			var d1 = generateWhiteDropDown(700, 700, publishCSS );
 			fout = d1;
@@ -370,12 +365,40 @@ window.onload = function() {
 	document.getElementById('idSaveButton').onclick = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-                
+
 		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
             saveButtonAction();
+		
 	}
+	
+	function saveButtonAction()
+	{
+		firstTime = false;
+		if (state == 'creator')
+		{
+			state = 'loops';
+			setupInterface();
+			saveShape();
+		}
+		else if (state == 'loops')
+		{
+			state = 'finalize';
+			loops = false;
+			setupInterface();
+			saveShape();
+		}
+		else if (state == 'finalize')
+		{
+			if (printable)
+			{
+				state = 'publish';
+				setupInterface();
+				saveShape();
+			}
+		}
+	}	
 	
 	document.getElementById('idSaveStayButton').onclick = function()
 	{
@@ -460,33 +483,6 @@ window.onload = function() {
 		$('#idLoopRotContainer').fadeOut(0);
 		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotationNinety = 0;
-	}
-	
-	function saveButtonAction()
-	{
-		firstTime = false;
-		if (state == 'creator')
-		{
-			state = 'loops';
-			setupInterface();
-			saveShape();
-		}
-		else if (state == 'loops')
-		{
-			state = 'finalize';
-			loops = false;
-			setupInterface();
-			saveShape();
-		}
-		else if (state == 'finalize')
-		{
-			if (printable)
-			{
-				state = 'publish';
-				setupInterface();
-				saveShape();
-			}
-		}
 	}
 	
     document.getElementById('idResetShapdImg').onclick = function()
