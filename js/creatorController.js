@@ -12,7 +12,7 @@ window.onload = function() {
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
@@ -298,7 +298,7 @@ window.onload = function() {
 		$(".swoop").fadeOut();
 		
 		if (tutorial.tutorialOn === true && state === 'loops')
-		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	}
 	
 	document.getElementById('idM1').onclick = function()
