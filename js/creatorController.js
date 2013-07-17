@@ -394,7 +394,7 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idProgressImg').onclick = function()
+	document.getElementById('idProgressImg1').onclick = function()
 	{
 		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
 		{
