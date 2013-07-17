@@ -298,7 +298,7 @@ window.onload = function() {
 		$(".swoop").fadeOut();
 		
 		if (tutorial.tutorialOn === true && state === 'loops')
-		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	}
 	
 	document.getElementById('idM1').onclick = function()
@@ -491,11 +491,8 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			currentMesh.figure.scale.x = 1;
-			currentMesh.figure.scale.y = 1;
-			currentMesh.figure.scale.z = 1;
-			currentMesh['Scale'] = 1;
-			$( "#slider" ).slider( "value", 100 );
+			sceneWrapper.updateScale(.66);
+			$( "#slider" ).slider( "value", 66 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
 			$( "#thickslider" ).slider( "value", 1.75 );
 			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
@@ -537,8 +534,8 @@ window.onload = function() {
 			tubeMeshBuilder.torusRotationNinety = 0;
 			sceneWrapper.torusDefined = false;
 			
-			sceneWrapper.updateScale(1);
-			$( "#slider" ).slider( "value", 100 );
+			sceneWrapper.updateScale(.66);
+			$( "#slider" ).slider( "value", 66 );
 
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
