@@ -107,7 +107,12 @@ var Tutorial = function(view, doTutorial)
 				var d1 = generateTutorialMsg(tut, 270);
 				fout = d1;
 				slideDownCustBotR(d1, 'center', 'center');
-
+					
+					document.getElementById(d1).onclick = function()
+					{
+						fadeOut(fout);
+						document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+					}
 					document.getElementById('okay2').onclick = function()
 					{
 						fadeOut(fout);
@@ -189,7 +194,7 @@ var Tutorial = function(view, doTutorial)
 				fadeOut(fout);
 				highlight = 'idCostDiv';
 				highlight2 = 'idmaterialDetailContainer';
-				var tut = '<div style="padding:10px;"><br> Nice!<br><br>The price and material update as you pick different options. If you make another shape, you\'ll see that the thickness, the depth, the material, and the size all affect the price. <br><br>When you\'ve finished making something beautiful, save and continue. <br><br> That\'s it for the tutorial! Thanks for trying our preview app! <br><br>We\'re excited to see what you make.<br><bR><button id = "thanks" class="tutButton buttonImg">Thanks!</button></div>';
+				var tut = '<div style="padding:10px;"><br> Nice!<br><br>The price and material update as you pick different options. You\'ll see that the thickness, the depth, the material, and the size all affect the price. <br><br>Continue when you found the perfect material. <br><br> That\'s it for the tutorial. Thanks for trying our preview app! <br><br>We\'re excited to see what you make.<br><bR><button id = "thanks" class="tutButton buttonImg">Thanks!</button></div>';
 				var d1 = generateTutorialMsg(tut, 350, highlight, highlight2);
 				fout = d1;
 				slideDownCustTopR(d1, 'center', 'center');
