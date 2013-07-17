@@ -12,7 +12,7 @@ window.onload = function() {
 	var firstTime = true;
 	var loops = false;
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
@@ -746,23 +746,6 @@ function setupDatGui(sC) {
 			currentMesh[fieldName] = newVal;
 			this.color = [ 0, 128, 225];
 			scene.redrawMesh(currentMesh);
-
-			if (tutorial.tutorialOn && tutorial.controllerMoved === 0)
-			{
-				if (fieldName ==='Modify' || fieldName === 'Loops')
-					changedModify += Math.abs(2 - currentMesh['Loops']) + Math.abs(5 - currentMesh['Modify']);
-					console.log(changedModify);
-					//console.log
-				if (changedModify >= 30 && changedModify < 100)
-				{
-					tutorial.tut4()
-					changedModify = 100;
-				}
-					currentMesh['Modify'] = sceneWrapper.currentMesh['Modify'];
-					currentMesh['Loops'] = sceneWrapper.currentMesh['Loops'];
-					gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
-					gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
-			}
 		});
 	};
 	
