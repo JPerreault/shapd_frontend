@@ -53,7 +53,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		if (typeof screenShot === 'undefined')
 			figure.scale.x = figure.scale.y = figure.scale.z = tubeMeshParams['Scale'];
 		else
-			figure.scale.x = figure.scale.y = figure.scale.z = 1;
+			figure.scale.x = figure.scale.y = figure.scale.z = .66;
         tubeMeshParams.figure = figure;
 		
         return tubeMeshParams;
