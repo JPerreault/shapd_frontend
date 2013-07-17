@@ -453,37 +453,30 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var material = this.m.name;
 		var thicknessOfWire = radius * figure.scale.x;
 
-		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
+		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1 || material === 'Alumide regular')
 		{
-			if (!(thicknessOfWire > .75))
-				dimensionsPrintable = 'small';
-			else if (!(this.checkUpperDimensions()))
-				dimensionsPrintable = 'large';
-		}
-		else if (material === 'Alumide regular')
-		{
-			if (!(thicknessOfWire > .875))
+			if (!(thicknessOfWire > .675))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
 		}
 		else if (material === 'Alumide polished')
 		{
-			if (!(thicknessOfWire > 1))
+			if (!(thicknessOfWire > .875))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
 		}
 		else if (material.indexOf('Stainless steel') !== -1)
 		{
-			if (!(thicknessOfWire > 1.625))
+			if (!(thicknessOfWire > 1.5))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';
 		}
 		else //Precious metals and brass
 		{
-			if (!(thicknessOfWire > .625))
+			if (!(thicknessOfWire > .65))
 				dimensionsPrintable = 'small';
 			else if (!(this.checkUpperDimensions()))
 				dimensionsPrintable = 'large';

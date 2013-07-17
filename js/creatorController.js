@@ -130,7 +130,7 @@ window.onload = function() {
 		}
 		else if (state == 'creator')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1.png';
+			document.getElementById('idProgressImg1').src = 'assets/imgs/progress/progressSection1.png';
 			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
@@ -159,7 +159,7 @@ window.onload = function() {
 		}
 		else if (state == 'loops')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg1').src = 'assets/imgs/progress/progressSection1_complete.png';
 			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
@@ -191,7 +191,7 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg1').src = 'assets/imgs/progress/progressSection1_complete.png';
 			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionComplete.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
@@ -226,7 +226,7 @@ window.onload = function() {
 		}
 		else if (state == 'publish')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg1').src = 'assets/imgs/progress/progressSection1_complete.png';
 			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionComplete.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionComplete.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionActive.png';
@@ -394,9 +394,9 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idProgressImg').onclick = function()
+	document.getElementById('idProgressImg1').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'creator';
 			setupInterface();
@@ -405,7 +405,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg2').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'loops';
 			setupInterface();
@@ -414,7 +414,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg3').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'finalize';
 			setupInterface();
@@ -425,7 +425,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'creator';
 			setupInterface();
@@ -434,7 +434,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId2').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'loops';
 			setupInterface();
@@ -443,7 +443,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId3').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'finalize';
 			setupInterface();
