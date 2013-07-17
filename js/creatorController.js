@@ -60,7 +60,8 @@ window.onload = function() {
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
 		setupInterface();
 		setupDatGui(sceneWrapper);
-		document.getElementById(sceneWrapper.currentMesh['Material']).click();	//For initializing material	
+		if (typeof screenShot === 'undefined')
+			document.getElementById(sceneWrapper.currentMesh['Material']).click();	//For initializing material	
 	}
 
     function killSelf()
