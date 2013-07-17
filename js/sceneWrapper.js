@@ -9,7 +9,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.scene = new THREE.Scene();
 	this.sceneCube = new SceneCubeWrapper(textureCube);
 
-	this.camera = new THREE.PerspectiveCamera( 8, window.innerWidth / window.innerHeight, 500, 100000 );
+	this.camera = new THREE.PerspectiveCamera( 4, window.innerWidth / window.innerHeight, 500, 100000 );
 	this.camera.position.z = 1000;
 
 	var ambient = new THREE.AmbientLight( 0x050505 );

@@ -439,7 +439,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			document.getElementById('idCostDim').innerHTML = xVal + ' (w) x '  + yVal + ' (h) x ' + zVal + ' (d)<br><br>Dimensions in Inches';
 			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + '</b></span><br><span style="font-size: 14px">(Inches high)<span>';
 			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + '</b></span><br><span style="font-size: 14px">(Inches wide)<span>';		
-			
 		}
 		else if (variables === 'xy')
 		{
@@ -590,7 +589,7 @@ var TubeMeshParams = function(){
             
         }
         
-		this['Scale'] = 1;
+		this['Scale'] = .66;
 		this['Modify'] = 5;
 		this['Depth'] = 1;
 		this['Stretch'] = 1;
