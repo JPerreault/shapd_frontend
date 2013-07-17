@@ -271,26 +271,26 @@ window.onload = function() {
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'relative';
 
-	var saveSTL = document.createElement('div');
-	saveSTL.style.position = 'absolute';
-	saveSTL.style.bottom = '0px';
-	saveSTL.style.left = '15%';
-	saveSTL.style.zIndex = '1000';
-	saveSTL.style.background = '#999';
-	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
-	customContainer.appendChild(saveSTL);
+	// var saveSTL = document.createElement('div');
+	// saveSTL.style.position = 'absolute';
+	// saveSTL.style.bottom = '0px';
+	// saveSTL.style.left = '15%';
+	// saveSTL.style.zIndex = '1000';
+	// saveSTL.style.background = '#999';
+	// saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
+	// customContainer.appendChild(saveSTL);
 
 	
-	document.getElementById('save').onclick = function()
-	{
+	// document.getElementById('save').onclick = function()
+	// {
 
-		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		// tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
 		
-		//var newFigure = tubeMeshBuilder.removeFaces();
-		//sceneWrapper.scene.add(newFigure );
-		//sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
-		//sceneWrapper.currentMesh.figure = newFigure;
-	}
+		// var newFigure = tubeMeshBuilder.removeFaces();
+		// sceneWrapper.scene.add(newFigure );
+		// sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
+		// sceneWrapper.currentMesh.figure = newFigure;
+	// }
 	
 	document.getElementById('blackout').onclick = function()
 	{
