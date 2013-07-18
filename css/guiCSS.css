@@ -29,13 +29,13 @@ body {
 	.publishButtonCSS { cursor:pointer; display:inline; background: #000; opacity: 0.8; margin:20px 80px 1px; color:#fff; font-weight:600; width:150px; height:35px;}
 	.tutButton { cursor:pointer; display:inline; background: #000; opacity: 0.8; margin:10px 30px 10px; padding: 20px; color:#fff; font-weight:600; font-size:16px;}
 	.publishDesc { position:relative; background: #2fa1d7; opacity: 0.8; color:#fff; margin: 5px 40px 10px; padding: 10px; width:210px; display:inline-table; font-family:Verdana, Geneva, sans-serif; -moz-border-radius: 8px; border-radius: 8px; }
-	.padding { padding:20px; }
-	
 	
 	.floatingTextContainer {
-	padding: 20px; 
-	background: #2fa1d7;  
-	color:#fff; 
+	padding: 10px; 
+	opacity: 0.95;
+	background: #fff;  
+	color:#000; 
+	border: 2px solid #000;
 	font-family:Verdana, Geneva, sans-serif; 
 	font-size:22px; 
 	font-weight:400; 
@@ -112,8 +112,8 @@ body {
 	font-family:Verdana, Geneva, sans-serif; 
 	font-size:18px; 
 	font-weight:500; 
-	-moz-border-radius: 12px; 
-	border-radius: 12px; 
+	-moz-border-radius: 8px; 
+	border-radius: 8px; 
 	margin-left:auto; 
 	margin-right:auto; 
 	position:relative; 
@@ -137,11 +137,149 @@ body {
 	z-index: 1000;
 	}	
 	
+	.buttonVerySmall {
+	position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: #2fa1d7; 
+    font-family: 'Verdana, Geneva, sans-serif';
+    font-weight: 600;
+    font-size: 13px;
+	cursor: pointer;
+    display: block;
+    padding-bottom:4px; padding-top:4px; padding-left:10px; padding-right:10px; 
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    margin: 10px;
+	text-align: center;
+	z-index:1000;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+	}
 
-	/* Material CSS */
+	.buttonVerySmall:active {
+    -webkit-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+	}	
 	
-	.materialHeader { background-color:#000; color:#fff; }
+	.buttonSmall {
+	position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: #2fa1d7; 
+    font-family: 'Verdana, Geneva, sans-serif';
+    font-weight: 600;
+    font-size: 18px;
+	cursor: pointer;
+    display: block;
+    padding-bottom:7px; padding-top:7px; padding-left:15px; padding-right:15px; 
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    margin: 10px;
+	text-align: center;
+	z-index:1000;
 	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+	}
+
+	.buttonSmall:active {
+    -webkit-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+	}	
+	
+	.buttonMedium {
+	position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: #2fa1d7; 
+    font-family: 'Verdana, Geneva, sans-serif';
+    font-weight: 600;
+    font-size: 22px;
+	cursor: pointer;
+    display: block;
+    padding-bottom:7px; padding-top:7px; padding-left:15px; padding-right:15px; 
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    margin: 10px;
+	text-align: center;
+	z-index:1000;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+	}
+
+	.buttonMedium:active {
+    -webkit-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+	}	
+	
+	.buttonLarge {
+	position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: #2fa1d7; 
+    font-family: 'Verdana, Geneva, sans-serif';
+    font-weight: 600;
+    font-size: 30px;
+	cursor: pointer;
+    display: block;
+    padding-bottom:10px; padding-top:10px; padding-left:20px; padding-right:20px; 
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    box-shadow: 0px 5px 0px #277196, 0px 9px 17px rgba(0,0,0,.7);
+    margin: 10px;
+	text-align: center;
+	z-index:1000;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+	}
+
+	.buttonLarge:active {
+    -webkit-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px #277196, 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+	}	
 	
 	/* Slider CSS */
 	
