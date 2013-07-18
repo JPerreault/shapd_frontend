@@ -62,7 +62,7 @@ function loopRotations(){
 			loopLessAngleButton.id = 'idLoopLessAngleButton';
 			loopLessAngleButton.className = 'buttonSmall';
 			loopLessAngleButton.style.width = '90px';
-			loopLessAngleButton.innerHTML = 'Less<br>angle';
+			loopLessAngleButton.innerHTML = 'Less<br>Angle';
 			loopLessAngleButton.style.display = 'inline';
 			angleDiv.appendChild(loopLessAngleButton);
 			
@@ -76,7 +76,7 @@ function loopRotations(){
 			loopMoreAngleButton.id = 'idLoopMoreAngleButton';
 			loopMoreAngleButton.className = 'buttonSmall';
 			loopMoreAngleButton.style.width = '90px';
-			loopMoreAngleButton.innerHTML = 'More<br>angle';
+			loopMoreAngleButton.innerHTML = 'More<br>Angle';
 			loopMoreAngleButton.style.display = 'inline';
 			angleDiv.appendChild(loopMoreAngleButton);
 			
