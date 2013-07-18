@@ -8,7 +8,7 @@ function getJson(currentMesh, sw)
 	var scale = figure.scale.x;
 	figure.material.name = currentMesh['Material'];
 	var material = calculateMaterial(figure);
-	var volume = calculateVolume(figure, scale, sw);
+	var volume = calculateVolume(figure, scale);
 	var surfaceArea = calculateSurfaceArea(figure, scale);
 	var dimensions = calculateXYZ(figure, scale);
 	
@@ -124,6 +124,8 @@ function calculateVolume(figure, scale, sw)
 	var vertices = figure.geometry.vertices;
 	var faces = figure.geometry.faces;
 	var totalVolume = 0;
+	var figureVol = 0;
+	var torusVol = 0;
 	var partVol;
 	var px, py, pz,
 		qx, qy, qz,
@@ -144,7 +146,7 @@ function calculateVolume(figure, scale, sw)
 		rz = vertices[faces[i].c].z;
 			
 		partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
-		totalVolume += partVol;
+		figureVol += partVol;
 
 		if (typeof faces[i].d != 'undefined')
 		{
@@ -161,12 +163,54 @@ function calculateVolume(figure, scale, sw)
 			rz = vertices[faces[i].a].z;
 				
 			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
-			totalVolume += partVol;
+			figureVol += partVol;
 		}
 	}
 	
+	if (sceneWrapper.torusDefined)
+	{
+	
+		faces = sceneWrapper.torusMesh.geometry.faces;
+		vertices = sceneWrapper.torusMesh.geometry.vertices;
+			
+		for (var i = 0; i < faces.length; i++)
+		{
+			px = vertices[faces[i].a].x;
+			py = vertices[faces[i].a].y;
+			pz = vertices[faces[i].a].z;
+				
+			qx = vertices[faces[i].b].x;
+			qy = vertices[faces[i].b].y;
+			qz = vertices[faces[i].b].z;
+			
+			rx = vertices[faces[i].c].x;
+			ry = vertices[faces[i].c].y;
+			rz = vertices[faces[i].c].z;
+				
+			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
+			torusVol += partVol;
+			
+			px = vertices[faces[i].c].x;
+			py = vertices[faces[i].c].y;
+			pz = vertices[faces[i].c].z;
+				
+			qx = vertices[faces[i].d].x;
+			qy = vertices[faces[i].d].y;
+			qz = vertices[faces[i].d].z;
+				
+			rx = vertices[faces[i].a].x;
+			ry = vertices[faces[i].a].y;
+			rz = vertices[faces[i].a].z;
+				
+			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
+			torusVol += partVol;
+		}
+		torusVol *= (Math.pow(sceneWrapper.torusMesh.scale.x, 3));
+	}
+	
+	figureVol *= (Math.pow(scale, 3));
+	totalVolume = figureVol + torusVol;
 	totalVolume /= 6;
-	totalVolume *= (Math.pow(scale, 3));
 	totalVolume /= 1000; //conversion to cm^3
 	if (websiteName == 'shapeways')
 		totalVolume /= 1000000;
@@ -177,6 +221,8 @@ function calculateVolume(figure, scale, sw)
 function calculateSurfaceArea(figure, scale)
 {
 	var surfaceArea = 0;
+	var figureSA = 0;
+	var torusSA = 0;
 	var faces = figure.geometry.faces;
 	var vertices = figure.geometry.vertices;
 	var a, b, c, d, ab, ad, p, p1, p2, p3, partSA;
@@ -187,7 +233,7 @@ function calculateSurfaceArea(figure, scale)
 		b = vertices[faces[i].b];
 		c = vertices[faces[i].c];
 		d = vertices[faces[i].d];
-		if (typeof d != 'undefined')
+		if (typeof d !== 'undefined')
 		{
 			ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
 			ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
@@ -203,9 +249,32 @@ function calculateSurfaceArea(figure, scale)
 			
 			partSA = Math.sqrt(p * (p - p1) * (p - p2) * (p - p3));
 		}
-		surfaceArea += partSA;
+		figureSA += partSA;
 	}
-	surfaceArea *= (Math.pow(scale, 2));
+	
+	if (sceneWrapper.torusDefined)
+	{
+		faces = sceneWrapper.torusMesh.geometry.faces;
+		vertices = sceneWrapper.torusMesh.geometry.vertices;
+			
+		for (var i = 0; i < faces.length; i++)
+		{
+			a = vertices[faces[i].a];
+			b = vertices[faces[i].b];
+			c = vertices[faces[i].c];
+			d = vertices[faces[i].d];
+			
+			ab = Math.sqrt(Math.pow(a.x - b.x, 2)+Math.pow(a.y - b.y, 2)+Math.pow(a.z - b.z, 2));
+			ad = Math.sqrt(Math.pow(a.x - d.x, 2)+Math.pow(a.y - d.y, 2)+Math.pow(a.z - d.z, 2));
+			partSA = ab*ad;
+			torusSA += partSA;
+		}
+		torusSA *= (Math.pow(sceneWrapper.torusMesh.scale.x, 2));
+	}
+	
+	
+	figureSA *= (Math.pow(scale, 2));
+	surfaceArea = figureSA + torusSA;
 	surfaceArea /= 100; //conversion to cm^2
 	if (websiteName == 'shapeways')
 		surfaceArea /= 10000;
@@ -215,21 +284,65 @@ function calculateSurfaceArea(figure, scale)
 	
 function calculateXYZ(figure, scale)
 {
+	// figure.geometry.computeBoundingBox();
+	// var boundingBox = figure.geometry.boundingBox;
+	// var dimensions = [];
+		
+	// var xMin = boundingBox.min.x * scale;
+	// var yMin = boundingBox.min.y * scale;
+	// var zMin = boundingBox.min.z * scale;
+	// var xMax = boundingBox.max.x * scale;
+	// var yMax = boundingBox.max.y * scale;
+	// var zMax = boundingBox.max.z * scale;
+	
+	// var xVal = (xMax - xMin);
+	// var yVal = (yMax - yMin);
+	// var zVal = (zMax - zMin);
+	
 	figure.geometry.computeBoundingBox();
 	var boundingBox = figure.geometry.boundingBox;
 	var dimensions = [];
-		
+	var scale = figure.scale.x;
+
 	var xMin = boundingBox.min.x * scale;
 	var yMin = boundingBox.min.y * scale;
 	var zMin = boundingBox.min.z * scale;
 	var xMax = boundingBox.max.x * scale;
 	var yMax = boundingBox.max.y * scale;
 	var zMax = boundingBox.max.z * scale;
+	var xVal, yVal, zVal;
+	
+	if (sceneWrapper.torusDefined)
+	{
+		sceneWrapper.torusMesh.geometry.computeBoundingBox();
+		var torusBox = sceneWrapper.torusMesh.geometry.boundingBox;
+		var torusScale = sceneWrapper.torusMesh.scale.x;
+		
+		var torusxMin = torusBox.min.x * torusScale;
+		var torusyMin = torusBox.min.y * torusScale;
+		var toruszMin = torusBox.min.z * torusScale;
+		var torusxMax = torusBox.max.x * torusScale;
+		var torusyMax = torusBox.max.y * torusScale;
+		var toruszMax = torusBox.max.z * torusScale;
+		
+		if (torusxMin < xMin)
+			xMin = torusxMin;
+		if (torusyMin < yMin)
+			yMin = torusyMin;
+		if (toruszMin < zMin)
+			zMin = toruszMin;
+		if (torusxMax > xMax)
+			xMin = torusxMin;
+		if (torusyMax > yMax)
+			yMax = torusyMax;
+		if (toruszMax > zMax)
+			zMax = toruszMax;
+	}
 	
 	var xVal = (xMax - xMin);
 	var yVal = (yMax - yMin);
 	var zVal = (zMax - zMin);
-	
+
 	if (websiteName == 'iMaterialise')
 	{
 		dimensions.push(xVal);
@@ -249,7 +362,7 @@ function calculateXYZ(figure, scale)
 		dimensions.push(0);
 		dimensions.push(zVal);
 	}
-	
+
 	return dimensions;
 }
 

@@ -7,7 +7,7 @@ var sceneWrapper, view, gui, tutorial, state, printable;
 window.onload = function() {
 
 	var tubeMeshBuilder, scene, tubeMP, matListener;
-	var renderer, materialsLibrary, customContainer, datGuiContainer;
+	var renderer, materialsLibrary, datGuiContainer;
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
@@ -269,7 +269,7 @@ window.onload = function() {
 		addCost();
 	}
 	
-	customContainer = document.getElementById('container');	
+	var customContainer = document.getElementById('container');	
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'relative';
 
@@ -479,7 +479,6 @@ window.onload = function() {
 		
 			sceneWrapper.redrawMesh(currentMesh);
 			resetDatGui();
-			setupDatGui(sceneWrapper);
 		}
 		else if (state == 'loops')
 		{
@@ -512,13 +511,23 @@ window.onload = function() {
 		currentMesh['Depth'] = 1;
 		currentMesh['Stretch'] = 1;
 		currentMesh['Loops'] = 2;
-		currentMesh['Thickness'] = 1.75;
-		currentMesh['Rotation X'] = 0;
-		currentMesh['Rotation Y'] = 0;
-		view.targetX = 0;
-		view.targetY = 0;
+		currentMesh['Thickness'] = 1.5;
+		if (view.targetX === 0 && view.targetY === 0)
+		{
+			currentMesh['Rotation X'] = 6.28318531;
+			currentMesh['Rotation Y'] = 6.28318531;
+			view.targetX = 6.28318531;
+			view.targetY = 6.28318531;
+		}
+		else
+		{
+			currentMesh['Rotation X'] = 0;
+			currentMesh['Rotation Y'] = 0;
+			view.targetX = 0;
+			view.targetY = 0;
+		}
 		
-		$( "#thickslider" ).slider( "value", 1.75 );
+		$( "#thickslider" ).slider( "value", 1.55 );
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 	}
 	
@@ -542,7 +551,6 @@ window.onload = function() {
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
 			resetDatGui();
-			setupDatGui(sceneWrapper);
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 			
 			if (tutorial.tutorialOn)
@@ -697,7 +705,7 @@ function loadFromLib(hash)
 	gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
 	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
 	
-	setupDatGui(sceneWrapper);
+	resetDatGui();
 }
 	
 function setupDatGui(sC) {
@@ -744,7 +752,7 @@ function setupDatGui(sC) {
 function resetDatGui()
 {
 	var currentMesh = sceneWrapper.currentMesh;
-	currentMesh['Thickness'] = 1.75;
+	currentMesh['Thickness'] = 1.5;
 	currentMesh['Depth'] = 1;
 	currentMesh['Stretch'] = 1;
 	currentMesh['Modify'] = 5;
@@ -878,7 +886,7 @@ function pre(figure)
 	var v = calculateVolume (figure, figure.scale.x);
 	v *= 1000;
 	
-	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
+	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.31 * 1.2089;
 	
 	return p;
 }

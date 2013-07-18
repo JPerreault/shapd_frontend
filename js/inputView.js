@@ -42,7 +42,7 @@ var InputView = function(sW, rend, tMP) {
 		var fovMAX = 80;
 		var fovMIN = 1.05;
 
-		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.015;
+		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.014;
 		sceneWrapper.camera.fov = Math.max( Math.min( sceneWrapper.camera.fov, fovMAX ), fovMIN );
 		sceneWrapper.camera.projectionMatrix = new THREE.Matrix4().makePerspective(sceneWrapper.camera.fov, window.innerWidth / window.innerHeight, sceneWrapper.camera.near, sceneWrapper.camera.far);
 	}
@@ -80,8 +80,8 @@ var InputView = function(sW, rend, tMP) {
 		mouseX = event.clientX - that.currentWindowX;
 		mouseY = event.clientY - that.currentWindowY;
 
-        that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.03;
-        that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.03; 	
+        that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.025;
+        that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.025; 	
 	}
 
 	function onDocumentMouseUp( event ) {
