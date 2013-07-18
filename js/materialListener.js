@@ -1,7 +1,7 @@
 var materialListener = function(sW, tMB, tutorial){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
-	var name = 'Gold-Plated Solid Brass';
+	var name = 'Gold-Plated<br>Solid Brass';
 	var description = 'Solid brass with 18k gold plating. Extremely polished and smooth. Heavy feel with a dazzling gold finish (without the price tag of solid gold). One of our favorite materials, your piece will be simply stunning. Please click on the examples to compare regular vs. gold-plated brass and get a feel for this wonderful material.';
 	var cost = '$$';
 	var smooth = 'High'

@@ -158,7 +158,7 @@ window.onload = function() {
 		}
 		else if (state == 'loops')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1.png';
 			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
@@ -190,8 +190,8 @@ window.onload = function() {
 		}
 		else if (state == 'finalize')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
-			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionComplete.png';
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1.png';
+			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
@@ -225,9 +225,9 @@ window.onload = function() {
 		}
 		else if (state == 'publish')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1_complete.png';
-			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionComplete.png';
-			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionComplete.png';
+			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1.png';
+			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionActive.png';
+			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionActive.png';
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
@@ -261,6 +261,7 @@ window.onload = function() {
 		addProgressBar();
 		addLoops();
 		addSavedLibrary();
+		addDesignTips();
 		loopRotations();
 		addDimensions();
 		addDatGui();
