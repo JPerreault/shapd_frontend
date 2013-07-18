@@ -67,7 +67,7 @@ var MaterialsLibrary = function() {
 function buildTextureCube(){
 	if (n%2 == 0)
 	{
-		var r = "src/textures/cube/skybox/";
+		var r = "src/textures/cube/skybox2/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",
 					 r + "py.jpg", r + "ny.jpg",
 					 r + "pz.jpg", r + "nz.jpg" ];
