@@ -83,6 +83,78 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		saveAs (blob, 'test.stl');
 	}
 	
+	//Generates an STL file using the shape currently on the screen.
+	function createSTL(torusDefined)
+	{
+		var vertices = geometry.vertices;
+		var faces = geometry.faces;
+		
+		stl = 'solid test \n';
+		Loop for all faces, adding each vertex to the stl file and making triangles from them.
+		for (var i = 0; i < faces.length; i++)
+		{
+			stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
+			stl += 'outer loop \n';
+			stl += convertVertexToString(vertices[faces[i].a]);
+			stl += convertVertexToString(vertices[faces[i].b]);
+			stl += convertVertexToString(vertices[faces[i].c]);
+			stl += 'endloop \n';
+			stl += 'endfacet \n';
+			Make the corresponding triangle unless the face in question is the cap.
+			if ((i < faces.length - (2 * (radiusSegments - 2)) && closed == false) || closed == true)
+			{
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
+				stl += 'outer loop \n';
+				stl += convertVertexToString(vertices[faces[i].a]);
+				stl += convertVertexToString(vertices[faces[i].c]);
+				stl += convertVertexToString(vertices[faces[i].d]);
+				stl += 'endloop \n';
+				stl += 'endfacet \n';
+			}
+		}
+
+		if (torusDefined)
+		{
+			faces = torusLoop.geometry.faces;
+			vertices = torusLoop.geometry.vertices;
+			
+			for (var i = 0; i < faces.length; i++)
+			{
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, true) + ' \n';
+				stl += 'outer loop \n';
+				stl += convertVertexToString(vertices[faces[i].a], true);
+				stl += convertVertexToString(vertices[faces[i].b], true);
+				stl += convertVertexToString(vertices[faces[i].c], true);
+				stl += 'endloop \n';
+				stl += 'endfacet \n';
+				
+				stl += 'facet normal ' + convertVectorToString(faces[i].normal, true) + ' \n';
+				stl += 'outer loop \n';
+				stl += convertVertexToString(vertices[faces[i].a], true);
+				stl += convertVertexToString(vertices[faces[i].c], true);
+				stl += convertVertexToString(vertices[faces[i].d], true);
+				stl += 'endloop \n';
+				stl += 'endfacet \n';
+			}
+		}
+		stl += 'endsolid';
+		
+		return stl;
+	}
+	
+	function convertVectorToString(vector, isTorus)
+	{
+		if (isTorus)
+            return ''+ vector.x*torusLoop.scale.x + ' '+ vector.y*torusLoop.scale.x + ' '+ vector.z*torusLoop.scale.x;
+        else
+            return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
+	}
+	
+	function convertVertexToString(vector, isTorus)
+	{
+		return 'vertex '+ convertVectorToString(vector, isTorus) + ' \n';
+	}
+	
 	this.removeFaces = function()
 	{
 		// Testing new functionality - does not work currently
@@ -177,78 +249,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 			//The second parameter allows you to remove multiple things, so if you made that a two, it would delete what is in positions 4 and 5, etc.
 	}
 	
-	//Generates an STL file using the shape currently on the screen.
-	function createSTL(torusDefined)
-	{
-		var vertices = geometry.vertices;
-		var faces = geometry.faces;
-		
-		stl = 'solid test \n';
-		//Loop for all faces, adding each vertex to the stl file and making triangles from them.
-		for (var i = 0; i < faces.length; i++)
-		{
-			stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
-			stl += 'outer loop \n';
-			stl += convertVertexToString(vertices[faces[i].a]);
-			stl += convertVertexToString(vertices[faces[i].b]);
-			stl += convertVertexToString(vertices[faces[i].c]);
-			stl += 'endloop \n';
-			stl += 'endfacet \n';
-			//Make the corresponding triangle unless the face in question is the cap.
-			if ((i < faces.length - (2 * (radiusSegments - 2)) && closed == false) || closed == true)
-			{
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal) + ' \n';
-				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a]);
-				stl += convertVertexToString(vertices[faces[i].c]);
-				stl += convertVertexToString(vertices[faces[i].d]);
-				stl += 'endloop \n';
-				stl += 'endfacet \n';
-			}
-		}
-
-		if (torusDefined)
-		{
-			faces = torusLoop.geometry.faces;
-			vertices = torusLoop.geometry.vertices;
-			
-			for (var i = 0; i < faces.length; i++)
-			{
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal, true) + ' \n';
-				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a], true);
-				stl += convertVertexToString(vertices[faces[i].b], true);
-				stl += convertVertexToString(vertices[faces[i].c], true);
-				stl += 'endloop \n';
-				stl += 'endfacet \n';
-				
-				stl += 'facet normal ' + convertVectorToString(faces[i].normal, true) + ' \n';
-				stl += 'outer loop \n';
-				stl += convertVertexToString(vertices[faces[i].a], true);
-				stl += convertVertexToString(vertices[faces[i].c], true);
-				stl += convertVertexToString(vertices[faces[i].d], true);
-				stl += 'endloop \n';
-				stl += 'endfacet \n';
-			}
-		}
-		stl += 'endsolid';
-		
-		return stl;
-	}
-	
-	function convertVectorToString(vector, isTorus)
-	{
-		if (isTorus)
-            return ''+ vector.x*torusLoop.scale.x + ' '+ vector.y*torusLoop.scale.x + ' '+ vector.z*torusLoop.scale.x;
-        else
-            return ''+ vector.x*figure.scale.x + ' '+ vector.y*figure.scale.y + ' '+ vector.z*figure.scale.z;
-	}
-	
-	function convertVertexToString(vector, isTorus)
-	{
-		return 'vertex '+ convertVectorToString(vector, isTorus) + ' \n';
-	}
-	
 	//Adding loops:
 	this.addLoop = function (rC)
 	{
@@ -267,33 +267,23 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	{
 		var thickness, scale;
 
-		if (material.indexOf('Plastic') !== -1 || material.indexOf('Transparent resin') !== -1 || material.indexOf('Prime gray') !== -1)
-		{
-			thickness = 1.5;
-			scale = .5;
-		}
-		else if (material === 'Alumide regular')
+		if (material.indexOf('Alumide') !== -1)
 		{
 			thickness = 1.6;
-			scale = .55;
-		}
-		else if (material === 'Alumide polished')
-		{
-			thickness = 1.65;
-			scale = .6;
+			scale = .5;
 		}
 		else if (material.indexOf('Stainless steel') !== -1)
 		{
-			thickness = 2.0;
+			thickness = 1.8;
 			scale = .7;
 		}
-		else //Precious metals and brass
+		else //Plastics, precious metals and brass
 		{
-			thickness = 1.5;
-			scale = .42;
+			thickness = 1.4;
+			scale = .5;
 		}
 		
-		var torus = new THREE.TorusGeometry( 5, thickness, segments/10, 50 );
+		var torus = new THREE.TorusGeometry( 4, thickness, segments/10, 50 );
 		this.fIndex = this.calculateFaceIndex();
 		var faceNormal = geometry.faces[this.fIndex].normal;
 		faceNormal.normalize();
