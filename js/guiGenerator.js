@@ -5,7 +5,7 @@ function loopRotations(){
 			
 			var loopAroundDiv = document.createElement('div');
 			loopAroundDiv.id = 'idloopAroundDiv';
-			loopAroundDiv.style.top = '16%';
+			loopAroundDiv.style.top = '12%';
 			loopAroundDiv.style.left = '7%';
 			loopAroundDiv.style.position = 'absolute';
 			loopRotContainer.appendChild(loopAroundDiv);
@@ -14,28 +14,43 @@ function loopRotations(){
 			loopAroundLabel.id = 'idLoopAroundLabel';
 			loopAroundLabel.className = 'floatingTextContainer';
 			loopAroundLabel.innerHTML = 'Align Your Loop:';
+			loopAroundLabel.style.fontSize = '18px';
+			loopAroundLabel.style.position = 'relative';
+			loopAroundLabel.style.padding = '5px';
+			loopAroundLabel.style.width = '185px';
+			loopAroundLabel.style.marginBottom = '15px';
 			loopAroundDiv.appendChild(loopAroundLabel);
 			
 			var rotateDiv = document.createElement('div');
 			rotateDiv.id = 'idRotateDiv';
 			rotateDiv.style.zIndex = '1000';
-			rotateDiv.style.position = 'relative';
 			loopAroundDiv.appendChild(rotateDiv);
+			
+			var loopAroundLeftButton = document.createElement('button');
+			loopAroundLeftButton.id = 'idLoopAroundLeftButton';
+			loopAroundLeftButton.className = 'buttonSmall';
+			loopAroundLeftButton.innerHTML = 'Rotate<br>Left';
+			loopAroundLeftButton.style.display = 'inline';
+			rotateDiv.appendChild(loopAroundLeftButton);
 
 			var loopAroundLeftImg = document.createElement('img');
 			loopAroundLeftImg.id = 'idLoopAroundLeftImg';
-			loopAroundLeftImg.style.zIndex = '1000';
-			loopAroundLeftImg.className = 'buttonImg';
 			loopAroundLeftImg.src = 'assets/imgs/buttons/rotateLoopLeft.png';
-			loopAroundLeftImg.style.margin = '5px';
-			loopAroundLeftImg.style.display = 'inline';
-			loopAroundLeftImg.style.zIndex = '1000';
-			rotateDiv.appendChild(loopAroundLeftImg);
+			loopAroundLeftImg.style.marginTop = '5px';
+			loopAroundLeftImg.style.display = 'block';
+			loopAroundLeftButton.appendChild(loopAroundLeftImg);
+			
+			var loopAroundRightButton = document.createElement('button');
+			loopAroundRightButton.id = 'idLoopAroundRightButton';
+			loopAroundRightButton.className = 'buttonSmall';
+			loopAroundRightButton.innerHTML = 'Rotate<br>Right';
+			loopAroundRightButton.style.display = 'inline';
+			rotateDiv.appendChild(loopAroundRightButton);
 			
 			var loopAroundRightImg = loopAroundLeftImg.cloneNode(true);
 			loopAroundRightImg.id = 'idLoopAroundRightImg';
 			loopAroundRightImg.src = 'assets/imgs/buttons/rotateLoopRight.png';
-			rotateDiv.appendChild(loopAroundRightImg);
+			loopAroundRightButton.appendChild(loopAroundRightImg);
 			
 			var angleDiv = document.createElement('div');
 			angleDiv.id = 'idAngleDiv';
@@ -43,44 +58,66 @@ function loopRotations(){
 			angleDiv.style.position = 'relative';
 			loopAroundDiv.appendChild(angleDiv);
 			
-			var loopLessAngle = loopAroundLeftImg.cloneNode(true);
-			loopLessAngle.style.display = 'inline';
-			loopLessAngle.id = 'idLoopLessangle';
-			loopLessAngle.src= 'assets/imgs/buttons/lessAngle.png';
-			angleDiv.appendChild(loopLessAngle);
+			var loopLessAngleButton = document.createElement('button');
+			loopLessAngleButton.id = 'idLoopLessAngleButton';
+			loopLessAngleButton.className = 'buttonSmall';
+			loopLessAngleButton.style.width = '90px';
+			loopLessAngleButton.innerHTML = 'Less<br>Angle';
+			loopLessAngleButton.style.display = 'inline';
+			angleDiv.appendChild(loopLessAngleButton);
 			
-			var loopMoreAngle = loopLessAngle.cloneNode(true);
-			loopMoreAngle.id = 'idLoopMoreangle';
-			loopMoreAngle.src= 'assets/imgs/buttons/moreAngle.png';
-			angleDiv.appendChild(loopMoreAngle);
+			var loopLessAngleImg = document.createElement('img');
+			loopLessAngleImg.style.display = 'block';
+			loopLessAngleImg.id = 'idLoopLessAngleImg';
+			loopLessAngleImg.src= 'assets/imgs/buttons/lessAngle.png';
+			loopLessAngleButton.appendChild(loopLessAngleImg);
+			
+			var loopMoreAngleButton = document.createElement('button');
+			loopMoreAngleButton.id = 'idLoopMoreAngleButton';
+			loopMoreAngleButton.className = 'buttonSmall';
+			loopMoreAngleButton.style.width = '90px';
+			loopMoreAngleButton.innerHTML = 'More<br>Angle';
+			loopMoreAngleButton.style.display = 'inline';
+			angleDiv.appendChild(loopMoreAngleButton);
+			
+			var loopMoreAngleImg = document.createElement('img');
+			loopMoreAngleImg.style.display = 'block';
+			loopMoreAngleImg.id = 'idLoopMoreAngleImg';
+			loopMoreAngleImg.src= 'assets/imgs/buttons/moreAngle.png';
+			loopMoreAngleButton.appendChild(loopMoreAngleImg);
 			
 			var spinDiv = document.createElement('div');
 			spinDiv.id = 'idAngleDiv';
-			spinDiv.align = 'center';
-			spinDiv.style.zIndex = '1000';
+			spinDiv.innerHTML = 'Spin';
+			spinDiv.className = 'buttonSmall';
+			spinDiv.style.width = '100px';
+			spinDiv.style.marginLeft = 'auto';
+			spinDiv.style.marginRight = 'auto';
 			loopAroundDiv.appendChild(spinDiv);
 			
-			var spinButton = loopAroundLeftImg.cloneNode(true);
+			var spinButton = document.createElement('img');
 			spinButton.style.display = 'inline';
 			spinButton.id = 'idSpinButton';
 			spinButton.src= 'assets/imgs/buttons/spin.png';
+			spinButton.style.display = 'block';
+			spinButton.style.marginLeft = 'auto';
+			spinButton.style.marginRight = 'auto';
 			spinDiv.appendChild(spinButton);
 			
 			var removeLoopDiv = document.createElement('div');
 			removeLoopDiv.id = 'idloopAroundDiv';
-			removeLoopDiv.style.position = 'absolute';
+			removeLoopDiv.style.position = 'relative';
 			removeLoopDiv.className = 'rounded';
-			removeLoopDiv.style.top = '370px';
-			removeLoopDiv.style.right = '70px';
+			removeLoopDiv.style.top = '100px';
 			removeLoopDiv.style.zIndex = '1000';
 			loopAroundDiv.appendChild(removeLoopDiv);
 			
-			var removeLoop = document.createElement('img');
+			var removeLoop = document.createElement('button');
 			removeLoop.id = 'idRemoveLoop';
-			removeLoop.style.zIndex = '1000';
-			removeLoop.className = 'buttonImg';
-			removeLoop.src = 'assets/imgs/buttons/removeLoop.png';
-			removeLoop.style.zIndex = '1000';
+			removeLoop.className = 'buttonMedium';
+			removeLoop.innerHTML = 'Remove<br>Loop';
+			removeLoop.style.marginLeft = 'auto';
+			removeLoop.style.marginRight = 'auto';
 			removeLoopDiv.appendChild(removeLoop);
 }
 
@@ -115,7 +152,7 @@ function addDimensions() {
 
 function addDesignTips() {
 			var designTipsContainer = document.createElement('div');
-			designTipsContainer.id = 'idCostDataContainer';
+			designTipsContainer.id = 'idDesignTipsContainer';
 			document.body.appendChild(designTipsContainer);
 		
 		
@@ -148,7 +185,7 @@ function addCost() {
 			var costDim = document.createElement('div');
 			costDim.id = 'idCostDim';
 			costDim.className = 'blueInnerSmall';
-			costDim.innerHTML += '0.02 (h) x 0.04 (w) x 0.04 (d)<br><br>Dimensions in Inches';
+			costDim.innerHTML += '0.02 (h) x 0.04 (w) x 0.04 (d)<br>Dimensions in Inches';
 			costDiv.appendChild(costDim);
 }
 
@@ -157,7 +194,7 @@ function addSave() {
 			saveButtonContainer.id = 'idSaveButtonContainer';
 			saveButtonContainer.style.zIndex = '900';
 			saveButtonContainer.style.position = 'absolute';
-			saveButtonContainer.style.bottom = '0%';
+			saveButtonContainer.style.bottom = '1%';
 			saveButtonContainer.style.right = '1%';
 			document.body.appendChild(saveButtonContainer);	
 			
@@ -165,35 +202,31 @@ function addSave() {
 			saveBackButtonContainer.id = 'idSaveBackButtonContainer';
 			saveBackButtonContainer.style.zIndex = '900';
 			saveBackButtonContainer.style.position = 'relative';
-			saveBackButtonContainer.style.margin = '0px 0px 2px 0px';
+			saveBackButtonContainer.style.verticalAlign = 'bottom';
 			saveBackButtonContainer.style.display = 'inline-block';
 			saveButtonContainer.appendChild(saveBackButtonContainer);	
 			
-			var backButton = document.createElement('img');
+			var backButton = document.createElement('button');
 			backButton.id = 'idBackButton';
-			backButton.style.zIndex = '1000';
-			backButton.className = 'buttonImg';
+			backButton.innerHTML = 'Back';
+			backButton.className = 'buttonSmall';
+			backButton.style.margin = '10px 10px 16px 3px';
 			backButton.style.display = 'block';
-			backButton.src = 'assets/imgs/buttons/back.png';
-			backButton.style.margin = '1px 1px 10px 10px';
 			saveBackButtonContainer.appendChild(backButton);
 			
-			var saveStayButton = document.createElement('img');
+			var saveStayButton = document.createElement('button');
 			saveStayButton.id = 'idSaveStayButton';
-			saveStayButton.style.zIndex = '1000';
-			saveStayButton.className = 'buttonImg';
-			saveStayButton.src = 'assets/imgs/buttons/savebutton.png';
+			saveStayButton.innerHTML = 'Save';
+			saveStayButton.className = 'buttonSmall';
+			saveStayButton.style.margin = '16px 10px 10px 3px';
 			saveStayButton.style.display = 'block';
-			saveStayButton.style.margin = '1px 1px 7px 10px';
 			saveBackButtonContainer.appendChild(saveStayButton);
 		
-			var saveButton = document.createElement('img');
+			var saveButton = document.createElement('button');
 			saveButton.id = 'idSaveButton';
-			saveButton.style.zIndex = '1000';
-			saveButton.className = 'buttonImg';
-			saveButton.style.display = 'inline-block';
-			saveButton.src = 'assets/imgs/buttons/save.png';
-			saveButton.style.margin = '1px 1px 7px 10px';
+			saveButton.innerHTML = 'Save &<br>Continue';
+			saveButton.className = 'buttonLarge';
+			saveButton.style.display = 'inline';
 			saveButtonContainer.appendChild(saveButton);
 }
 
@@ -274,22 +307,22 @@ function addResetButtons() {
 		var resetContainer = document.createElement('div');
 		resetContainer.id = 'idResetContainer';
 		resetContainer.style.position = 'absolute';
-		resetContainer.style.bottom = '7px';
+		resetContainer.style.bottom = '1%';
 		resetContainer.style.left = '1%';			
 		resetContainer.style.zIndex = '1000';
 		container.appendChild(resetContainer);
 			
-		var resetRotationImg = document.createElement('img');
+		var resetRotationImg = document.createElement('button');
 		resetRotationImg.id = 'idResetRotationImg';
-		resetRotationImg.className = 'buttonImg';
+		resetRotationImg.className = 'buttonVerySmall';
+		resetRotationImg.innerHTML = 'Reset Rotation';
+		resetRotationImg.style.display = 'inline';
 		resetRotationImg.style.margin = '0px 10px 0px 0px';
-		resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
-		resetRotationImg.style.zIndex = '1000';
 		resetContainer.appendChild(resetRotationImg);
 			
 		var resetShapeImg = resetRotationImg.cloneNode(true);
 		resetShapeImg.id = 'idResetShapdImg';
-		resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
+		resetShapeImg.innerHTML = 'Reset Shape';
 		resetContainer.appendChild(resetShapeImg);
     
 }

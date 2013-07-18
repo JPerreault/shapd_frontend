@@ -558,26 +558,26 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idLoopAroundRightImg').onclick = function()
-	{
+	document.getElementById('idLoopAroundRightButton').onclick = function()
+	{						
 		tubeMeshBuilder.faceIndexIncrementor += 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopAroundLeftImg').onclick = function()
+	document.getElementById('idLoopAroundLeftButton').onclick = function()
 	{
 		tubeMeshBuilder.faceIndexIncrementor -= 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopMoreangle').onclick = function()
+	document.getElementById('idLoopMoreAngleButton').onclick = function()
 	{
 		if (tubeMeshBuilder.torusRotation < 0.7853981634)
 			tubeMeshBuilder.torusRotation += 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopLessangle').onclick = function()
+	document.getElementById('idLoopLessAngleButton').onclick = function()
 	{
 		if (tubeMeshBuilder.torusRotation > -0.7853981634)
 			tubeMeshBuilder.torusRotation -= 0.0872664626;
@@ -771,7 +771,7 @@ function saveButtonClick(isClickable)
 	if (isClickable === true)
 	{
 		saveButton.style.opacity = 1;
-		saveButton.className = 'buttonImg';
+		saveButton.style.cursor = 'pointer';
 		printable = true;
 	}
 	else
@@ -779,7 +779,7 @@ function saveButtonClick(isClickable)
 		if (n > 1)
 		{
 			saveButton.style.opacity = .5;
-			saveButton.className = '';
+			saveButton.style.cursor = 'default';
 			printable = false;
 		}
 	}
