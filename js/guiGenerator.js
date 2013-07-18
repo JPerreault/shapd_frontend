@@ -271,26 +271,26 @@ function addProgressBar() {
 }
 
 function addResetButtons() {
-	var resetContainer = document.createElement('div');
-	resetContainer.id = 'idResetContainer';
-	resetContainer.style.position = 'absolute';
-	resetContainer.style.bottom = '7px';
-	resetContainer.style.left = '1%';			
-	resetContainer.style.zIndex = '1000';
-	container.appendChild(resetContainer);
+		var resetContainer = document.createElement('div');
+		resetContainer.id = 'idResetContainer';
+		resetContainer.style.position = 'absolute';
+		resetContainer.style.bottom = '7px';
+		resetContainer.style.left = '1%';			
+		resetContainer.style.zIndex = '1000';
+		container.appendChild(resetContainer);
 			
-	var resetRotationImg = document.createElement('img');
-	resetRotationImg.id = 'idResetRotationImg';
-	resetRotationImg.className = 'buttonImg';
-	resetRotationImg.style.margin = '0px 10px 0px 0px';
-	resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
-	resetRotationImg.style.zIndex = '1000';
-	resetContainer.appendChild(resetRotationImg);
+		var resetRotationImg = document.createElement('img');
+		resetRotationImg.id = 'idResetRotationImg';
+		resetRotationImg.className = 'buttonImg';
+		resetRotationImg.style.margin = '0px 10px 0px 0px';
+		resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
+		resetRotationImg.style.zIndex = '1000';
+		resetContainer.appendChild(resetRotationImg);
 			
-	var resetShapeImg = resetRotationImg.cloneNode(true);
-	resetShapeImg.id = 'idResetShapdImg';
-	resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
-	resetContainer.appendChild(resetShapeImg);
+		var resetShapeImg = resetRotationImg.cloneNode(true);
+		resetShapeImg.id = 'idResetShapdImg';
+		resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
+		resetContainer.appendChild(resetShapeImg);
     
 }
 
