@@ -1,70 +1,25 @@
-function scaleGUI() {
-			var dimContainer = document.createElement('div');
-			dimContainer.id = 'idDimContainer';
-			document.body.appendChild(dimContainer);
-				
-			var hShapeDiv = document.createElement('div');
-			hShapeDiv.id = 'idHShapeDiv';
-			hShapeDiv.style.position = 'absolute';
-			hShapeDiv.style.bottom = '25%';
-			hShapeDiv.style.width = '50%';
-			hShapeDiv.style.right = '40%';
-			hShapeDiv.style.zIndex = '1000';
-			dimContainer.appendChild(hShapeDiv);
-			
-			var vShapeDiv = document.createElement('div');
-			vShapeDiv.id = 'idVShapeDiv';
-			vShapeDiv.style.position = 'absolute';
-			vShapeDiv.style.color = '#000';
-			vShapeDiv.style.top = '20%';
-			vShapeDiv.style.right = '32.5%';
-			vShapeDiv.style.display = 'inline-block';
-			vShapeDiv.style.zIndex = '1000';
-			dimContainer.appendChild(vShapeDiv);
-	
-			var hRulerImg = document.createElement('img');
-			hRulerImg.id = 'idHRuler';
-			hRulerImg.style.marginTop = '5px';
-			hRulerImg.src = 'assets/imgs/buttons/hRuler2.png';
-			hRulerImg.style.position = 'absolute';
-			hRulerImg.style.cursor = 'move';
-			hRulerImg.style.zIndex = '1000';
-			hShapeDiv.appendChild(hRulerImg);
-			
-			var vRulerImg = document.createElement('img');
-			vRulerImg.id = 'idVRuler';
-			vRulerImg.style.marginTop = '5px';
-			vRulerImg.src = 'assets/imgs/buttons/vRuler2.png';
-			vRulerImg.style.position = 'absolute';
-			vRulerImg.style.display = 'inline-block';
-			vRulerImg.style.cursor = 'move';
-			vRulerImg.style.zIndex = '1000';
-			vShapeDiv.appendChild(vRulerImg);
-}
-
 function loopRotations(){
-	
 			var loopRotContainer = document.createElement('div');
 			loopRotContainer.id = 'idLoopRotContainer';
 			document.body.appendChild(loopRotContainer);
 			
 			var loopAroundDiv = document.createElement('div');
 			loopAroundDiv.id = 'idloopAroundDiv';
-			loopAroundDiv.style.position = 'absolute';
-			loopAroundDiv.innerHTML = 'Align Your Loop:<br><br>';
-			loopAroundDiv.style.fontFamily = 'Verdana, Geneva, sans-serif';
-			loopAroundDiv.style.fontSize = '18px';
-			loopAroundDiv.style.fontWeight = '600';
-			loopAroundDiv.className = 'rounded';
-			loopAroundDiv.style.color = '#000';
 			loopAroundDiv.style.top = '16%';
 			loopAroundDiv.style.left = '7%';
-			loopAroundDiv.style.zIndex = '1000';
+			loopAroundDiv.style.position = 'absolute';
 			loopRotContainer.appendChild(loopAroundDiv);
+			
+			var loopAroundLabel = document.createElement('div');
+			loopAroundLabel.id = 'idLoopAroundLabel';
+			loopAroundLabel.className = 'floatingTextContainer';
+			loopAroundLabel.innerHTML = 'Align Your Loop:';
+			loopAroundDiv.appendChild(loopAroundLabel);
 			
 			var rotateDiv = document.createElement('div');
 			rotateDiv.id = 'idRotateDiv';
 			rotateDiv.style.zIndex = '1000';
+			rotateDiv.style.position = 'relative';
 			loopAroundDiv.appendChild(rotateDiv);
 
 			var loopAroundLeftImg = document.createElement('img');
@@ -85,6 +40,7 @@ function loopRotations(){
 			var angleDiv = document.createElement('div');
 			angleDiv.id = 'idAngleDiv';
 			angleDiv.style.zIndex = '1000';
+			angleDiv.style.position = 'relative';
 			loopAroundDiv.appendChild(angleDiv);
 			
 			var loopLessAngle = loopAroundLeftImg.cloneNode(true);
@@ -157,6 +113,14 @@ function addDimensions() {
 			dimsContainer.appendChild(vDimDiv);
 }
 
+function addDesignTips() {
+			var designTipsContainer = document.createElement('div');
+			designTipsContainer.id = 'idCostDataContainer';
+			document.body.appendChild(designTipsContainer);
+		
+		
+}
+
 function addCost() {
 			var costDataContainer = document.createElement('div');
 			costDataContainer.id = 'idCostDataContainer';
@@ -164,44 +128,27 @@ function addCost() {
 				
 			var costDiv = document.createElement('div');
 			costDiv.id = 'idCostDiv';
-			costDiv.style.position = 'absolute';
-			costDiv.className = 'rounded';
-			costDiv.style.background = '#2ea1d7';
-			costDiv.style.color = '#fff';
-			costDiv.style.border = '2px solid #000';
-			costDiv.style.padding = '10px';
-			costDiv.style.bottom = '40px';
-			costDiv.style.left = '1%';
-			costDiv.style.zIndex = '1000';
+			costDiv.className = 'blackContainer';
+			costDiv.style.bottom = '130px';
+			costDiv.style.right = '0.5%';
 			costDataContainer.appendChild(costDiv);
 			
 			var costLabel = document.createElement('div');
 			costLabel.id = 'idCostLabel';
-			costLabel.style.position = 'relative';
+			costLabel.className = 'blueInnerLabel';
 			costLabel.innerHTML += 'Cost:';
-			costLabel.style.fontSize = '20px';
-			costLabel.style.fontWeight = '500';
 			costDiv.appendChild(costLabel);
 			
 			var costData = document.createElement('div');
 			costData.id = 'idCostData';
-			costData.style.position = 'relative';
+			costData.className = 'blackInnerLargeText';
 			costData.innerHTML += '$15.77';
-			costData.style.fontSize = '30px';
-			costData.style.fontWeight = '700';
-			costData.style.paddingBottom = '15px';
-			costData.style.paddingTop = '3px';
 			costDiv.appendChild(costData);
 			
 			var costDim = document.createElement('div');
 			costDim.id = 'idCostDim';
-			costDim.style.position = 'relative';
-			costDim.style.fontFamily = 'Verdana, Geneva, sans-serif';
-			costDim.className = 'rounded';
+			costDim.className = 'blueInnerSmall';
 			costDim.innerHTML += '0.02 (h) x 0.04 (w) x 0.04 (d)<br><br>Dimensions in Inches';
-			costDim.style.fontSize = '14px';
-			costDim.style.background = '#000';
-			costDim.style.padding = '10px';
 			costDiv.appendChild(costDim);
 }
 
@@ -211,7 +158,7 @@ function addSave() {
 			saveButtonContainer.style.zIndex = '900';
 			saveButtonContainer.style.position = 'absolute';
 			saveButtonContainer.style.bottom = '0%';
-			saveButtonContainer.style.right = '0%';
+			saveButtonContainer.style.right = '1%';
 			document.body.appendChild(saveButtonContainer);	
 			
 			var saveBackButtonContainer = document.createElement('div');
@@ -324,26 +271,26 @@ function addProgressBar() {
 }
 
 function addResetButtons() {
-	var resetContainer = document.createElement('div');
-	resetContainer.id = 'idResetContainer';
-	resetContainer.style.position = 'absolute';
-	resetContainer.style.bottom = '7px';
-	resetContainer.style.left = '1%';			
-	resetContainer.style.zIndex = '1000';
-	container.appendChild(resetContainer);
+		var resetContainer = document.createElement('div');
+		resetContainer.id = 'idResetContainer';
+		resetContainer.style.position = 'absolute';
+		resetContainer.style.bottom = '7px';
+		resetContainer.style.left = '1%';			
+		resetContainer.style.zIndex = '1000';
+		container.appendChild(resetContainer);
 			
-	var resetRotationImg = document.createElement('img');
-	resetRotationImg.id = 'idResetRotationImg';
-	resetRotationImg.className = 'buttonImg';
-	resetRotationImg.style.margin = '0px 10px 0px 0px';
-	resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
-	resetRotationImg.style.zIndex = '1000';
-	resetContainer.appendChild(resetRotationImg);
+		var resetRotationImg = document.createElement('img');
+		resetRotationImg.id = 'idResetRotationImg';
+		resetRotationImg.className = 'buttonImg';
+		resetRotationImg.style.margin = '0px 10px 0px 0px';
+		resetRotationImg.src = 'assets/imgs/buttons/resetRotation.png';
+		resetRotationImg.style.zIndex = '1000';
+		resetContainer.appendChild(resetRotationImg);
 			
-	var resetShapeImg = resetRotationImg.cloneNode(true);
-	resetShapeImg.id = 'idResetShapdImg';
-	resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
-	resetContainer.appendChild(resetShapeImg);
+		var resetShapeImg = resetRotationImg.cloneNode(true);
+		resetShapeImg.id = 'idResetShapdImg';
+		resetShapeImg.src = 'assets/imgs/buttons/resetShape.png';
+		resetContainer.appendChild(resetShapeImg);
     
 }
 
@@ -353,17 +300,18 @@ function addSavedLibrary() {
     {
         var savedShapeContainer = document.createElement('div');
         savedShapeContainer.id = 'idSavedShapeContainer';
-        savedShapeContainer.className = 'rounded';
-        savedShapeContainer.innerHTML += '<b>Your Saved Shapes</b><br>';
-        savedShapeContainer.style.position = 'absolute';
-        savedShapeContainer.style.border = '10px solid #000';
-        savedShapeContainer.style.color = '#fff';
+        savedShapeContainer.className = 'blackContainer';
         savedShapeContainer.style.top = '20%';
-        savedShapeContainer.style.background = '#000';
         savedShapeContainer.style.right = '0.75%';	
-        savedShapeContainer.style.width = '217px';			
-        savedShapeContainer.style.zIndex = '1000';
+        savedShapeContainer.style.width = '217px';	
+		savedShapeContainer.style.overflow = 'hidden';		
         document.body.appendChild(savedShapeContainer);
+		
+		var savedShapeLabel = document.createElement('div');
+		savedShapeLabel.id = 'idSavedShapeLabel';
+		savedShapeLabel.className = 'blueInnerLabel';
+		savedShapeLabel.innerHTML += 'Your Saved Shapes';
+		shapeContainer.appendChild(savedShapeLabel);
         
         var scrollWrapper = document.createElement('div');
         scrollWrapper.className = 'rounded antiscroll-wrap';
@@ -381,23 +329,22 @@ function addSavedLibrary() {
 function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
-	shapeContainer.className = 'rounded';
-	shapeContainer.innerHTML += 'Starting Shape<br>Library<br><br>';
-	shapeContainer.style.position = 'absolute';
-	shapeContainer.style.fontFamily = 'Verdana, Geneva, sans-serif';
-	shapeContainer.style.fontWeight = '600';
-	shapeContainer.style.border = '10px solid #000';
-	shapeContainer.style.margin = '5';
-	shapeContainer.style.color = '#fff';
-	shapeContainer.style.background = '#000';
-	shapeContainer.style.bottom = '10%';	
-	shapeContainer.style.zIndex = '1000';
+	shapeContainer.className = 'blackContainer';
+	shapeContainer.style.bottom = '10%';
+	shapeContainer.style.left = '5px';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
 	
+	var shapeLibLabel = document.createElement('div');
+	shapeLibLabel.id = 'idShapeLibLabel';
+	shapeLibLabel.className = 'blueInnerLabel';
+	shapeLibLabel.innerHTML += 'Starting Shape<br>Library';
+	shapeContainer.appendChild(shapeLibLabel);
+	
 	var scrollWrapper = document.createElement('div');
 	scrollWrapper.id = 'idScrollWrapper';
-	scrollWrapper.className = 'rounded antiscroll-wrap';	
+	scrollWrapper.className = 'rounded antiscroll-wrap';
+	scrollWrapper.style.display = 'block';	
 	shapeContainer.appendChild(scrollWrapper);	
 			
 	var shapeLibrary = document.createElement('div');
@@ -434,69 +381,35 @@ function addMaterialSelector() {
 	
 	var materialDetailContainer = document.createElement('div');
 	materialDetailContainer.id = 'idmaterialDetailContainer';
-	materialDetailContainer.className = 'rounded';
-	materialDetailContainer.style.fontWeight = '500';
-	materialDetailContainer.style.position = 'absolute';
-	materialDetailContainer.style.border = '4px solid #000';
-	materialDetailContainer.style.color = '#fff';
-	materialDetailContainer.align = 'center';
-	materialDetailContainer.style.background = '#000';
-	materialDetailContainer.style.top = '1%';
-	materialDetailContainer.style.right = '1%';	
-	materialDetailContainer.style.width = '190px';			
-	materialDetailContainer.style.zIndex = '1000';
+	materialDetailContainer.className = 'blackContainer';
+	materialDetailContainer.style.top = '150px';
+	materialDetailContainer.style.left = '1%';				
+	materialDetailContainer.style.zIndex = '300';
 	document.body.appendChild(materialDetailContainer);		
-	
-	var materialNameContainer = document.createElement('div');
-	materialNameContainer.id = 'idmaterialNameContainer';
-	materialNameContainer.align = 'center';
-	materialNameContainer.className = 'rounded';
-	materialNameContainer.style.position = 'relative';
-	materialNameContainer.style.padding = '4px';
-	materialNameContainer.style.margin = '5px 5px 5px 5px';
-	materialNameContainer.style.color = '#000';
-	materialNameContainer.style.background = '#2ea1d7';		
-	materialNameContainer.style.zIndex = '1000';
-	materialDetailContainer.appendChild(materialNameContainer);		
-	
+
 	var materialName = document.createElement('div');
 	materialName.id = 'idMaterialName';
-	materialName.align = 'center';
-	materialName.style.fontSize = '16px';
+	materialName.className = 'blueInnerLabel';
+	materialName.style.width = '150px';
 	materialName.textContent += ' White Flexible Plastic';
-	materialName.style.fontWeight = '400';
-	materialName.style.fontFamily = 'Verdana, Geneva, sans-serif';
-	materialName.style.position = 'relative';
-	materialName.style.color = '#fff';
-	materialName.style.zIndex = '1000';
-	materialNameContainer.appendChild(materialName);	
+	materialName.style.marginBottom = '5px';
+	materialName.style.display = 'block';
+	materialDetailContainer.appendChild(materialName);	
 	
 	var costContainer = document.createElement('div');
 	costContainer.id = 'idCostContainer';
-	costContainer.align = 'center';
-	costContainer.style.height = '20px';
-	costContainer.style.fontSize = '15px';
-	costContainer.textContent += 'Cost: $$$';
+	costContainer.className = 'blackInnerSmallText';
 	costContainer.style.display = 'inline';
-	costContainer.style.position = 'relative';
-	costContainer.style.margin = '5px 5px 5px 5px';
-	costContainer.style.color = '#fff';
-	costContainer.style.background = '#000';		
-	costContainer.style.zIndex = '1000';
+	costContainer.style.marginRight = '1px';
+	costContainer.style.padding = '2px';
 	materialDetailContainer.appendChild(costContainer);		
 	
 	var smoothContainer = document.createElement('div');
 	smoothContainer.id = 'idSmoothContainer';
-	smoothContainer.align = 'center';
-	smoothContainer.style.fontSize = '15px';
-	smoothContainer.style.height = '20px';
-	smoothContainer.textContent += 'Smooth: High';
-	smoothContainer.style.position = 'relative';
+	smoothContainer.className = 'blackInnerSmallText';
 	smoothContainer.style.display = 'inline';
-	smoothContainer.style.margin = '5px 5px 5px 5px';
-	smoothContainer.style.color = '#fff';
-	smoothContainer.style.background = '#000';		
-	smoothContainer.style.zIndex = '1000';
+	smoothContainer.style.marginLeft = '1px';
+	smoothContainer.style.padding = '2px';
 	materialDetailContainer.appendChild(smoothContainer);	
 	
 	var matLibrary = document.createElement('div');
@@ -504,7 +417,7 @@ function addMaterialSelector() {
 
 	var m1 = document.createElement('img');
 	m1.id = 'idM1';
-	m1.style.margin = '7px 3px 4px 0px';
+	m1.style.margin = '8px 3px 5px 0px';
 	m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
 	m1.height = 85;
 	m1.width = 85;
@@ -515,32 +428,15 @@ function addMaterialSelector() {
 	var m2 = m1.cloneNode(true);
 	m2.id = 'idM2';
 	m2.src = 'assets/imgs/materialExamples/alumide_2.jpg';
-	m2.style.margin = '7px 0px 4px 3px';
-	matLibrary.appendChild(m2);
-	
-	var materialDescriptionContainer = document.createElement('div');
-	materialDescriptionContainer.id = 'idMaterialDescriptionContainer';
-	materialDescriptionContainer.align = 'center';
-	materialDescriptionContainer.className = 'rounded';
-	materialDescriptionContainer.style.position = 'relative';
-	materialDescriptionContainer.style.margin = '4px 4px 4px 4px';
-	materialDescriptionContainer.style.padding = '6px';
-	materialDescriptionContainer.style.color = '#000';
-	materialDescriptionContainer.style.background = '#2ea1d7';		
-	materialDescriptionContainer.style.zIndex = '1000';
-	materialDetailContainer.appendChild(materialDescriptionContainer);		
+	m2.style.margin = '8px 0px 5px 3px';
+	matLibrary.appendChild(m2);	
 	
 	var materialDescription = document.createElement('div');
 	materialDescription.id = 'idMaterialDescription';
-	materialDescription.style.textAlign = 'left';
-	materialDescription.style.fontSize = '14px';
+	materialDescription.className = 'blueInnerSmall';
+	materialDescription.style.width = '170px';
 	materialDescription.textContent += ' Stainless steel has a fairly pitted surface finish, which gives it a vintage (almost steam-punk) look.';
-	materialDescription.style.fontWeight = '400';
-	materialDescription.style.fontFamily = 'Verdana, Geneva, sans-serif';
-	materialDescription.style.position = 'relative';
-	materialDescription.style.color = '#fff';
-	materialDescription.style.zIndex = '1000';
-	materialDescriptionContainer.appendChild(materialDescription);
+	materialDetailContainer.appendChild(materialDescription);
 	
 	document.getElementById('sliderContainer').style.zIndex = '1001';
 	document.getElementById('thicknessContainer').style.zIndex = '1001';
@@ -550,16 +446,11 @@ function addLoops(){
 
 	var loopText = document.createElement('div');
 	loopText.id = 'idLoopText';
-	loopText.style.position = 'absolute';
-	loopText.className = 'menuHeader veryRounded verdana padding';
-	loopText.style.color = '#fff';
+	loopText.className = 'floatingTextContainer';
 	loopText.innerHTML = 'Click anywhere on your piece<br>to place a loop for the necklace.';
 	loopText.style.bottom = '12%';
-	loopText.style.fontSize = 'x-large';
 	loopText.style.left = '50%';
 	loopText.style.marginLeft = '-211px';
-	loopText.align = 'center';			
-	loopText.style.zIndex = '100';
 	document.body.appendChild(loopText);
 }
 
