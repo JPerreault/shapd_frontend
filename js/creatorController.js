@@ -60,14 +60,15 @@ window.onload = function() {
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
 		setupInterface();
 		setupDatGui(sceneWrapper);
-		document.getElementById(sceneWrapper.currentMesh['Material']).click();	//For initializing material	
+		if (typeof screenShot === 'undefined')
+			document.getElementById(sceneWrapper.currentMesh['Material']).click();	//For initializing material	
 	}
 
     function killSelf()
     {
         parent.hideTheBeast(parent.state);
         idSavedShapeLibrary.innerHTML = shapeLib;
-        setTimeout("location.href=\"blank.html\";", 500);
+        setTimeout("location.href=\"blank.html\";", 2000);
     }
     
     function screenie()
@@ -129,7 +130,7 @@ window.onload = function() {
 		}
 		else if (state == 'creator')
 		{
-			document.getElementById('idProgressImg').src = 'assets/imgs/progress/progressSection1.png';
+			document.getElementById('idProgressImg1').src = 'assets/imgs/progress/progressSection1.png';
 			document.getElementById('idProgressImg2').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg3').src = 'assets/imgs/progress/progressSectionOpaque.png';
 			document.getElementById('idProgressImg4').src = 'assets/imgs/progress/progressSectionOpaque.png';
@@ -272,26 +273,26 @@ window.onload = function() {
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'relative';
 
-	var saveSTL = document.createElement('div');
-	saveSTL.style.position = 'absolute';
-	saveSTL.style.bottom = '0px';
-	saveSTL.style.left = '15%';
-	saveSTL.style.zIndex = '1000';
-	saveSTL.style.background = '#999';
-	saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
-	customContainer.appendChild(saveSTL);
+	// var saveSTL = document.createElement('div');
+	// saveSTL.style.position = 'absolute';
+	// saveSTL.style.bottom = '0px';
+	// saveSTL.style.left = '15%';
+	// saveSTL.style.zIndex = '1000';
+	// saveSTL.style.background = '#999';
+	// saveSTL.innerHTML += '<input id="save" type="button" value="Save Shape"/>';
+	// customContainer.appendChild(saveSTL);
 
 	
-	document.getElementById('save').onclick = function()
-	{
+	// document.getElementById('save').onclick = function()
+	// {
 
-		tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
+		// tubeMeshBuilder.saveSTL(sceneWrapper.torusDefined);
 		
-		//var newFigure = tubeMeshBuilder.removeFaces();
-		//sceneWrapper.scene.add(newFigure );
-		//sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
-		//sceneWrapper.currentMesh.figure = newFigure;
-	}
+		// var newFigure = tubeMeshBuilder.removeFaces();
+		// sceneWrapper.scene.add(newFigure );
+		// sceneWrapper.scene.remove(sceneWrapper.currentMesh.figure);
+		// sceneWrapper.currentMesh.figure = newFigure;
+	// }
 	
 	document.getElementById('blackout').onclick = function()
 	{
@@ -394,9 +395,9 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idProgressImg').onclick = function()
+	document.getElementById('idProgressImg1').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'creator';
 			setupInterface();
@@ -405,7 +406,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg2').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'loops';
 			setupInterface();
@@ -414,7 +415,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImg3').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'finalize';
 			setupInterface();
@@ -425,7 +426,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId1').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'creator';
 			setupInterface();
@@ -434,7 +435,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId2').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'loops';
 			setupInterface();
@@ -443,7 +444,7 @@ window.onload = function() {
 	
 	document.getElementById('idProgressImgNamesId3').onclick = function()
 	{
-		if (!(typeof notSignedIn !== 'undefined' && notSignedIn))
+		if (typeof notSignedIn === 'undefined' || typeof shapeID !== 'undefined')
 		{
 			state = 'finalize';
 			setupInterface();
@@ -866,7 +867,7 @@ function makePublish()
 function makeProduct()
 {
     slideUp(fout);
-    var d1 = generateWhiteDropDown(500, 90, "<br><h1><font color=black>One moment please...</font></h1>");
+    var d1 = generateDropDown(500, 85, "<h1>One moment please...</h1>");
     fadeIn(d1);
     $.post("/produce", {authenticity_token: authToken, id: shapeID}, function(data){location.href='/shop/products/'+data});
 }
@@ -888,8 +889,9 @@ function publishCreation()
     
     var timestamp = new Date().getTime();
     
-    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><img src='/shapes/"+shapeID+".png#"+timestamp+"' style='border: 1px' height='155' width='155'/></img><br><br><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='/shapes/"+shapeID+".png#"+timestamp+"' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
     var d1 = generateWhiteDropDown(700, 700, publishCSS );
+    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png#'+timestamp+'";', 1000);
     fout = d1;
     fadeIn(d1); // I prefer slideDown though
     document.getElementById("blackout").onclick = null;
