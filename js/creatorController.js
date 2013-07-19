@@ -190,6 +190,7 @@ window.onload = function() {
 			loops = true;
 			tutorial.tut5();
 			saveButtonClick(true);
+			document.getElementById('idlockLoop').innerHTML = 'Lock<br>Loop'
 		}
 		else if (state == 'finalize')
 		{
@@ -475,6 +476,12 @@ window.onload = function() {
 		$('#idLoopRotContainer').fadeOut(0);
 		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotationNinety = 0;
+		
+		if (document.getElementById('idlockLoop').innerHTML === 'Unlock<br>Loop')
+		{
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			document.getElementById('idlockLoop').innerHTML = 'Lock<br>Loop';
+		}
 	}
 	
     document.getElementById('idResetShapdImg').onclick = function()
