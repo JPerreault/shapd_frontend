@@ -32,7 +32,7 @@ var Tutorial = function(view, doTutorial)
 	function tut1() {
 			clearHighlights();
 			fadeOut(fout);
-			var tut = '<b>Welcome!</b><br><br>Let\'s get you started.<br><br><img src = "assets/imgs/misc/mousetut.png" style="border: 2px solid white; -moz-border-radius: 12px; border-radius: 12px;"><br><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
+			var tut = '<b>Welcome!</b><br><br>Let\'s get you started.<br><br><img height=270 width=260 src ="assets/imgs/misc/mousetut.png" style="border: 2px solid white; -moz-border-radius: 12px; border-radius: 12px;"><br><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
 			var d1 = generateTutorialMsg(tut, 300);
 			fout = d1;
 			slideDownCustBotR(d1, 'center', 'center');	
