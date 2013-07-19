@@ -32,7 +32,7 @@ var Tutorial = function(view, doTutorial)
 	function tut1() {
 			clearHighlights();
 			fadeOut(fout);
-			var tut = 'Welcome!<br><br>This is your starting pendant shape <br><br> You rotate it by clicking and dragging, or zoom in and out with the mouse wheel.<br><img src = "assets/imgs/shapes/1.png"><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
+			var tut = '<b>Welcome!</b><br><br>Let\'s get you started.<br><br><img src = "assets/imgs/misc/mousetut.png" style="border: 2px solid white; -moz-border-radius: 12px; border-radius: 12px;"><br><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
 			var d1 = generateTutorialMsg(tut, 300);
 			fout = d1;
 			slideDownCustBotR(d1, 'center', 'center');	
@@ -66,7 +66,7 @@ var Tutorial = function(view, doTutorial)
 			var tut = 'Great!<br><br> You can change base shapes from the library. <br><br>(Scroll down to see more).<br><img src = "assets/imgs/misc/arrowWhite.png">';
 			var d1 = generateTutorialMsg(tut, 250, highlight);
 			fout = d1;
-			slideDownCustBotL(d1, '32%', '430px');	
+			slideDownCustTopL(d1, '22%', '430px');	
 			
 			document.addEventListener( 'mousedown', sliderClicked, false );
 		}

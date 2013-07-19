@@ -530,7 +530,7 @@ function addLoops(){
 	loopText.innerHTML = 'Click anywhere on your piece<br>to place a loop for the necklace.';
 	loopText.style.bottom = '12%';
 	loopText.style.left = '50%';
-	loopText.style.marginLeft = '-211px';
+	loopText.style.marginLeft = '-165px';
 	document.body.appendChild(loopText);
 }
 
