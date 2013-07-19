@@ -625,8 +625,8 @@ var materialListener = function(sW, tMB, tutorial){
 	this.panelUpdate = function()
 	{
 		document.getElementById('idMaterialName').textContent = name;
-		document.getElementById('idCostContainer').textContent = 'Cost: ' + cost;
-		document.getElementById('idSmoothContainer').textContent = 'Smooth: ' + smooth;
+		document.getElementById('idCostContainer').innerHTML = 'Cost: <b>' + cost + '</b>';
+		document.getElementById('idSmoothContainer').innerHTML = 'Smooth: <b>' + smooth + '</b>';
 		document.getElementById('idM1').src = img1;
 		document.getElementById('idM2').src = img2;
 		document.getElementById('idMaterialDescription').textContent = description;
