@@ -65,6 +65,7 @@ var MaterialsLibrary = function() {
 	}
 };
 
+// This function builds the background of the shape that isn't reflected, only displayed
 function buildWhiteBox()
 {
     var r = "src/textures/cube/whitePattern2/";
@@ -80,6 +81,8 @@ function buildWhiteBox()
     
 
 }
+
+// This function builds the background of the environment that the shapes actually reflect
 function buildreflectCube(){
 	if (n%2 == 0)
 	{
@@ -88,14 +91,7 @@ function buildreflectCube(){
 					 r + "py.jpg", r + "ny.jpg",
 					 r + "pz.jpg", r + "nz.jpg" ];
 	}
-	if (typeof screenShot !== 'undefined')
-	{
-	var r = "src/textures/cube/skybox/";
-		var urls = [ r + "px.jpg", r + "nx.jpg",
-					 r + "py.jpg", r + "ny.jpg",
-					 r + "pz.jpg", r + "whitebox.jpg" ];
-	}
-    
+
    	var reflectCube = THREE.ImageUtils.loadTextureCube( urls );
 
 	reflectCube.format = THREE.RGBFormat;
