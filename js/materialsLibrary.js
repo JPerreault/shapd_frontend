@@ -67,11 +67,11 @@ var MaterialsLibrary = function() {
 
 function buildWhiteBox()
 {
-    var r = "src/textures/cube/skybox/";
+    var r = "src/textures/cube/whitePattern2/";
 
-    var whites = [ r + "whitebox.jpg", r + "whitebox.jpg",
-                  r + "whitebox.jpg", r + "whitebox.jpg",
-                  r + "whitebox.jpg", r + "whitebox.jpg" ];
+    var whites = [ r + "flip.jpg", r + "flip.jpg",
+                  r + "flip.jpg", r + "flip.jpg",
+                  r + "flip.jpg", r + "nz.jpg" ];
     
     var textureCube = THREE.ImageUtils.loadTextureCube( whites );
     textureCube.format = THREE.RGBFormat;
@@ -83,7 +83,7 @@ function buildWhiteBox()
 function buildreflectCube(){
 	if (n%2 == 0)
 	{
-		var r = "src/textures/cube/skybox2/";
+		var r = "src/textures/cube/skybox/";
 		var urls = [ r + "px.jpg", r + "nx.jpg",
 					 r + "py.jpg", r + "ny.jpg",
 					 r + "pz.jpg", r + "nz.jpg" ];
