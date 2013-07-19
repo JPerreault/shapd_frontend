@@ -47,7 +47,6 @@ window.onload = function() {
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
-		renderer.setClearColor(0xffffff, 1);
 		renderer.autoClear = false;
 		state = 'creator';
 
@@ -360,6 +359,8 @@ window.onload = function() {
 		{
 			if (printable)
 			{
+                if (typeof givenFeedback !== 'undefined' && !givenFeedback)
+                    promptForFeedback()
 				state = 'publish';
 				setupInterface();
 				saveShape();

@@ -344,7 +344,7 @@ function addSavedLibrary() {
 		savedShapeLabel.id = 'idSavedShapeLabel';
 		savedShapeLabel.className = 'blueInnerLabel';
 		savedShapeLabel.innerHTML += 'Your Saved Shapes';
-		shapeContainer.appendChild(savedShapeLabel);
+		savedShapeContainer.appendChild(savedShapeLabel);
         
         var scrollWrapper = document.createElement('div');
         scrollWrapper.className = 'rounded antiscroll-wrap';

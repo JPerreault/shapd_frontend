@@ -11,7 +11,6 @@ var SceneCubeWrapper = function(textureCube) {
 		vertexShader: shader.vertexShader,
 		uniforms: shader.uniforms,
 		depthWrite: false,
-		side: THREE.BackSide
 
 	} );
 
