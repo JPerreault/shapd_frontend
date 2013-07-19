@@ -1,5 +1,6 @@
 var MaterialsLibrary = function() {
-	this.textureCube = buildTextureCube();
+	this.reflectCube = buildreflectCube();
+    this.textureCube = buildWhiteBox();
 	var mlib = {
 				"Alumide regular":  new THREE.MeshLambertMaterial({color: 0xB4BECF, map: createGrainyTexture(4, 4),  shading: THREE.FlatShading}),
 				"Alumide polished":	new THREE.MeshLambertMaterial({color: 0xB4BECF, map: createGrainyTexture(12.5, 12.5), shading: THREE.FlatShading}),
@@ -19,19 +20,19 @@ var MaterialsLibrary = function() {
 				
 				"Stainless steel regular":			new THREE.MeshLambertMaterial({color: 0xD3DBE8, map: createGrainyTexture(2, 2),  shading: THREE.FlatShading}),
 				
-				"Stainless steel bronze matte": 	new THREE.MeshLambertMaterial({color: 0x7D570C, map: createGrainyTexture(4, 4), envMap: this.textureCube,  shininess: 100, reflectivity: .75}),
-				"Stainless steel bronze glossy":	new THREE.MeshLambertMaterial({color: 0x7D480C, map: createGrainyTexture(2, 2), envMap: this.textureCube,  shininess: 100, reflectivity: .75}),
+				"Stainless steel bronze matte": 	new THREE.MeshLambertMaterial({color: 0x7D570C, map: createGrainyTexture(4, 4), envMap: this.reflectCube,  shininess: 100, reflectivity: .75}),
+				"Stainless steel bronze glossy":	new THREE.MeshLambertMaterial({color: 0x7D480C, map: createGrainyTexture(2, 2), envMap: this.reflectCube,  shininess: 100, reflectivity: .75}),
 				
-				"Stainless steel gold matte": 	new THREE.MeshLambertMaterial({color: 0xFFEE7D, map: createGrainyTexture(4, 4), envMap: this.textureCube,  shininess: 100, reflectivity: .95}),
-				"Stainless steel gold glossy": 	new THREE.MeshLambertMaterial({color: 0xFFCE80, map: createGrainyTexture(2, 2), envMap: this.textureCube,  shininess: 100, reflectivity: .95}),
+				"Stainless steel gold matte": 	new THREE.MeshLambertMaterial({color: 0xFFEE7D, map: createGrainyTexture(4, 4), envMap: this.reflectCube,  shininess: 100, reflectivity: .95}),
+				"Stainless steel gold glossy": 	new THREE.MeshLambertMaterial({color: 0xFFCE80, map: createGrainyTexture(2, 2), envMap: this.reflectCube,  shininess: 100, reflectivity: .95}),
 				
 				"Silver regular": 	new THREE.MeshLambertMaterial({color: 0xDBEAFF, map: createGrainyTexture(4,4)}),
-				"Silver glossy": 	new THREE.MeshLambertMaterial({color: 0xBCCBE0, map: createGrainyTexture(2,2, true), envMap: this.textureCube, shininess: 100, reflectivity: .75}),
-				"Silver premium": 	new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.textureCube, shininess: 200, reflectivity: .85}),
-				"Gold regular": 	new THREE.MeshLambertMaterial({color: 0xFFEFA8, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.textureCube}),
+				"Silver glossy": 	new THREE.MeshLambertMaterial({color: 0xBCCBE0, map: createGrainyTexture(2,2, true), envMap: this.reflectCube, shininess: 100, reflectivity: .75}),
+				"Silver premium": 	new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube, shininess: 200, reflectivity: .85}),
+				"Gold regular": 	new THREE.MeshLambertMaterial({color: 0xFFEFA8, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube}),
 				
-				"Titanium unpolished":	new THREE.MeshLambertMaterial({color: 0xE0EFFF, map: createGrainyTexture(4,4), envMap: this.textureCube, shininess: 500, reflectivity: .75}),
-				"Titanium polished": 	new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.textureCube, shininess: 100, reflectivity: .95}),
+				"Titanium unpolished":	new THREE.MeshLambertMaterial({color: 0xE0EFFF, map: createGrainyTexture(4,4), envMap: this.reflectCube, shininess: 500, reflectivity: .75}),
+				"Titanium polished": 	new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube, shininess: 100, reflectivity: .95}),
 				
 				"Transparent resin white": 	new THREE.MeshLambertMaterial({color: 0xC2E6ED, opacity: .45, transparent: true}),
 				"Transparent resin black": 	new THREE.MeshLambertMaterial({color: 0x2E2E2E, opacity: .65, transparent: true}),
@@ -43,8 +44,8 @@ var MaterialsLibrary = function() {
 				"Transparent resin orange": new THREE.MeshLambertMaterial({color: 0xEB6B26, opacity: .65, transparent: true}),
 				"Transparent resin brown": 	new THREE.MeshLambertMaterial({color: 0x80662A, opacity: .65, transparent: true}),
 				
-				"Brass regular": 				new THREE.MeshLambertMaterial({color: 0x594927, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.textureCube, reflectivity: .75}),
-				"Brass gold plated polished": 	new THREE.MeshLambertMaterial({color: 0xFFEA8C, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.textureCube}),
+				"Brass regular": 				new THREE.MeshLambertMaterial({color: 0x594927, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube, reflectivity: .75}),
+				"Brass gold plated polished": 	new THREE.MeshLambertMaterial({color: 0xFFEA8C, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube}),
 	};
 				
 	this.getMaterial = function(name){
@@ -64,7 +65,25 @@ var MaterialsLibrary = function() {
 	}
 };
 
-function buildTextureCube(){
+// This function builds the background of the shape that isn't reflected, only displayed
+function buildWhiteBox()
+{
+    var r = "src/textures/cube/whitePattern2/";
+
+    var whites = [ r + "flip.jpg", r + "flip.jpg",
+                  r + "flip.jpg", r + "flip.jpg",
+                  r + "flip.jpg", r + "nz.jpg" ];
+    
+    var textureCube = THREE.ImageUtils.loadTextureCube( whites );
+    textureCube.format = THREE.RGBFormat;
+
+    return textureCube;
+    
+
+}
+
+// This function builds the background of the environment that the shapes actually reflect
+function buildreflectCube(){
 	if (n%2 == 0)
 	{
 		var r = "src/textures/cube/skybox/";
@@ -72,15 +91,9 @@ function buildTextureCube(){
 					 r + "py.jpg", r + "ny.jpg",
 					 r + "pz.jpg", r + "nz.jpg" ];
 	}
-	if (typeof screenShot !== 'undefined')
-	{
-	var r = "src/textures/cube/skybox/";
-		var urls = [ r + "px.jpg", r + "nx.jpg",
-					 r + "py.jpg", r + "ny.jpg",
-					 r + "pz.jpg", r + "whitebox.jpg" ];
-	}
 
-	var textureCube = THREE.ImageUtils.loadTextureCube( urls );
-	textureCube.format = THREE.RGBFormat;
-	return textureCube;
+   	var reflectCube = THREE.ImageUtils.loadTextureCube( urls );
+
+	reflectCube.format = THREE.RGBFormat;
+	return reflectCube;
 };

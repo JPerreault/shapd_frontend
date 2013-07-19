@@ -14,7 +14,7 @@ window.onload = function() {
 	var moreOptionsClicked = 0;
 	var storedShape = [];
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
@@ -49,7 +49,6 @@ window.onload = function() {
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
-		renderer.setClearColor(0xffffff, 1);
 		renderer.autoClear = false;
 		state = 'creator';
 
@@ -115,6 +114,7 @@ window.onload = function() {
 			$('#idMaterialPanel').fadeOut(0);
 			$('#idCostDataContainer').fadeOut(0);
 			$('#idLoopRotContainer').fadeOut(0);
+			$('#idDesignDiv').fadeOut(0);
 			$('#idDimsContainer').fadeOut(0);
 			
 			if (typeof viewer !== 'undefined' && viewer)
@@ -124,6 +124,7 @@ window.onload = function() {
 				$('#idResetContainer').fadeOut(0);
 				$("#idSavedShapeContainer").fadeOut(0);
 				$('#idSaveButton').fadeOut(0);
+				$('#idDesignDiv').fadeOut(0);
 				$('#idProgressContainer').fadeOut(0);
 			}
 			firstTime = false;	
@@ -149,6 +150,8 @@ window.onload = function() {
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
+			$('#materialDetailContainer').fadeOut(450);
+			$('#idDesignDiv').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
@@ -174,6 +177,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$('#idDesignDiv').fadeOut(450);
 			$("#idLoopText").fadeIn(450);
 			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
@@ -204,6 +208,8 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$('#materialDetailContainer').fadeIn(450);
+			$('#idDesignDiv').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeIn(450);
@@ -241,6 +247,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeOut(450);
 			$('#idSaveStayButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
+			$('#idDesignDiv').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeOut(450);
@@ -358,6 +365,8 @@ window.onload = function() {
 		{
 			if (printable)
 			{
+                if (typeof givenFeedback !== 'undefined' && !givenFeedback)
+                    promptForFeedback()
 				state = 'publish';
 				setupInterface();
 				saveShape();

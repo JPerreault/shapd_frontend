@@ -32,7 +32,7 @@ var Tutorial = function(view, doTutorial)
 	function tut1() {
 			clearHighlights();
 			fadeOut(fout);
-			var tut = 'Welcome!<br><br>This is your starting pendant shape <br><br> You rotate it by clicking and dragging, or zoom in and out with the mouse wheel.<br><img src = "assets/imgs/shapes/1.png"><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
+			var tut = '<b>Welcome!</b><br><br>Let\'s get you started.<br><br><img src = "assets/imgs/misc/mousetut.png" style="border: 2px solid white; -moz-border-radius: 12px; border-radius: 12px;"><br><br><button id = "giveShot" class="tutButton buttonImg">Give it a shot!</button>';
 			var d1 = generateTutorialMsg(tut, 300);
 			fout = d1;
 			slideDownCustBotR(d1, 'center', 'center');	
@@ -66,7 +66,7 @@ var Tutorial = function(view, doTutorial)
 			var tut = 'Great!<br><br> You can change base shapes from the library. <br><br>(Scroll down to see more).<br><img src = "assets/imgs/misc/arrowWhite.png">';
 			var d1 = generateTutorialMsg(tut, 250, highlight);
 			fout = d1;
-			slideDownCustBotL(d1, '32%', '430px');	
+			slideDownCustTopL(d1, '390px', '430px');	
 			
 			document.addEventListener( 'mousedown', sliderClicked, false );
 		}
@@ -103,8 +103,8 @@ var Tutorial = function(view, doTutorial)
 				clearHighlights();
 				fadeOut(fout);
 				this.loopPage = 1;
-				var tut = 'In this step, we\'ll add a loop for the necklace. Just click anywhere on your piece to place it.<br><br>(You don\'t have to. If not, just save & continue)<br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
-				var d1 = generateTutorialMsg(tut, 270);
+				var tut = 'In this step, we\'ll add a loop for your necklace. Just click anywhere on your piece to place it.<br><br>(Or you could choose not to and just save & continue)<br><br><button id = "okay2" class="tutButton buttonImg">Okay</button>';
+				var d1 = generateTutorialMsg(tut, 280);
 				fout = d1;
 				slideDownCustBotR(d1, 'center', 'center');
 					
@@ -130,7 +130,7 @@ var Tutorial = function(view, doTutorial)
 				var tut = '<img src = "assets/imgs/misc/arrowWhite.png"><br><br>Good! Use these to adjust the loop further and continue when done.<br><br><button id = "okay3" class="tutButton buttonImg">Okay</button>';
 				var d1 = generateTutorialMsg(tut, 240, highlight);
 				fout = d1;
-				slideDownCustTopL(d1, '400px', '560px');
+				slideDownCustTopL(d1, '320px', '430px');
 
 					document.getElementById('okay3').onclick = function()
 					{
@@ -183,7 +183,7 @@ var Tutorial = function(view, doTutorial)
 				var tut = '<div style="padding:15px;"><img src = "assets/imgs/misc/arrowWhite.png"><br><br> Great!<br><br>Now use these drop downs to select a material.</div>';
 				var d1 = generateTutorialMsg(tut, 210, highlight);
 				fout = d1;
-				slideDownCustTopL(d1, '160px', '350px');
+				slideDownCustTopL(d1, '160px', '390px');
 			}
 	}
 	
@@ -192,9 +192,9 @@ var Tutorial = function(view, doTutorial)
 			if ( that.tutorialOn === true && state === 'finalize') {
 				clearHighlights();
 				fadeOut(fout);
-				highlight = 'idCostDiv';
+				highlight = 'idCostDataContainer';
 				highlight2 = 'idmaterialDetailContainer';
-				var tut = '<div style="padding:10px;"><br> Nice!<br><br>The price and material update as you pick different options. You\'ll see that the thickness, the depth, the material, and the size all affect the price. <br><br>Continue when you found the perfect material. <br><br> That\'s it for the tutorial. Thanks for trying our preview app! <br><br>We\'re excited to see what you make.<br><bR><button id = "thanks" class="tutButton buttonImg">Thanks!</button></div>';
+				var tut = '<div style="padding:10px;"><br> Nice!<br><br>The price and material update as you pick different options. You\'ll see that the thickness, the depth, the material, and the size all affect the price.<br><br> That\'s it for the tutorial. Thanks for trying our preview app! <br><br>We\'re excited to see what you make.<br><bR><button id = "thanks" class="tutButton buttonImg">Thanks!</button></div>';
 				var d1 = generateTutorialMsg(tut, 350, highlight, highlight2);
 				fout = d1;
 				slideDownCustTopR(d1, 'center', 'center');

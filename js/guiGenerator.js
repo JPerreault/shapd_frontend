@@ -5,8 +5,8 @@ function loopRotations(){
 			
 			var loopAroundDiv = document.createElement('div');
 			loopAroundDiv.id = 'idloopAroundDiv';
-			loopAroundDiv.style.top = '12%';
-			loopAroundDiv.style.left = '7%';
+			loopAroundDiv.style.top = '3%';
+			loopAroundDiv.style.left = '1%';
 			loopAroundDiv.style.position = 'absolute';
 			loopRotContainer.appendChild(loopAroundDiv);
 			
@@ -18,7 +18,7 @@ function loopRotations(){
 			loopAroundLabel.style.position = 'relative';
 			loopAroundLabel.style.padding = '5px';
 			loopAroundLabel.style.width = '185px';
-			loopAroundLabel.style.marginBottom = '15px';
+			loopAroundLabel.style.marginBottom = '10px';
 			loopAroundDiv.appendChild(loopAroundLabel);
 			
 			var rotateDiv = document.createElement('div');
@@ -108,7 +108,7 @@ function loopRotations(){
 			removeLoopDiv.id = 'idloopAroundDiv';
 			removeLoopDiv.style.position = 'relative';
 			removeLoopDiv.className = 'rounded';
-			removeLoopDiv.style.top = '100px';
+			removeLoopDiv.style.top = '90px';
 			removeLoopDiv.style.zIndex = '1000';
 			loopAroundDiv.appendChild(removeLoopDiv);
 			
@@ -155,38 +155,85 @@ function addDesignTips() {
 			designTipsContainer.id = 'idDesignTipsContainer';
 			document.body.appendChild(designTipsContainer);
 		
-		
+			var designDiv = document.createElement('div');
+			designDiv.id = 'idDesignDiv';
+			designDiv.className = 'blackContainer';
+			designDiv.style.top = '215px';
+			designDiv.style.right = '1%';
+			designTipsContainer.appendChild(designDiv);
+			
+			var designLabel = document.createElement('div');
+			designLabel.id = 'idDesignLabel';
+			designLabel.className = 'blueInnerLabel';
+			designLabel.innerHTML += '3 Tips to Save Money:';
+			designDiv.appendChild(designLabel);
+			
+			var designTips = document.createElement('div');
+			designTips.id = 'idDesignTips';
+			designTips.className = 'whiteInnerSmall';
+			designTips.style.width = '215px';
+			designTips.innerHTML += '1)  Try regular stainless steel instead of silver.';
+			designTips.style.textAlign = 'left';
+			designTips.style.display = 'block';
+			designDiv.appendChild(designTips);
 }
 
 function addCost() {
 			var costDataContainer = document.createElement('div');
 			costDataContainer.id = 'idCostDataContainer';
+			costDataContainer.style.top = '1%';
+			costDataContainer.style.right = '1%';
+			costDataContainer.style.width = '263px';
+			costDataContainer.style.position = 'absolute';
 			document.body.appendChild(costDataContainer);
 				
-			var costDiv = document.createElement('div');
-			costDiv.id = 'idCostDiv';
-			costDiv.className = 'blackContainer';
-			costDiv.style.bottom = '130px';
-			costDiv.style.right = '0.5%';
-			costDataContainer.appendChild(costDiv);
+			var costOutline = document.createElement('div');
+			costOutline.id = 'idCostOutline';
+			costOutline.className = 'blackContainer';
+			costOutline.style.borderTopRightRadius = '12px'; 
+			costOutline.style.borderTopLeftRadius = '12px'; 
+			costOutline.style.borderBottomLeftRadius = '0px'; 
+			costOutline.style.borderBottomRightRadius = '0px'; 
+			costOutline.style.MozBorderRadius = '12px';
+			costOutline.style.display = 'inline-block';
+			costOutline.style.textAlign = 'center';
+			costOutline.style.position = 'relative';
+			costDataContainer.appendChild(costOutline);
 			
 			var costLabel = document.createElement('div');
 			costLabel.id = 'idCostLabel';
 			costLabel.className = 'blueInnerLabel';
-			costLabel.innerHTML += 'Cost:';
-			costDiv.appendChild(costLabel);
+			costLabel.innerHTML += 'Price';
+			costOutline.appendChild(costLabel);	
+				
+			var costDiv = document.createElement('div');
+			costDiv.id = 'idCostDiv';
+			costDiv.style.top = '100px';
+			costDiv.style.right = '5px';
+			costDiv.style.zIndex = '1000';
+			costDiv.style.position = 'absolute'; 
+			costDataContainer.appendChild(costDiv);
 			
 			var costData = document.createElement('div');
 			costData.id = 'idCostData';
 			costData.className = 'blackInnerLargeText';
 			costData.innerHTML += '$15.77';
-			costDiv.appendChild(costData);
+			costOutline.appendChild(costData);
+			
+			var dimDiv = document.createElement('div');
+			dimDiv.id = 'idDimDiv';
+			dimDiv.className = 'blackContainer';
+			dimDiv.style.display = 'block';
+			dimDiv.style.position = 'absolute';
+			dimDiv.style.right = '1%';
+			dimDiv.style.top = '95px';
+			costDataContainer.appendChild(dimDiv);
 			
 			var costDim = document.createElement('div');
 			costDim.id = 'idCostDim';
-			costDim.className = 'blueInnerSmall';
+			costDim.className = 'whiteInnerSmall';
 			costDim.innerHTML += '0.02 (h) x 0.04 (w) x 0.04 (d)<br>Dimensions in Inches';
-			costDiv.appendChild(costDim);
+			dimDiv.appendChild(costDim);
 }
 
 function addSave() {
@@ -344,7 +391,7 @@ function addSavedLibrary() {
 		savedShapeLabel.id = 'idSavedShapeLabel';
 		savedShapeLabel.className = 'blueInnerLabel';
 		savedShapeLabel.innerHTML += 'Your Saved Shapes';
-		shapeContainer.appendChild(savedShapeLabel);
+		savedShapeContainer.appendChild(savedShapeLabel);
         
         var scrollWrapper = document.createElement('div');
         scrollWrapper.className = 'rounded antiscroll-wrap';
@@ -363,8 +410,8 @@ function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
 	shapeContainer.className = 'blackContainer';
-	shapeContainer.style.bottom = '10%';
-	shapeContainer.style.left = '5px';
+	shapeContainer.style.top = '220px';
+	shapeContainer.style.left = '1%';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
 	
@@ -466,7 +513,7 @@ function addMaterialSelector() {
 	
 	var materialDescription = document.createElement('div');
 	materialDescription.id = 'idMaterialDescription';
-	materialDescription.className = 'blueInnerSmall';
+	materialDescription.className = 'whiteInnerSmall';
 	materialDescription.style.width = '170px';
 	materialDescription.textContent += ' Stainless steel has a fairly pitted surface finish, which gives it a vintage (almost steam-punk) look.';
 	materialDetailContainer.appendChild(materialDescription);
@@ -483,7 +530,7 @@ function addLoops(){
 	loopText.innerHTML = 'Click anywhere on your piece<br>to place a loop for the necklace.';
 	loopText.style.bottom = '12%';
 	loopText.style.left = '50%';
-	loopText.style.marginLeft = '-211px';
+	loopText.style.marginLeft = '-165px';
 	document.body.appendChild(loopText);
 }
 

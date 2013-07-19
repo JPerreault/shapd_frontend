@@ -741,11 +741,11 @@ THREE.SceneLoader.prototype.parse = function ( json, callbackFinished, url ) {
 
 		if ( fogJSON.type === "linear" ) {
 
-			fog = new THREE.Fog( 0x000000, fogJSON.near, fogJSON.far );
+			fog = new THREE.Fog( 0xffffff, fogJSON.near, fogJSON.far );
 
 		} else if ( fogJSON.type === "exp2" ) {
 
-			fog = new THREE.FogExp2( 0x000000, fogJSON.density );
+			fog = new THREE.FogExp2( 0xffffff, fogJSON.density );
 
 		}
 

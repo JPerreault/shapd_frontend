@@ -5,6 +5,8 @@ var SceneCubeWrapper = function(textureCube) {
 	var shader = THREE.ShaderLib[ "cube" ];
 	shader.uniforms[ "tCube" ].value = textureCube;
 
+    if (typeof screenShot === 'undefined')
+    {
 	var material = new THREE.ShaderMaterial( {
 
 		fragmentShader: shader.fragmentShader,
@@ -14,6 +16,18 @@ var SceneCubeWrapper = function(textureCube) {
 		side: THREE.BackSide
 
 	} );
+    }
+    else
+    {
+        var material = new THREE.ShaderMaterial( {
+                                                
+                                                fragmentShader: shader.fragmentShader,
+                                                vertexShader: shader.vertexShader,
+                                                uniforms: shader.uniforms,
+                                                depthWrite: false,
+                                                
+                                                } );
+    }
 
 	this.scene.add( new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material ) );
 
