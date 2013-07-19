@@ -52,11 +52,11 @@
 				activate: function(event, ui) {
 					if ($( "#materials" ).accordion( "option", "active" ) !== false)
 					{
-						$('#idmaterialDetailContainer').fadeOut(0);
+						document.getElementById('idmaterialDetailContainer').style.opacity = '0.5';
 					}
 					else
 					{
-						$('#idmaterialDetailContainer').fadeIn(100);
+						document.getElementById('idmaterialDetailContainer').style.opacity = '1';
 					}
 				}
 		})});
