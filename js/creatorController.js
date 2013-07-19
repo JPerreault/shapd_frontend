@@ -2,15 +2,17 @@ var n = 0;
 var changedModify = 0;
 var count = 0;
 var loops = false;
-var sceneWrapper, view, gui, tutorial, state, printable;
+var sceneWrapper, view, tutorial, state, printable;
 
 window.onload = function() {
 
 	var tubeMeshBuilder, scene, tubeMP, matListener;
-	var renderer, materialsLibrary, customContainer, datGuiContainer;
+	var renderer, materialsLibrary
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
+	var moreOptionsClicked = 0;
+	var storedShape = [];
     if (typeof notSignedIn === 'undefined')
         var doTutorial = false;
     else
@@ -58,7 +60,6 @@ window.onload = function() {
 		
 		matListener = new materialListener(sceneWrapper, tubeMeshBuilder, tutorial);
 		setupInterface();
-		setupDatGui(sceneWrapper);
 		if (typeof screenShot === 'undefined')
 			document.getElementById(sceneWrapper.currentMesh['Material']).click();	//For initializing material	
 	}
@@ -112,14 +113,13 @@ window.onload = function() {
 			$("#idmaterialDetailContainer").fadeOut(0);
 			$('#idMaterialPanel').fadeOut(0);
 			$('#idCostDataContainer').fadeOut(0);
-			$('#materialDetailContainer').fadeOut(0);
 			$('#idLoopRotContainer').fadeOut(0);
 			$('#idDesignDiv').fadeOut(0);
 			$('#idDimsContainer').fadeOut(0);
 			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
-				$("#datGuiStuff").fadeOut(0);
+				$("#shapeSlidersContainer").fadeOut(0);
 				$("#idShapeContainer").fadeOut(0);
 				$('#idResetContainer').fadeOut(0);
 				$("#idSavedShapeContainer").fadeOut(0);
@@ -138,7 +138,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#datGuiStuff").fadeIn(450);
+			$("#shapeSlidersContainer").fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -168,13 +168,12 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#datGuiStuff").fadeOut(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
 			$("#thicknessContainer").fadeOut(450);
 			$("#idShapeContainer").fadeOut(450);
-			$('#materialDetailContainer').fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
@@ -201,7 +200,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#datGuiStuff").fadeOut(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeIn(450);
 			$("#idmaterialDetailContainer").fadeIn(450);
 			$("#sliderContainer").fadeIn(450);
@@ -225,6 +224,7 @@ window.onload = function() {
 			matListener.panelUpdate();
 			getNewPrice();
 			$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
+			$( "#depthslider" ).slider( "value", sceneWrapper.currentMesh['Depth'] );
 			updateThickness();
 			saveButtonClick(false);
 		}
@@ -237,7 +237,7 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
-			$("#datGuiStuff").fadeOut(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -260,21 +260,21 @@ window.onload = function() {
 	
 	function initialSetup()
 	{
+		addSliders(tutorial, sceneWrapper);
 		addStartingShapes();
-		addMaterialSelector();
 		addResetButtons();
 		addSave();
 		addProgressBar();
-		addLoops();
 		addSavedLibrary();
+		addLoops();
 		addDesignTips();
 		loopRotations();
 		addDimensions();
-		addDatGui();
 		addCost();
+		addMaterialSelector();
 	}
 	
-	customContainer = document.getElementById('container');	
+	var customContainer = document.getElementById('container');	
 	customContainer.style.zIndex = '100';
 	customContainer.style.position = 'relative';
 
@@ -482,11 +482,10 @@ window.onload = function() {
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
 		{
-			resetAllParams(0);
+			resetAllParams();
 		
 			sceneWrapper.redrawMesh(currentMesh);
-			resetDatGui();
-			setupDatGui(sceneWrapper);
+			updateShapeSliders();
 		}
 		else if (state == 'loops')
 		{
@@ -503,7 +502,6 @@ window.onload = function() {
 			sceneWrapper.updateScale(.66);
 			$( "#slider" ).slider( "value", 66 );
 			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
-			$( "#thickslider" ).slider( "value", 1.75 );
 			tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 		
 			sceneWrapper.redrawMesh(currentMesh);
@@ -519,13 +517,23 @@ window.onload = function() {
 		currentMesh['Depth'] = 1;
 		currentMesh['Stretch'] = 1;
 		currentMesh['Loops'] = 2;
-		currentMesh['Thickness'] = 1.75;
-		currentMesh['Rotation X'] = 0;
-		currentMesh['Rotation Y'] = 0;
-		view.targetX = 0;
-		view.targetY = 0;
+		currentMesh['Thickness'] = 1.5;
+		if (view.targetX === 0 && view.targetY === 0)
+		{
+			currentMesh['Rotation X'] = 6.28318531;
+			currentMesh['Rotation Y'] = 6.28318531;
+			view.targetX = 6.28318531;
+			view.targetY = 6.28318531;
+		}
+		else
+		{
+			currentMesh['Rotation X'] = 0;
+			currentMesh['Rotation Y'] = 0;
+			view.targetX = 0;
+			view.targetY = 0;
+		}
 		
-		$( "#thickslider" ).slider( "value", 1.75 );
+		updateShapeSliders();
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 	}
 	
@@ -548,8 +556,7 @@ window.onload = function() {
 
 			if (typeof sceneWrapper.torusMesh !== 'undefined')
 				sceneWrapper.scene.remove(sceneWrapper.torusMesh);
-			resetDatGui();
-			setupDatGui(sceneWrapper);
+			updateShapeSliders();
 			sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 			
 			if (tutorial.tutorialOn)
@@ -592,78 +599,43 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('thickslider').onmousedown = function()
+	document.getElementById('idStoreShape').onclick = function()
 	{
-		event.preventDefault();
-		
-		document.addEventListener( 'mouseup', releaseThickSlider, false );
-		document.addEventListener( 'mousemove', moveThickSlider, false );
+		storedShape['Thickness'] = sceneWrapper.currentMesh['Thickness'];
+		storedShape['Depth'] = sceneWrapper.currentMesh['Depth'];
+		storedShape['Stretch'] = sceneWrapper.currentMesh['Stretch'];
+		storedShape['Modify'] = sceneWrapper.currentMesh['Modify'];
+		storedShape['Loops'] = sceneWrapper.currentMesh['Loops'];
+		storedShape['Starting Shape'] = sceneWrapper.currentMesh['Starting Shape'];
 	}
 	
-	function moveThickSlider()
+	document.getElementById('idLoadShape').onclick = function()
 	{
-		var sliderValue = $( "#thickslider" ).slider( "value" );
-		sceneWrapper.currentMesh['Thickness'] = sliderValue;
+		sceneWrapper.currentMesh['Thickness'] = storedShape['Thickness'];
+		sceneWrapper.currentMesh['Depth'] = storedShape['Depth'];
+		sceneWrapper.currentMesh['Stretch'] = storedShape['Stretch'];
+		sceneWrapper.currentMesh['Modify'] = storedShape['Modify'];
+		sceneWrapper.currentMesh['Loops'] = storedShape['Loops'];
+		sceneWrapper.currentMesh['Starting Shape'] = storedShape['Starting Shape'];
 		
-		scene.redrawMesh(scene.currentMesh);
-		tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
-		updateThickness(true);
-	}
-	
-	function releaseThickSlider()
-	{
-		event.preventDefault();
-		
-		var sliderValue = $( "#thickslider" ).slider( "value" );
-		sceneWrapper.currentMesh['Thickness'] = sliderValue;
-		document.removeEventListener( 'mouseup', releaseThickSlider, false );
-		document.removeEventListener( 'mousemove', moveThickSlider, false );
-		
-		scene.redrawMesh(scene.currentMesh);
-		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
-		getNewPrice();
-		updateThickness();
-		gui.__controllers[0].setValue(sliderValue);
-	}
-	
-	document.getElementById('slider').onmousedown = function()
-	{
-		event.preventDefault();
-		
-		document.addEventListener( 'mouseup', releaseSlider, false );
-		document.addEventListener( 'mousemove', moveSlider, false );
-	}
-	
-	
-	function moveSlider()
-	{
-		var sliderValue = $( "#slider" ).slider( "value" );
-		var newScale = sliderValue / 100;
-		sceneWrapper.updateScale(newScale);
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		
-		tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
-		updateThickness();
+		updateShapeSliders();
 	}
 	
-	function releaseSlider()
+	document.getElementById('idMoreOptions').onclick = function()
 	{
-		event.preventDefault();
-		
-		var sliderValue = $( "#slider" ).slider( "value" );
-		var newScale = sliderValue / 100;
-		sceneWrapper.updateScale(newScale);
-		document.removeEventListener( 'mouseup', releaseSlider, false );
-		document.removeEventListener( 'mousemove', moveSlider, false );
-		
-		if (tutorial.tutorialOn === true) {
-			tutorial.tut9();
+		moreOptionsClicked++;
+		var moreOptionsButton = document.getElementById('idMoreOptions');
+		if (moreOptionsClicked%2 === 1)
+		{
+			$('#thickdepthfinalize').fadeIn(0);
+			moreOptionsButton.innerHTML = 'Less';
 		}
-		
-		scene.redrawMesh(scene.currentMesh);
-		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
-		getNewPrice();
-		updateThickness();
+		else
+		{
+			$('#thickdepthfinalize').fadeOut(0);
+			moreOptionsButton.innerHTML = 'More';
+		}
 	}
     
     $(function () {
@@ -697,70 +669,21 @@ function loadFromLib(hash)
 	
     sceneWrapper.redrawMesh(loadedShape, true);
     sceneWrapper.currentMesh = loadedShape;
-
-	gui.__controllers[0].updateDisplay();
-	gui.__controllers[1].updateDisplay();
-	gui.__controllers[2].updateDisplay();
-	gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
-	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
+	updateShapeSliders()
 	
-	setupDatGui(sceneWrapper);
-}
-	
-function setupDatGui(sC) {
-	datGuiContainer = document.getElementById('datGuiStuff');
-	
-	scene = sC;
-	gui = new dat.GUI({ autoPlace: false });
-
-	var currentMesh = scene.currentMesh;
-	
-	var setUpController = function(controller, fieldName){
-		controller.onChange(function(newVal){
-			currentMesh[fieldName] = newVal;
-			this.color = [ 0, 128, 225];
-			scene.redrawMesh(currentMesh);
-		});
-	};
-	
-	controller = gui.add(currentMesh, 'Thickness', .5, 5);
-	setUpController(controller, 'Thickness');
-
-	controller = gui.add(currentMesh, 'Depth', 0.0005, 2);
-	setUpController(controller, 'Depth');
-
-	controller = gui.add(currentMesh, 'Stretch', 0.00005, 1.75);
-	setUpController(controller, 'Stretch');
-	
-	var morphFolder = gui.addFolder ('Shape Alteration');
-	controller = morphFolder.add(currentMesh, 'Modify', 1, 10).step(1);
-	setUpController(controller, 'Modify');
-	
-	controller = morphFolder.add(currentMesh, 'Loops', 1, 10, 0x000000).step(1);
-	setUpController(controller, 'Loops');
-
-	morphFolder.open();
-
-	gui.domElement.style.position = 'absolute';
-	gui.domElement.style.top = '-1px';
-	gui.domElement.style.left = '-15px';
-	gui.domElement.style.zIndex = '1000';
-	datGuiContainer.appendChild(gui.domElement);
+	resetDatGui();
 }
 
-function resetDatGui()
+function updateShapeSliders()
 {
-	var currentMesh = sceneWrapper.currentMesh;
-	currentMesh['Thickness'] = 1.75;
-	currentMesh['Depth'] = 1;
-	currentMesh['Stretch'] = 1;
-	currentMesh['Modify'] = 5;
-	currentMesh['Loops'] = 2;
-	gui.__controllers[0].updateDisplay();
-	gui.__controllers[1].updateDisplay();
-	gui.__controllers[2].updateDisplay();
-	gui.__folders['Shape Alteration'].__controllers[0].updateDisplay();
-	gui.__folders['Shape Alteration'].__controllers[1].updateDisplay();
+	$( "#thicknessguislider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
+	$( "#depthguislider" ).slider( "value", sceneWrapper.currentMesh['Depth'] );
+	$( "#stretchguislider" ).slider( "value", sceneWrapper.currentMesh['Stretch'] );
+	$( "#modifyguislider" ).slider( "value", sceneWrapper.currentMesh['Modify'] );
+	$( "#loopsguislider" ).slider( "value", sceneWrapper.currentMesh['Loops'] );
+	
+	$( "#thickslider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
+	$( "#depthslider" ).slider( "value", sceneWrapper.currentMesh['Depth'] );
 }
 
 function saveButtonClick(isClickable)
@@ -885,7 +808,7 @@ function pre(figure)
 	var v = calculateVolume (figure, figure.scale.x);
 	v *= 1000;
 	
-	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.28 * 1.2089;
+	(v < 20000) ? p = (4.5069 * Math.log(v) + 30.805) * 1.28 * 1.2089 : p = (0.0012 * v + 62.55) * 1.31 * 1.2089;
 	
 	return p;
 }

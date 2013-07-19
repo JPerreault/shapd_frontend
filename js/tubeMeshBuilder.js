@@ -329,7 +329,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		torusLoop.scale.set(scale, scale, scale);
 		
 		//Now translate from centroid up an amount along normal vector
-		var upAmount = 1.25;
+		var upAmount = 3 - .5 * (radius * figure.scale.x);	
 		var fromFace = faceNormal.setLength(upAmount);
 		torusLoop.geometry.applyMatrix(new THREE.Matrix4().makeTranslation(fromFace.x, fromFace.y, fromFace.z));
 		
@@ -578,7 +578,7 @@ var TubeMeshParams = function(){
 		this['Stretch'] = 1;
 		this['Loops'] = 2;
 		this['Starting Shape'] = 1;
-		this['Thickness'] = 1.75;
+		this['Thickness'] = 1.5;
 		this['Material'] = 'Brass gold plated polished';
 		this['Face Index'] = -1;
 		this['Face Index Incrementor'] = 0;
