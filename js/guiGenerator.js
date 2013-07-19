@@ -5,8 +5,8 @@ function loopRotations(){
 			
 			var loopAroundDiv = document.createElement('div');
 			loopAroundDiv.id = 'idloopAroundDiv';
-			loopAroundDiv.style.top = '12%';
-			loopAroundDiv.style.left = '7%';
+			loopAroundDiv.style.top = '3%';
+			loopAroundDiv.style.left = '1%';
 			loopAroundDiv.style.position = 'absolute';
 			loopRotContainer.appendChild(loopAroundDiv);
 			
@@ -18,7 +18,7 @@ function loopRotations(){
 			loopAroundLabel.style.position = 'relative';
 			loopAroundLabel.style.padding = '5px';
 			loopAroundLabel.style.width = '185px';
-			loopAroundLabel.style.marginBottom = '15px';
+			loopAroundLabel.style.marginBottom = '10px';
 			loopAroundDiv.appendChild(loopAroundLabel);
 			
 			var rotateDiv = document.createElement('div');
@@ -108,7 +108,7 @@ function loopRotations(){
 			removeLoopDiv.id = 'idloopAroundDiv';
 			removeLoopDiv.style.position = 'relative';
 			removeLoopDiv.className = 'rounded';
-			removeLoopDiv.style.top = '100px';
+			removeLoopDiv.style.top = '90px';
 			removeLoopDiv.style.zIndex = '1000';
 			loopAroundDiv.appendChild(removeLoopDiv);
 			
@@ -158,8 +158,8 @@ function addDesignTips() {
 			var designDiv = document.createElement('div');
 			designDiv.id = 'idDesignDiv';
 			designDiv.className = 'blackContainer';
-			designDiv.style.top = '205px';
-			designDiv.style.right = '5px';
+			designDiv.style.top = '215px';
+			designDiv.style.right = '1%';
 			designTipsContainer.appendChild(designDiv);
 			
 			var designLabel = document.createElement('div');
@@ -172,7 +172,7 @@ function addDesignTips() {
 			designTips.id = 'idDesignTips';
 			designTips.className = 'whiteInnerSmall';
 			designTips.style.width = '215px';
-			designTips.innerHTML += '1)  Try regular stainless steel instead of silver. It\'s a bit rougher but is a much cheaper material.<br>2)  Reduce the thickness. It can add a *lot* of cost, and metals are pretty sturdy.<br>3)  Try a smaller size or a design that uses less material.';
+			designTips.innerHTML += '1)  Try regular stainless steel instead of silver.';
 			designTips.style.textAlign = 'left';
 			designTips.style.display = 'block';
 			designDiv.appendChild(designTips);
@@ -181,14 +181,23 @@ function addDesignTips() {
 function addCost() {
 			var costDataContainer = document.createElement('div');
 			costDataContainer.id = 'idCostDataContainer';
+			costDataContainer.style.top = '1%';
+			costDataContainer.style.right = '1%';
+			costDataContainer.style.width = '263px';
+			costDataContainer.style.position = 'absolute';
 			document.body.appendChild(costDataContainer);
 				
 			var costOutline = document.createElement('div');
 			costOutline.id = 'idCostOutline';
 			costOutline.className = 'blackContainer';
-			costOutline.style.top = '5px';
-			costOutline.style.right = '47px';
-			costOutline.style.display = 'block';
+			costOutline.style.borderTopRightRadius = '12px'; 
+			costOutline.style.borderTopLeftRadius = '12px'; 
+			costOutline.style.borderBottomLeftRadius = '0px'; 
+			costOutline.style.borderBottomRightRadius = '0px'; 
+			costOutline.style.MozBorderRadius = '12px';
+			costOutline.style.display = 'inline-block';
+			costOutline.style.textAlign = 'center';
+			costOutline.style.position = 'relative';
 			costDataContainer.appendChild(costOutline);
 			
 			var costLabel = document.createElement('div');
@@ -199,7 +208,7 @@ function addCost() {
 				
 			var costDiv = document.createElement('div');
 			costDiv.id = 'idCostDiv';
-			costDiv.style.top = '93px';
+			costDiv.style.top = '100px';
 			costDiv.style.right = '5px';
 			costDiv.style.zIndex = '1000';
 			costDiv.style.position = 'absolute'; 
@@ -215,8 +224,10 @@ function addCost() {
 			dimDiv.id = 'idDimDiv';
 			dimDiv.className = 'blackContainer';
 			dimDiv.style.display = 'block';
-			dimDiv.style.position = 'relative';
-			costDiv.appendChild(dimDiv);
+			dimDiv.style.position = 'absolute';
+			dimDiv.style.right = '1%';
+			dimDiv.style.top = '95px';
+			costDataContainer.appendChild(dimDiv);
 			
 			var costDim = document.createElement('div');
 			costDim.id = 'idCostDim';
@@ -400,7 +411,7 @@ function addStartingShapes() {
 	shapeContainer.id = 'idShapeContainer';
 	shapeContainer.className = 'blackContainer';
 	shapeContainer.style.top = '220px';
-	shapeContainer.style.left = '5px';
+	shapeContainer.style.left = '1%';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
 	
@@ -451,7 +462,7 @@ function addMaterialSelector() {
 	var materialDetailContainer = document.createElement('div');
 	materialDetailContainer.id = 'idmaterialDetailContainer';
 	materialDetailContainer.className = 'blackContainer';
-	materialDetailContainer.style.top = '140px';
+	materialDetailContainer.style.top = '150px';
 	materialDetailContainer.style.left = '1%';				
 	materialDetailContainer.style.zIndex = '300';
 	document.body.appendChild(materialDetailContainer);		
