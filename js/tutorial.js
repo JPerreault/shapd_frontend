@@ -91,7 +91,7 @@ var Tutorial = function(view, doTutorial)
 			fout = d1;
 			slideDownCustTopL(d1, '360px', '155px');	
 			this.shapeLibClicked++;
-			$(".dg.main")[0].style.zIndex = 100000;
+			document.getElementById('shapeSliders').style.zIndex = 100000;
 		}
 	}
 

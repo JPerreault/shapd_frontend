@@ -33,6 +33,7 @@
             <script src="js/jsonMaker.js"></script>
             <script src="js/popups.js"></script>
             <script src="js/tutorial.js"></script>
+			<script src="js/shapeSliders.js"></script>
 
             
 		<script>
@@ -48,6 +49,16 @@
 				active: false,
 				alwaysOpen: false,
 				icons: icons,
+				activate: function(event, ui) {
+					if ($( "#materials" ).accordion( "option", "active" ) !== false)
+					{
+						$('#idmaterialDetailContainer').fadeOut(0);
+					}
+					else
+					{
+						$('#idmaterialDetailContainer').fadeIn(100);
+					}
+				}
 		})});
 		$(function() {
 			$( "#plastics" ).accordion({
@@ -56,6 +67,7 @@
 				active: false,
 				alwaysOpen: false,
 				icons: icons,
+				
 		})});
 		$(function() {
 			$( "#metals" ).accordion({
@@ -85,32 +97,7 @@
 		var icons = {
 				header: "ui-icon-circle-arrow-e",
 				activeHeader: "ui-icon-circle-arrow-s"
-			};
-		
-		$(function() {
-			$( "#slider" ).slider({
-				value: 66,
-				min: 40,
-				max: 175,
-				step: 1,
-				slide: function(event, ui){
-					$( "#scale" ).val(ui.value);
-				}
-			})
-			$( "#scale" ).val( $( "#slider" ).slider( "value" ) );
-		});	
-		
-		$(function() {
-			$( "#thickslider" ).slider({
-				value: 1.5,
-				min: .5,
-				max: 5,
-				step: .01,
-				slide: function(event, ui){
-					$( "#thickscale" ).val(ui.value);
-				}
-			})});	
-		
+			};	
 		</script>
 	</head>
 
@@ -119,17 +106,30 @@
 		<div id = "container" z-index="100"></div>
         <iframe id="shape_stage" style="left:0;right:0;position:absolute;top:0;"frameborder=0 height=500 width=500></iframe>
         <div id = "blackout"></div>
+		
+		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; top: 2%; left: 2%; position: absolute; height: 200px; width: 200px; z-index:1001;" id = "shapeSlidersContainer">
+			<div style = "height: 10px; width: 200px; font-size: 80%" id = "shapeSliders">
+				<div id = "thicknessguislider" class="menuHeader"> <p>Thickness:</p></div>
+				<div id = "depthguislider" class="menuHeader" style = "top: 10px;"><p>Depth:</p></div>
+				<div id = "stretchguislider" class="menuHeader" style = "top: 20px;"><p>Stretch:</p></div>
+				<div id = "modifyguislider" class="menuHeader" style = "top: 30px;"><p>Modify:</p></div>
+				<div id = "loopsguislider" class="menuHeader" style = "top: 40px;"><p>Loops:</p></div>
+			</div>
+		</div>
         		
-		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 11%; left: 50%; margin-left:-100px; position: absolute; height: 10px; width: 200px;" id = "sliderContainer">
-			<div id = "slider" class="menuHeader"></div>
+		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 11%; left: 50%; margin-left:-100px; position: absolute; height: 30px; width: 200px;" id = "sliderContainer">
+			<div id = "slider" class="menuHeader"><p>Scale:</p></div>
+			<div id = "thickdepthfinalize" style = "display: none; height: 5px; font-size: 80%;">
+				<div id = "thickslider" class="menuHeader"><p>Thickness:</p></div>
+				<div id = "depthslider" class="menuHeader"><p>Depth:</p></div>
+			</div>
 		</div>
 		
 		<div align = "left" style = "display: none; background-color: transparent;  padding: 0 !important; bottom: 32.5%; left: 20%; position: absolute; height: 10px; width: 250px;" id = "thicknessContainer">
 			<div id = "shapethin">Your shape is too thin to print!</div>
 			<div id = "increasesize">Please either increase thickness or increase the scale.</div>
-			<p>Thickness:</p><div id = "thickslider" class="menuHeader"></div>
 		</div>
-        </div>
+       
 		
 		<div align = "left" style = "display: none; font-size: 80%; background-color: transparent; position: absolute; padding: 0 !important; top: 1%; left: 1%; z-index:1001;" id = "materials">
 		<h3 class="materialHeader"><img class="materialImg" src = assets/imgs/materials/plastic.png>     Plastics</h3>
