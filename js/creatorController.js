@@ -114,8 +114,8 @@ window.onload = function() {
 			$('#idCostDataContainer').fadeOut(0);
 			$('#materialDetailContainer').fadeOut(0);
 			$('#idLoopRotContainer').fadeOut(0);
-			$('#idDimsContainer').fadeOut(0);
 			$('#idDesignDiv').fadeOut(0);
+			$('#idDimsContainer').fadeOut(0);
 			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
@@ -124,8 +124,8 @@ window.onload = function() {
 				$('#idResetContainer').fadeOut(0);
 				$("#idSavedShapeContainer").fadeOut(0);
 				$('#idSaveButton').fadeOut(0);
-				$('#idProgressContainer').fadeOut(0);
 				$('#idDesignDiv').fadeOut(0);
+				$('#idProgressContainer').fadeOut(0);
 			}
 			firstTime = false;	
 		}
@@ -266,7 +266,6 @@ window.onload = function() {
 		addSave();
 		addProgressBar();
 		addLoops();
-		addDesignTips();
 		addSavedLibrary();
 		addDesignTips();
 		loopRotations();

@@ -1,7 +1,7 @@
 var materialListener = function(sW, tMB, tutorial){
 	var tubeMeshBuilder = tMB;
 	var sceneWrapper = sW;
-	var name, description, cost, smooth, img1, img2, feeFlat, feePerCM3, shipsinBizDays, ourHandling, estShippingFrom, estShippingTo, imgDesc1, imgDesc2;
+	var name, description, cost, smooth, img1, img2, feeFlat, feePerCM3, shipsinBizDays, ourHandling, estShippingFrom, estShippingTo, imgDesc1, imgDesc2, designTip;
 	var that = this;
 	
 	document.getElementById('Plastic regular white').onclick = function()
@@ -12,12 +12,13 @@ var materialListener = function(sW, tMB, tutorial){
 		smooth = 'Very Low';
 		img1 = 'assets/imgs/materialExamples/whitePlasticRegular_1.jpg';
 		img2 = 'assets/imgs/materialExamples/whitePlasticRegular_2.jpg';
-		description = 'Rough plastic is our most cost effective material and is comparatively fast to make. It has a grainy look - perfect for modern, artistic, or winter-themed pieces. Please click on the example pictures for a comparison of rough vs regular.';
+		description = 'Rough plastic is our most cost effective material and is comparatively fast to make. It has a slightly grainy look - perfect for modern, artistic, or winter-themed pieces. Please click on the example pictures for a comparison of rough vs regular.';
 		feeFlat = 1.5;
 		feeperCM3 = 1.4;
 		shipsinBizDays = 8;
 		imgDesc1 = 'Regular plastic on the left, polished on the right.';
 		imgDesc2 = '';
+		designTip = 'Good job! Rough plastic is the least expensive material we offer.';
 
 		that.materialChange();
 	}
@@ -36,6 +37,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 8;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Good job! Rough plastic is the least expensive material we offer.';
 		
 		that.materialChange();
 	}
@@ -54,7 +56,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = 'Regular plastic on the left, polished on the right.';
 		imgDesc2 = '';
-		
+		designTip = 'Good job! Regular plastic is one of the least costly materials.';
 		that.materialChange();
 	}
 	
@@ -72,6 +74,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Good job! Regular plastic is one of the least expensive materials.';
 		that.materialChange();
 	}
 	
@@ -89,6 +92,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Good job! Regular plastic is one of the least expensive materials.';
 		that.materialChange();
 	}
 	
@@ -106,6 +110,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Good job! Regular plastic is one of the least expensive materials. And, it\'s like, hot pink.';
 		that.materialChange();
 	}
 	
@@ -123,6 +128,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Good job! Regular plastic is one of the least expensive materials.';
 		that.materialChange();
 	}
 	
@@ -140,6 +146,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 8;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Detailed plastic is already fairly inexpensive and you get a better finish with it. You could try regular plastic for a bit of savings however.';
 		that.materialChange();
 	}
 	
@@ -157,6 +164,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 8;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Detailed plastic is already fairly inexpensive and you get a better finish with it. You could try regular plastic for a bit of savings however.';
 		that.materialChange();
 	}
 	
@@ -174,6 +182,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Prime gray plastic has a very smooth texture but isn\'t the cheapest. Consider regular or detailed plastic if you want to save.';
 		that.materialChange();
 	}
 	
@@ -207,6 +216,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Clear and smooth plastic is very high quality but also incredibly expensive - often times as much as solid brass or stainless steel! If you want to save, consider any of the other plastics.';
 		that.materialChange();
 	}
 	
@@ -224,6 +234,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Clear and smooth plastic is very high quality but also incredibly expensive - often times as much as solid brass or stainless steel! If you want to save, consider any of the other plastics.';
 		that.materialChange();
 	}
 	
@@ -241,6 +252,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Clear and smooth plastic is very high quality but also incredibly expensive - often times as much as solid brass or stainless steel! If you want to save, consider any of the other plastics.';
 		that.materialChange();
 	}
 	
@@ -258,91 +270,10 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Clear and smooth plastic is very high quality but also incredibly expensive - often times as much as solid brass or stainless steel! If you want to save, consider any of the other plastics.';
 		that.materialChange();
 	}
-	/*
-	
-		document.getElementById('blacktransparentplastic').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin black';
-		name = 'Ultra-Smooth Black Plastic ';
-		cost = '$$';
-		smooth = 'High';
-		img1 = 'assets/imgs/materialExamples/whiteTransparentResin_1.jpg';
-		img2 = 'assets/imgs/materialExamples/whiteTransparentResin_2.jpg';
-		description = 'Detail plastic is excellent at picking out fine details in pieces, while still having a sligtly unsmooth finish.';
-		feeFlat = 2.50;
-		feeperCM3 = 2.99;
-		shipsinBizDays = 15;
-		imgDesc = '';
-		that.materialChange();
-	}
-	
-	Materials available but no img's. Leaving out for V0
-	
-	document.getElementById('graytransparentplastic').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin gray';
-		name = 'Ultra-Smooth Clear Gray Plastic ';
-		cost = '$$';
-		smooth = 'High';
-		img1 = 'assets/imgs/materialExamples/whiteTransparentResin_1.jpg';
-		img2 = 'assets/imgs/materialExamples/whiteTransparentResin_2.jpg';
-		description = 'Detail plastic is excellent at picking out fine details in pieces, while still having a sligtly unsmooth finish.';
-		feeFlat = 2.50;
-		feeperCM3 = 2.99;
-		shipsinBizDays = 15;
-		imgDesc = '';
-		that.materialChange();
-	}
-	
-	document.getElementById('greentransparentplastic').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin green';
-		name = 'Ultra-Smooth Clear Green Plastic ';
-		cost = '$$';
-		smooth = 'High';
-		img1 = 'assets/imgs/materialExamples/whiteTransparentResin_1.jpg';
-		img2 = 'assets/imgs/materialExamples/whiteTransparentResin_2.jpg';
-		description = 'Detail plastic is excellent at picking out fine details in pieces, while still having a sligtly unsmooth finish.';
-		feeFlat = 2.50;
-		feeperCM3 = 2.99;
-		shipsinBizDays = 15;
-		imgDesc = '';
-		that.materialChange();
-	}
-	document.getElementById('orangetransparentplastic').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin orange';
-		name = 'Ultra-Smooth Clear Blue Plastic ';
-		cost = '$$';
-		smooth = 'High';
-		img1 = 'assets/imgs/materialExamples/whiteTransparentResin_1.jpg';
-		img2 = 'assets/imgs/materialExamples/whiteTransparentResin_2.jpg';
-		description = 'Detail plastic is excellent at picking out fine details in pieces, while still having a sligtly unsmooth finish.';
-		feeFlat = 2.50;
-		feeperCM3 = 2.99;
-		shipsinBizDays = 15;
-		imgDesc = '';
-		that.materialChange();
-	}
-	
-	document.getElementById('browntransparentplastic').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin brown';
-		name = 'Ultra-Smooth Brown Blue Plastic ';
-		cost = '$$';
-		smooth = 'High';
-		img1 = 'assets/imgs/materialExamples/whiteTransparentResin_1.jpg';
-		img2 = 'assets/imgs/materialExamples/whiteTransparentResin_2.jpg';
-		description = 'Detail plastic is excellent at picking out fine details in pieces, while still having a sligtly unsmooth finish.';
-		feeFlat = 2.50;
-		feeperCM3 = 2.99;
-		shipsinBizDays = 15;
-		imgDesc = '';
-		that.materialChange();
-	}
-	*/
+
 	document.getElementById('Alumide regular').onclick = function()
 	{
 		sceneWrapper.currentMesh['Material'] = 'Alumide regular';
@@ -357,6 +288,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 8;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Good job! Alumide is a great material and very inexpensive.';
 		that.materialChange();
 	}
 	
@@ -374,40 +306,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = '';
 		imgDesc2 = '';
-		that.materialChange();
-	}
-	
-	document.getElementById('Brass regular').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Brass regular';
-		name = 'Regular Solid Brass';
-		cost = '$$';
-		smooth = 'Med';
-		img1 = 'assets/imgs/materialExamples/brass_1.jpg';
-		img2 = 'assets/imgs/materialExamples/brass_2.jpg';
-		description = 'Pure, 100% brass. Heavy feel to pieces with no coating or plating.  This fine smooth finish is fantastic - without the price tag of silver or gold. Perfect for an antique piece. Color might change slightly over time for an aged look. Please click on the examples to compare regular vs. gold-plated brass.';
-		feeFlat = '';
-		feeperCM3 = '';
-		shipsinBizDays = 20;
-		imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
-		imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
-		that.materialChange();
-	}
-	
-	document.getElementById('Brass gold plated polished').onclick = function()
-	{
-		sceneWrapper.currentMesh['Material'] = 'Brass gold plated polished';
-		name = 'Gold-Plated Solid Brass';
-		cost = '$$';
-		smooth = 'High';
-		img1 = 'assets/imgs/materialExamples/brass_1.jpg';
-		img2 = 'assets/imgs/materialExamples/brass_2.jpg';
-		description = 'Solid brass with 18k gold plating. Extremely polished and smooth. Heavy feel with a dazzling gold finish (without the price tag of solid gold). One of our favorite materials, your piece will be simply stunning. Please click on the examples to compare regular vs. gold-plated brass and get a feel for this wonderful material.';
-		feeFlat = '';
-		feeperCM3 = '';
-		shipsinBizDays = 20;
-		imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
-		imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
+		designTip = 'Good job! Alumide is a great material and very inexpensive.';
 		that.materialChange();
 	}
 	
@@ -425,6 +324,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 12;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Stainless steel is the most cost effective solid metal. With a heavy feel, you get a lot for your money. You could try a plastic or alumide to save some money though.';
 		that.materialChange();
 	}
 	
@@ -442,6 +342,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 16;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Stainless steel is the most cost effective solid metal. With a heavy feel, you get a lot for your money. You could try a plastic or alumide to save some money though.';
 		that.materialChange();
 	}
 	
@@ -459,6 +360,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 16;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Stainless steel is the most cost effective solid metal. With a heavy feel, you get a lot for your money. You could try a plastic or alumide to save some money though.';
 		that.materialChange();
 	}
 	
@@ -476,6 +378,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 16;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Stainless steel is the most cost effective solid metal. With a heavy feel, you get a lot for your money. You could try a plastic or alumide to save some money though.';
 		that.materialChange();
 	}
 	
@@ -493,6 +396,43 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 16;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Stainless steel is the most cost effective solid metal. With a heavy feel, you get a lot for your money. You could try a plastic or alumide to save some money though.';
+		that.materialChange();
+	}
+	
+	document.getElementById('Brass regular').onclick = function()
+	{
+		sceneWrapper.currentMesh['Material'] = 'Brass regular';
+		name = 'Regular Solid Brass';
+		cost = '$$';
+		smooth = 'Med';
+		img1 = 'assets/imgs/materialExamples/brass_1.jpg';
+		img2 = 'assets/imgs/materialExamples/brass_2.jpg';
+		description = 'Pure, 100% brass. Heavy feel to pieces with no coating or plating.  This fine smooth finish is fantastic - without the price tag of silver or gold. Perfect for an antique piece. Color might change slightly over time for an aged look. Please click on the examples to compare regular vs. gold-plated brass.';
+		feeFlat = '';
+		feeperCM3 = '';
+		shipsinBizDays = 20;
+		imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
+		imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
+		designTip = 'We love brass, but if you want a less smooth texture, you could try gold-plated stainless steel as a way to save money.';
+		that.materialChange();
+	}
+	
+	document.getElementById('Brass gold plated polished').onclick = function()
+	{
+		sceneWrapper.currentMesh['Material'] = 'Brass gold plated polished';
+		name = 'Gold-Plated Solid Brass';
+		cost = '$$';
+		smooth = 'High';
+		img1 = 'assets/imgs/materialExamples/brass_1.jpg';
+		img2 = 'assets/imgs/materialExamples/brass_2.jpg';
+		description = 'Solid brass with 18k gold plating. Extremely polished and smooth. Heavy feel with a dazzling gold finish (without the price tag of solid gold). One of our favorite materials, your piece will be simply stunning. Please click on the examples to compare regular vs. gold-plated brass and get a feel for this wonderful material.';
+		feeFlat = '';
+		feeperCM3 = '';
+		shipsinBizDays = 20;
+		imgDesc1 = 'Gold-plated brass on the left, regular brass on the right.';
+		imgDesc2 = 'Gold-plated brass on the left, regular brass on the right.';
+		designTip = 'We love brass, but if you want a less smooth texture, you could try gold-plated stainless steel as a way to save money.';
 		that.materialChange();
 	}
 	
@@ -510,6 +450,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = 'Regular silver on the left, glossy (non-premium) silver on the right.';
+		designTip = 'Silver is the least expensive of our precious metals. You could try regular stainless steel if you wanted to save but keep the silver color.';
 		that.materialChange();
 	}
 	
@@ -527,6 +468,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = 'Regular silver on the left, glossy (non-premium) silver on the right.';
+		designTip = 'Glossy silver is beautiful but also fairly expensive. You could try regular silver or stainless steel if you wanted to save.';
 		that.materialChange();
 	}
 	
@@ -544,6 +486,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 15;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Premium silver is gorgeous but also very expensive. You could switch to glossy silver (or even stainless steel) if you wanted to save.';
 		that.materialChange();
 	}
 	
@@ -561,6 +504,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 20;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Unpolished solid titanium is an incredible material, but you pay for it. Save a lot by switching to stainless steel.';
 		that.materialChange();
 	}
 	
@@ -578,6 +522,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 20;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Polished solid titanium is our best, but also most expensive material we currently offer. Save a lot by switching to stainless steel.';
 		that.materialChange();
 	}
 	
@@ -595,6 +540,7 @@ var materialListener = function(sW, tMB, tutorial){
 		shipsinBizDays = 20;
 		imgDesc1 = '';
 		imgDesc2 = '';
+		designTip = 'Almost as expensive, as, well ...gold. Currently unavailable.';
 		that.materialChange();
 	}
 	
@@ -630,5 +576,7 @@ var materialListener = function(sW, tMB, tutorial){
 		document.getElementById('idM1').src = img1;
 		document.getElementById('idM2').src = img2;
 		document.getElementById('idMaterialDescription').textContent = description;
+		document.getElementById('idDesignTips').innerHTML = '1) ' +  designTip;
+		document.getElementById('idDesignTips').innerHTML += '<br>2)  Reduce the thickness. It can add a <u>lot</u> of cost.<br>3)  Try a smaller size or a design that uses less material.';
 	}
 }
