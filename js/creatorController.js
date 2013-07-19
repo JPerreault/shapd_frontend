@@ -116,6 +116,7 @@ window.onload = function() {
 			$('#materialDetailContainer').fadeOut(0);
 			$('#idLoopRotContainer').fadeOut(0);
 			$('#idDimsContainer').fadeOut(0);
+			$('#idDesignDiv').fadeOut(0);
 			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
@@ -125,6 +126,7 @@ window.onload = function() {
 				$("#idSavedShapeContainer").fadeOut(0);
 				$('#idSaveButton').fadeOut(0);
 				$('#idProgressContainer').fadeOut(0);
+				$('#idDesignDiv').fadeOut(0);
 			}
 			firstTime = false;	
 		}
@@ -150,6 +152,7 @@ window.onload = function() {
 			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
+			$('#idDesignDiv').fadeOut(450);
 			$("#idSavedShapeContainer").fadeIn(450);
 			$('#idMaterialPanel').fadeOut(450);
 			$('#idLoopRotContainer').fadeOut(450);
@@ -176,6 +179,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$('#idDesignDiv').fadeOut(450);
 			$("#idLoopText").fadeIn(450);
 			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
@@ -207,6 +211,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#materialDetailContainer').fadeIn(450);
+			$('#idDesignDiv').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeIn(450);
@@ -243,6 +248,7 @@ window.onload = function() {
 			$('#idSaveButton').fadeOut(450);
 			$('#idSaveStayButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
+			$('#idDesignDiv').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeOut(450);
@@ -261,6 +267,7 @@ window.onload = function() {
 		addSave();
 		addProgressBar();
 		addLoops();
+		addDesignTips();
 		addSavedLibrary();
 		addDesignTips();
 		loopRotations();

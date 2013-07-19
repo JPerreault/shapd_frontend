@@ -155,7 +155,27 @@ function addDesignTips() {
 			designTipsContainer.id = 'idDesignTipsContainer';
 			document.body.appendChild(designTipsContainer);
 		
-		
+			var designDiv = document.createElement('div');
+			designDiv.id = 'idDesignDiv';
+			designDiv.className = 'blackContainer';
+			designDiv.style.top = '205px';
+			designDiv.style.right = '5px';
+			designTipsContainer.appendChild(designDiv);
+			
+			var designLabel = document.createElement('div');
+			designLabel.id = 'idDesignLabel';
+			designLabel.className = 'blueInnerLabel';
+			designLabel.innerHTML += '3 Tips to Save Money:';
+			designDiv.appendChild(designLabel);
+			
+			var designTips = document.createElement('div');
+			designTips.id = 'idDesignTips';
+			designTips.className = 'whiteInnerSmall';
+			designTips.style.width = '215px';
+			designTips.innerHTML += '1)  Try regular stainless steel instead of silver. It\'s a bit rougher but is a much cheaper material.<br>2)  Reduce the thickness. It can add a *lot* of cost, and metals are pretty sturdy.<br>3)  Try a smaller size or a design that uses less material.';
+			designTips.style.textAlign = 'left';
+			designTips.style.display = 'block';
+			designDiv.appendChild(designTips);
 }
 
 function addCost() {
@@ -163,30 +183,46 @@ function addCost() {
 			costDataContainer.id = 'idCostDataContainer';
 			document.body.appendChild(costDataContainer);
 				
-			var costDiv = document.createElement('div');
-			costDiv.id = 'idCostDiv';
-			costDiv.className = 'blackContainer';
-			costDiv.style.bottom = '130px';
-			costDiv.style.right = '0.5%';
-			costDataContainer.appendChild(costDiv);
+			var costOutline = document.createElement('div');
+			costOutline.id = 'idCostOutline';
+			costOutline.className = 'blackContainer';
+			costOutline.style.top = '5px';
+			costOutline.style.right = '47px';
+			costOutline.style.display = 'block';
+			costDataContainer.appendChild(costOutline);
 			
 			var costLabel = document.createElement('div');
 			costLabel.id = 'idCostLabel';
 			costLabel.className = 'blueInnerLabel';
-			costLabel.innerHTML += 'Cost:';
-			costDiv.appendChild(costLabel);
+			costLabel.innerHTML += 'Price';
+			costOutline.appendChild(costLabel);	
+				
+			var costDiv = document.createElement('div');
+			costDiv.id = 'idCostDiv';
+			costDiv.style.top = '93px';
+			costDiv.style.right = '5px';
+			costDiv.style.zIndex = '1000';
+			costDiv.style.position = 'absolute'; 
+			costDataContainer.appendChild(costDiv);
 			
 			var costData = document.createElement('div');
 			costData.id = 'idCostData';
 			costData.className = 'blackInnerLargeText';
 			costData.innerHTML += '$15.77';
-			costDiv.appendChild(costData);
+			costOutline.appendChild(costData);
+			
+			var dimDiv = document.createElement('div');
+			dimDiv.id = 'idDimDiv';
+			dimDiv.className = 'blackContainer';
+			dimDiv.style.display = 'block';
+			dimDiv.style.position = 'relative';
+			costDiv.appendChild(dimDiv);
 			
 			var costDim = document.createElement('div');
 			costDim.id = 'idCostDim';
-			costDim.className = 'blueInnerSmall';
+			costDim.className = 'whiteInnerSmall';
 			costDim.innerHTML += '0.02 (h) x 0.04 (w) x 0.04 (d)<br>Dimensions in Inches';
-			costDiv.appendChild(costDim);
+			dimDiv.appendChild(costDim);
 }
 
 function addSave() {
@@ -363,7 +399,7 @@ function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
 	shapeContainer.className = 'blackContainer';
-	shapeContainer.style.bottom = '10%';
+	shapeContainer.style.top = '220px';
 	shapeContainer.style.left = '5px';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
@@ -415,7 +451,7 @@ function addMaterialSelector() {
 	var materialDetailContainer = document.createElement('div');
 	materialDetailContainer.id = 'idmaterialDetailContainer';
 	materialDetailContainer.className = 'blackContainer';
-	materialDetailContainer.style.top = '150px';
+	materialDetailContainer.style.top = '140px';
 	materialDetailContainer.style.left = '1%';				
 	materialDetailContainer.style.zIndex = '300';
 	document.body.appendChild(materialDetailContainer);		
@@ -466,7 +502,7 @@ function addMaterialSelector() {
 	
 	var materialDescription = document.createElement('div');
 	materialDescription.id = 'idMaterialDescription';
-	materialDescription.className = 'blueInnerSmall';
+	materialDescription.className = 'whiteInnerSmall';
 	materialDescription.style.width = '170px';
 	materialDescription.textContent += ' Stainless steel has a fairly pitted surface finish, which gives it a vintage (almost steam-punk) look.';
 	materialDetailContainer.appendChild(materialDescription);
