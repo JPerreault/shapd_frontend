@@ -14,7 +14,7 @@ window.onload = function() {
 	var moreOptionsClicked = 0;
 	var storedShape = [];
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = true;
+        var doTutorial = false;
     else
         var doTutorial = true;
 	
@@ -635,6 +635,21 @@ window.onload = function() {
 		{
 			$('#thickdepthfinalize').fadeOut(0);
 			moreOptionsButton.innerHTML = 'More';
+		}
+	}
+	
+	document.getElementById('idlockLoop').onclick = function()
+	{
+		var loopButton = document.getElementById('idlockLoop');
+		if (loopButton.innerHTML === 'Lock<br>Loop')
+		{
+			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+			loopButton.innerHTML = 'Unlock<br>Loop'
+		}
+		else
+		{
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			loopButton.innerHTML = 'Lock<br>Loop'
 		}
 	}
     
