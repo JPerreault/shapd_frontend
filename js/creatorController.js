@@ -26,7 +26,7 @@ window.onload = function() {
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
 		
-		if (typeof savedShape == 'undefined')
+		if (typeof savedShape === 'undefined')
 		{
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
 		}
@@ -691,9 +691,7 @@ function loadFromLib(hash)
 	
     sceneWrapper.redrawMesh(loadedShape, true);
     sceneWrapper.currentMesh = loadedShape;
-	updateShapeSliders()
-	
-	resetDatGui();
+	updateShapeSliders();
 }
 
 function updateShapeSliders()
