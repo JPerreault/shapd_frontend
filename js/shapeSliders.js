@@ -56,6 +56,7 @@ function addSliders(tutorial, sceneWrapper)
 			stop: function(event, ui){
 				if (tutorial.tutorialOn === true)
 					tutorial.tut9();
+				sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 				sceneWrapper.tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 				getNewPrice();
 				updateThickness();
