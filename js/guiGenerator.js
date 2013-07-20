@@ -374,12 +374,23 @@ function loopRotations(){
 			removeLoopDiv.style.zIndex = '1000';
 			loopAroundDiv.appendChild(removeLoopDiv);
 			
+			var lockLoop = document.createElement('button');
+			lockLoop.id = 'idlockLoop';
+			lockLoop.className = 'buttonMedium';
+			lockLoop.innerHTML = 'Lock<br>Loop';
+			lockLoop.style.position = 'absolute';
+			lockLoop.style.zIndex = '1000';
+			lockLoop.style.width = '100px';
+			lockLoop.style.marginLeft = 'auto';
+			lockLoop.style.marginRight = 'auto';
+			lockLoop.style.right = '-15px';
+			lockLoop.style.top = '-8px';
+			removeLoopDiv.appendChild(lockLoop);
+			
 			var removeLoop = document.createElement('button');
 			removeLoop.id = 'idRemoveLoop';
 			removeLoop.className = 'buttonMedium';
 			removeLoop.innerHTML = 'Remove<br>Loop';
-			removeLoop.style.marginLeft = 'auto';
-			removeLoop.style.marginRight = 'auto';
 			removeLoopDiv.appendChild(removeLoop);
 }
 

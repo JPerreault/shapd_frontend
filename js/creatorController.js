@@ -26,7 +26,7 @@ window.onload = function() {
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
 		
-		if (typeof savedShape == 'undefined')
+		if (typeof savedShape === 'undefined')
 		{
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube);
 		}
@@ -194,6 +194,7 @@ window.onload = function() {
 			loops = true;
 			tutorial.tut5();
 			saveButtonClick(true);
+			document.getElementById('idlockLoop').innerHTML = 'Lock<br>Loop'
 		}
 		else if (state == 'finalize')
 		{
@@ -341,10 +342,10 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idSaveButton').onclick = function()
+	document.getElementById('idSaveButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-
+        
 		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
@@ -386,15 +387,16 @@ window.onload = function() {
 		}
 	}	
 	
-	document.getElementById('idSaveStayButton').onclick = function()
+	document.getElementById('idSaveStayButton').onmousedown = function()
 	{
+		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (typeof newuser !== 'undefined' && newuser)
 				createNewUser();
 			else
 				saveShape();
 	}
 
-	document.getElementById('idBackButton').onclick = function()
+	document.getElementById('idBackButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (state == 'loops')
@@ -475,13 +477,13 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idResetRotationImg').onclick = function()
+	document.getElementById('idResetRotationImg').onmousedown = function()
 	{
 		view.targetX = 0;
 		view.targetY = 0;
 	}
     
-	document.getElementById('idRemoveLoop').onclick = function()
+	document.getElementById('idRemoveLoop').onmousedown = function()
 	{
 		scene.scene.remove(scene.torusMesh);
 		scene.torusDefined = false;
@@ -490,9 +492,15 @@ window.onload = function() {
 		$('#idLoopRotContainer').fadeOut(0);
 		tubeMeshBuilder.torusRotation = 0;
 		tubeMeshBuilder.torusRotationNinety = 0;
+		
+		if (document.getElementById('idlockLoop').innerHTML === 'Unlock<br>Loop')
+		{
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			document.getElementById('idlockLoop').innerHTML = 'Lock<br>Loop';
+		}
 	}
 	
-    document.getElementById('idResetShapdImg').onclick = function()
+    document.getElementById('idResetShapdImg').onmousedown = function()
 	{
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
@@ -579,33 +587,33 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idLoopAroundRightButton').onclick = function()
+	document.getElementById('idLoopAroundRightButton').onmousedown = function()
 	{						
 		tubeMeshBuilder.faceIndexIncrementor += 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopAroundLeftButton').onclick = function()
+	document.getElementById('idLoopAroundLeftButton').onmousedown = function()
 	{
 		tubeMeshBuilder.faceIndexIncrementor -= 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopMoreAngleButton').onclick = function()
+	document.getElementById('idLoopMoreAngleButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotation < 0.7853981634)
 			tubeMeshBuilder.torusRotation += 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopLessAngleButton').onclick = function()
+	document.getElementById('idLoopLessAngleButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotation > -0.7853981634)
 			tubeMeshBuilder.torusRotation -= 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idSpinButton').onclick = function()
+	document.getElementById('idSpinButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotationNinety === 0)
 			tubeMeshBuilder.torusRotationNinety = 1.57079633;
@@ -614,7 +622,7 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idStoreShape').onclick = function()
+	document.getElementById('idStoreShape').onmousedown = function()
 	{
 		storedShape['Thickness'] = sceneWrapper.currentMesh['Thickness'];
 		storedShape['Depth'] = sceneWrapper.currentMesh['Depth'];
@@ -624,7 +632,7 @@ window.onload = function() {
 		storedShape['Starting Shape'] = sceneWrapper.currentMesh['Starting Shape'];
 	}
 	
-	document.getElementById('idLoadShape').onclick = function()
+	document.getElementById('idLoadShape').onmousedown = function()
 	{
 		sceneWrapper.currentMesh['Thickness'] = storedShape['Thickness'];
 		sceneWrapper.currentMesh['Depth'] = storedShape['Depth'];
@@ -637,7 +645,7 @@ window.onload = function() {
 		updateShapeSliders();
 	}
 	
-	document.getElementById('idMoreOptions').onclick = function()
+	document.getElementById('idMoreOptions').onmousedown = function()
 	{
 		moreOptionsClicked++;
 		var moreOptionsButton = document.getElementById('idMoreOptions');
@@ -652,6 +660,21 @@ window.onload = function() {
 			$('#thickdepthfinalize').fadeOut(700);
 			$('#idSliderFinalLabel1').fadeOut(700);
 			moreOptionsButton.innerHTML = 'More';
+		}
+	}
+	
+	document.getElementById('idlockLoop').onmousedown = function()
+	{
+		var loopButton = document.getElementById('idlockLoop');
+		if (loopButton.innerHTML === 'Lock<br>Loop')
+		{
+			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+			loopButton.innerHTML = 'Unlock<br>Loop'
+		}
+		else
+		{
+			document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+			loopButton.innerHTML = 'Lock<br>Loop'
 		}
 	}
     
@@ -686,9 +709,7 @@ function loadFromLib(hash)
 	
     sceneWrapper.redrawMesh(loadedShape, true);
     sceneWrapper.currentMesh = loadedShape;
-	updateShapeSliders()
-	
-	resetDatGui();
+	updateShapeSliders();
 }
 
 function resetShapeRotation() {
@@ -842,11 +863,15 @@ function publishCreation()
     
     var timestamp = new Date().getTime();
     
-    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='/shapes/"+shapeID+".png#"+timestamp+"' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='/shapes/"+shapeID+".png' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
     var d1 = generateWhiteDropDown(700, 700, publishCSS );
-    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png#'+timestamp+'";', 1000);
+    
+    // ugly code
+    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png?'+timestamp+'";', 500);
+    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png?'+(timestamp+12)+'";', 1000);
+
     fout = d1;
-    fadeIn(d1); // I prefer slideDown though
+    fadeIn(d1);
     document.getElementById("blackout").onclick = null;
 }
 
