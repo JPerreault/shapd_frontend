@@ -335,10 +335,10 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idSaveButton').onclick = function()
+	document.getElementById('idSaveButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-
+        
 		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
@@ -375,7 +375,7 @@ window.onload = function() {
 		}
 	}	
 	
-	document.getElementById('idSaveStayButton').onclick = function()
+	document.getElementById('idSaveStayButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (typeof newuser !== 'undefined' && newuser)
@@ -384,7 +384,7 @@ window.onload = function() {
 				saveShape();
 	}
 
-	document.getElementById('idBackButton').onclick = function()
+	document.getElementById('idBackButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (state == 'loops')
@@ -462,13 +462,13 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idResetRotationImg').onclick = function()
+	document.getElementById('idResetRotationImg').onmousedown = function()
 	{
 		view.targetX = 0;
 		view.targetY = 0;
 	}
     
-	document.getElementById('idRemoveLoop').onclick = function()
+	document.getElementById('idRemoveLoop').onmousedown = function()
 	{
 		scene.scene.remove(scene.torusMesh);
 		scene.torusDefined = false;
@@ -485,7 +485,7 @@ window.onload = function() {
 		}
 	}
 	
-    document.getElementById('idResetShapdImg').onclick = function()
+    document.getElementById('idResetShapdImg').onmousedown = function()
 	{
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
@@ -572,33 +572,33 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idLoopAroundRightButton').onclick = function()
+	document.getElementById('idLoopAroundRightButton').onmousedown = function()
 	{						
 		tubeMeshBuilder.faceIndexIncrementor += 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopAroundLeftButton').onclick = function()
+	document.getElementById('idLoopAroundLeftButton').onmousedown = function()
 	{
 		tubeMeshBuilder.faceIndexIncrementor -= 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopMoreAngleButton').onclick = function()
+	document.getElementById('idLoopMoreAngleButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotation < 0.7853981634)
 			tubeMeshBuilder.torusRotation += 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopLessAngleButton').onclick = function()
+	document.getElementById('idLoopLessAngleButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotation > -0.7853981634)
 			tubeMeshBuilder.torusRotation -= 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idSpinButton').onclick = function()
+	document.getElementById('idSpinButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotationNinety === 0)
 			tubeMeshBuilder.torusRotationNinety = 1.57079633;
@@ -607,7 +607,7 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idStoreShape').onclick = function()
+	document.getElementById('idStoreShape').onmousedown = function()
 	{
 		storedShape['Thickness'] = sceneWrapper.currentMesh['Thickness'];
 		storedShape['Depth'] = sceneWrapper.currentMesh['Depth'];
@@ -617,7 +617,7 @@ window.onload = function() {
 		storedShape['Starting Shape'] = sceneWrapper.currentMesh['Starting Shape'];
 	}
 	
-	document.getElementById('idLoadShape').onclick = function()
+	document.getElementById('idLoadShape').onmousedown = function()
 	{
 		sceneWrapper.currentMesh['Thickness'] = storedShape['Thickness'];
 		sceneWrapper.currentMesh['Depth'] = storedShape['Depth'];
@@ -630,7 +630,7 @@ window.onload = function() {
 		updateShapeSliders();
 	}
 	
-	document.getElementById('idMoreOptions').onclick = function()
+	document.getElementById('idMoreOptions').onmousedown = function()
 	{
 		moreOptionsClicked++;
 		var moreOptionsButton = document.getElementById('idMoreOptions');
@@ -646,7 +646,7 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idlockLoop').onclick = function()
+	document.getElementById('idlockLoop').onmousedown = function()
 	{
 		var loopButton = document.getElementById('idlockLoop');
 		if (loopButton.innerHTML === 'Lock<br>Loop')
