@@ -1,3 +1,265 @@
+function addCreatorSliders() {
+			
+			var sliderControls = document.createElement('div');
+			sliderControls.id = 'shapeSlidersContainer';
+			sliderControls.style.top = '3%';
+			sliderControls.style.left = '1%';
+			sliderControls.style.position = 'absolute';
+			sliderControls.style.zIndex = '1000';
+			document.body.appendChild(sliderControls);
+
+			var creatorSliderContainer = document.createElement('div');
+			creatorSliderContainer.id = 'shapeSliders';
+			creatorSliderContainer.style.width = '300px';
+			creatorSliderContainer.style.marginTop = '5px';
+			creatorSliderContainer.style.position = 'relative';
+			sliderControls.appendChild(creatorSliderContainer);
+			
+			var sliderContainer1 = document.createElement('div');
+			sliderContainer1.id = 'idSliderContainer1';
+			sliderContainer1.style.marginBottom = '5px';
+			sliderContainer1.style.display = 'inline-block';
+			creatorSliderContainer.appendChild(sliderContainer1);
+			
+			var slider1 = document.createElement('div');
+			slider1.id = 'thicknessguislider';
+			slider1.style.width = '180px';
+			slider1.className = 'menuHeader';
+			slider1.style.position = 'relative';
+			slider1.style.display = 'inline-block';
+			slider1.style.marginTop = '12px';
+			slider1.style.marginLeft = '20px';
+			slider1.style.cssFloat = 'right';
+			sliderContainer1.appendChild(slider1);
+			
+			var sliderLabel1 = document.createElement('div');
+			sliderLabel1.id = 'idSliderLabel1';
+			sliderLabel1.style.color = '#fff';
+			sliderLabel1.style.opacity = '0.9';
+			sliderLabel1.style.fontFamily = 'Helvetica, Verdana, Geneva, sans-serif;';
+			sliderLabel1.style.position = 'relative';
+			sliderLabel1.textContent = 'Thickness';
+			sliderLabel1.style.fontWeight = '600';
+			sliderLabel1.style.width = '80px';
+			sliderLabel1.className = 'blackContainer';
+			sliderLabel1.style.padding = '7px';
+			sliderLabel1.style.fontSize = '15px';
+			sliderLabel1.style.background = '#000';
+			sliderLabel1.style.display = 'inline';
+			sliderLabel1.style.cssFloat = 'right';
+			sliderContainer1.appendChild(sliderLabel1);
+			
+			
+			var sliderContainer2 = sliderContainer1.cloneNode(false);
+			sliderContainer2.id = 'idSliderContainer2';
+			creatorSliderContainer.appendChild(sliderContainer2);
+			
+			var slider2 = slider1.cloneNode(true);
+			slider2.id = 'depthguislider';
+			sliderContainer2.appendChild(slider2);
+			
+			var sliderLabel2 = sliderLabel1.cloneNode(true);
+			sliderLabel2.id = 'idSliderLabel2';
+			sliderLabel2.textContent = 'Depth ';
+			sliderContainer2.appendChild(sliderLabel2);
+			
+						
+			var sliderContainer3 = sliderContainer1.cloneNode(false);
+			sliderContainer3.id = 'idSliderContainer3';
+			creatorSliderContainer.appendChild(sliderContainer3);
+			
+			var slider3 = slider1.cloneNode(true);
+			slider3.id = 'stretchguislider';
+			sliderContainer3.appendChild(slider3);
+			
+			var sliderLabel3 = sliderLabel1.cloneNode(true);
+			sliderLabel3.id = 'idSliderLabel3';
+			sliderLabel3.textContent = 'Stretch ';
+			sliderContainer3.appendChild(sliderLabel3);
+			
+
+			var sliderContainer4 = sliderContainer1.cloneNode(false);
+			sliderContainer4.id = 'idSliderContainer4';
+			creatorSliderContainer.appendChild(sliderContainer4);
+			
+			var slider4 = slider1.cloneNode(true);
+			slider4.id = 'modifyguislider';
+			sliderContainer4.appendChild(slider4);
+			
+			var sliderLabel4 = sliderLabel1.cloneNode(true);
+			sliderLabel4.id = 'idSliderLabel4';
+			sliderLabel4.textContent = 'Modify ';
+			sliderContainer4.appendChild(sliderLabel4);
+			
+			
+			var sliderContainer5 = sliderContainer1.cloneNode(false);
+			sliderContainer5.id = 'idSliderContainer5';
+			creatorSliderContainer.appendChild(sliderContainer5);
+			
+			var slider5 = slider1.cloneNode(true);
+			slider5.id = 'loopsguislider';
+			sliderContainer5.appendChild(slider5);
+			
+			var sliderLabel5 = sliderLabel1.cloneNode(true);
+			sliderLabel5.id = 'idSliderLabel3';
+			sliderLabel5.textContent = 'Loops ';
+			sliderContainer5.appendChild(sliderLabel5);
+			
+			
+			var resetContainer = document.createElement('div');
+			resetContainer.id = 'idResetContainer';
+			resetContainer.style.position = 'absolute';
+			resetContainer.style.marginLeft = '8px';
+			resetContainer.style.marginTop = '10px';
+			resetContainer.align = 'right';
+			resetContainer.style.width = '280';			
+			creatorSliderContainer.appendChild(resetContainer);
+			
+			var resetRotationImg = document.createElement('button');
+			resetRotationImg.id = 'idResetRotationImg';
+			resetRotationImg.className = 'buttonVerySmall';
+			resetRotationImg.innerHTML = 'Reset Rotation';
+			resetRotationImg.style.display = 'inline';
+			resetRotationImg.style.margin = '0px 0px 0px 10px';
+			resetContainer.appendChild(resetRotationImg);
+			
+			var resetShapeImg = resetRotationImg.cloneNode(true);
+			resetShapeImg.id = 'idResetShapdImg';
+			resetShapeImg.innerHTML = 'Reset Shape';
+			resetContainer.appendChild(resetShapeImg);
+}
+
+function addFinalizeSliders() {
+			var finalizeSliderContainer = document.createElement('div');
+			finalizeSliderContainer.id = 'sliderContainer';
+			finalizeSliderContainer.style.bottom = '21%';
+			finalizeSliderContainer.style.left = '50%';
+			finalizeSliderContainer.style.marginLeft = '-120px';
+			finalizeSliderContainer.style.marginTop = '5px';
+			finalizeSliderContainer.style.height = '30px';
+			finalizeSliderContainer.style.position = 'absolute';
+			finalizeSliderContainer.style.zIndex = '1000';
+			document.body.appendChild(finalizeSliderContainer);
+			
+			//Dimensions boxes
+			/*
+			var dimsContainer = document.createElement('div');
+			dimsContainer.id = 'idDimsContainer';
+			dimsContainer.style.marginRight = '50px';
+			dimsContainer.style.position = 'relative';
+			dimsContainer.style.display = 'inline-block';
+			dimsContainer.style.width = '120px';
+			finalizeSliderContainer.appendChild(dimsContainer);
+				
+			var hDimDiv = document.createElement('div');
+			hDimDiv.id = 'idHShapeDiv';
+			hDimDiv.style.position = 'relative';
+			hDimDiv.className = 'rounded';
+			hDimDiv.innerHTML += '<span style="font-size: 16px"><b>0.02 H</b></span><br><span style="font-size: 12px">(Inches)<span>';
+			hDimDiv.style.background = '#000';
+			hDimDiv.style.color = '#fff';
+			hDimDiv.style.padding = '3px 8px 9px 8px';
+			hDimDiv.style.marginTop = '5px';
+			hDimDiv.style.width = '90px';
+			hDimDiv.style.zIndex = '1000';
+			dimsContainer.appendChild(hDimDiv);
+			
+			var vDimDiv = hDimDiv.cloneNode(true);
+			vDimDiv.id = 'idVShapeDiv';
+			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 W</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			dimsContainer.appendChild(vDimDiv);
+			*/
+			//Sliders
+			
+			var allSlidersContainer = document.createElement('div');
+			allSlidersContainer.id = 'idAllSlidersContainer';
+			allSlidersContainer.style.display = 'inline';
+			finalizeSliderContainer.appendChild(allSlidersContainer);
+			
+			var sliderFinalizeContainer1 = document.createElement('div');
+			sliderFinalizeContainer1.id = 'idSliderFinalizeContainer1';
+			sliderFinalizeContainer1.style.display = 'inline-block';
+			sliderFinalizeContainer1.style.marginBottom = '3px';
+			sliderFinalizeContainer1.style.verticalAlign = 'top';
+			allSlidersContainer.appendChild(sliderFinalizeContainer1);
+			
+			var sliderFinalLabel1 = document.createElement('div');
+			sliderFinalLabel1.id = 'idSliderFinalLabel1';
+			sliderFinalLabel1.style.color = '#fff';
+			sliderFinalLabel1.style.opacity = '0.9';
+			sliderFinalLabel1.style.fontFamily = 'Helvetica, Verdana, Geneva, sans-serif;';
+			sliderFinalLabel1.style.position = 'relative';
+			sliderFinalLabel1.textContent = 'Scale';
+			sliderFinalLabel1.style.fontWeight = '600';
+			sliderFinalLabel1.style.width = '80px';
+			sliderFinalLabel1.className = 'blackContainer';
+			sliderFinalLabel1.style.paddingBottom = '4px';
+			sliderFinalLabel1.style.paddingTop = '4px';
+			sliderFinalLabel1.style.paddingRight = '7px';
+			sliderFinalLabel1.style.paddingLeft = '7px';
+			sliderFinalLabel1.style.fontSize = '15px';
+			sliderFinalLabel1.style.background = '#000';
+			sliderFinalLabel1.style.display = 'inline-block';
+			sliderFinalizeContainer1.appendChild(sliderFinalLabel1);
+			
+			var sliderFinal1 = document.createElement('div');
+			sliderFinal1.id = 'slider';
+			sliderFinal1.style.width = '200px';
+			sliderFinal1.className = 'menuHeader';
+			sliderFinal1.style.position = 'relative';
+			sliderFinal1.style.display = 'inline';
+			sliderFinal1.style.marginTop = '5px';
+			sliderFinal1.style.verticalAlign = 'middle';
+			sliderFinal1.style.marginLeft = '20px';
+			sliderFinal1.style.cssFloat = 'right';
+			sliderFinalizeContainer1.appendChild(sliderFinal1);
+
+			var expandedControls = document.createElement('div');
+			expandedControls.id = 'thickdepthfinalize';
+			expandedControls.style.width = '350px';
+			expandedControls.style.display = 'block';
+			allSlidersContainer.appendChild(expandedControls);
+			
+			var sliderFinalizeContainer2 = sliderFinalizeContainer1.cloneNode(false);
+			sliderFinalizeContainer2.id = 'idSliderFinalizeContainer2';
+			expandedControls.appendChild(sliderFinalizeContainer2);
+			
+			var sliderFinalLabel2 = sliderFinalLabel1.cloneNode(true);
+			sliderFinalLabel2.id = 'idSliderFinalLabel2';
+			sliderFinalLabel2.textContent = 'Thickness';
+			sliderFinalizeContainer2.appendChild(sliderFinalLabel2);
+			
+			var sliderFinal2 = sliderFinal1.cloneNode(true);
+			sliderFinal2.id = 'thickslider';
+			//sliderFinal2.style.width = '160px';
+			sliderFinalizeContainer2.appendChild(sliderFinal2);
+							
+			var sliderFinalizeContainer3 = sliderFinalizeContainer1.cloneNode(false);
+			sliderFinalizeContainer3.id = 'idSliderFinalizeContainer3';
+			expandedControls.appendChild(sliderFinalizeContainer3);
+			
+			var sliderFinalLabel3 = sliderFinalLabel1.cloneNode(true);
+			sliderFinalLabel3.id = 'idSliderFinalLabel3';
+			sliderFinalLabel3.textContent = 'Depth';
+			sliderFinalizeContainer3.appendChild(sliderFinalLabel3);
+			
+			var sliderFinal3 = sliderFinal1.cloneNode(true);
+			sliderFinal3.id = 'depthslider';
+			//sliderFinal3.style.width = '160px';
+			sliderFinalizeContainer3.appendChild(sliderFinal3);
+			
+			var moreOptions = document.createElement('button');
+			moreOptions.id = 'idMoreOptions';
+			moreOptions.className = 'buttonVerySmall';
+			moreOptions.style.fontSize = '16px';
+			moreOptions.style.marginTop = '5px';
+			moreOptions.style.marginRight = 'auto';
+			moreOptions.style.marginLeft = 'auto';
+			moreOptions.innerHTML = 'More';
+			moreOptions.style.display = 'block';
+			allSlidersContainer.appendChild(moreOptions);
+}
+
 function loopRotations(){
 			var loopRotContainer = document.createElement('div');
 			loopRotContainer.id = 'idLoopRotContainer';
@@ -351,26 +613,33 @@ function addProgressBar() {
 }
 
 function addResetButtons() {
-		var resetContainer = document.createElement('div');
-		resetContainer.id = 'idResetContainer';
-		resetContainer.style.position = 'absolute';
-		resetContainer.style.bottom = '1%';
-		resetContainer.style.left = '1%';			
-		resetContainer.style.zIndex = '1000';
-		container.appendChild(resetContainer);
-			
-		var resetRotationImg = document.createElement('button');
-		resetRotationImg.id = 'idResetRotationImg';
-		resetRotationImg.className = 'buttonVerySmall';
-		resetRotationImg.innerHTML = 'Reset Rotation';
-		resetRotationImg.style.display = 'inline';
-		resetRotationImg.style.margin = '0px 10px 0px 0px';
-		resetContainer.appendChild(resetRotationImg);
-			
-		var resetShapeImg = resetRotationImg.cloneNode(true);
-		resetShapeImg.id = 'idResetShapdImg';
-		resetShapeImg.innerHTML = 'Reset Shape';
-		resetContainer.appendChild(resetShapeImg);
+			var storeButtonContainer = document.createElement('div');
+			storeButtonContainer.id = 'idStoreButtonContainer';
+			storeButtonContainer.style.top = '1%';
+			storeButtonContainer.style.right = '1%';
+			document.body.appendChild(storeButtonContainer);
+
+			var storeShape = document.createElement('button');
+			storeShape.id = 'idStoreShape';
+			storeShape.className = 'buttonVerySmall';
+			storeShape.style.position = 'relative';
+			storeShape.innerHTML = 'Store Shape';
+			storeShape.style.display = 'inline';
+			storeShape.style.marginBottom = '0px';
+			storeShape.style.marginLeft = '0px';
+			storeShape.style.marginRight = '4px';
+			storeButtonContainer.appendChild(storeShape);
+		
+			var loadShape = storeShape.cloneNode(true);
+			loadShape.id = 'idLoadShape';
+			loadShape.innerHTML = 'Load Shape';
+			loadShape.style.display = 'inline';
+			loadShape.style.display = 'inline';
+			loadShape.style.marginTop = '10px';
+			loadShape.style.marginBottom = '0px';
+			loadShape.style.marginLeft = '4px';
+			loadShape.style.marginRight = '0px';
+			storeButtonContainer.appendChild(loadShape);
     
 }
 
@@ -410,8 +679,8 @@ function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
 	shapeContainer.className = 'blackContainer';
-	shapeContainer.style.top = '220px';
-	shapeContainer.style.left = '1%';
+	shapeContainer.style.top = '290px';
+	shapeContainer.style.left = '70px';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
 	
@@ -528,7 +797,7 @@ function addLoops(){
 	loopText.id = 'idLoopText';
 	loopText.className = 'floatingTextContainer';
 	loopText.innerHTML = 'Click anywhere on your piece<br>to place a loop for the necklace.';
-	loopText.style.bottom = '12%';
+	loopText.style.bottom = '5%';
 	loopText.style.left = '50%';
 	loopText.style.marginLeft = '-165px';
 	document.body.appendChild(loopText);

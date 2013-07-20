@@ -116,10 +116,12 @@ window.onload = function() {
 			$('#idLoopRotContainer').fadeOut(0);
 			$('#idDesignDiv').fadeOut(0);
 			$('#idDimsContainer').fadeOut(0);
+			$('#thickdepthfinalize').fadeOut(0);
+			$('#idSliderFinalLabel1').fadeOut(0);
+			$("#shapeSlidersContainer").fadeIn(450);
 			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
-				$("#shapeSlidersContainer").fadeOut(0);
 				$("#idShapeContainer").fadeOut(0);
 				$('#idResetContainer').fadeOut(0);
 				$("#idSavedShapeContainer").fadeOut(0);
@@ -147,6 +149,7 @@ window.onload = function() {
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#shapeSlidersContainer").fadeIn(450);
 			$("#idLoopText").fadeOut(450);
 			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
@@ -177,6 +180,7 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
 			$("#idLoopText").fadeIn(450);
 			$('#idDimsContainer').fadeOut(450);
@@ -208,6 +212,7 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$('#materialDetailContainer').fadeIn(450);
 			$('#idDesignDiv').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
@@ -245,6 +250,7 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeOut(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$('#idSaveStayButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
@@ -259,7 +265,9 @@ window.onload = function() {
 	}
 	
 	function initialSetup()
-	{
+	{	
+		addCreatorSliders();
+		addFinalizeSliders();
 		addSliders(tutorial, sceneWrapper);
 		addStartingShapes();
 		addResetButtons();
@@ -269,7 +277,6 @@ window.onload = function() {
 		addLoops();
 		addDesignTips();
 		loopRotations();
-		addDimensions();
 		addCost();
 		addMaterialSelector();
 	}
@@ -351,15 +358,18 @@ window.onload = function() {
 		if (state == 'creator')
 		{
 			state = 'loops';
+			resetShapeRotation();
 			setupInterface();
 			saveShape();
 		}
 		else if (state == 'loops')
 		{
 			state = 'finalize';
+			resetShapeRotation();
 			loops = false;
 			setupInterface();
 			saveShape();
+			
 		}
 		else if (state == 'finalize')
 		{
@@ -368,8 +378,10 @@ window.onload = function() {
                 if (typeof givenFeedback !== 'undefined' && !givenFeedback)
                     promptForFeedback()
 				state = 'publish';
+				resetShapeRotation();
 				setupInterface();
 				saveShape();
+				
 			}
 		}
 	}	
@@ -389,16 +401,19 @@ window.onload = function() {
 		{
 			state = 'creator';
 			setupInterface();
+			resetShapeRotation();
 		}
 		else if (state == 'finalize')
 		{
 			state = 'loops';
 			setupInterface();
+			resetShapeRotation();
 		}
 		else if (state == 'publish')
 		{
 			state = 'finalize';
 			setupInterface();
+			resetShapeRotation();
 		}
 	}
 	
@@ -628,12 +643,14 @@ window.onload = function() {
 		var moreOptionsButton = document.getElementById('idMoreOptions');
 		if (moreOptionsClicked%2 === 1)
 		{
-			$('#thickdepthfinalize').fadeIn(0);
+			$('#thickdepthfinalize').fadeIn(700);
+			$('#idSliderFinalLabel1').fadeIn(700);
 			moreOptionsButton.innerHTML = 'Less';
 		}
 		else
 		{
-			$('#thickdepthfinalize').fadeOut(0);
+			$('#thickdepthfinalize').fadeOut(700);
+			$('#idSliderFinalLabel1').fadeOut(700);
 			moreOptionsButton.innerHTML = 'More';
 		}
 	}
@@ -672,6 +689,11 @@ function loadFromLib(hash)
 	updateShapeSliders()
 	
 	resetDatGui();
+}
+
+function resetShapeRotation() {
+	view.targetX = 0;
+	view.targetY = 0;	
 }
 
 function updateShapeSliders()
@@ -714,15 +736,15 @@ function updateThickness(isMove)
 	if (isOkay === 'small'|| isOkay === 'thin')
 	{
 		$("#thicknessContainer").fadeIn(0);
-		document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-		document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+		document.getElementById('shapethin').innerHTML = "<b>Your shape is too thin to print!<br><br>Please increase the thickness, increase the scale, or alter your shape.</b>";
+		document.getElementById('shapethin').style.background = '#d7432f';
 		saveButtonClick(false);
 	}
 	else if (isOkay === 'large')
 	{
 		$("#thicknessContainer").fadeIn(0);
-		document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
-		document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
+		document.getElementById('shapethin').innerHTML = "<b>Your shape is too large to print!<br><br>Please decrease the thickness, decrease the scale, or alter your shape.</b>";
+		document.getElementById('shapethin').style.background = '#d7432f';
 		document.getElementById('idSaveButton').style.opacity = .5;
 		saveButtonClick(false);
 	}
@@ -730,8 +752,9 @@ function updateThickness(isMove)
 	{
 		if (isMove)
 		{
-			document.getElementById('shapethin').innerHTML = "You\'re all set!";
-			document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
+			document.getElementById('shapethin').innerHTML = "<b>You\'re all set!<br><br>Your shape is now an acceptable size.</b>";
+			document.getElementById('shapethin').style.background = '#2fd792';
+
 		}
 		else
 			$("#thicknessContainer").fadeOut(0);
