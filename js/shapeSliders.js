@@ -44,7 +44,7 @@ function addSliders(tutorial, sceneWrapper)
 	
 	$(function() {
 		$( "#slider" ).slider({
-			value: 66,
+			value: (sceneWrapper.currentMesh['Scale'])*100,
 			min: 40,
 			max: 175,
 			step: 1,
