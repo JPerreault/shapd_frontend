@@ -4,7 +4,7 @@ function addSliders(tutorial, sceneWrapper)
 	
 	$(function() {
 		$( "#thickslider" ).slider({
-			value: 1.5,
+			value: sceneWrapper.currentMesh['Thickness'],
 			min: .5,
 			max: 5,
 			step: nostep,
@@ -24,7 +24,7 @@ function addSliders(tutorial, sceneWrapper)
 		
 	$(function() {
 		$( "#depthslider" ).slider({
-			value: 1,
+			value: sceneWrapper.currentMesh['Depth'],
 			min: .0005,
 			max: 2,
 			step: nostep,
@@ -64,7 +64,7 @@ function addSliders(tutorial, sceneWrapper)
 		
 	$(function() {
 		$( "#thicknessguislider" ).slider({
-			value: 1.5,
+			value: sceneWrapper.currentMesh['Thickness'],
 			min: .5,
 			max: 5,
 			step: nostep,
@@ -76,7 +76,7 @@ function addSliders(tutorial, sceneWrapper)
 		
 		$(function() {
 		$( "#depthguislider" ).slider({
-			value: 1,
+			value: sceneWrapper.currentMesh['Depth'],
 			min: .0005,
 			max: 2,
 			step: nostep,
@@ -88,7 +88,7 @@ function addSliders(tutorial, sceneWrapper)
 		
 		$(function() {
 		$( "#stretchguislider" ).slider({
-			value: 1,
+			value: sceneWrapper.currentMesh['Stretch'],
 			min: .00005,
 			max: 1.75,
 			step: nostep,
@@ -100,7 +100,7 @@ function addSliders(tutorial, sceneWrapper)
 		
 		$(function() {
 		$( "#modifyguislider" ).slider({
-			value: 5,
+			value: sceneWrapper.currentMesh['Modify'],
 			min: 1,
 			max: 10,
 			step: 1,
@@ -112,7 +112,7 @@ function addSliders(tutorial, sceneWrapper)
 		
 		$(function() {
 		$( "#loopsguislider" ).slider({
-			value: 2,
+			value: sceneWrapper.currentMesh['Loops'],
 			min: 1,
 			max: 10,
 			step: 1,
