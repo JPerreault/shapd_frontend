@@ -115,7 +115,6 @@ window.onload = function() {
 			$('#idCostDataContainer').fadeOut(0);
 			$('#idLoopRotContainer').fadeOut(0);
 			$('#idDesignDiv').fadeOut(0);
-			$('#idDimsContainer').fadeOut(0);
 			$('#thickdepthfinalize').fadeOut(0);
 			$('#idSliderFinalLabel1').fadeOut(0);
 			$("#shapeSlidersContainer").fadeIn(450);
@@ -140,7 +139,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#shapeSlidersContainer").fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -151,7 +149,6 @@ window.onload = function() {
 			$('#idResetContainer').fadeIn(450);
 			$("#shapeSlidersContainer").fadeIn(450);
 			$("#idLoopText").fadeOut(450);
-			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
@@ -171,7 +168,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -183,7 +179,6 @@ window.onload = function() {
 			$("#shapeSlidersContainer").fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
 			$("#idLoopText").fadeIn(450);
-			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
@@ -205,7 +200,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeIn(450);
 			$("#idmaterialDetailContainer").fadeIn(450);
 			$("#sliderContainer").fadeIn(450);
@@ -218,7 +212,6 @@ window.onload = function() {
 			$('#idDesignDiv').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
-			$('#idDimsContainer').fadeIn(450);
 			$('#idCostDataContainer').fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
@@ -243,7 +236,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
-			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -257,7 +249,6 @@ window.onload = function() {
 			$('#idDesignDiv').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
-			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
@@ -651,14 +642,16 @@ window.onload = function() {
 		var moreOptionsButton = document.getElementById('idMoreOptions');
 		if (moreOptionsClicked%2 === 1)
 		{
-			$('#thickdepthfinalize').fadeIn(700);
-			$('#idSliderFinalLabel1').fadeIn(700);
+			$('#thickdepthfinalize').fadeIn(500);
+			$('#idSliderFinalLabel1').fadeIn(500);
+			$('#sliderContainer').css('marginLeft', '-200px');
 			moreOptionsButton.innerHTML = 'Less';
 		}
 		else
 		{
-			$('#thickdepthfinalize').fadeOut(700);
-			$('#idSliderFinalLabel1').fadeOut(700);
+			$('#thickdepthfinalize').fadeOut(500);
+			$('#idSliderFinalLabel1').fadeOut(500);
+			$('#sliderContainer').css('marginLeft', '-155px');
 			moreOptionsButton.innerHTML = 'More';
 		}
 	}

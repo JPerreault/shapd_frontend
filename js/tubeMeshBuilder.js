@@ -427,13 +427,15 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		if (variables === 'xyz')
 		{
 			document.getElementById('idCostDim').innerHTML = xVal + ' (w) x '  + yVal + ' (h) x ' + zVal + ' (d)<br><br>Dimensions in Inches';
-			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + ' W</b></span><br><span style="font-size: 14px">(Inches high)<span>';
-			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + ' H</b></span><br><span style="font-size: 14px">(Inches wide)<span>';		
+			document.getElementById('idVShapeDiv').innerHTML = '<span class="largeDimText">' + yVal + ' H</span><br><span class="smallDimText">(Inches high)<span>';
+			document.getElementById('idHShapeDiv').innerHTML = '<span class="largeDimText">' + xVal + ' W</span><br><span class="smallDimText">(Inches wide)<span>';
+			document.getElementById('idDShapeDiv').innerHTML = '<span class="largeDimText">' + zVal + ' D</span><br><span class="smallDimText">(Inches deep)<span>';	
 		}
 		else if (variables === 'xy')
 		{
-			document.getElementById('idHShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + xVal + ' W</b></span><br><span style="font-size: 14px">(Inches wide)<span>';	
-			document.getElementById('idVShapeDiv').innerHTML = '<span style="font-size: 24px"><b>' + yVal + ' H</b></span><br><span style="font-size: 14px">(Inches high)<span>';
+			document.getElementById('idVShapeDiv').innerHTML = '<span class="largeDimText">' + yVal + ' H</span><br><span class="smallDimText">(Inches high)<span>';
+			document.getElementById('idHShapeDiv').innerHTML = '<span class="largeDimText">' + xVal + ' W</span><br><span class="smallDimText">(Inches wide)<span>';	
+			document.getElementById('idDShapeDiv').innerHTML = '<span class="largeDimText">' + zVal + ' D</span><br><span class="smallDimText">(Inches deep)<span>';
 		}
 	}
 	

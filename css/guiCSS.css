@@ -30,6 +30,8 @@ body {
 	.tutButton { cursor:pointer; display:inline; background: #000; opacity: 0.8; margin:10px 30px 10px; padding: 20px; color:#fff; font-weight:600; font-size:16px;}
 	.publishDesc { position:relative; background: #2fa1d7; opacity: 0.8; color:#fff; margin: 5px 40px 10px; padding: 10px; width:210px; display:inline-table; font-family:Helvetica, Verdana, Geneva, sans-serif; -moz-border-radius: 8px; border-radius: 8px; }
 	.centered { margin-left:auto; margin-right:auto; }
+	.largeDimText { font-size: 20px; font-weight:700; }
+	.smallDimText { font-size: 10px; }
 	
 	.floatingTextContainer {
 	padding: 10px; 

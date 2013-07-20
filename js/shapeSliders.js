@@ -50,6 +50,8 @@ function addSliders(tutorial, sceneWrapper)
 			step: 1,
 			slide: function(event, ui){
 				sceneWrapper.updateScale(ui.value/100);
+				sceneWrapper.redrawMesh(sceneWrapper.currentMesh); //Had to put this line back in. 
+				//Smoother effects without it, but doesn't account for loops in scene. If not in, loops appear to be floating in space.
 				sceneWrapper.tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
 				updateThickness();
 			},

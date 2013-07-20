@@ -132,23 +132,20 @@ function addCreatorSliders() {
 function addFinalizeSliders() {
 			var finalizeSliderContainer = document.createElement('div');
 			finalizeSliderContainer.id = 'sliderContainer';
-			finalizeSliderContainer.style.bottom = '21%';
+			finalizeSliderContainer.style.bottom = '1%';
 			finalizeSliderContainer.style.left = '50%';
-			finalizeSliderContainer.style.marginLeft = '-120px';
+			finalizeSliderContainer.style.marginLeft = '-155px';
 			finalizeSliderContainer.style.marginTop = '5px';
-			finalizeSliderContainer.style.height = '30px';
 			finalizeSliderContainer.style.position = 'absolute';
 			finalizeSliderContainer.style.zIndex = '1000';
 			document.body.appendChild(finalizeSliderContainer);
 			
 			//Dimensions boxes
-			/*
+
 			var dimsContainer = document.createElement('div');
 			dimsContainer.id = 'idDimsContainer';
-			dimsContainer.style.marginRight = '50px';
 			dimsContainer.style.position = 'relative';
-			dimsContainer.style.display = 'inline-block';
-			dimsContainer.style.width = '120px';
+			dimsContainer.style.display = 'block';
 			finalizeSliderContainer.appendChild(dimsContainer);
 				
 			var hDimDiv = document.createElement('div');
@@ -157,9 +154,12 @@ function addFinalizeSliders() {
 			hDimDiv.className = 'rounded';
 			hDimDiv.innerHTML += '<span style="font-size: 16px"><b>0.02 H</b></span><br><span style="font-size: 12px">(Inches)<span>';
 			hDimDiv.style.background = '#000';
+			hDimDiv.style.display = 'inline-block';
 			hDimDiv.style.color = '#fff';
-			hDimDiv.style.padding = '3px 8px 9px 8px';
+			hDimDiv.style.padding = '3px 3px 9px 3px';
 			hDimDiv.style.marginTop = '5px';
+			hDimDiv.style.marginRight = '8px';
+			hDimDiv.style.marginBottom = '12px';
 			hDimDiv.style.width = '90px';
 			hDimDiv.style.zIndex = '1000';
 			dimsContainer.appendChild(hDimDiv);
@@ -168,12 +168,17 @@ function addFinalizeSliders() {
 			vDimDiv.id = 'idVShapeDiv';
 			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 W</b></span><br><span style="font-size: 14px">(Inches)<span>';
 			dimsContainer.appendChild(vDimDiv);
-			*/
+			
+			var dDimDiv = hDimDiv.cloneNode(true);
+			dDimDiv.id = 'idDShapeDiv';
+			dDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 W</b></span><br><span style="font-size: 14px">(Inches)<span>';
+			dimsContainer.appendChild(dDimDiv);
+
 			//Sliders
 			
 			var allSlidersContainer = document.createElement('div');
 			allSlidersContainer.id = 'idAllSlidersContainer';
-			allSlidersContainer.style.display = 'inline';
+			allSlidersContainer.style.display = 'inline-block';
 			finalizeSliderContainer.appendChild(allSlidersContainer);
 			
 			var sliderFinalizeContainer1 = document.createElement('div');
@@ -198,26 +203,25 @@ function addFinalizeSliders() {
 			sliderFinalLabel1.style.paddingRight = '7px';
 			sliderFinalLabel1.style.paddingLeft = '7px';
 			sliderFinalLabel1.style.fontSize = '15px';
+			sliderFinalLabel1.style.marginRight = '20px';
 			sliderFinalLabel1.style.background = '#000';
 			sliderFinalLabel1.style.display = 'inline-block';
 			sliderFinalizeContainer1.appendChild(sliderFinalLabel1);
 			
 			var sliderFinal1 = document.createElement('div');
 			sliderFinal1.id = 'slider';
-			sliderFinal1.style.width = '200px';
+			sliderFinal1.style.width = '260px';
 			sliderFinal1.className = 'menuHeader';
 			sliderFinal1.style.position = 'relative';
 			sliderFinal1.style.display = 'inline';
 			sliderFinal1.style.marginTop = '5px';
 			sliderFinal1.style.verticalAlign = 'middle';
-			sliderFinal1.style.marginLeft = '20px';
 			sliderFinal1.style.cssFloat = 'right';
 			sliderFinalizeContainer1.appendChild(sliderFinal1);
 
 			var expandedControls = document.createElement('div');
 			expandedControls.id = 'thickdepthfinalize';
-			expandedControls.style.width = '350px';
-			expandedControls.style.display = 'block';
+			expandedControls.style.width = '400px';
 			allSlidersContainer.appendChild(expandedControls);
 			
 			var sliderFinalizeContainer2 = sliderFinalizeContainer1.cloneNode(false);
@@ -256,7 +260,7 @@ function addFinalizeSliders() {
 			moreOptions.style.marginRight = 'auto';
 			moreOptions.style.marginLeft = 'auto';
 			moreOptions.innerHTML = 'More';
-			moreOptions.style.display = 'block';
+			//moreOptions.style.display = 'block';
 			allSlidersContainer.appendChild(moreOptions);
 }
 
@@ -392,35 +396,6 @@ function loopRotations(){
 			removeLoop.className = 'buttonMedium';
 			removeLoop.innerHTML = 'Remove<br>Loop';
 			removeLoopDiv.appendChild(removeLoop);
-}
-
-function addDimensions() {
-			var dimsContainer = document.createElement('div');
-			dimsContainer.id = 'idDimsContainer';
-			document.body.appendChild(dimsContainer);
-				
-			var hDimDiv = document.createElement('div');
-			hDimDiv.id = 'idHShapeDiv';
-			hDimDiv.style.position = 'absolute';
-			hDimDiv.className = 'rounded';
-			hDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 H</b></span><br><span style="font-size: 14px">(Inches)<span>';
-			hDimDiv.style.background = '#000';
-			hDimDiv.style.color = '#fff';
-			hDimDiv.style.padding = '5px 15px 10px 15px';
-			hDimDiv.style.bottom = '14%';
-			hDimDiv.style.right = '50%';
-			hDimDiv.style.marginRight = '-57px';
-			hDimDiv.style.zIndex = '1000';
-			dimsContainer.appendChild(hDimDiv);
-			
-			var vDimDiv = hDimDiv.cloneNode(true);
-			vDimDiv.id = 'idVShapeDiv';
-			vDimDiv.innerHTML += '<span style="font-size: 24px"><b>0.02 W</b></span><br><span style="font-size: 14px">(Inches)<span>';
-			vDimDiv.style.top = '50%';
-			vDimDiv.style.marginTop = '-35px';
-			vDimDiv.style.right = '30%';
-			vDimDiv.style.bottom = '';
-			dimsContainer.appendChild(vDimDiv);
 }
 
 function addDesignTips() {
