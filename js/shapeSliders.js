@@ -51,6 +51,8 @@ function addSliders(tutorial, sceneWrapper)
 			slide: function(event, ui){
 				sceneWrapper.updateScale(ui.value/100);
 				sceneWrapper.tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
+				if (sceneWrapper.torusDefined)
+					sceneWrapper.redrawTorus();
 				updateThickness();
 			},
 			stop: function(event, ui){
