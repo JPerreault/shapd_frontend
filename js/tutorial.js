@@ -199,11 +199,14 @@ var Tutorial = function(view, doTutorial)
 				fout = d1;
 				slideDownCustTopR(d1, 'center', 'center');
 				that.tutorialOn = false;
+				document.addEventListener( 'mousedown', nextClick, false );
 				
-				document.getElementById('thanks').onclick = function()
-					{
-						fadeOut(fout);
-					}
+				function nextClick( event ) 
+				{
+					fadeOut(fout);
+					document.getElementById('idmaterialDetailContainer').style.zIndex = 1000;
+					document.removeEventListener( 'mousedown', nextClick, false );
+				}
 			}
 	}
 	
@@ -219,7 +222,7 @@ var Tutorial = function(view, doTutorial)
 			$(".dg.main")[0].style.zIndex = 1000;
 		
 		document.getElementById('idShapeContainer').style.zIndex = 1000;
-		document.getElementById('materials').style.zIndex = 1000;
+		document.getElementById('materials').style.zIndex = 1001;
 		document.getElementById('sliderContainer').style.zIndex = 1000;
 		document.getElementById('idloopAroundDiv').style.zIndex = 1000;
 		document.getElementById('idSaveButtonContainer').style.zIndex = 1000;

@@ -14,7 +14,7 @@ window.onload = function() {
 	var moreOptionsClicked = 0;
 	var storedShape = [];
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
+        var doTutorial = true;
     else
         var doTutorial = true;
 	
