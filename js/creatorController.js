@@ -115,11 +115,12 @@ window.onload = function() {
 			$('#idCostDataContainer').fadeOut(0);
 			$('#idLoopRotContainer').fadeOut(0);
 			$('#idDesignDiv').fadeOut(0);
-			$('#idDimsContainer').fadeOut(0);
+			$('#thickdepthfinalize').fadeOut(0);
+			$('#idSliderFinalLabel1').fadeOut(0);
+			$("#shapeSlidersContainer").fadeIn(450);
 			
 			if (typeof viewer !== 'undefined' && viewer)
 			{
-				$("#shapeSlidersContainer").fadeOut(0);
 				$("#idShapeContainer").fadeOut(0);
 				$('#idResetContainer').fadeOut(0);
 				$("#idSavedShapeContainer").fadeOut(0);
@@ -138,7 +139,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_opaque.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#shapeSlidersContainer").fadeIn(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -147,8 +147,8 @@ window.onload = function() {
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#shapeSlidersContainer").fadeIn(450);
 			$("#idLoopText").fadeOut(450);
-			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
@@ -168,7 +168,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_opaque.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -177,9 +176,9 @@ window.onload = function() {
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
 			$("#idLoopText").fadeIn(450);
-			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
@@ -201,7 +200,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_opaque.png';
-			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeIn(450);
 			$("#idmaterialDetailContainer").fadeIn(450);
 			$("#sliderContainer").fadeIn(450);
@@ -209,11 +207,11 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeIn(450);
 			$('#idSaveButton').fadeIn(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$('#materialDetailContainer').fadeIn(450);
 			$('#idDesignDiv').fadeIn(450);
 			$('#idResetContainer').fadeIn(450);
 			$("#idLoopText").fadeOut(450);
-			$('#idDimsContainer').fadeIn(450);
 			$('#idCostDataContainer').fadeIn(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeIn(450);
@@ -238,7 +236,6 @@ window.onload = function() {
 			document.getElementById('idProgressImgNamesId2').src = 'assets/imgs/progress/progressNames2_solid.png';
 			document.getElementById('idProgressImgNamesId3').src = 'assets/imgs/progress/progressNames3_solid.png';
 			document.getElementById('idProgressImgNamesId4').src = 'assets/imgs/progress/progressNames4_solid.png';
-			$("#shapeSlidersContainer").fadeOut(450);
 			$("#materials").fadeOut(450);
 			$("#idmaterialDetailContainer").fadeOut(450);
 			$("#sliderContainer").fadeOut(450);
@@ -246,12 +243,12 @@ window.onload = function() {
 			$("#idShapeContainer").fadeOut(450);
 			$('#idBackButton').fadeOut(450);
 			$('#idSaveButton').fadeOut(450);
+			$("#shapeSlidersContainer").fadeOut(450);
 			$('#idSaveStayButton').fadeOut(450);
 			$('#materialDetailContainer').fadeOut(450);
 			$('#idDesignDiv').fadeOut(450);
 			$('#idResetContainer').fadeOut(450);
 			$("#idLoopText").fadeOut(450);
-			$('#idDimsContainer').fadeOut(450);
 			$('#idCostDataContainer').fadeOut(450);
 			$("#idSavedShapeContainer").fadeOut(450);
 			$('#idMaterialPanel').fadeOut(450);
@@ -260,7 +257,9 @@ window.onload = function() {
 	}
 	
 	function initialSetup()
-	{
+	{	
+		addCreatorSliders();
+		addFinalizeSliders();
 		addSliders(tutorial, sceneWrapper);
 		addStartingShapes();
 		addResetButtons();
@@ -270,7 +269,6 @@ window.onload = function() {
 		addLoops();
 		addDesignTips();
 		loopRotations();
-		addDimensions();
 		addCost();
 		addMaterialSelector();
 	}
@@ -335,10 +333,10 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idSaveButton').onclick = function()
+	document.getElementById('idSaveButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-
+        
 		if (typeof newuser !== 'undefined' && newuser)
 			createNewUser();
         else
@@ -352,15 +350,18 @@ window.onload = function() {
 		if (state == 'creator')
 		{
 			state = 'loops';
+			resetShapeRotation();
 			setupInterface();
 			saveShape();
 		}
 		else if (state == 'loops')
 		{
 			state = 'finalize';
+			resetShapeRotation();
 			loops = false;
 			setupInterface();
 			saveShape();
+			
 		}
 		else if (state == 'finalize')
 		{
@@ -369,13 +370,15 @@ window.onload = function() {
                 if (typeof givenFeedback !== 'undefined' && !givenFeedback)
                     promptForFeedback()
 				state = 'publish';
+				resetShapeRotation();
 				setupInterface();
 				saveShape();
+				
 			}
 		}
 	}	
 	
-	document.getElementById('idSaveStayButton').onclick = function()
+	document.getElementById('idSaveStayButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (typeof newuser !== 'undefined' && newuser)
@@ -384,23 +387,26 @@ window.onload = function() {
 				saveShape();
 	}
 
-	document.getElementById('idBackButton').onclick = function()
+	document.getElementById('idBackButton').onmousedown = function()
 	{
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 		if (state == 'loops')
 		{
 			state = 'creator';
 			setupInterface();
+			resetShapeRotation();
 		}
 		else if (state == 'finalize')
 		{
 			state = 'loops';
 			setupInterface();
+			resetShapeRotation();
 		}
 		else if (state == 'publish')
 		{
 			state = 'finalize';
 			setupInterface();
+			resetShapeRotation();
 		}
 	}
 	
@@ -462,13 +468,13 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idResetRotationImg').onclick = function()
+	document.getElementById('idResetRotationImg').onmousedown = function()
 	{
 		view.targetX = 0;
 		view.targetY = 0;
 	}
     
-	document.getElementById('idRemoveLoop').onclick = function()
+	document.getElementById('idRemoveLoop').onmousedown = function()
 	{
 		scene.scene.remove(scene.torusMesh);
 		scene.torusDefined = false;
@@ -485,7 +491,7 @@ window.onload = function() {
 		}
 	}
 	
-    document.getElementById('idResetShapdImg').onclick = function()
+    document.getElementById('idResetShapdImg').onmousedown = function()
 	{
 		var currentMesh = sceneWrapper.currentMesh;
 		if (state == 'creator')
@@ -572,33 +578,33 @@ window.onload = function() {
 		}
 	}
 	
-	document.getElementById('idLoopAroundRightButton').onclick = function()
+	document.getElementById('idLoopAroundRightButton').onmousedown = function()
 	{						
 		tubeMeshBuilder.faceIndexIncrementor += 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopAroundLeftButton').onclick = function()
+	document.getElementById('idLoopAroundLeftButton').onmousedown = function()
 	{
 		tubeMeshBuilder.faceIndexIncrementor -= 1;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopMoreAngleButton').onclick = function()
+	document.getElementById('idLoopMoreAngleButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotation < 0.7853981634)
 			tubeMeshBuilder.torusRotation += 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idLoopLessAngleButton').onclick = function()
+	document.getElementById('idLoopLessAngleButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotation > -0.7853981634)
 			tubeMeshBuilder.torusRotation -= 0.0872664626;
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idSpinButton').onclick = function()
+	document.getElementById('idSpinButton').onmousedown = function()
 	{
 		if (tubeMeshBuilder.torusRotationNinety === 0)
 			tubeMeshBuilder.torusRotationNinety = 1.57079633;
@@ -607,7 +613,7 @@ window.onload = function() {
 		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 	}
 	
-	document.getElementById('idStoreShape').onclick = function()
+	document.getElementById('idStoreShape').onmousedown = function()
 	{
 		storedShape['Thickness'] = sceneWrapper.currentMesh['Thickness'];
 		storedShape['Depth'] = sceneWrapper.currentMesh['Depth'];
@@ -617,7 +623,7 @@ window.onload = function() {
 		storedShape['Starting Shape'] = sceneWrapper.currentMesh['Starting Shape'];
 	}
 	
-	document.getElementById('idLoadShape').onclick = function()
+	document.getElementById('idLoadShape').onmousedown = function()
 	{
 		sceneWrapper.currentMesh['Thickness'] = storedShape['Thickness'];
 		sceneWrapper.currentMesh['Depth'] = storedShape['Depth'];
@@ -630,23 +636,27 @@ window.onload = function() {
 		updateShapeSliders();
 	}
 	
-	document.getElementById('idMoreOptions').onclick = function()
+	document.getElementById('idMoreOptions').onmousedown = function()
 	{
 		moreOptionsClicked++;
 		var moreOptionsButton = document.getElementById('idMoreOptions');
 		if (moreOptionsClicked%2 === 1)
 		{
-			$('#thickdepthfinalize').fadeIn(0);
+			$('#thickdepthfinalize').fadeIn(500);
+			$('#idSliderFinalLabel1').fadeIn(500);
+			$('#sliderContainer').css('marginLeft', '-200px');
 			moreOptionsButton.innerHTML = 'Less';
 		}
 		else
 		{
-			$('#thickdepthfinalize').fadeOut(0);
+			$('#thickdepthfinalize').fadeOut(500);
+			$('#idSliderFinalLabel1').fadeOut(500);
+			$('#sliderContainer').css('marginLeft', '-155px');
 			moreOptionsButton.innerHTML = 'More';
 		}
 	}
 	
-	document.getElementById('idlockLoop').onclick = function()
+	document.getElementById('idlockLoop').onmousedown = function()
 	{
 		var loopButton = document.getElementById('idlockLoop');
 		if (loopButton.innerHTML === 'Lock<br>Loop')
@@ -695,6 +705,11 @@ function loadFromLib(hash)
 	updateShapeSliders();
 }
 
+function resetShapeRotation() {
+	view.targetX = 0;
+	view.targetY = 0;	
+}
+
 function updateShapeSliders()
 {
 	$( "#thicknessguislider" ).slider( "value", sceneWrapper.currentMesh['Thickness'] );
@@ -735,15 +750,15 @@ function updateThickness(isMove)
 	if (isOkay === 'small'|| isOkay === 'thin')
 	{
 		$("#thicknessContainer").fadeIn(0);
-		document.getElementById('shapethin').innerHTML = "Your shape is too thin to print!";
-		document.getElementById('increasesize').innerHTML = 'Please increase thickness, increase the scale, or alter your shape.';
+		document.getElementById('shapethin').innerHTML = "<b>Your shape is too thin to print!<br><br>Please increase the thickness, increase the scale, or alter your shape.</b>";
+		document.getElementById('shapethin').style.background = '#d7432f';
 		saveButtonClick(false);
 	}
 	else if (isOkay === 'large')
 	{
 		$("#thicknessContainer").fadeIn(0);
-		document.getElementById('shapethin').innerHTML = "Your shape is too large to print!";
-		document.getElementById('increasesize').innerHTML = 'Please decrease thickness, decrease the scale, or alter your shape.';
+		document.getElementById('shapethin').innerHTML = "<b>Your shape is too large to print!<br><br>Please decrease the thickness, decrease the scale, or alter your shape.</b>";
+		document.getElementById('shapethin').style.background = '#d7432f';
 		document.getElementById('idSaveButton').style.opacity = .5;
 		saveButtonClick(false);
 	}
@@ -751,8 +766,9 @@ function updateThickness(isMove)
 	{
 		if (isMove)
 		{
-			document.getElementById('shapethin').innerHTML = "You\'re all set!";
-			document.getElementById('increasesize').innerHTML = 'Your shape is now an acceptable size.';
+			document.getElementById('shapethin').innerHTML = "<b>You\'re all set!<br><br>Your shape is now an acceptable size.</b>";
+			document.getElementById('shapethin').style.background = '#2fd792';
+
 		}
 		else
 			$("#thicknessContainer").fadeOut(0);
@@ -840,11 +856,15 @@ function publishCreation()
     
     var timestamp = new Date().getTime();
     
-    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='/shapes/"+shapeID+".png#"+timestamp+"' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='/shapes/"+shapeID+".png' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
     var d1 = generateWhiteDropDown(700, 700, publishCSS );
-    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png#'+timestamp+'";', 1000);
+    
+    // ugly code
+    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png?'+timestamp+'";', 500);
+    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png?'+(timestamp+12)+'";', 1000);
+
     fout = d1;
-    fadeIn(d1); // I prefer slideDown though
+    fadeIn(d1);
     document.getElementById("blackout").onclick = null;
 }
 
