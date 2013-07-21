@@ -42,6 +42,9 @@ window.onload = function() {
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 			else
 				renderer = new THREE.WebGLRenderer();
+//            
+//                renderer = new THREE.WebGLRenderer({antialias: true});
+
 		}
 		else
             location.href = 'snag.html';
@@ -67,7 +70,6 @@ window.onload = function() {
     function killSelf()
     {
         parent.hideTheBeast(parent.state);
-        idSavedShapeLibrary.innerHTML = shapeLib;
         setTimeout("location.href=\"blank.html\";", 2000);
     }
     
@@ -528,10 +530,10 @@ window.onload = function() {
 		currentMesh['Thickness'] = 1.5;
 		if (view.targetX === 0 && view.targetY === 0)
 		{
-			currentMesh['Rotation X'] = 6.28318531;
-			currentMesh['Rotation Y'] = 6.28318531;
-			view.targetX = 6.28318531;
-			view.targetY = 6.28318531;
+			// currentMesh['Rotation X'] = 6.28318531;
+			currentMesh['Rotation Y'] = 6.28318531/2;
+			// view.targetX = 6.28318531;
+			view.targetY = 6.28318531/2;
 		}
 		else
 		{
@@ -549,7 +551,6 @@ window.onload = function() {
 	{
 		if (event.toElement.tagName === 'IMG')
 		{
-				
 			var shapeNumber = event.toElement.id.substr(3, event.toElement.id.length);
 			sceneWrapper.currentMesh['Starting Shape'] = parseInt(shapeNumber);
 			resetAllParams();
@@ -834,9 +835,65 @@ function pre(figure)
 	return p;
 }
 
+function submitFeedback()
+{
+    var i0 = document.getElementsByName('idOfsr0')[0].value;
+    var i1 = document.getElementsByName('idOfsr1')[0].value;
+    var i2 = document.getElementsByName('idOfsr2')[0].value;
+    var i3 = document.getElementsByName('idOfsr3')[0].value;
+    
+    var rating = i0+"|"+i1+"|"+i2+"|"+i3;
+    var content = document.getElementById('contentFeedback').value;
+    
+    $.post('/feedback', {rating: rating, content: content}, function(data){publishCreation();});
+}
+
+function getFeedback()
+{
+    if (typeof noFeedback !== 'undefined')
+    {
+        var feedbackBox = "<br><h1>How'd we do?</h1>A second of your time to let us know how your<br>experience was would be wonderful.<br><br>Lay it on us. We can take it.<br><br><br><br>Fun<div id='sr0'></div><br>Ease of Use<br><div id='sr1'></div><br>Creativity<br><div id='sr2'></div><br>Overall Experience<br><div id='sr3'></div><br>";
+        
+        for (var i=0; i<4; i++)
+            feedbackBox += "<div id='sr0'></div>";
+        
+        feedbackBox += "<input type='text' id ='contentFeedback'></input>";
+        
+        
+        var content = "hi";
+
+        
+        feedbackBox += "<button onclick='submitFeedback()'>Submit Feedback</button><a href='javascript:slideUp(fout);publishCreation();'>Not right now</a>"
+        
+        var d1 = generateDropDown(575,400, feedbackBox);
+        
+        for (var i=0; i<4; i++)
+        $('#sr'+i).raty({
+                        cancel   : false,
+                        half     : true,
+                        size     : 24,
+                        starHalf : 'assets/imgs/stars/star-half-big.png',
+                        starOff  : 'assets/imgs/stars/star-off-big.png',
+                        starOn   : 'assets/imgs/stars/star-on-big.png',
+                        scoreName : 'idOfsr'+i
+                        });
+        
+        fout = d1;
+        slideDown(d1);
+        document.getElementById("blackout").onclick = null;
+    }
+    else
+        publishCreation();
+}
+
 function publishCreation()
 {
+    
     document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+    
+    
+   // oneQuickThing();
+    
     
     var timestamp = new Date().getTime();
     
