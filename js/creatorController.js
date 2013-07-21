@@ -870,9 +870,6 @@ function getFeedback()
     {
         var feedbackBox = "<br><h1>How'd we do?</h1>A second of your time to let us know how your<br>experience was would be wonderful.<br><br>Lay it on us. We can take it.<br><br><br><br>Fun<div id='sr0'></div><br>Ease of Use<br><div id='sr1'></div><br>Creativity<br><div id='sr2'></div><br>Overall Experience<br><div id='sr3'></div><br>";
         
-        for (var i=0; i<4; i++)
-            feedbackBox += "<div id='sr0'></div>";
-        
         feedbackBox += "<input type='text' id ='contentFeedback'></input>";
         
         
