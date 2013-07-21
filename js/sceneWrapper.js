@@ -163,6 +163,17 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.scene.add(this.torusMesh);
 		}
 	};
+	
+	this.redrawTorus = function()
+	{
+		this.scene.remove(this.torusMesh);
+		this.torusMesh = this.tubeMeshBuilder.createTorus(this.currentMesh['Material']);
+		
+		this.torusMesh.rotation.x = this.currentMesh.figure.rotation.y;
+		this.torusMesh.rotation.y = this.currentMesh.figure.rotation.y;
+		
+		this.scene.add(this.torusMesh);
+	};
 
     this.updateScale = function(newVal){
         this.currentMesh.figure.scale.set(newVal, newVal, newVal);

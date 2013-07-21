@@ -51,6 +51,8 @@ function addSliders(tutorial, sceneWrapper)
 			slide: function(event, ui){
 				sceneWrapper.updateScale(ui.value/100);
 				sceneWrapper.tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
+				if (sceneWrapper.torusDefined)
+					sceneWrapper.redrawTorus();
 				updateThickness();
 			},
 			stop: function(event, ui){
@@ -122,46 +124,5 @@ function addSliders(tutorial, sceneWrapper)
 				sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
 			}
 		})});
-		
-	// var guiSlidersContainer = document.createElement('div');
-	// guiSlidersContainer.id = 'shapeSliders';
-	// guiSlidersContainer.style.zIndex = '1000';
-	// guiSlidersContainer.style.position = 'absolute';
-	// guiSlidersContainer.style.top = '0%';
-	// guiSlidersContainer.style.let = '0%';
-	// document.body.appendChild(guiSlidersContainer);	
 	
-	// var thickSlider = document.createElement('div');
-	// thickSlider.id = 'thicknessguislider';
-	// thickSlider.className = 'menuHeader';
-	// guiSlidersContainer.appendChild(thickSlider);
-	
-	var shapeContainer = document.getElementById('shapeSlidersContainer');
-	
-	var storeShape = document.createElement('button');
-	storeShape.id = 'idStoreShape';
-	storeShape.className = 'buttonVerySmall';
-	storeShape.innerHTML = 'Store Shape';
-	storeShape.style.display = 'inline';
-	storeShape.style.margin = '0px 10px 0px 0px';
-	storeShape.style.bottom = '0px';
-	shapeContainer.appendChild(storeShape);
-		
-	var loadShape = storeShape.cloneNode(true);
-	loadShape.id = 'idLoadShape';
-	loadShape.innerHTML = 'Load Shape';
-	storeShape.style.right = '100%';
-	shapeContainer.appendChild(loadShape);
-	
-	$("#shapeSlidersContainer").fadeIn(450);
-	
-	var finalizeContainer = document.getElementById('sliderContainer');
-	var moreOptions = document.createElement('button');
-	moreOptions.id = 'idMoreOptions';
-	moreOptions.className = 'buttonVerySmall';
-	moreOptions.innerHTML = 'More';
-	moreOptions.style.display = 'inline';
-	moreOptions.style.margin = '0px 10px 0px 0px';
-	moreOptions.style.bottom = '0px';
-	finalizeContainer.appendChild(moreOptions);
 }
