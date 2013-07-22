@@ -1,284 +1,342 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "https://www.w3.org/TR/html4/loose.dtd">
+"https://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Shapd</title>
-	<style>
-    body
-        {
-            font-family:'Verdana', 'Geneva', sans-serif;
-        }
-	a:hover {
-		text-decoration: underline !important;
-	}
-	td.promocell p { 
-		color:#000;
-		font-size:24px;
-		line-height:26px;
-		font-family:'Verdana', Geneva, sans-serif;
-		margin-top:0;
-		margin-bottom:0;
-		padding-top:0;
-		border-top:thin;
-		border-color:#CCC;
-		padding-bottom:14px;
-		font-weight:normal;
-	}
-	td.bottomTop {
-		border-top: 1pt solid #CCC;
-	}
-	td.contentblock h4 {
-		color:#fff !important;
-		font-size:16px;
-		line-height:24px;
-		font-family:'Verdana', Geneva, sans-serif;
-		margin-top:0;
-		margin-bottom:10px;
-		padding-top:0;
-		padding-bottom:0;
-		font-weight:normal;
-		background-color:4bc4d9;
-	}
-	td.contentblock2 {
-		color:#000 !important;
-		font-size:16px;
-		line-height:24px;
-		font-family:'Verdana', Geneva, sans-serif;
-		margin-top:0;
-		margin-bottom:10px;
-		padding-top:0;
-		padding-bottom:0;
-		font-weight:normal;
-		background-color:4bc4d9;
-	}
-	td.contentblock h4 a {
-		color:#000;
-		text-decoration:none;
-	}
-	td.contentblock p { 
-	  	color:#fff;
-		font-size:13px;
-		line-height:19px;
-		font-family: 'Verdana', Geneva, sans-serif;
-		margin-top:0;
-		margin-bottom:12px;
-		padding-top:0;
-		padding-bottom:0;
-		font-weight:normal;
-		background-color:4bc4d9;
-	}
-	td.contentblock p a { 
-	  	color:#000;
-		text-decoration:none;
-	}
-	@media only screen and (max-device-width: 480px) {
-	     div[class="header"] {
-	          font-size: 16px !important;
-	     }
-	     table[class="table"], td[class="cell"] {
-	          width: 300px !important;
-	     }
-		table[class="promotable"], td[class="promocell"] {
-	          width: 325px !important;
-	     }
-		td[class="footershow"] {
-	          width: 300px !important;
-	     }
-		table[class="hide"], img[class="hide"], td[class="hide"] {
-	          display: none !important;
-	     }
-	     img[class="divider"] {
-		      height: 1px !important;
-		 }
-		 td[class="logocell"] {
-			padding-top: 15px !important; 
-			padding-left: 15px !important;
-			width: 300px !important;
-		 }
-	     img[id="screenshot"] {
-	          width: 325px !important;
-	          height: 127px !important;
-	     }
-		img[class="galleryimage"] {
-			  width: 53px !important;
-	          height: 53px !important;
-		}
-		p[class="reminder"] {
-			font-size: 11px !important;
-		}
-		h4[class="secondary"] {
-			line-height: 22px !important;
-			margin-bottom: 15px !important;
-			font-size: 16px !important;
-		}
-	}
-	</style>
-        <script src='js/errorMessage.js'></script>
-        <script>
-            function checkBrowser()
-            {
-                
-                var ua = navigator.userAgent.toLowerCase();
-                if (ua.indexOf("chrome") > -1 || ua.indexOf("chromium") > -1)
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <title>Shapd</title>
+            <style>
+                body
                 {
-                    chromeError();
+                    font-family:'Verdana', 'Geneva', sans-serif;
                 }
-                else if (ua.indexOf("safari") > -1)
+                a:hover {
+                    text-decoration: underline !important;
+                }
+                td.promocell p {
+                    color:#000;
+                    font-size:24px;
+                    line-height:26px;
+                    font-family:'Verdana', Geneva, sans-serif;
+                    margin-top:0;
+                    margin-bottom:0;
+                    padding-top:0;
+                    border-top:thin;
+                    border-color:#CCC;
+                    padding-bottom:14px;
+                    font-weight:normal;
+                }
+                td.bottomTop {
+                    border-top: 1pt solid #CCC;
+                }
+                td.contentblock h4 {
+                    color:#fff !important;
+                    font-size:16px;
+                    line-height:24px;
+                    font-family:'Verdana', Geneva, sans-serif;
+                    margin-top:0;
+                    margin-bottom:10px;
+                    padding-top:0;
+                    padding-bottom:0;
+                    font-weight:normal;
+                    background-color:4bc4d9;
+                }
+                td.contentblock2 {
+                    color:#000 !important;
+                    font-size:16px;
+                    line-height:24px;
+                    font-family:'Verdana', Geneva, sans-serif;
+                    margin-top:0;
+                    margin-bottom:10px;
+                    padding-top:0;
+                    padding-bottom:0;
+                    font-weight:normal;
+                    background-color:4bc4d9;
+                }
+                td.contentblock h4 a {
+                    color:#000;
+                    text-decoration:none;
+                }
+                td.contentblock p {
+                    color:#fff;
+                    font-size:13px;
+                    line-height:19px;
+                    font-family: 'Verdana', Geneva, sans-serif;
+                    margin-top:0;
+                    margin-bottom:12px;
+                    padding-top:0;
+                    padding-bottom:0;
+                    font-weight:normal;
+                    background-color:4bc4d9;
+                }
+                td.contentblock p a {
+                    color:#000;
+                    text-decoration:none;
+                }
+                @media only screen and (max-device-width: 480px) {
+                    div[class="header"] {
+                        font-size: 16px !important;
+                    }
+                    table[class="table"], td[class="cell"] {
+                        width: 300px !important;
+                    }
+                    table[class="promotable"], td[class="promocell"] {
+                        width: 325px !important;
+                    }
+                    td[class="footershow"] {
+                        width: 300px !important;
+                    }
+                    table[class="hide"], img[class="hide"], td[class="hide"] {
+                        display: none !important;
+                    }
+                    img[class="divider"] {
+                        height: 1px !important;
+                    }
+                    td[class="logocell"] {
+                        padding-top: 15px !important;
+                        padding-left: 15px !important;
+                        width: 300px !important;
+                    }
+                    img[id="screenshot"] {
+                        width: 325px !important;
+                        height: 127px !important;
+                    }
+                    img[class="galleryimage"] {
+                        width: 53px !important;
+                        height: 53px !important;
+                    }
+                    p[class="reminder"] {
+                        font-size: 11px !important;
+                    }
+                    h4[class="secondary"] {
+                        line-height: 22px !important;
+                        margin-bottom: 15px !important;
+                        font-size: 16px !important;
+                    }
+                }
+                </style>
+            <script src='js/errorMessage.js'></script>
+            <script>
+                function checkBrowser()
                 {
-                    if (parseInt(ua.charAt(ua.indexOf("version/")+8))> 5)
-                    errorSafariWebGL();
-                    else
-                    safariError();
+                    
+                    var ua = navigator.userAgent.toLowerCase();
+                    if (ua.indexOf("chrome") > -1 || ua.indexOf("chromium") >
+                        -1)
+                    {
+                        chromeError();
+                    }
+                    else if (ua.indexOf("safari") > -1)
+                    {
+                        if (parseInt(ua.charAt(ua.indexOf("version/")+8))> 5)
+                        errorSafariWebGL();
+                        else
+                        safariError();
+                    }
+                    else if (ua.indexOf("firefox") > -1)
+                    {
+                        firefoxError();
+                    }
+                    
                 }
-                else if (ua.indexOf("firefox") > -1)
-                {
-                    firefoxError();
-                }
-                
-            }
-        </script>
-</head>
-
-<body bgcolor="#fff" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="-webkit-font-smoothing: antialiased;width:100% !important;background:#fff;-webkit-text-size-adjust:none;" onload="checkBrowser()">
-	
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#fff">
-<tr>
-	<td bgcolor="#eee" width="100%">
-
-	<table width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="table">
-	<tr>
-		<td width="600" class="cell">
-		
-	   	<table width="600" cellpadding="0" cellspacing="0" border="0" class="table" style="margin-top:20px;">
-		<tr class="bottomBorder">
-			<td width="250" bgcolor="#fff" class="logocell"><img border="0" src="" width="1" height="20" class="hide"><br class="hide">
-			  <a href="https://www.shapd.co"><img src="https://www.shapd.co/img/assets/shapd_logo.png" width="150" height="61" alt="Shapd" style="margin-left:15px"><br><img border="0" src="" width="1" height="10" class="hide"></a><br class="hide"></td>
-			<td align="right" width="350" class="hide" style="color:#a6a6a6;font-size:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-shadow: 0 1px 0 #ffffff;" valign="top" bgcolor="#fff"><img border="0" src="" width="1" height="63"><br></td>
-		</tr>
-		</table>
-	   	<table width="600" cellpadding="5" cellspacing="0" border="0" class="promotable">
-	   	  <tr>
-			<td bgcolor="#fff" width="600" class="bottomTop" style="font-size:28px; border-top:1pt solid #CCC">                      
-			 
-
-				  <p><strong><center>
-				   Oops! We hit a snag.
-				  </center></strong></p></td>
-		</tr>
-		</table>
-	
-		<img border="0" src="" width="1" height="15" class="divider"><br>
-	
-		<repeater>
-			<layout label="New feature">
-			<table width="100%" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td width="100%" bgcolor="#4bc4d9">
-			
-					<table width="100%" cellpadding="20" cellspacing="0" border="0">
-					<tr>
-						<td bgcolor="4bc4d9" id="errorMessage" class="contentblock" style="color:#FFF">
-
-							<h4 class="secondary">
-							<singleline label="Title"><strong>We detected that you are using an incompatible browser. <br>
-						  <br>
-						  Our app needs a modern-day browser to function. We recommend <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> or <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>.  <br>
-						  <br>
-						  Sorry for any inconvenience!<br>
-							</strong></singleline>
-							</h4>
-		
-						    </td>
-					</tr>
-					</table>
-			
-				</td>
-			</tr>
-			</table>  
-			<img border="0" src="" width="1" height="15" class="divider"><br>
-			</layout>
-			<layout label="Article, tip or resource">
-			<table width="100%" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td width="100%" bgcolor="#ffffff">
-			
-					<table width="100%" cellpadding="20" cellspacing="0" border="0">
-					<tr>
-						<td bgcolor="#ffffff" class="contentblock2">
-
-							<h4 class="secondary">
-							<singleline label="Title" id="bottomMessage"><center>
-							<a href="https://www.shapd.co/demo/">Try again</a> once you update.
-</center>
-	
-
-						</td>
-					</tr>
-					</table>
-			
-				</td>
-			</tr>
-			</table>  
-			<img border="0" src="" width="1" height="15" class="divider"><br>
-			</layout>
-			<layout label="Gallery highlights">
-			  
-
-					<img border="0" src="" width="1" height="5"><br>
-
-				</td>
-			</tr>
-			</table></td>
-	</tr>
-	</table>
-
-	
-
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f2f2f2">
-	<tr>
-		<td>
-		
-
-		
-			<table width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="table">
-			<tr>
-				<td width="600" nowrap bgcolor="#f2f2f2" class="cell">
-				
-					<table width="600" cellpadding="0" cellspacing="0" border="0" class="table">
-					<tr>
-						<td width="380" valign="top" class="footershow">
-						
-							<img border="0" src="" width="1" height="8"><br>  
-						
-							<p style="color:#a6a6a6;font-size:12px;font-family:Helvetica,Arial,sans-serif;margin-top:0;margin-bottom:15px;padding-top:0;padding-bottom:0;line-height:18px;" class="reminder">&nbsp;</p>
-							<p style="color:#c9c9c9;font-size:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;"><preferences style="color:#3ca7dd;text-decoration:none;"></preferences></p>
-						
-						</td>
-						<td align="right" width="220" style="color:#a6a6a6;font-size:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-shadow: 0 1px 0 #ffffff;" valign="top" class="hide">
-
-						
-							<img border="0" src="" width="1" height="10"><br>
-						  <p style="color:#b3b3b3;font-size:11px;line-height:15px;font-family:Helvetica,Arial,sans-serif;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;font-weight:bold;">Shapd, Inc.<br>
-					      <a href="https://www.shapd.co">www.shapd.co</a></p>
-					  <p style="color:#b3b3b3;font-size:11px;line-height:15px;font-family:Helvetica,Arial,sans-serif;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;font-weight:normal;">Boston, MA USA</p></td>
-					</tr>
-					</table>
-				
-				</td>
-			</tr>	
-	   		</table>
-
-			<img border="0" src="" width="1" height="25"><br>
-		
-	   </td>
-	</tr>
-	</table>
-	
-	</td>
-</tr>
-</table>  	   			     	 
-
-</body>
+                </script>
+    </head>
+    
+    <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0"
+        style="-webkit-font-smoothing: antialiased;width:100%
+        !important;-webkit-text-size-adjust:none;" onload="checkBrowser()">
+        
+        <table width="10%" cellpadding="0" cellspacing="0" border="0" >
+            <tr>
+                <td width="10%">
+                    
+                    <table width="600" cellpadding="0" cellspacing="0" border="0"
+                        align="center" class="table">
+                        <tr>
+                            <td width="600" class="cell">
+                                
+                                <table width="600" cellpadding="0" cellspacing="0"
+                                    border="0" class="table" style="margin-top:20px;">
+                                    <tr class="bottomBorder">
+                                        <td width="250" class="logocell"><img border="0"
+                                            src="" width="1" height="20" class="hide"><br class="hide">
+                                            <a href="https://www.shapd.co"><img
+                                                src="https://www.shapd.co/img/assets/shapd_logo.png" border=0 width="150"
+                                                height="61" alt="Shapd" style="margin-left:15px"><br><img border="0" src=""
+                                                    width="1" height="10" class="hide"></a><br class="hide"></td>
+                                        <td align="right" width="350" class="hide"
+                                            style="color:#a6a6a6;font-size:12px;font-family:'Helvetica
+                                            Neue',Helvetica,Arial,sans-serif;text-shadow: 0 1px 0 #ffffff;" valign="top"
+                                            ><img border="0" src="" width="1" height="63"><br></td>
+                                    </tr>
+                                </table>
+                                <table width="600" cellpadding="5" cellspacing="0"
+                                    border="0" class="promotable">
+                                    <tr>
+                                        <td width="600" class="bottomTop"
+                                            style="font-size:28px; border-top:1pt solid #CCC">
+                                            
+                                            
+                                            <p><strong><center>
+                                                Oops! We hit a snag.
+                                            </center></strong></p></td>
+                                    </tr>
+                                </table>
+                                
+                                <img border="0" src="" width="1" height="15"
+                                    class="divider"><br>
+                                    
+                                    <repeater>
+                                        <layout label="New feature">
+                                            <table width="100%" cellpadding="0" cellspacing="0"
+                                                border="0">
+                                                <tr>
+                                                    <td width="100%" bgcolor="#4bc4d9">
+                                                        
+                                                        <table width="100%" cellpadding="20" 
+                                                            cellspacing="0" border="0">
+                                                            <tr>
+                                                                <td bgcolor="4bc4d9" 
+                                                                    id="errorMessage" class="contentblock" style="color:#FFF">
+                                                                    
+                                                                    <h4 
+                                                                        class="secondary">
+                                                                        <singleline 
+                                                                            label="Title"><strong>We detected that you are using an incompatible 
+                                                                                browser. <br>
+                                                                                <br>
+                                                                                Our app needs a modern-day 
+                                                                                browser to function. We recommend <a 
+                                                                                    href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> or <a 
+                                                                                        href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>.  <br>
+                                                                                <br>
+                                                                                Sorry for any 
+                                                                                inconvenience!<br>
+                                                                                
+                                                                            </strong></singleline>
+                                                                    </h4>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>  
+                                            <img border="0" src="" width="1" height="15" 
+                                                class="divider"><br>
+                                                </layout>
+                                        <layout label="Article, tip or resource">
+                                            <table width="100%" cellpadding="0" cellspacing="0" 
+                                                border="0">
+                                                <tr>
+                                                    <td width="100%" bgcolor="#ffffff">
+                                                        
+                                                        <table width="100%" cellpadding="20" 
+                                                            cellspacing="0" border="0">
+                                                            <tr>
+                                                                <td bgcolor="#ffffff" 
+                                                                    class="contentblock2">
+                                                                    
+                                                                    <h4 
+                                                                        class="secondary">
+                                                                        <singleline 
+                                                                            label="Title" id="bottomMessage"><center>
+                                                                                <a 
+                                                                                    href="https://www.shapd.co/demo/">Try again</a> once you update.
+                                                                            </center>
+                                                                            
+                                                                            
+                                                                            </td>
+                                                            </tr>
+                                                        </table>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>  
+                                            <img border="0" src="" width="1" height="15" 
+                                                class="divider"><br>
+                                                </layout>
+                                        <layout label="Gallery highlights">
+                                            
+                                            
+                                            <img border="0" src="" width="1" 
+                                                height="5"><br>
+                                                
+                                                </td>
+                        </tr>
+                    </table></td>
+            </tr>
+        </table>
+        
+        
+        
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" 
+            bgcolor="#f2f2f2">
+            <tr>
+                <td>
+                    
+                    
+                    
+                    <table width="600" cellpadding="0" cellspacing="0" 
+                        border="0" align="center" class="table">
+                        <tr>
+                            <td width="600" nowrap bgcolor="#f2f2f2" 
+                                class="cell">
+                                
+                                <table width="600" cellpadding="0" 
+                                    cellspacing="0" border="0" class="table">
+                                    <tr>
+                                        <td width="380" valign="top" 
+                                            class="footershow">
+                                            
+                                            <img border="0" 
+                                                src="" width="1" height="8"><br>  
+                                                
+                                                <p 
+                                                style="color:#a6a6a6;font-size:12px;font-family:Helvetica,Arial,sans-serif;m
+                                                argin-top:0;margin-bottom:15px;padding-top:0;padding-bottom:0;line-height:18
+                                                px;" class="reminder">&nbsp;</p>
+                                                <p 
+                                                style="color:#c9c9c9;font-size:12px;font-family:'Helvetica 
+                                                Neue',Helvetica,Arial,sans-serif;"><preferences 
+                                                    style="color:#3ca7dd;text-decoration:none;"></preferences></p>
+                                                
+                                                </td>
+                                        <td align="right" 
+                                            width="220" style="color:#a6a6a6;font-size:12px;font-family:'Helvetica 
+                                            Neue',Helvetica,Arial,sans-serif;text-shadow: 0 1px 0 #ffffff;" valign="top" 
+                                            class="hide">
+                                            
+                                            
+                                            <img border="0" 
+                                                src="" width="1" height="10"><br>
+                                                <p 
+                                                style="color:#b3b3b3;font-size:11px;line-height:15px;font-family:Helvetica,A
+                                                rial,sans-serif;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;
+                                                font-weight:bold;">Shapd, Inc.<br>
+                                                <a 
+                                                    href="https://www.shapd.co">www.shapd.co</a></p>
+                                                <p 
+                                                style="color:#b3b3b3;font-size:11px;line-height:15px;font-family:Helvetica,A
+                                                rial,sans-serif;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;
+                                                font-weight:normal;">Boston, MA USA</p></td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>	
+                    </table>
+                    
+                    <img border="0" src="" width="1" height="25"><br>
+                        
+                        </td>
+            </tr>
+        </table>
+        
+        </td>
+        </tr>
+        </table>  	   			     	 
+        
+    </body>
 </html>
