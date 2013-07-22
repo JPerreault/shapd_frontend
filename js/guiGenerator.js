@@ -1,9 +1,10 @@
+library
 function addCreatorSliders() {
 			
 			var sliderControls = document.createElement('div');
 			sliderControls.id = 'shapeSlidersContainer';
-			sliderControls.style.top = '3%';
-			sliderControls.style.left = '1%';
+			sliderControls.style.top = '10px';
+			sliderControls.style.left = '5px';
 			sliderControls.style.position = 'absolute';
 			sliderControls.style.zIndex = '1000';
 			document.body.appendChild(sliderControls);
@@ -49,7 +50,7 @@ function addCreatorSliders() {
 			sliderLabel1.style.cssFloat = 'right';
 			sliderContainer1.appendChild(sliderLabel1);
 			
-			
+			//
 			var sliderContainer2 = sliderContainer1.cloneNode(false);
 			sliderContainer2.id = 'idSliderContainer2';
 			creatorSliderContainer.appendChild(sliderContainer2);
@@ -63,7 +64,7 @@ function addCreatorSliders() {
 			sliderLabel2.textContent = 'Depth ';
 			sliderContainer2.appendChild(sliderLabel2);
 			
-						
+			//			
 			var sliderContainer3 = sliderContainer1.cloneNode(false);
 			sliderContainer3.id = 'idSliderContainer3';
 			creatorSliderContainer.appendChild(sliderContainer3);
@@ -77,7 +78,7 @@ function addCreatorSliders() {
 			sliderLabel3.textContent = 'Stretch ';
 			sliderContainer3.appendChild(sliderLabel3);
 			
-
+			//
 			var sliderContainer4 = sliderContainer1.cloneNode(false);
 			sliderContainer4.id = 'idSliderContainer4';
 			creatorSliderContainer.appendChild(sliderContainer4);
@@ -91,7 +92,7 @@ function addCreatorSliders() {
 			sliderLabel4.textContent = 'Modify ';
 			sliderContainer4.appendChild(sliderLabel4);
 			
-			
+			//
 			var sliderContainer5 = sliderContainer1.cloneNode(false);
 			sliderContainer5.id = 'idSliderContainer5';
 			creatorSliderContainer.appendChild(sliderContainer5);
@@ -104,7 +105,6 @@ function addCreatorSliders() {
 			sliderLabel5.id = 'idSliderLabel3';
 			sliderLabel5.textContent = 'Loops ';
 			sliderContainer5.appendChild(sliderLabel5);
-			
 			
 			var resetContainer = document.createElement('div');
 			resetContainer.id = 'idResetContainer';
@@ -406,7 +406,7 @@ function addDesignTips() {
 			var designDiv = document.createElement('div');
 			designDiv.id = 'idDesignDiv';
 			designDiv.className = 'blackContainer';
-			designDiv.style.top = '215px';
+			designDiv.style.top = '230px';
 			designDiv.style.right = '1%';
 			designTipsContainer.appendChild(designDiv);
 			
@@ -626,7 +626,6 @@ function addResetButtons() {
 			loadShape.style.marginLeft = '4px';
 			loadShape.style.marginRight = '0px';
 			storeButtonContainer.appendChild(loadShape);
-    
 }
 
 function addSavedLibrary() {
@@ -665,8 +664,8 @@ function addStartingShapes() {
 	var shapeContainer = document.createElement('div');
 	shapeContainer.id = 'idShapeContainer';
 	shapeContainer.className = 'blackContainer';
-	shapeContainer.style.top = '290px';
-	shapeContainer.style.left = '70px';
+	shapeContainer.style.top = '270px';
+	shapeContainer.style.left = '72px';
     shapeContainer.style.overflow = 'hidden';
 	document.body.appendChild(shapeContainer);
 	
@@ -717,7 +716,7 @@ function addMaterialSelector() {
 	var materialDetailContainer = document.createElement('div');
 	materialDetailContainer.id = 'idmaterialDetailContainer';
 	materialDetailContainer.className = 'blackContainer';
-	materialDetailContainer.style.top = '150px';
+	materialDetailContainer.style.top = '140px';
 	materialDetailContainer.style.left = '1%';				
 	materialDetailContainer.style.zIndex = '300';
 	document.body.appendChild(materialDetailContainer);		

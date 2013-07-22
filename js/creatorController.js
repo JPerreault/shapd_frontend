@@ -753,6 +753,7 @@ function updateThickness(isMove)
 		$("#thicknessContainer").fadeIn(0);
 		document.getElementById('shapethin').innerHTML = "<b>Your shape is too thin to print!<br><br>Please increase the thickness, increase the scale, or alter your shape.</b>";
 		document.getElementById('shapethin').style.background = '#d7432f';
+		$('idMoreOptions').mousedown();
 		saveButtonClick(false);
 	}
 	else if (isOkay === 'large')
@@ -761,6 +762,7 @@ function updateThickness(isMove)
 		document.getElementById('shapethin').innerHTML = "<b>Your shape is too large to print!<br><br>Please decrease the thickness, decrease the scale, or alter your shape.</b>";
 		document.getElementById('shapethin').style.background = '#d7432f';
 		document.getElementById('idSaveButton').style.opacity = .5;
+		$('idMoreOptions').mousedown();
 		saveButtonClick(false);
 	}
 	else
@@ -769,7 +771,7 @@ function updateThickness(isMove)
 		{
 			document.getElementById('shapethin').innerHTML = "<b>You\'re all set!<br><br>Your shape is now an acceptable size.</b>";
 			document.getElementById('shapethin').style.background = '#2fd792';
-
+			$('idMoreOptions').mousedown();
 		}
 		else
 			$("#thicknessContainer").fadeOut(0);
