@@ -874,11 +874,11 @@ function getFeedback()
     {
         var feedbackBox = "<br><h1>How'd we do?</h1>We're new here and would appreciate some feedback.<br><br>Lay it on us. We can take it.<br><br><div style='text-align:center;margin-left:80px;width:400px'><div style='position:relative;'><div style='float:left;width:50%;position:relative'>Fun<div style='position:absolute;left:15%' id='sr0'></div></div><div style='float:left;width:50%;position:relative;'>Ease of Use<br><div style='position:absolute;left:15%' id='sr1'></div></div></div><br><br><br><div style='text-align:center;position:relative;'><div style='float:left;width:50%;position:relative;'>Creativity<br><div  style='position:absolute;left:15%' id='sr2'></div></div><div style='float:left;width:50%;position:relative;'>Overall Experience<br><div style='position:absolute;left:15%' id='sr3'></div></div></div></div><br><br><br>Anything else?<br>";
         
-        feedbackBox += "<textarea style='width: 350px;' placeholder='Anything else?' id ='contentFeedback'></textarea><br>";
+        feedbackBox += "<textarea style='width: 350px;' rows=5 placeholder='Anything else?' id ='contentFeedback'></textarea><br>";
         
         feedbackBox += "<br><button class='tutButton buttonImg' onclick='submitFeedback()'>Submit Feedback</button><br><br><a href='javascript:slideUp(fout);publishCreation();'><font color=white><u><b>Not right now</b></u></font></a>"
         
-        var d1 = generateDropDown(575,575, feedbackBox);
+        var d1 = generateDropDown(575,600, feedbackBox);
         
         for (var i=0; i<4; i++)
         $('#sr'+i).raty({
