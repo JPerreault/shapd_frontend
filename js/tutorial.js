@@ -131,7 +131,7 @@ var Tutorial = function(view, doTutorial)
 				var tut = '<img src = "assets/imgs/misc/arrowWhite.png"><br><br>Good! Use these to adjust the loop further and continue when done.<br><br><button id = "okay3" class="tutButton buttonImg">Okay</button>';
 				var d1 = generateTutorialMsg(tut, 240, highlight);
 				fout = d1;
-				slideDownCustBotL(d1, '320px', '430px');
+				slideDownCustTopL(d1, '320px', '430px');
 
 					document.getElementById('okay3').onclick = function()
 					{
