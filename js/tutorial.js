@@ -66,7 +66,7 @@ var Tutorial = function(view, doTutorial)
 			var tut = 'Great!<br><br> You can change base shapes from the library. <br><br>(Scroll down to see more).<br><img src = "assets/imgs/misc/arrowWhite.png">';
 			var d1 = generateTutorialMsg(tut, 250, highlight);
 			fout = d1;
-			slideDownCustTopL(d1, '390px', '430px');	
+			slideDownCustTopL(d1, '405px', '500px');	
 			
 			document.addEventListener( 'mousedown', sliderClicked, false );
 		}
@@ -86,10 +86,11 @@ var Tutorial = function(view, doTutorial)
 		{
 			clearHighlights();
 			fadeOut(fout);
+			highlight = 'shapeSlidersContainer';
 			var tut = '<img src = "assets/imgs/misc/arrowWhiteUp.png"><br><br>Now for the fun part. <br><br>Use these sliders to modify your shape. "Modify" and "Loops" change it the most, usually in unxpected ways.<br><br> Go on! Play a bit.';
-			var d1 = generateTutorialMsg(tut, 250);
+			var d1 = generateTutorialMsg(tut, 250, highlight);
 			fout = d1;
-			slideDownCustTopL(d1, '360px', '155px');	
+			slideDownCustTopL(d1, '420px', '155px');	
 			this.shapeLibClicked++;
 			document.getElementById('shapeSliders').style.zIndex = 100000;
 		}
@@ -130,7 +131,7 @@ var Tutorial = function(view, doTutorial)
 				var tut = '<img src = "assets/imgs/misc/arrowWhite.png"><br><br>Good! Use these to adjust the loop further and continue when done.<br><br><button id = "okay3" class="tutButton buttonImg">Okay</button>';
 				var d1 = generateTutorialMsg(tut, 240, highlight);
 				fout = d1;
-				slideDownCustTopL(d1, '320px', '430px');
+				slideDownCustBotL(d1, '320px', '430px');
 
 					document.getElementById('okay3').onclick = function()
 					{
@@ -165,7 +166,7 @@ var Tutorial = function(view, doTutorial)
 				var tut = 'Use this slider to adjust the size of your piece.<br><br><button id = "okay5" class="tutButton buttonImg">Okay</button> <img src = "assets/imgs/misc/arrowWhiteDown.png">';
 				var d1 = generateTutorialMsg(tut, 200, highlight);
 				fout = d1;
-				slideDownCustBotR(d1, '36%', 'center');
+				slideDownCustBotR(d1, '300px', 'center');
 
 					document.getElementById('okay5').onclick = function()
 					{

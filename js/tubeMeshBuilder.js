@@ -426,7 +426,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		if (variables === 'xyz')
 		{
-			document.getElementById('idCostDim').innerHTML = xVal + ' (w) x '  + yVal + ' (h) x ' + zVal + ' (d)<br><br>Dimensions in Inches';
+			document.getElementById('idCostDim').innerHTML = this.m.name + '<br>' + xVal + ' (w) x '  + yVal + ' (h) x ' + zVal + ' (d)<br> <span style="font-size:12px">(Dimensions in Inches)</span>';
 			document.getElementById('idVShapeDiv').innerHTML = '<span class="largeDimText">' + yVal + ' H</span><br><span class="smallDimText">(Inches high)<span>';
 			document.getElementById('idHShapeDiv').innerHTML = '<span class="largeDimText">' + xVal + ' W</span><br><span class="smallDimText">(Inches wide)<span>';
 			document.getElementById('idDShapeDiv').innerHTML = '<span class="largeDimText">' + zVal + ' D</span><br><span class="smallDimText">(Inches deep)<span>';	
