@@ -1,4 +1,3 @@
-library
 function addCreatorSliders() {
 			
 			var sliderControls = document.createElement('div');
