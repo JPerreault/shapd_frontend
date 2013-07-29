@@ -44,7 +44,7 @@ window.onload = function() {
 				renderer = new THREE.WebGLRenderer();
 		}
 		else
-            location.href = 'snag.html';
+            alert ('WebGL check failed.');
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
