@@ -37,7 +37,17 @@ var InputView = function(sW, rend, tMP) {
         if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.parentElement.id == "idSavedShapeLibrary"))
             return;
 		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary')
+		{
+			var wheelMovement;
+
+			if (event.wheelDelta)
+				wheelMovement = -.75*event.wheelDelta;
+			else
+				wheelMovement = 30*event.detail;
+
+			document.getElementById('idShapeLibrary').scrollTop += wheelMovement;
 			return;
+		}
         
 		var fovMAX = 80;
 		var fovMIN = 1.05;

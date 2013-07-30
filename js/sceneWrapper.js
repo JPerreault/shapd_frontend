@@ -169,7 +169,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.scene.remove(this.torusMesh);
 		this.torusMesh = this.tubeMeshBuilder.createTorus(this.currentMesh['Material']);
 		
-		this.torusMesh.rotation.x = this.currentMesh.figure.rotation.y;
+		this.torusMesh.rotation.x = this.currentMesh.figure.rotation.x;
 		this.torusMesh.rotation.y = this.currentMesh.figure.rotation.y;
 		
 		this.scene.add(this.torusMesh);

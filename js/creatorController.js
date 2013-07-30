@@ -554,11 +554,11 @@ window.onload = function() {
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 	}
 	
-	document.getElementById('idShapeLibrary').onclick = function()
+	document.getElementById('idShapeLibrary').onclick = function(event)
 	{
-		if (event.toElement.tagName === 'IMG')
+		if (event.target.tagName === 'IMG')
 		{
-			var shapeNumber = event.toElement.id.substr(3, event.toElement.id.length);
+			var shapeNumber = event.target.id.substr(3, event.target.id.length);
 			sceneWrapper.currentMesh['Starting Shape'] = parseInt(shapeNumber);
 			resetAllParams();
 			
