@@ -36,15 +36,13 @@ window.onload = function() {
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
 		}
 		
-		if (Detector.webgl)
+		if (!!window.WebGLRenderingContext)
         {
 			if (typeof screenShot != 'undefined')
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 			else
-				renderer = new THREE.WebGLRenderer();
-//            
-//                renderer = new THREE.WebGLRenderer({antialias: true});
-
+				renderer = new THREE.WebGLRenderer();         
+//              renderer = new THREE.WebGLRenderer({antialias: true});
 		}
 		else
             alert ('WebGL check failed.');

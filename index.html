@@ -21,8 +21,10 @@
 			<script src="js/libs/jquery-1.10.3.min.js"></script>
 			<script src="js/libs/Detector.js"></script>
 			<script>
-			if (!Detector.webgl)
+			if (!(!!window.WebGLRenderingContext))
+			{
 				location.href = 'snag.html';
+			}
 			</script>
             <script src="js/libs/three.min.js"></script>
             <script src="js/libs/dat.gui.min.js"></script>
