@@ -1,6 +1,7 @@
 var n = 0;
 var changedModify = 0;
 var count = 0;
+var moreOptionsClicked = 0;
 var loops = false;
 var sceneWrapper, view, tutorial, state, printable;
 
@@ -11,7 +12,6 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var moreOptionsClicked = 0;
 	var storedShape = [];
     if (typeof notSignedIn === 'undefined')
         var doTutorial = false;
@@ -36,13 +36,13 @@ window.onload = function() {
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
 		}
 		
-		if (!!window.WebGLRenderingContext || document.createElement( 'canvas' ).getContext( 'experimental-webgl' ))
+		if (!!window.WebGLRenderingContext  || document.createElement( 'canvas' ).getContext( 'experimental-webgl' ))
         {
 			if (typeof screenShot != 'undefined')
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 			else
 				renderer = new THREE.WebGLRenderer();         
-//              renderer = new THREE.WebGLRenderer({antialias: true});
+//                renderer = new THREE.WebGLRenderer({antialias: true});
 		}
 		else
             alert ('WebGL check failed.');
@@ -638,22 +638,7 @@ window.onload = function() {
 	
 	document.getElementById('idMoreOptions').onmousedown = function()
 	{
-		moreOptionsClicked++;
-		var moreOptionsButton = document.getElementById('idMoreOptions');
-		if (moreOptionsClicked%2 === 1)
-		{
-			$('#thickdepthfinalize').fadeIn(500);
-			$('#idSliderFinalLabel1').fadeIn(500);
-			$('#sliderContainer').css('marginLeft', '-200px');
-			moreOptionsButton.innerHTML = 'Less';
-		}
-		else
-		{
-			$('#thickdepthfinalize').fadeOut(500);
-			$('#idSliderFinalLabel1').fadeOut(500);
-			$('#sliderContainer').css('marginLeft', '-155px');
-			moreOptionsButton.innerHTML = 'More';
-		}
+		moreOptionsPressed();
 	}
 	
 	document.getElementById('idlockLoop').onmousedown = function()
@@ -752,8 +737,10 @@ function updateThickness(isMove)
 		$("#thicknessContainer").fadeIn(0);
 		document.getElementById('shapethin').innerHTML = "<b>Your shape is too thin to print!<br><br>Please increase the thickness, increase the scale, or alter your shape.<br><br>(Click the 'More' button under the slider.)</b>";
 		document.getElementById('shapethin').style.background = '#d7432f';
-		//$('#idMoreOptions').mousedown();
 		saveButtonClick(false);
+		if (!isMove){
+			showMoreOptions(true);
+		}
 	}
 	else if (isOkay === 'large')
 	{
@@ -761,8 +748,10 @@ function updateThickness(isMove)
 		document.getElementById('shapethin').innerHTML = "<b>Your shape is too large to print!<br><br>Please decrease the thickness, decrease the scale, or alter your shape.<br><br>(Click the 'More' button under the slider.)</b>";
 		document.getElementById('shapethin').style.background = '#d7432f';
 		document.getElementById('idSaveButton').style.opacity = .5;
-		//$('#idMoreOptions').mousedown();
 		saveButtonClick(false);
+		if (!isMove){
+			showMoreOptions(true);
+		}
 	}
 	else
 	{
@@ -770,47 +759,82 @@ function updateThickness(isMove)
 		{
 			document.getElementById('shapethin').innerHTML = "<b>You\'re all set!<br><br>Your shape is now an acceptable size.</b>";
 			document.getElementById('shapethin').style.background = '#2fd792';
-			//$('#idMoreOptions').mousedown();
 		}
 		else
+		{
 			$("#thicknessContainer").fadeOut(0);
+			showMoreOptions(false);
+		}
 	}
 }
 
 function getNewPrice()
-	{
-		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
-		document.getElementById('idCostData').innerHTML = 'Pricing...';	
-		saveButtonClick(false);
+{
+	var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
+	document.getElementById('idCostData').innerHTML = 'Pricing...';	
+	saveButtonClick(false);
 
-		var material = sceneWrapper.currentMesh['Material'];
-		
-		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
-		{
-			var data = 0;
-			if (sceneWrapper.tubeMeshBuilder.checkDimensions() === 'success')
-				data = pre(sceneWrapper.currentMesh.figure);
-			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
-		}
-		else if (material === 'Gold regular')
-		{
-			document.getElementById('idCostData').innerHTML = 'Unavailable';
-            return;
-		}
-		else if (material === 'Prime gray')
-		{
-			document.getElementById('idCostData').innerHTML = 'Unavailable';
-			return;
-		}
-		
-		else if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
-		{
-			if (jsonString.indexOf('currency') === -1)
-				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-			else
-				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-		}
+	var material = sceneWrapper.currentMesh['Material'];
+	
+	if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
+	{
+		var data = 0;
+		if (sceneWrapper.tubeMeshBuilder.checkDimensions() === 'success')
+			data = pre(sceneWrapper.currentMesh.figure);
+		$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 	}
+	else if (material === 'Gold regular')
+	{
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
+		return;
+	}
+	else if (material === 'Prime gray')
+	{
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
+		return;
+	}
+	
+	else if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
+	{
+		if (jsonString.indexOf('currency') === -1)
+			$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		else
+			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+	}
+}
+	
+function showMoreOptions(show)
+{
+	var showStatus = document.getElementById('idMoreOptions').innerHTML;
+	if (show && showStatus === 'More')
+	{
+		moreOptionsPressed();
+	}
+	else if (!show && showStatus === 'Less')
+	{
+		moreOptionsPressed();
+	}
+}
+
+function moreOptionsPressed()
+{
+	moreOptionsClicked++;
+	var moreOptionsButton = document.getElementById('idMoreOptions');
+	if (moreOptionsClicked%2 === 1)
+	{
+		$('#thickdepthfinalize').fadeIn(500);
+		$('#idSliderFinalLabel1').fadeIn(500);
+		$('#sliderContainer').css('marginLeft', '-200px');
+		moreOptionsButton.innerHTML = 'Less';
+	}
+	else
+	{
+		$('#thickdepthfinalize').fadeOut(500);
+		$('#idSliderFinalLabel1').fadeOut(500);
+		$('#sliderContainer').css('marginLeft', '-155px');
+		moreOptionsButton.innerHTML = 'More';
+	}
+}
 	
 function updatePrice(data)
 {	
