@@ -36,7 +36,7 @@ window.onload = function() {
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
 		}
 		
-		if (!!window.WebGLRenderingContext)
+		if (!!window.WebGLRenderingContext || document.createElement( 'canvas' ).getContext( 'experimental-webgl' ))
         {
 			if (typeof screenShot != 'undefined')
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});

@@ -21,7 +21,7 @@
 			<script src="js/libs/jquery-1.10.3.min.js"></script>
 			<script src="js/libs/Detector.js"></script>
 			<script>
-			if (!(!!window.WebGLRenderingContext))
+			if (!(!!window.WebGLRenderingContext || document.createElement( 'canvas' ).getContext( 'experimental-webgl' )))
 			{
 				location.href = 'snag.html';
 			}
