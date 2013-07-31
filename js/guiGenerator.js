@@ -677,7 +677,8 @@ function addStartingShapes() {
 	var scrollWrapper = document.createElement('div');
 	scrollWrapper.id = 'idScrollWrapper';
 	scrollWrapper.className = 'rounded antiscroll-wrap';
-	scrollWrapper.style.display = 'block';	
+	scrollWrapper.style.display = 'block';
+	scrollWrapper.style.overflow = 'hidden';
 	shapeContainer.appendChild(scrollWrapper);	
 			
 	var shapeLibrary = document.createElement('div');
@@ -685,7 +686,7 @@ function addStartingShapes() {
     shapeLibrary.className = 'antiscroll-inner';
 	shapeLibrary.style.height = '300px';
 	shapeLibrary.style.width = '217px';
-	shapeLibrary.style.overflow = 'auto';
+	shapeLibrary.style.overflow = 'hidden';
 	scrollWrapper.appendChild(shapeLibrary);
 
 	var s1 = document.createElement('img');

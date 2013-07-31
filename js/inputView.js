@@ -34,10 +34,20 @@ var InputView = function(sW, rend, tMP) {
 	
 	function onDocumentMouseWheel ( event ) {
         
-        if ((typeof freeze !== 'undefined' && freeze) || (event.target.parentElement.parentElement.id == "idSavedShapeLibrary"))
+        if (typeof freeze !== 'undefined' && freeze)
             return;
-		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary')
+		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary' || event.target.parentElement.parentElement.id == "idSavedShapeLibrary")
+		{
+			var wheelMovement;
+
+			if (event.wheelDelta)
+				wheelMovement = -.75*event.wheelDelta;
+			else
+				wheelMovement = 30*event.detail;
+
+			document.getElementById('idShapeLibrary').scrollTop += wheelMovement;
 			return;
+		}
         
 		var fovMAX = 80;
 		var fovMIN = 1.05;

@@ -1,6 +1,7 @@
 var n = 0;
 var changedModify = 0;
 var count = 0;
+var moreOptionsClicked = 0;
 var loops = false;
 var sceneWrapper, view, tutorial, state, printable;
 
@@ -11,10 +12,9 @@ window.onload = function() {
 	var projector, mouse = { x: 0, y: 0 }, intersected, fout;
 	var firstTime = true;
 	var loops = false;
-	var moreOptionsClicked = 0;
 	var storedShape = [];
     if (typeof notSignedIn === 'undefined')
-        var doTutorial = true;
+        var doTutorial = false;
     else
         var doTutorial = true;
 	
@@ -36,15 +36,16 @@ window.onload = function() {
 			sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, tubeMP);
 		}
 		
-		if (Detector.webgl)
+		if (!!window.WebGLRenderingContext  || document.createElement( 'canvas' ).getContext( 'experimental-webgl' ))
         {
 			if (typeof screenShot != 'undefined')
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 			else
-				renderer = new THREE.WebGLRenderer({antialias: true});
+				renderer = new THREE.WebGLRenderer();         
+//                renderer = new THREE.WebGLRenderer({antialias: true});
 		}
 		else
-            location.href = 'snag.html';
+            alert ('WebGL check failed.');
 		view = new InputView(sceneWrapper, renderer, tubeMP);
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
@@ -67,15 +68,14 @@ window.onload = function() {
     function killSelf()
     {
         parent.hideTheBeast(parent.state);
-        idSavedShapeLibrary.innerHTML = shapeLib;
-        setTimeout("location.href=\"blank.html\";", 2000);
+        location.href="blank.html";
     }
     
     function screenie()
     {
         var metaData = renderer.domElement.toDataURL("image/png");
         
-        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData}, killSelf());
+        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData}, function(data){killSelf()});
         
     }
     
@@ -535,10 +535,10 @@ window.onload = function() {
 		currentMesh['Thickness'] = 1.5;
 		if (view.targetX === 0 && view.targetY === 0)
 		{
-			currentMesh['Rotation X'] = 6.28318531;
-			currentMesh['Rotation Y'] = 6.28318531;
-			view.targetX = 6.28318531;
-			view.targetY = 6.28318531;
+			// currentMesh['Rotation X'] = 6.28318531;
+			currentMesh['Rotation Y'] = 6.28318531/2;
+			// view.targetX = 6.28318531;
+			view.targetY = 6.28318531/2;
 		}
 		else
 		{
@@ -552,12 +552,11 @@ window.onload = function() {
 		tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
 	}
 	
-	document.getElementById('idShapeLibrary').onclick = function()
+	document.getElementById('idShapeLibrary').onclick = function(event)
 	{
-		if (event.toElement.tagName === 'IMG')
+		if (event.target.tagName === 'IMG')
 		{
-				
-			var shapeNumber = event.toElement.id.substr(3, event.toElement.id.length);
+			var shapeNumber = event.target.id.substr(3, event.target.id.length);
 			sceneWrapper.currentMesh['Starting Shape'] = parseInt(shapeNumber);
 			resetAllParams();
 			
@@ -639,22 +638,7 @@ window.onload = function() {
 	
 	document.getElementById('idMoreOptions').onmousedown = function()
 	{
-		moreOptionsClicked++;
-		var moreOptionsButton = document.getElementById('idMoreOptions');
-		if (moreOptionsClicked%2 === 1)
-		{
-			$('#thickdepthfinalize').fadeIn(500);
-			$('#idSliderFinalLabel1').fadeIn(500);
-			$('#sliderContainer').css('marginLeft', '-200px');
-			moreOptionsButton.innerHTML = 'Less';
-		}
-		else
-		{
-			$('#thickdepthfinalize').fadeOut(500);
-			$('#idSliderFinalLabel1').fadeOut(500);
-			$('#sliderContainer').css('marginLeft', '-155px');
-			moreOptionsButton.innerHTML = 'More';
-		}
+		moreOptionsPressed();
 	}
 	
 	document.getElementById('idlockLoop').onmousedown = function()
@@ -753,8 +737,10 @@ function updateThickness(isMove)
 		$("#thicknessContainer").fadeIn(0);
 		document.getElementById('shapethin').innerHTML = "<b>Your shape is too thin to print!<br><br>Please increase the thickness, increase the scale, or alter your shape.<br><br>(Click the 'More' button under the slider.)</b>";
 		document.getElementById('shapethin').style.background = '#d7432f';
-		//$('#idMoreOptions').mousedown();
 		saveButtonClick(false);
+		if (!isMove){
+			showMoreOptions(true);
+		}
 	}
 	else if (isOkay === 'large')
 	{
@@ -762,8 +748,10 @@ function updateThickness(isMove)
 		document.getElementById('shapethin').innerHTML = "<b>Your shape is too large to print!<br><br>Please decrease the thickness, decrease the scale, or alter your shape.<br><br>(Click the 'More' button under the slider.)</b>";
 		document.getElementById('shapethin').style.background = '#d7432f';
 		document.getElementById('idSaveButton').style.opacity = .5;
-		//$('#idMoreOptions').mousedown();
 		saveButtonClick(false);
+		if (!isMove){
+			showMoreOptions(true);
+		}
 	}
 	else
 	{
@@ -771,47 +759,82 @@ function updateThickness(isMove)
 		{
 			document.getElementById('shapethin').innerHTML = "<b>You\'re all set!<br><br>Your shape is now an acceptable size.</b>";
 			document.getElementById('shapethin').style.background = '#2fd792';
-			//$('#idMoreOptions').mousedown();
 		}
 		else
+		{
 			$("#thicknessContainer").fadeOut(0);
+			showMoreOptions(false);
+		}
 	}
 }
 
 function getNewPrice()
-	{
-		var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
-		document.getElementById('idCostData').innerHTML = 'Pricing...';	
-		saveButtonClick(false);
+{
+	var jsonString = getJson(sceneWrapper.currentMesh, sceneWrapper);
+	document.getElementById('idCostData').innerHTML = 'Pricing...';	
+	saveButtonClick(false);
 
-		var material = sceneWrapper.currentMesh['Material'];
-		
-		if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
-		{
-			var data = 0;
-			if (sceneWrapper.tubeMeshBuilder.checkDimensions() === 'success')
-				data = pre(sceneWrapper.currentMesh.figure);
-			$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
-		}
-		else if (material === 'Gold regular')
-		{
-			document.getElementById('idCostData').innerHTML = 'Unavailable';
-            return;
-		}
-		else if (material === 'Prime gray')
-		{
-			document.getElementById('idCostData').innerHTML = 'Unavailable';
-			return;
-		}
-		
-		else if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
-		{
-			if (jsonString.indexOf('currency') === -1)
-				$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-			else
-				$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
-		}
+	var material = sceneWrapper.currentMesh['Material'];
+	
+	if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
+	{
+		var data = 0;
+		if (sceneWrapper.tubeMeshBuilder.checkDimensions() === 'success')
+			data = pre(sceneWrapper.currentMesh.figure);
+		$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
 	}
+	else if (material === 'Gold regular')
+	{
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
+		return;
+	}
+	else if (material === 'Prime gray')
+	{
+		document.getElementById('idCostData').innerHTML = 'Unavailable';
+		return;
+	}
+	
+	else if (typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
+	{
+		if (jsonString.indexOf('currency') === -1)
+			$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+		else
+			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+	}
+}
+	
+function showMoreOptions(show)
+{
+	var showStatus = document.getElementById('idMoreOptions').innerHTML;
+	if (show && showStatus === 'More')
+	{
+		moreOptionsPressed();
+	}
+	else if (!show && showStatus === 'Less')
+	{
+		moreOptionsPressed();
+	}
+}
+
+function moreOptionsPressed()
+{
+	moreOptionsClicked++;
+	var moreOptionsButton = document.getElementById('idMoreOptions');
+	if (moreOptionsClicked%2 === 1)
+	{
+		$('#thickdepthfinalize').fadeIn(500);
+		$('#idSliderFinalLabel1').fadeIn(500);
+		$('#sliderContainer').css('marginLeft', '-200px');
+		moreOptionsButton.innerHTML = 'Less';
+	}
+	else
+	{
+		$('#thickdepthfinalize').fadeOut(500);
+		$('#idSliderFinalLabel1').fadeOut(500);
+		$('#sliderContainer').css('marginLeft', '-155px');
+		moreOptionsButton.innerHTML = 'More';
+	}
+}
 	
 function updatePrice(data)
 {	
@@ -853,9 +876,61 @@ function pre(figure)
 	return p;
 }
 
+function submitFeedback()
+{
+    var i0 = document.getElementsByName('idOfsr0')[0].value;
+    var i1 = document.getElementsByName('idOfsr1')[0].value;
+    var i2 = document.getElementsByName('idOfsr2')[0].value;
+    var i3 = document.getElementsByName('idOfsr3')[0].value;
+    
+    var rating = i0+"|"+i1+"|"+i2+"|"+i3;
+    var content = document.getElementById('contentFeedback').value;
+    
+    $.post('/feedback', {rating: rating, message: content, authenticity_token: authToken});
+    slideUp(fout);
+    publishCreation();
+}
+
+function getFeedback()
+{
+    if (typeof noFeedback !== 'undefined' || typeof window.noFeedback !== 'undefined')
+    {
+        var feedbackBox = "<br><h1>How'd we do?</h1>We're new here and would appreciate some feedback.<br><br>Lay it on us. We can take it.<br><br><div style='text-align:center;margin-left:80px;width:400px'><div style='position:relative;'><div style='float:left;width:50%;position:relative'>Fun<div style='position:absolute;left:15%' id='sr0'></div></div><div style='float:left;width:50%;position:relative;'>Ease of Use<br><div style='position:absolute;left:15%' id='sr1'></div></div></div><br><br><br><div style='text-align:center;position:relative;'><div style='float:left;width:50%;position:relative;'>Creativity<br><div  style='position:absolute;left:15%' id='sr2'></div></div><div style='float:left;width:50%;position:relative;'>Overall Experience<br><div style='position:absolute;left:15%' id='sr3'></div></div></div></div><br><br><br>Anything else?<br>";
+        
+        feedbackBox += "<textarea style='width: 350px;' rows=5 placeholder='Anything else?' id ='contentFeedback'></textarea><br>";
+        
+        feedbackBox += "<br><button class='tutButton buttonImg' onclick='submitFeedback()'>Submit Feedback</button><br><br><a href='javascript:slideUp(fout);publishCreation();'><font color=white><u><b>Not right now</b></u></font></a>"
+        
+        var d1 = generateDropDown(575,600, feedbackBox);
+        
+        for (var i=0; i<4; i++)
+        $('#sr'+i).raty({
+                        cancel   : false,
+                        half     : true,
+                        size     : 24,
+                        starHalf : 'assets/imgs/stars/star-half-big.png',
+                        starOff  : 'assets/imgs/stars/star-off-big.png',
+                        starOn   : 'assets/imgs/stars/star-on-big.png',
+                        scoreName : 'idOfsr'+i
+                        });
+        
+        fout = d1;
+        slideDown(d1);
+        freeze = true;
+        document.getElementById("blackout").onclick = null;
+    }
+    else
+        publishCreation();
+}
+
 function publishCreation()
 {
+    
     document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+    
+    
+   // oneQuickThing();
+    
     
     var timestamp = new Date().getTime();
     

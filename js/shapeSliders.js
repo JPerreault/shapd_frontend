@@ -53,7 +53,7 @@ function addSliders(tutorial, sceneWrapper)
 				sceneWrapper.tubeMeshBuilder.calculateDimensions('xy', sceneWrapper.torusDefined);
 				if (sceneWrapper.torusDefined)
 					sceneWrapper.redrawTorus();
-				updateThickness();
+				updateThickness(true);
 			},
 			stop: function(event, ui){
 				if (tutorial.tutorialOn === true)
