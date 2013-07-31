@@ -219,9 +219,7 @@ var Tutorial = function(view, doTutorial)
 	
 	function clearHighlights() {
 		
-		if($(".dg.main")[0])
-			$(".dg.main")[0].style.zIndex = 1000;
-		
+		document.getElementById('shapeSlidersContainer').style.zIndex = 1000;
 		document.getElementById('idShapeContainer').style.zIndex = 1000;
 		document.getElementById('materials').style.zIndex = 1001;
 		document.getElementById('sliderContainer').style.zIndex = 1000;
