@@ -38,31 +38,30 @@ var InputView = function(sW, rend, tMP) {
             return;
 			
 		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary')
-		{
-			var wheelMovement;
-
-			if (event.wheelDelta)
-				wheelMovement = -.75*event.wheelDelta;
-			else
-				wheelMovement = 30*event.detail;
-
-			document.getElementById('idShapeLibrary').scrollTop += wheelMovement;
-			return;
-		}
-		
-		if (event.target.parentElement.parentElement.id == "idSavedShapeLibrary")
-		{
-			var wheelMovement;
-
-			if (event.wheelDelta)
-				wheelMovement = -.75*event.wheelDelta;
-			else
-				wheelMovement = 30*event.detail;
-
-			document.getElementById('idSavedShapeLibrary').scrollTop += wheelMovement;
-			return;
-		}
+        {
+            var wheelMovement;
+            
+            if (event.wheelDelta)
+                wheelMovement = -.75*event.wheelDelta;
+            else
+                wheelMovement = 30*event.detail;
+            
+            document.getElementById('idShapeLibrary').scrollTop += wheelMovement;
+            return;
+        }
         
+        if (event.target.parentElement.parentElement.id == "idSavedShapeLibrary")
+        {
+            var wheelMovement;
+            
+            if (event.wheelDelta)
+                wheelMovement = -.75*event.wheelDelta;
+            else
+                wheelMovement = 30*event.detail;
+            
+            document.getElementById('idSavedShapeLibrary').scrollTop += wheelMovement;
+            return;
+        }
 		var fovMAX = 80;
 		var fovMIN = 1.05;
 
