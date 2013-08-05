@@ -1,6 +1,6 @@
 var websiteName = '';
 
-function getJson(currentMesh, sw)
+function getJson()
 {
 	var jsonString = '';
 	var data = [];
@@ -73,54 +73,8 @@ function getJson(currentMesh, sw)
 	return jsonString;
 }
 
-function calculateVolume(figure, scale, sw)
-{
-	// var cube_geometry = new THREE.CubeGeometry( 3, 3, 3 );
-		// var cube_mesh = new THREE.Mesh( cube_geometry );
-		// cube_mesh.position.x = -7;
-		// var cube_bsp = new ThreeBSP( cube_mesh );
-
-		// var sphere_geometry = new THREE.SphereGeometry( 1.8, 32, 32 );
-		// var sphere_mesh = new THREE.Mesh( sphere_geometry );
-		// sphere_mesh.position.x = -7;
-		// var sphere_bsp = new ThreeBSP( sphere_mesh );
-
-		// var subtract_bsp = cube_bsp.subtract( sphere_bsp );
-		// var result = subtract_bsp.toMesh( figure.material );
-		// result.geometry.computeVertexNormals();
-		// sw.scene.add( result );
-		// var xDim = sw.tubeMeshBuilder.xDim;
-		// var yDim = sw.tubeMeshBuilder.yDim;
-		// var zDim = sw.tubeMeshBuilder.zDim;
-		// console.log('xdim: ', xDim, ' ydim: ', yDim, ' zdim: ', zDim);
-		// var cube_geometry = new THREE.CubeGeometry( xDim, yDim/2, zDim );
-		// var cube_mesh = new THREE.Mesh( cube_geometry, figure.material );
-		// var cube_bsp = new ThreeBSP( cube_mesh );
-		// var test = figure.geometry;
-
-		// try{
-		//console.log(test);
-		//var figureBSP = new ThreeBSP(test);
-		// }
-		// catch (e)
-		// {
-		//	console.log('Error: ', e, ' Figure: ', figureBSP);
-		//}
-
-		//var subtract_bsp = cube_bsp.subtract( figureBSP );
-		//var subtract_bsp = figureBSP.subtract( cube_bsp );
-		// var result = subtract_bsp.toMesh( figure.material );
-		
-		// result.geometry.mergeVertices();
-		// result.geometry.computeCentroids();
-		// result.geometry.computeFaceNormals();
-		// result.geometry.computeVertexNormals();
-		
-		// sw.scene.add( result );
-		// sw.scene.remove(sceneWrapper.currentMesh.figure);
-		// sceneWrapper.currentMesh.figure = result;
-
-		
+function calculateVolume(figure, scale)
+{	
 	var vertices = figure.geometry.vertices;
 	var faces = figure.geometry.faces;
 	var totalVolume = 0;
@@ -167,11 +121,11 @@ function calculateVolume(figure, scale, sw)
 		}
 	}
 	
-	if (sceneWrapper.torusDefined)
+	if (loop.torusDefined)
 	{
 	
-		faces = sceneWrapper.torusMesh.geometry.faces;
-		vertices = sceneWrapper.torusMesh.geometry.vertices;
+		faces = loop.torusMesh.geometry.faces;
+		vertices = loop.torusMesh.geometry.vertices;
 			
 		for (var i = 0; i < faces.length; i++)
 		{
@@ -205,7 +159,7 @@ function calculateVolume(figure, scale, sw)
 			partVol = (px*qy*rz) + (py*qz*rx) + (pz*qx*ry) - (px*qz*ry) - (py*qx*rz) - (pz*qy*rx);
 			torusVol += partVol;
 		}
-		torusVol *= (Math.pow(sceneWrapper.torusMesh.scale.x, 3));
+		torusVol *= (Math.pow(loop.torusMesh.scale.x, 3));
 	}
 	
 	figureVol *= (Math.pow(scale, 3));
@@ -252,10 +206,10 @@ function calculateSurfaceArea(figure, scale)
 		figureSA += partSA;
 	}
 	
-	if (sceneWrapper.torusDefined)
+	if (loop.torusDefined)
 	{
-		faces = sceneWrapper.torusMesh.geometry.faces;
-		vertices = sceneWrapper.torusMesh.geometry.vertices;
+		faces = loop.torusMesh.geometry.faces;
+		vertices = loop.torusMesh.geometry.vertices;
 			
 		for (var i = 0; i < faces.length; i++)
 		{
@@ -269,7 +223,7 @@ function calculateSurfaceArea(figure, scale)
 			partSA = ab*ad;
 			torusSA += partSA;
 		}
-		torusSA *= (Math.pow(sceneWrapper.torusMesh.scale.x, 2));
+		torusSA *= (Math.pow(loop.torusMesh.scale.x, 2));
 	}
 	
 	
@@ -312,11 +266,11 @@ function calculateXYZ(figure, scale)
 	var zMax = boundingBox.max.z * scale;
 	var xVal, yVal, zVal;
 	
-	if (sceneWrapper.torusDefined)
+	if (loop.torusDefined)
 	{
-		sceneWrapper.torusMesh.geometry.computeBoundingBox();
-		var torusBox = sceneWrapper.torusMesh.geometry.boundingBox;
-		var torusScale = sceneWrapper.torusMesh.scale.x;
+		loop.torusMesh.geometry.computeBoundingBox();
+		var torusBox = loop.torusMesh.geometry.boundingBox;
+		var torusScale = loop.torusMesh.scale.x;
 		
 		var torusxMin = torusBox.min.x * torusScale;
 		var torusyMin = torusBox.min.y * torusScale;

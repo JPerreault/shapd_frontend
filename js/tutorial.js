@@ -45,12 +45,10 @@ var Tutorial = function(view, doTutorial)
 			{
 				fadeOut(fout);
 			}
-			
 			document.addEventListener( 'mousedown', onTwoClick, false );
 			function onTwoClick( event ) 
 			{
 				fadeOut(fout);
-
 				if (that.tutorialOn === true && (Math.abs(view.targetX) > 5 || Math.abs(view.targetY) > 5))
 				{
 					document.removeEventListener( 'mousedown', onTwoClick, false );
@@ -60,16 +58,14 @@ var Tutorial = function(view, doTutorial)
 	}
 
 	function tut2() {
-		if ( state === 'creator' ) {
-			clearHighlights();
-			highlight = 'idShapeContainer';
-			var tut = 'Great!<br><br> You can change base shapes from the library. <br><br>(Scroll down to see more).<br><img src = "assets/imgs/misc/arrowWhite.png">';
-			var d1 = generateTutorialMsg(tut, 250, highlight);
-			fout = d1;
-			slideDownCustTopL(d1, '405px', '500px');	
-			
-			document.addEventListener( 'mousedown', sliderClicked, false );
-		}
+		clearHighlights();
+		highlight = 'idShapeContainer';
+		var tut = 'Great!<br><br> You can change base shapes from the library. <br><br>(Scroll down to see more).<br><img src = "assets/imgs/misc/arrowWhite.png">';
+		var d1 = generateTutorialMsg(tut, 250, highlight);
+		fout = d1;
+		slideDownCustTopL(d1, '405px', '500px');	
+		
+		document.addEventListener( 'mousedown', sliderClicked, false );
 	}
 	
 	function sliderClicked(event) {
@@ -142,28 +138,11 @@ var Tutorial = function(view, doTutorial)
 	
 	this.tut7 = function() {
 		
-			if ( this.matsPage === 0 && that.tutorialOn === true) {
-				clearHighlights();
-				this.matsPage = 1;
-				var tut = 'Lastly we need to pick a material for your piece and size it!<br><br><button id = "okay4" class="tutButton buttonImg">Okay</button>';
-				var d1 = generateTutorialMsg(tut, 180);
-				fout = d1;
-				slideDownCustBotR(d1, 'center', 'center');
-
-					document.getElementById('okay4').onclick = function()
-					{
-						tut8();
-					}
-			}
-	}
-	
-	function tut8() {
-		
 			if ( that.tutorialOn === true) {
 				clearHighlights();
 				fadeOut(fout);
 				highlight = 'sliderContainer';
-				var tut = 'Use this slider to adjust the size of your piece.<br><br><button id = "okay5" class="tutButton buttonImg">Okay</button> <img src = "assets/imgs/misc/arrowWhiteDown.png">';
+				var tut = 'Almost there! All that\'s left is to pick the size and material. Use this slider to adjust the size of your piece.<br><br><button id = "okay5" class="tutButton buttonImg">Okay</button> <img src = "assets/imgs/misc/arrowWhiteDown.png">';
 				var d1 = generateTutorialMsg(tut, 200, highlight);
 				fout = d1;
 				slideDownCustBotR(d1, '300px', 'center');
@@ -190,7 +169,7 @@ var Tutorial = function(view, doTutorial)
 	
 		this.tut10 = function() {
 		
-			if ( that.tutorialOn === true && state === 'finalize') {
+			if ( that.tutorialOn === true) {
 				clearHighlights();
 				fadeOut(fout);
 				highlight = 'idCostDataContainer';

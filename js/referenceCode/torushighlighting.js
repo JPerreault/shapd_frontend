@@ -62,3 +62,49 @@
 		}
 	};
 */
+
+//****Stuff from jsonmaker for volume related thing
+// var cube_geometry = new THREE.CubeGeometry( 3, 3, 3 );
+		// var cube_mesh = new THREE.Mesh( cube_geometry );
+		// cube_mesh.position.x = -7;
+		// var cube_bsp = new ThreeBSP( cube_mesh );
+
+		// var sphere_geometry = new THREE.SphereGeometry( 1.8, 32, 32 );
+		// var sphere_mesh = new THREE.Mesh( sphere_geometry );
+		// sphere_mesh.position.x = -7;
+		// var sphere_bsp = new ThreeBSP( sphere_mesh );
+
+		// var subtract_bsp = cube_bsp.subtract( sphere_bsp );
+		// var result = subtract_bsp.toMesh( figure.material );
+		// result.geometry.computeVertexNormals();
+		// sw.scene.add( result );
+		// var xDim = sw.tubeMeshBuilder.xDim;
+		// var yDim = sw.tubeMeshBuilder.yDim;
+		// var zDim = sw.tubeMeshBuilder.zDim;
+		// console.log('xdim: ', xDim, ' ydim: ', yDim, ' zdim: ', zDim);
+		// var cube_geometry = new THREE.CubeGeometry( xDim, yDim/2, zDim );
+		// var cube_mesh = new THREE.Mesh( cube_geometry, figure.material );
+		// var cube_bsp = new ThreeBSP( cube_mesh );
+		// var test = figure.geometry;
+
+		// try{
+		//console.log(test);
+		//var figureBSP = new ThreeBSP(test);
+		// }
+		// catch (e)
+		// {
+		//	console.log('Error: ', e, ' Figure: ', figureBSP);
+		//}
+
+		//var subtract_bsp = cube_bsp.subtract( figureBSP );
+		//var subtract_bsp = figureBSP.subtract( cube_bsp );
+		// var result = subtract_bsp.toMesh( figure.material );
+		
+		// result.geometry.mergeVertices();
+		// result.geometry.computeCentroids();
+		// result.geometry.computeFaceNormals();
+		// result.geometry.computeVertexNormals();
+		
+		// sw.scene.add( result );
+		// sw.scene.remove(sceneWrapper.currentMesh.figure);
+		// sceneWrapper.currentMesh.figure = result;

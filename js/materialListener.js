@@ -1,12 +1,11 @@
-var materialListener = function(sW, tMB, tutorial){
-	var tubeMeshBuilder = tMB;
+var materialListener = function(sW, tutorial){
 	var sceneWrapper = sW;
 	var name, description, cost, smooth, img1, img2, feeFlat, feePerCM3, shipsinBizDays, ourHandling, estShippingFrom, estShippingTo, imgDesc1, imgDesc2, designTip;
 	var that = this;
 	
 	document.getElementById('Plastic regular white').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular white';
+		currentMesh['Material'] = 'Plastic regular white';
 		name = 'Rough White Plastic';
 		cost = '$';
 		smooth = 'Very Low';
@@ -25,7 +24,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic regular black').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular black';
+		currentMesh['Material'] = 'Plastic regular black';
 		name = 'Rough Black Plastic';
 		cost = '$';
 		smooth = 'Very Low';
@@ -44,7 +43,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic regular white polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular white polished';
+		currentMesh['Material'] = 'Plastic regular white polished';
 		name = 'White Regular Plastic';
 		cost = '$';
 		smooth = 'Low';
@@ -62,7 +61,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic regular red polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular red polished';
+		currentMesh['Material'] = 'Plastic regular red polished';
 		name = 'Red Regular Plastic';
 		cost = '$';
 		smooth = 'Low';
@@ -80,7 +79,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic regular blue polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular blue polished';
+		currentMesh['Material'] = 'Plastic regular blue polished';
 		name = 'Blue Regular Plastic';
 		cost = '$';
 		smooth = 'Low';
@@ -98,7 +97,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic regular pink polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular pink polished';
+		currentMesh['Material'] = 'Plastic regular pink polished';
 		name = 'Hot-Pink Regular Plastic';
 		cost = '$';
 		smooth = 'Low';
@@ -116,7 +115,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic regular purple polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic regular purple polished';
+		currentMesh['Material'] = 'Plastic regular purple polished';
 		name = 'Purple Regular Plastic';
 		cost = '$';
 		smooth = 'Low';
@@ -134,7 +133,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic detail white').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic detail white';
+		currentMesh['Material'] = 'Plastic detail white';
 		name = 'White Detail Plastic';
 		cost = '$';
 		smooth = 'Med';
@@ -152,7 +151,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Plastic detail black').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Plastic detail black';
+		currentMesh['Material'] = 'Plastic detail black';
 		name = 'Black Detail Plastic';
 		cost = '$';
 		smooth = 'Med';
@@ -170,7 +169,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Prime gray').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Prime gray';
+		currentMesh['Material'] = 'Prime gray';
 		name = 'Premium Smooth Gray Plastic';
 		cost = '$$$';
 		smooth = 'High';
@@ -189,7 +188,7 @@ var materialListener = function(sW, tMB, tutorial){
 /*	
 	document.getElementById('cleartransparentplastic').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin white';
+		currentMesh['Material'] = 'Transparent resin white';
 		name = 'Ultra Smooth Clear Plastic ';
 		cost = '$';
 		smooth = 'High';
@@ -204,7 +203,7 @@ var materialListener = function(sW, tMB, tutorial){
 	*/
 	document.getElementById('Transparent resin white').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin white';
+		currentMesh['Material'] = 'Transparent resin white';
 		name = 'Ultra-Premium Clear & Smooth Plastic';
 		cost = '$$$';
 		smooth = 'High';
@@ -222,7 +221,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Transparent resin red').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin red';
+		currentMesh['Material'] = 'Transparent resin red';
 		name = 'Ultra-Premium Clear & Smooth Red Plastic ';
 		cost = '$$$';
 		smooth = 'High';
@@ -240,7 +239,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Transparent resin blue').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin blue';
+		currentMesh['Material'] = 'Transparent resin blue';
 		name = 'Ultra-Premium Clear & Smooth Blue Plastic ';
 		cost = '$$$';
 		smooth = 'High';
@@ -258,7 +257,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Transparent resin yellow').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Transparent resin yellow';
+		currentMesh['Material'] = 'Transparent resin yellow';
 		name = 'Ultra-Premium Clear & Smooth Yellow Plastic ';
 		cost = '$$$';
 		smooth = 'High';
@@ -276,7 +275,7 @@ var materialListener = function(sW, tMB, tutorial){
 
 	document.getElementById('Alumide regular').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Alumide regular';
+		currentMesh['Material'] = 'Alumide regular';
 		name = 'Regular Alumide';
 		cost = '$';
 		smooth = 'Very Low';
@@ -294,7 +293,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Alumide polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Alumide polished';
+		currentMesh['Material'] = 'Alumide polished';
 		name = 'Alumide polished';
 		cost = '$';
 		smooth = 'Low';
@@ -312,7 +311,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Stainless steel regular').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Stainless steel regular';
+		currentMesh['Material'] = 'Stainless steel regular';
 		name = 'Stainless Steel';
 		cost = '$$';
 		smooth = 'Med';
@@ -330,7 +329,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Stainless steel bronze matte').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Stainless steel bronze matte';
+		currentMesh['Material'] = 'Stainless steel bronze matte';
 		name = 'Antique Bronze-Plated Matte Stainless Steel';
 		cost = '$$';
 		smooth = 'Med';
@@ -348,7 +347,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Stainless steel bronze glossy').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Stainless steel bronze glossy';
+		currentMesh['Material'] = 'Stainless steel bronze glossy';
 		name = 'Antique Bronze-Plated Glossy Stainless Steel';
 		cost = '$$';
 		smooth = 'Med';
@@ -366,7 +365,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Stainless steel gold matte').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Stainless steel gold matte';
+		currentMesh['Material'] = 'Stainless steel gold matte';
 		name = 'Gold-Plated Matte Stainless Steel';
 		cost = '$$';
 		smooth = 'Med';
@@ -384,7 +383,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Stainless steel gold glossy').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Stainless steel gold glossy';
+		currentMesh['Material'] = 'Stainless steel gold glossy';
 		name = 'Gold-Plated Glossy Stainless Steel';
 		cost = '$$';
 		smooth = 'Med';
@@ -402,7 +401,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Brass regular').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Brass regular';
+		currentMesh['Material'] = 'Brass regular';
 		name = 'Regular Solid Brass';
 		cost = '$$';
 		smooth = 'Med';
@@ -420,7 +419,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Brass gold plated polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Brass gold plated polished';
+		currentMesh['Material'] = 'Brass gold plated polished';
 		name = 'Gold-Plated Solid Brass';
 		cost = '$$';
 		smooth = 'High';
@@ -438,7 +437,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Silver regular').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Silver regular';
+		currentMesh['Material'] = 'Silver regular';
 		name = 'Regular Sterling Silver';
 		cost = '$$$';
 		smooth = 'Low';
@@ -456,7 +455,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Silver glossy').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Silver glossy';
+		currentMesh['Material'] = 'Silver glossy';
 		name = 'Glossy Sterling Silver';
 		cost = '$$$';
 		smooth = 'Med';
@@ -474,7 +473,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Silver premium').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Silver premium';
+		currentMesh['Material'] = 'Silver premium';
 		name = 'Premium Glossy Sterling Silver';
 		cost = '$$$';
 		smooth = 'High';
@@ -492,7 +491,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Titanium unpolished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Titanium unpolished';
+		currentMesh['Material'] = 'Titanium unpolished';
 		name = 'Unpolished Solid Titanium';
 		cost = '$$$';
 		smooth = 'Med';
@@ -510,7 +509,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Titanium polished').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Titanium polished';
+		currentMesh['Material'] = 'Titanium polished';
 		name = 'Polished Solid Titanium';
 		cost = '$$$';
 		smooth = 'High';
@@ -528,7 +527,7 @@ var materialListener = function(sW, tMB, tutorial){
 	
 	document.getElementById('Gold regular').onclick = function()
 	{
-		sceneWrapper.currentMesh['Material'] = 'Gold regular';
+		currentMesh['Material'] = 'Gold regular';
 		name = 'Premium Solid Gold';
 		cost = '$$$';
 		smooth = 'High';
@@ -544,28 +543,44 @@ var materialListener = function(sW, tMB, tutorial){
 		that.materialChange();
 	}
 	
-	this.materialChange = function()
+	document.getElementById('idM1').onclick = function()
 	{
-		tubeMeshBuilder.officialName = name;
-		sceneWrapper.redrawMesh(sceneWrapper.currentMesh);
-		getNewPrice();
-		this.panelUpdate();
-		sceneWrapper.tubeMeshBuilder.calculateDimensions('xyz', sceneWrapper.torusDefined);
-		updateThickness();
-		
-		if (tutorial.tutorialOn === true) {
-			tutorial.tut10();
+		var imgSource = document.getElementById('idM1').src;
+		var imgDesc = imgDesc1;
+		var d1 = generateLightbox(imgSource, imgDesc);
+		fout = d1;
+		fadeIn(d1);
+		document.getElementById(d1).onclick = function()
+		{
+			fadeOut(fout);
 		}
 	}
 	
-	this.getImgDesc1 = function()
+	document.getElementById('idM2').onclick = function()
 	{
-		return imgDesc1;	
+		var imgSource = document.getElementById('idM2').src;
+		var imgDesc = imgDesc2;
+		var d1 = generateLightbox(imgSource, imgDesc);
+		fout = d1;
+		fadeIn(d1);
+		document.getElementById(d1).onclick = function()
+		{
+			fadeOut(fout);
+		}
 	}
 	
-	this.getImgDesc2 = function()
+	this.materialChange = function()
 	{
-		return imgDesc2;	
+		currentMesh.officialName = name;
+		sceneWrapper.redrawMesh(currentMesh);
+		getNewPrice();
+		this.panelUpdate();
+		currentMesh.calculateDimensions('xyz', loop.torusDefined);
+		updateThickness();
+		
+		if (tutorial.tutorialOn === true && state === 'finalize') {
+			tutorial.tut10();
+		}
 	}
 	
 	this.panelUpdate = function()

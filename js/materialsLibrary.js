@@ -84,13 +84,10 @@ function buildWhiteBox()
 
 // This function builds the background of the environment that the shapes actually reflect
 function buildreflectCube(){
-	if (n%2 == 0)
-	{
-		var r = "src/textures/cube/skybox/";
-		var urls = [ r + "px.jpg", r + "nx.jpg",
-					 r + "py.jpg", r + "ny.jpg",
-					 r + "pz.jpg", r + "nz.jpg" ];
-	}
+	var r = "src/textures/cube/skybox/";
+	var urls = [ r + "px.jpg", r + "nx.jpg",
+				 r + "py.jpg", r + "ny.jpg",
+				 r + "pz.jpg", r + "nz.jpg" ];
 
    	var reflectCube = THREE.ImageUtils.loadTextureCube( urls );
 

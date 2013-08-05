@@ -36,7 +36,8 @@ var InputView = function(sW, rend, tMP) {
         
         if (typeof freeze !== 'undefined' && freeze)
             return;
-		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary' || event.target.parentElement.parentElement.id == "idSavedShapeLibrary")
+			
+		if (event.target.parentElement.id == 'idShapeLibrary' || event.target.id == 'idShapeLibrary')
 		{
 			var wheelMovement;
 
@@ -46,6 +47,19 @@ var InputView = function(sW, rend, tMP) {
 				wheelMovement = 30*event.detail;
 
 			document.getElementById('idShapeLibrary').scrollTop += wheelMovement;
+			return;
+		}
+		
+		if (event.target.parentElement.parentElement.id == "idSavedShapeLibrary")
+		{
+			var wheelMovement;
+
+			if (event.wheelDelta)
+				wheelMovement = -.75*event.wheelDelta;
+			else
+				wheelMovement = 30*event.detail;
+
+			document.getElementById('idSavedShapeLibrary').scrollTop += wheelMovement;
 			return;
 		}
         
@@ -123,7 +137,14 @@ var InputView = function(sW, rend, tMP) {
 
 		}
 	}
-		this.addMeshElement = function(domElement) {
+	
+	this.resetRotation = function()
+	{
+		this.targetX = 0;
+		this.targetY = 0;
+	}
+	
+	this.addMeshElement = function(domElement) {
 		var demoSpace = document.getElementById('container');
 		domElement.style.zIndex = '100';
 		demoSpace.appendChild( domElement );

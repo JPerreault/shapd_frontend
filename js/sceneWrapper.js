@@ -1,8 +1,5 @@
 var SceneWrapper = function(tMB, textureCube, tMP) {
 	var fIndex;
-	this.currentMesh;
-	this.torusMesh;
-	this.torusDefined = false;
 	this.tubeMeshParams = tMP;
 	this.tubeMeshBuilder = tMB;
 
@@ -15,39 +12,18 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	var ambient = new THREE.AmbientLight( 0x050505 );
 	this.scene.add( ambient );
 
-	if (n%2 == 0) //Cloud scene
-	{
-		directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 ); 
-		directionalLight1.position.set( 2, 1.2, 10 ).normalize();
-		this.scene.add( directionalLight1 );
+	directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 ); 
+	directionalLight1.position.set( 2, 1.2, 10 ).normalize();
+	this.scene.add( directionalLight1 );
 
-		directionalLight2 = new THREE.DirectionalLight( 0xffffff, 2 ); 
-		directionalLight2.position.set( -2, 1.2, -10 ).normalize();
-		this.scene.add( directionalLight2 );
+	directionalLight2 = new THREE.DirectionalLight( 0xffffff, 2 ); 
+	directionalLight2.position.set( -2, 1.2, -10 ).normalize();
+	this.scene.add( directionalLight2 );
 
-		pointLight = new THREE.PointLight( 0xffaa00, .5 );
-		pointLight.position.set( 2000, 1200, 10000 );
-		this.scene.add( pointLight );
-	}
+	pointLight = new THREE.PointLight( 0xffaa00, .5 );
+	pointLight.position.set( 2000, 1200, 10000 );
+	this.scene.add( pointLight );
 	
-	else
-	{
-		this.scene.remove(directionalLight1);
-		this.scene.remove(directionalLight2);
-		this.scene.remove(pointLight);
-		
-		directionalLight1 = new THREE.DirectionalLight( 0xffffff, 2 );
-		directionalLight1.position.set( 2, 1.2, 10 ).normalize();
-		this.scene.add( directionalLight1 );
-
-		directionalLight2 = new THREE.DirectionalLight( 0xffffff, 1 );
-		directionalLight2.position.set( -2, 1.2, -10 ).normalize();
-		this.scene.add( directionalLight2 );
-	
-		pointLight = new THREE.PointLight( 0xffaa00, 2 ); 
-		pointLight.position.set( 2000, 1200, 10000 );
-		this.scene.add( pointLight );
-	}
 
 	this.init = function(){
 		if (typeof this.tubeMeshParams === 'undefined')
@@ -56,9 +32,9 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.tubeMeshParams = tMP;
 			
 		fIndex = this.tubeMeshParams['Face Index'];
-		this.tubeMeshBuilder.faceIndexIncrementor = this.tubeMeshParams['Face Index Incrementor'];
-		this.tubeMeshBuilder.torusRotation = this.tubeMeshParams['Torus Rotation'];
-		this.tubeMeshBuilder.torusRotationNinety = this.tubeMeshParams['Torus 90 Rotations'];
+		loop.faceIndexIncrementor = this.tubeMeshParams['Face Index Incrementor'];
+		loop.torusRotation = this.tubeMeshParams['Torus Rotation'];
+		loop.torusRotationNinety = this.tubeMeshParams['Torus 90 Rotations'];
 		
 		if (this.tubeMeshParams['Description'] !== '')
 		{
@@ -70,13 +46,13 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.tubeMeshBuilder.officialName = nameParser;
 		}
 	
-		this.addMesh( this.tubeMeshBuilder.build(this.tubeMeshParams) );
+		this.addMesh( this.tubeMeshBuilder.build() );
 		if (fIndex != -1)
 		{
-			this.torusDefined = true;
-			this.tubeMeshBuilder.fIndex = fIndex;
-			this.torusMesh = this.tubeMeshBuilder.createTorus(this.tubeMeshParams['Material']);
-			this.redrawMesh(this.tubeMeshParams);
+			loop.torusDefined = true;
+			loop.fIndex = fIndex;
+			loop.torusMesh = loop.createTorus(this.tubeMeshParams['Material']);
+			this.redrawTorus();
 		}
 	};
 
@@ -85,15 +61,14 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		this.camera.updateProjectionMatrix();
 	}
 
-		this.rotateMesh = function(targetXRotation, targetYRotation){
-		this.currentMesh.figure.rotation.x += (( targetXRotation - this.currentMesh.figure.rotation.x ) * 0.05) ;
-		this.currentMesh.figure.rotation.y += (( targetYRotation - this.currentMesh.figure.rotation.y ) * 0.05) ;	
+	this.rotateMesh = function(targetXRotation, targetYRotation){
+		currentMesh.figure.rotation.x += (( targetXRotation - currentMesh.figure.rotation.x ) * 0.05) ;
+		currentMesh.figure.rotation.y += (( targetYRotation - currentMesh.figure.rotation.y ) * 0.05) ;	
 
-		
-		if (this.torusDefined)
+		if (loop.torusDefined)
 		{
-			this.torusMesh.rotation.x += ( targetXRotation - this.torusMesh.rotation.x) * 0.05;
-			this.torusMesh.rotation.y += ( targetYRotation - this.torusMesh.rotation.y) * 0.05;
+			loop.torusMesh.rotation.x += ( targetXRotation - loop.torusMesh.rotation.x) * 0.05;
+			loop.torusMesh.rotation.y += ( targetYRotation - loop.torusMesh.rotation.y) * 0.05;
 		}
 	};
 
@@ -102,22 +77,22 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	};
 
 	this.addMesh = function(mesh){
-		this.currentMesh = mesh;
+		currentMesh = mesh;
 		this.scene.add(mesh.figure);
 		if (typeof screenShot !== 'undefined')
 		{ 
-			var yRotation = this.currentMesh.figure.rotation.y;
-			var xRotation = this.currentMesh.figure.rotation.x;
-			figure = this.currentMesh.figure;
+			var yRotation = currentMesh.figure.rotation.y;
+			var xRotation = currentMesh.figure.rotation.x;
+			figure = currentMesh.figure;
 			var outlineMaterial = new THREE.MeshBasicMaterial({color:0x000000, side: THREE.BackSide});
 			
 			var outlineMesh = new THREE.Mesh(figure.geometry, outlineMaterial);
 			outlineMesh.rotation.x = xRotation;
 			outlineMesh.rotation.y = yRotation;
 			outlineMesh.position = figure.position;
-			outlineMesh.scale.x = this.currentMesh.figure.scale.x;
-			outlineMesh.scale.y = this.currentMesh.figure.scale.x;
-			outlineMesh.scale.z = this.currentMesh.figure.scale.x;
+			outlineMesh.scale.x = currentMesh.figure.scale.x;
+			outlineMesh.scale.y = currentMesh.figure.scale.x;
+			outlineMesh.scale.z = currentMesh.figure.scale.x;
 			outlineMesh.scale.multiplyScalar(1.015);
 			this.scene.add(outlineMesh);
 			
@@ -125,9 +100,9 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			outlineMesh2.rotation.x = xRotation;
 			outlineMesh2.rotation.y = yRotation;
 			outlineMesh2.position = figure.position;
-			outlineMesh2.scale.x = this.currentMesh.figure.scale.x;
-			outlineMesh2.scale.y = this.currentMesh.figure.scale.x;
-			outlineMesh2.scale.z = this.currentMesh.figure.scale.x;
+			outlineMesh2.scale.x = currentMesh.figure.scale.x;
+			outlineMesh2.scale.y = currentMesh.figure.scale.x;
+			outlineMesh2.scale.z = currentMesh.figure.scale.x;
 			outlineMesh2.scale.multiplyScalar(.985);
 			this.scene.add(outlineMesh2);
 		}
@@ -139,44 +114,38 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			var xRotation = newParams['Rotation X'];
 		}
 		else{
-		var yRotation = this.currentMesh.figure.rotation.y;
-		var xRotation = this.currentMesh.figure.rotation.x;
+		var yRotation = currentMesh.figure.rotation.y;
+		var xRotation = currentMesh.figure.rotation.x;
 		}
-		var scale = this.currentMesh.figure.scale.x;
+		var scale = currentMesh['Scale'];
+        this.scene.remove( currentMesh.figure );
+		currentMesh = this.tubeMeshBuilder.build();
 
-        this.scene.remove( this.currentMesh.figure );
-		this.currentMesh = this.tubeMeshBuilder.build(newParams);
+		currentMesh.figure.rotation.x = xRotation;
+		currentMesh.figure.rotation.y = yRotation;	
 
-		this.currentMesh.figure.rotation.x = xRotation;
-		this.currentMesh.figure.rotation.y = yRotation;	
+        this.scene.add( currentMesh.figure );
 
-        this.scene.add( this.currentMesh.figure );
 		this.updateScale(scale);
-		if (this.torusDefined)
+		if (loop.torusDefined)
 		{
-			this.scene.remove(this.torusMesh);
-			this.torusMesh = this.tubeMeshBuilder.createTorus(this.currentMesh['Material']);
-			
-			this.torusMesh.rotation.x = xRotation;
-			this.torusMesh.rotation.y = yRotation;
-			
-			this.scene.add(this.torusMesh);
+			this.redrawTorus();
 		}
 	};
 	
 	this.redrawTorus = function()
 	{
-		this.scene.remove(this.torusMesh);
-		this.torusMesh = this.tubeMeshBuilder.createTorus(this.currentMesh['Material']);
+		this.scene.remove(loop.torusMesh);
+		loop.torusMesh = loop.createTorus(currentMesh['Material']);
 		
-		this.torusMesh.rotation.x = this.currentMesh.figure.rotation.x;
-		this.torusMesh.rotation.y = this.currentMesh.figure.rotation.y;
+		loop.torusMesh.rotation.x = currentMesh.figure.rotation.x;
+		loop.torusMesh.rotation.y = currentMesh.figure.rotation.y;
 		
-		this.scene.add(this.torusMesh);
+		this.scene.add(loop.torusMesh);
 	};
 
     this.updateScale = function(newVal){
-        this.currentMesh.figure.scale.set(newVal, newVal, newVal);
-		this.currentMesh['Scale'] = newVal;
+        currentMesh.figure.scale.set(newVal, newVal, newVal);
+		currentMesh['Scale'] = newVal;
     };
 }
