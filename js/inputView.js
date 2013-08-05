@@ -65,8 +65,13 @@ var InputView = function(sW, rend, tMP) {
 		var fovMAX = 80;
 		var fovMIN = 1.05;
 
-		sceneWrapper.camera.fov -= event.wheelDeltaY * 0.014;
+		if (event.wheelDelta)
+                sceneWrapper.camera.fov -= event.wheelDeltaY * 0.014;
+            else
+                sceneWrapper.camera.fov += event.detail * .7;
+		
 		sceneWrapper.camera.fov = Math.max( Math.min( sceneWrapper.camera.fov, fovMAX ), fovMIN );
+		console.log(sceneWrapper.camera.fov);
 		sceneWrapper.camera.projectionMatrix = new THREE.Matrix4().makePerspective(sceneWrapper.camera.fov, window.innerWidth / window.innerHeight, sceneWrapper.camera.near, sceneWrapper.camera.far);
 	}
 	
