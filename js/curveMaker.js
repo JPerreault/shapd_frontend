@@ -204,35 +204,6 @@ var curveMaker = function (tMP) {
 		return new THREE.Vector3(tx, ty, tz).multiplyScalar(scalar);
 	});
 	
-	//Actual curve once done
 	var shape = new shapeMaker();
 	return shape;
 }
-
-/*
-		// Wasn't interesting enough to keep as a stancalone shape. Perhaps put back in later. 
-		//Figure Eight Polynomial Knot
-		else if (w == 15) {
-			t = t * 8 - 4;
-			
-			tx = 2 / 5 * t * (t * t - (q+2)) * (t * t - (l+8)),
-			ty = Math.pow(t, 4) - (q+8) * t * t,
-			tz = 1 / 10 * t * (t * t - 4) * (t * t - (q+4)) * (t * t - (l+10));
-			
-			scalar = 1;
-		}
-		*/
-		
-		/*
-		// Wasn't interesting enough to keep as a stancalone shape. Perhaps put back in later. 
-		//Treofil Polynomial Knot
-		else if (w == 16) {
-			t = t * 4 - 2;
-			
-			tx = Math.pow(t, 3) - (q-2) * t,
-			ty = Math.pow(t, 4) - (l+2) * t * t,
-			tz = 1 / 5 * Math.pow(t, 5) - 2 * t;
-			
-			scalar = 20;
-		}
-		*/

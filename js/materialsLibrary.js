@@ -35,14 +35,9 @@ var MaterialsLibrary = function() {
 				"Titanium polished": 	new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube, shininess: 100, reflectivity: .95}),
 				
 				"Transparent resin white": 	new THREE.MeshLambertMaterial({color: 0xC2E6ED, opacity: .45, transparent: true}),
-				"Transparent resin black": 	new THREE.MeshLambertMaterial({color: 0x2E2E2E, opacity: .65, transparent: true}),
 				"Transparent resin red": 	new THREE.MeshLambertMaterial({color: 0xA31212, opacity: .65, transparent: true}),
 				"Transparent resin blue": 	new THREE.MeshLambertMaterial({color: 0x0D5E5E, opacity: .65, transparent: true}),
-				"Transparent resin green": 	new THREE.MeshLambertMaterial({color: 0x31870F, opacity: .65, transparent: true}),
-				"Transparent resin gray": 	new THREE.MeshLambertMaterial({color: 0xA3A3A3, opacity: .65, transparent: true}),
 				"Transparent resin yellow": new THREE.MeshLambertMaterial({color: 0xAD9534, opacity: .65, transparent: true}),
-				"Transparent resin orange": new THREE.MeshLambertMaterial({color: 0xEB6B26, opacity: .65, transparent: true}),
-				"Transparent resin brown": 	new THREE.MeshLambertMaterial({color: 0x80662A, opacity: .65, transparent: true}),
 				
 				"Brass regular": 				new THREE.MeshLambertMaterial({color: 0x594927, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube, reflectivity: .75}),
 				"Brass gold plated polished": 	new THREE.MeshLambertMaterial({color: 0xFFEA8C, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), envMap: this.reflectCube}),
@@ -68,7 +63,7 @@ var MaterialsLibrary = function() {
 // This function builds the background of the shape that isn't reflected, only displayed
 function buildWhiteBox()
 {
-    var r = "src/textures/cube/whitePattern2/";
+    var r = "assets/imgs/cubeBackgrounds/whitePattern2/";
 
     var whites = [ r + "flip.jpg", r + "flip.jpg",
                   r + "flip.jpg", r + "flip.jpg",
@@ -78,13 +73,11 @@ function buildWhiteBox()
     textureCube.format = THREE.RGBFormat;
 
     return textureCube;
-    
-
 }
 
 // This function builds the background of the environment that the shapes actually reflect
 function buildreflectCube(){
-	var r = "src/textures/cube/skybox/";
+	var r = "assets/imgs/cubeBackgrounds/skybox/";
 	var urls = [ r + "px.jpg", r + "nx.jpg",
 				 r + "py.jpg", r + "ny.jpg",
 				 r + "pz.jpg", r + "nz.jpg" ];

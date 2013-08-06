@@ -238,21 +238,6 @@ function calculateSurfaceArea(figure, scale)
 	
 function calculateXYZ(figure, scale)
 {
-	// figure.geometry.computeBoundingBox();
-	// var boundingBox = figure.geometry.boundingBox;
-	// var dimensions = [];
-		
-	// var xMin = boundingBox.min.x * scale;
-	// var yMin = boundingBox.min.y * scale;
-	// var zMin = boundingBox.min.z * scale;
-	// var xMax = boundingBox.max.x * scale;
-	// var yMax = boundingBox.max.y * scale;
-	// var zMax = boundingBox.max.z * scale;
-	
-	// var xVal = (xMax - xMin);
-	// var yVal = (yMax - yMin);
-	// var zVal = (zMax - zMin);
-	
 	figure.geometry.computeBoundingBox();
 	var boundingBox = figure.geometry.boundingBox;
 	var dimensions = [];
@@ -451,11 +436,7 @@ function calculateFinishId(figure)
 	else if (figure.material.name == 'Transparent resin white'){
 		return 'e1b52251-6eba-4a26-a46b-66898f3831d7';
 	}	
-	
-	else if (figure.material.name == 'Transparent resin black'){
-		return '0a2ec08d-e664-41a3-8b38-59fefa9499e9';
-	}	
-	
+
 	else if (figure.material.name == 'Transparent resin red'){
 		return '2fd1fcd5-9677-4e31-835d-0eb8e60630a4';
 	}	
@@ -463,25 +444,9 @@ function calculateFinishId(figure)
 	else if (figure.material.name == 'Transparent resin blue'){
 		return 'f7fcc397-5f84-407b-ac61-2566c8cba9ef';
 	}	
-	
-	else if (figure.material.name == 'Transparent resin green'){
-		return 'ad18f5f7-28ac-46cc-b729-fbf987f468bd';
-	}	
-	
-	else if (figure.material.name == 'Transparent resin gray'){
-		return 'ade745f2-1d90-4230-a9c4-335155023f18';
-	}	
-	
+
 	else if (figure.material.name == 'Transparent resin yellow'){
 		return '08d03489-eafd-480a-8085-93778d288828';
-	}	
-	
-	else if (figure.material.name == 'Transparent resin orange'){
-		return 'a9c9632f-b5ef-4fac-bc37-25f6aba8f7a6';
-	}	
-	
-	else if (figure.material.name == 'Transparent resin brown'){
-		return '7d1bca66-5282-4b7e-8735-d62902819766';
 	}	
 	
 	else if (figure.material.name == 'Brass regular'){

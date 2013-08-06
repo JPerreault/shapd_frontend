@@ -1,10 +1,10 @@
 var GuiInit = function(){
 	addCreatorSliders();
 	addFinalizeSliders();
-	addStartingShapes();
 	addSave();
 	addProgressBar();
 	addSavedLibrary();
+	addStartingShapes();
 	addLoops();
 	addDesignTips();
 	loopRotations();
@@ -630,14 +630,20 @@ var GuiInit = function(){
 			savedShapeContainer.appendChild(savedShapeLabel);
 			
 			var scrollWrapper = document.createElement('div');
+			scrollWrapper.id = 'idScrollWrapper';
 			scrollWrapper.className = 'rounded antiscroll-wrap';
+			scrollWrapper.style.display = 'block';
+			scrollWrapper.style.overflow = 'hidden';
 			savedShapeContainer.appendChild(scrollWrapper);
 					
 			var savedShapeLibrary = document.createElement('div');
 			savedShapeLibrary.id = 'idSavedShapeLibrary';
-			savedShapeLibrary.innerHTML = shapeLib;
-			savedShapeLibrary.style.background = '#000';
 			savedShapeLibrary.className = 'antiscroll-inner';
+			savedShapeLibrary.innerHTML = shapeLib;
+			savedShapeLibrary.style.height = '300px';
+			savedShapeLibrary.style.width = '217px';
+			savedShapeLibrary.style.overflow = 'hidden';
+			savedShapeLibrary.style.background = '#000';
 			scrollWrapper.appendChild(savedShapeLibrary);
 		}
 	}
@@ -691,6 +697,8 @@ var GuiInit = function(){
 				shapeLibrary.appendChild(br.cloneNode());
 			shapeLibrary.appendChild(sX);
 		}
+		
+		$('.antiscroll-wrap').antiscroll();
 	}
 
 	function addMaterialSelector() {
@@ -769,11 +777,5 @@ var GuiInit = function(){
 		loopText.style.left = '50%';
 		loopText.style.marginLeft = '-165px';
 		document.body.appendChild(loopText);
-	}
-
-	function addDatGui(){
-		var datgui = document.createElement('div');
-		datgui.id = 'datGuiStuff';
-		document.body.appendChild(datgui);
 	}
 }

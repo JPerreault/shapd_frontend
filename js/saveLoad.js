@@ -42,7 +42,7 @@ var SaveLoad = function(progState)
 			{
                 if (typeof givenFeedback !== 'undefined' && !givenFeedback)
                     promptForFeedback()
-				progState.state = 'publish';
+				progState.changeState('publish');
 				progState.setupInterface();
 				saveShape();
 				

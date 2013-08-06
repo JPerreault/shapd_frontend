@@ -3,7 +3,6 @@ var count = 0;
 var sceneWrapper, view, tutorial, state, printable, currentMesh, loop;
 
 window.onload = function() {
-
 	var renderer, materialsLibrary;
 	var tubeMeshBuilder, matListener, progState;
 	var projector, fout, saveLoad, figure;
@@ -57,10 +56,10 @@ window.onload = function() {
 			document.getElementById(currentMesh['Material']).click();	//For initializing material	
 		addSliders(tutorial, sceneWrapper);
 	}
-
+	   
     function killSelf()
     {
-        parent.hideTheBeast(progState.state);
+        parent.hideTheBeast(parent.state);
         location.href="blank.html";
     }
     
@@ -104,10 +103,6 @@ window.onload = function() {
 	{
 		moreOptionsPressed();
 	}
-    
-    $(function () {
-      $('.antiscroll-wrap').antiscroll();
-     }); //For initializing the scrollbar on the libraries.
 }
 
 var n = 0;
@@ -179,13 +174,14 @@ function getNewPrice()
 	saveButtonClick(false);
 
 	var material = currentMesh['Material'];
-	
+
 	if (material.indexOf('Transparent resin') !== -1 && typeof authToken !== 'undefined' && typeof shapeID !== 'undefined')
 	{
 		var data = 0;
 		if (currentMesh.checkDimensions() === 'success')
 			data = pre(currentMesh.figure);
 		$.post("/pricing3/", {authenticity_token: authToken, id: shapeID, p: data}, function(data){updatePrice(data)});
+		
 	}
 	else if (material === 'Gold regular')
 	{
@@ -204,6 +200,7 @@ function getNewPrice()
 			$.post("/pricing2/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
 		else
 			$.post("/pricing/", {authenticity_token: authToken, id: shapeID, json: jsonString}, function(data){updatePrice(data)});
+	
 	}
 }
 

@@ -1,7 +1,6 @@
 var InputView = function(sW, rend, tMP) {		
 	var sceneWrapper = sW;
 	var renderer = rend;
-	var i = 0;
 
 	if (typeof tMP === 'undefined')
 	{
@@ -71,7 +70,6 @@ var InputView = function(sW, rend, tMP) {
                 sceneWrapper.camera.fov += event.detail * .7;
 		
 		sceneWrapper.camera.fov = Math.max( Math.min( sceneWrapper.camera.fov, fovMAX ), fovMIN );
-		console.log(sceneWrapper.camera.fov);
 		sceneWrapper.camera.projectionMatrix = new THREE.Matrix4().makePerspective(sceneWrapper.camera.fov, window.innerWidth / window.innerHeight, sceneWrapper.camera.near, sceneWrapper.camera.far);
 	}
 	
