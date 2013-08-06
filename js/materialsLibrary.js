@@ -49,7 +49,7 @@ var MaterialsLibrary = function() {
 	
 	function createGrainyTexture(repeat1, repeat2, isLight)
 	{
-		var grainyTexture = THREE.ImageUtils.loadTexture( "textures/moon_1024.jpg" );
+		var grainyTexture = THREE.ImageUtils.loadTexture( "textures/moon_1024.png" );
 		if (isLight)
 			grainyTexture = THREE.ImageUtils.loadTexture( "textures/lighttexture.png" );
 		grainyTexture.wrapS = grainyTexture.wrapT = THREE.RepeatWrapping;
@@ -63,11 +63,11 @@ var MaterialsLibrary = function() {
 // This function builds the background of the shape that isn't reflected, only displayed
 function buildWhiteBox()
 {
-    var r = "assets/imgs/cubeBackgrounds/whitePattern2/";
+    var r = "textures/cube/whitePattern2/";
 
-    var whites = [ r + "flip.jpg", r + "flip.jpg",
-                  r + "flip.jpg", r + "flip.jpg",
-                  r + "flip.jpg", r + "nz.jpg" ];
+    var whites = [ r + "flip.png", r + "flip.png",
+                  r + "flip.png", r + "flip.png",
+                  r + "flip.png", r + "orig.jpg" ];
     
     var textureCube = THREE.ImageUtils.loadTextureCube( whites );
     textureCube.format = THREE.RGBFormat;
@@ -77,10 +77,10 @@ function buildWhiteBox()
 
 // This function builds the background of the environment that the shapes actually reflect
 function buildreflectCube(){
-	var r = "assets/imgs/cubeBackgrounds/skybox/";
-	var urls = [ r + "px.jpg", r + "nx.jpg",
-				 r + "py.jpg", r + "ny.jpg",
-				 r + "pz.jpg", r + "nz.jpg" ];
+	var r = "textures/cube/skybox/";
+	var urls = [ r + "px.png", r + "nx.png",
+				 r + "py.png", r + "ny.png",
+				 r + "pz.png", r + "nz.png" ];
 
    	var reflectCube = THREE.ImageUtils.loadTextureCube( urls );
 
