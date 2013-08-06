@@ -28,10 +28,17 @@ window.onload = function() {
 		
 		if (!!window.WebGLRenderingContext  || document.createElement( 'canvas' ).getContext( 'experimental-webgl' ))
         {
+            try
+            {
 			if (typeof screenShot != 'undefined')
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 			else
-				renderer = new THREE.WebGLRenderer();         
+				renderer = new THREE.WebGLRenderer();
+            }
+            catch(e)
+            {
+                location.href = 'snag.html';
+            }
 		}
 		else
             alert ('WebGL check failed.');
