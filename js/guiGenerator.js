@@ -735,7 +735,7 @@ var GuiInit = function(){
 		var m1 = document.createElement('img');
 		m1.id = 'idM1';
 		m1.style.margin = '8px 3px 5px 0px';
-		m1.src = 'assets/imgs/materialExamples/alumide_1.jpg';
+		m1.src = 'assets/imgs/materialExamples/alumide_1.png';
 		m1.height = 85;
 		m1.width = 85;
 		m1.style.cursor = 'pointer';
@@ -744,7 +744,7 @@ var GuiInit = function(){
 				
 		var m2 = m1.cloneNode(true);
 		m2.id = 'idM2';
-		m2.src = 'assets/imgs/materialExamples/alumide_2.jpg';
+		m2.src = 'assets/imgs/materialExamples/alumide_2.png';
 		m2.style.margin = '8px 0px 5px 3px';
 		matLibrary.appendChild(m2);	
 		
