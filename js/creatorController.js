@@ -351,7 +351,7 @@ function loadFromLib(hash)
 	loop.faceIndexIncrementor = currentMesh['Face Index Incrementor'];
 	loop.torusRotation = currentMesh['Torus Rotation'];
 	loop.torusRotationNinety = currentMesh['Torus 90 Rotations'];
-	sceneWrapper.tubeMeshBuilder.officialName = currentMesh['Description'];
+	sceneWrapper.setOfficialName(currentMesh['Description']);
 	
 	if (currentMesh['Face Index'] != -1)
 	{
