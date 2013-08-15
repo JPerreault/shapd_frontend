@@ -1,0 +1,189 @@
+<html lang="en"><head>
+	
+		<title>Shapd App Preview</title>
+		<meta charset="utf-8">
+            
+        <!--[if IE]>
+         <script type="text/javascript">
+         window.location = "http://www.google.com/";
+         </script>
+         <![endif]-->
+		
+		<link rel="stylesheet" type="text/css" href="css/guiCSS.css" />
+        <link rel="stylesheet" type="text/css" href="css/antiscroll.css" />
+ 		<link rel="stylesheet" type="text/css" href="css/dropdownCSS.css" /> 
+		<!-- <link rel="stylesheet" type="text/css" href="css/jquery-1.10.3.css" /> -->
+        <!-- Removed the above line to replace with our own custom JQuery CSS in dropdownCSS.css. Keeping in now for reference when we refactor. -->
+        <link rel="stylesheet" type="text/css" href="css/popups.css" />
+
+			<script src="js/libs/jquery-1.9.1.js"></script>
+            <script src="js/libs/jquery.raty.min.js"></script>
+			<script src="js/libs/jquery-1.10.3.min.js"></script>
+			<script src="js/libs/Detector.js"></script>
+			<script>
+			if (!(!!window.WebGLRenderingContext || document.createElement( 'canvas' ).getContext( 'experimental-webgl' )))
+			{
+				location.href = 'snag.html';
+			}
+			</script>
+            <script src="js/libs/three.min.js"></script>
+            <script src="js/libs/dat.gui.min.js"></script>
+            <script src="js/libs/filesaver.min.js"></script>
+			<script src="js/libs/antiscroll.js"></script>
+			<script src="js/libs/threeCSG.js"></script>
+            <script src="js/creatorController.js"></script>
+            <script src="js/sceneCubeWrapper.js"></script>
+            <script src="js/CurveExtras.js"></script>
+            <script src="js/sceneWrapper.js"></script>
+            <script src="js/materialsLibrary.js"></script>
+            <script src="js/tubeMeshBuilder.js"></script>
+            <script src="js/inputView.js"></script>
+            <script src="js/curveMaker.js"></script>
+            <script src="js/capSpline.js"></script>
+            <script src="js/materialListener.js"></script>
+            <script src="js/screenShot.js"></script>
+            <script src="js/guiGenerator.js"></script>
+            <script src="js/jsonMaker.js"></script>
+            <script src="js/popups.js"></script>
+            <script src="js/tutorial.js"></script>
+			<script src="js/shapeSliders.js"></script>
+
+            
+		<script>
+            $(function () {
+              $('.antiscroll-wrap').antiscroll();
+              });
+
+
+		$(function() {
+			$( "#materials" ).accordion({
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
+				activate: function(event, ui) {
+					if ($( "#materials" ).accordion( "option", "active" ) !== false)
+					{
+						document.getElementById('idmaterialDetailContainer').style.opacity = '0.5';
+					}
+					else
+					{
+						document.getElementById('idmaterialDetailContainer').style.opacity = '1';
+					}
+				}
+		})});
+		$(function() {
+			$( "#plastics" ).accordion({
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
+				
+		})});
+		$(function() {
+			$( "#metals" ).accordion({
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
+		})});
+		$(function() {
+			$( "#preciousMetals" ).accordion({
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
+		})});
+		$(function() {
+			$( "#steel" ).accordion({
+				heightStyle: 'content',
+				collapsible: true,
+				active: false,
+				alwaysOpen: false,
+				icons: icons,
+		})});
+
+		var icons = {
+				header: "ui-icon-circle-arrow-e",
+				activeHeader: "ui-icon-circle-arrow-s"
+			};	
+		</script>
+	</head>
+
+	<body>	
+		
+		<div id = "container" z-index="100"></div>
+        <iframe id="shape_stage" style="left:0;right:0;position:absolute;top:0;"frameborder=0 height=500 width=500></iframe>
+        <div id = "blackout"></div>
+		
+		<div align = "left" style = "display: none;  padding: 0 !important; bottom: 32.5%; left: 20%; position: absolute; height: 10px; width: 250px;" id = "thicknessContainer">
+			<div id = "shapethin" style ="font-size:18px; font-weight:500" class="floatingTextContainer">Your shape is too thin to print!</div>
+		</div>
+       
+		
+		<div align = "left" style = "display: none; font-size: 80%; background-color: transparent; position: absolute; padding: 0 !important; top: 1%; left: 1%; z-index:1001;" id = "materials">
+		<h3 class="materialHeader"><img class="materialImg" src = assets/imgs/materials/plastic.png>     Plastics</h3>
+        <div id = "plastics" class="menuHeader">
+			<h3><img class="materialImg" src = assets/imgs/materials/regularplastic.png>     Rough</h3>
+				<div><div id="Plastic regular white" class="mouseHover" style="display:inline"><img class="materialImg" src = assets/imgs/materials/whiteregularplastic.png>    White</div>
+				<div id = "Plastic regular black" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/blackregularplastic.png>    Black</div></div>
+			<h3><img class="materialImg" src = assets/imgs/materials/polishedplastic.png>     Regular</h3>
+				<div><div id = "Plastic regular white polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/whitepolishedplastic.png>    White</div>
+				<div id = "Plastic regular red polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/redpolishedplastic.png>    Red</div>
+				<div id = "Plastic regular blue polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/bluepolishedplastic.png>    Blue</div>
+				<div id = "Plastic regular pink polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/pinkpolishedplastic.png>    Pink</div>
+				<div id = "Plastic regular purple polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/purplepolishedplastic.png>    Purple</div></div>
+			<h3><img class="materialImg" src = assets/imgs/materials/detailplastic.png>     Detailed</h3>
+				<div><div id = "Plastic detail white" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/whitedetailplastic.png>    White</div>
+				<div id = "Plastic detail black" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/blackdetailplastic.png>    Black</div></div>
+            <h3><img class="materialImg" src = assets/imgs/materials/primegray.png>     Premium Smooth</h3>
+            	<div><div id = "Prime gray" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/primegray.png>    Natural Gray</div></div>
+			<h3><img class="materialImg" src = assets/imgs/materials/transparentplastic.png>     Ultra Premium Clear</h3>
+				<div><div id = "Transparent resin white" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/whitetransparentplastic.png>    Clear</div>			
+				<div id = "Transparent resin red" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/redtransparentplastic.png>    Red</div>
+				<div id = "Transparent resin blue" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/bluetransparentplastic.png>    Blue</div>
+				<div id = "Transparent resin yellow" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/yellowtransparentplastic.png>    Yellow</div></div></div>
+                <!-- <div id = "blacktransparentplastic" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/blacktransparentplastic.png>    Black</div>
+                <div id = "greentransparentplastic" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/greentransparentplastic.png>    Green</div>
+				<div id = "graytransparentplastic" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/graytransparentplastic.png>    Gray</div>
+				<div id = "orangetransparentplastic" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/orangetransparentplastic.png>    Orange</div>
+				<div id = "browntransparentplastic" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/browntransparentplastic.png>    Brown</div></div></div> -->
+			
+		<h3><img class="materialImg" src = assets/imgs/materials/metals.png>     Metals</h3>
+        <div id = "metals" class="menuHeader">
+			<h3><img class="materialImg" src = assets/imgs/materials/alumide.png>     Alumide</h3>
+				<div><div id = "Alumide regular" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/regularalumide.png>    Regular</div>
+					<div id = "Alumide polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/polishedalumide.png>    Polished</div></div>
+			<h3><img class="materialImg" src = assets/imgs/materials/steel.png>     Stainless Steel</h3><div id = "steel">
+				<h3><img class="materialImg" src = assets/imgs/materials/graysteel.png>     Gray Steel</h3>
+					<div><div id = "Stainless steel regular" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/regularsteel.png>    Regular</div></div>
+				<h3><img class="materialImg" src = assets/imgs/materials/bronzesteel.png>     Bronze Plated</h3>
+					<div><div id = "Stainless steel bronze matte" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/bronzemattesteel.png>    Matte</div>
+					<div id = "Stainless steel bronze glossy" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/bronzeglossysteel.png>    Glossy</div></div>
+				<h3><img class="materialImg" src = assets/imgs/materials/goldsteel.png>     Gold Plated</h3>
+					<div><div id = "Stainless steel gold matte" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/goldmattesteel.png>    Matte</div>
+					<div id = "Stainless steel gold glossy" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/goldglossysteel.png>    Glossy</div></div></div>
+                 <h3><img class="materialImg" src = assets/imgs/materials/brass.png>     Brass</h3>
+					<div><div id = "Brass regular" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/regularbrass.png>    Regular</div>
+					<div id = "Brass gold plated polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/goldplatedbrass.png>    Gold Plated</div></div></div>
+                    
+		
+		<h3><img class="materialImg" src = assets/imgs/materials/preciousmetal.png>     Precious Metals</h3>
+        <div id = "preciousMetals" class="menuHeader">
+		<h3><img class="materialImg" src = assets/imgs/materials/silver.png>     Silver</h3>
+			<div><div id = "Silver regular" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/regularsilver.png>    Regular</div>
+			<div id = "Silver glossy" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/glossysilver.png>    Glossy</div>
+			<div id = "Silver premium" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/premiumsilver.png>    Premium</div></div>
+		<h3><img class="materialImg" src = assets/imgs/materials/titanium.png>     Titanium</h3>
+			<div><div id = "Titanium unpolished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/unpolishedtitanium.png>    Unpolished</div>
+			<div id = "Titanium polished" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/polishedtitanium.png>   Polished</div></div>
+		<h3><img class="materialImg" src = assets/imgs/materials/gold.png>     Gold (Unavailable)</h3>
+			<div><div id = "Gold regular" class="mouseHover"><img class="materialImg" src = assets/imgs/materials/regulargold.png>   Regular</div></div></div></div>
+            
+			
+	</body>
+</html>
