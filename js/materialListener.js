@@ -294,7 +294,7 @@ var materialListener = function(sW, tutorial){
 	document.getElementById('Alumide polished').onclick = function()
 	{
 		currentMesh['Material'] = 'Alumide polished';
-		name = 'Alumide polished';
+		name = 'Polished Alumide';
 		cost = '$';
 		smooth = 'Low';
 		img1 = 'assets/imgs/materialExamples/polishedAlumide_1.png';

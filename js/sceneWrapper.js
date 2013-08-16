@@ -1,7 +1,7 @@
 var SceneWrapper = function(tMB, textureCube, tMP) {
 	var fIndex;
-	this.tubeMeshParams = tMP;
-	this.tubeMeshBuilder = tMB;
+	tubeMeshParams = tMP;
+	tubeMeshBuilder = tMB;
 
 	this.scene = new THREE.Scene();
     this.sceneCube = new SceneCubeWrapper(textureCube);
@@ -10,9 +10,8 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.camera.position.z = 1000;
 
 	var ambient = new THREE.AmbientLight( 0x050505 );
-	this.scene.add( ambient );
 
-	directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 ); 
+	directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	directionalLight1.position.set( 2, 1.2, 10 ).normalize();
 	this.scene.add( directionalLight1 );
 
@@ -26,32 +25,32 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	
 
 	this.init = function(){
-		if (typeof this.tubeMeshParams === 'undefined')
-			this.tubeMeshParams = new TubeMeshParams();
+		if (typeof tubeMeshParams === 'undefined')
+			tubeMeshParams = new TubeMeshParams();
 		else
-			this.tubeMeshParams = tMP;
+			tubeMeshParams = tMP;
 			
-		fIndex = this.tubeMeshParams['Face Index'];
-		loop.faceIndexIncrementor = this.tubeMeshParams['Face Index Incrementor'];
-		loop.torusRotation = this.tubeMeshParams['Torus Rotation'];
-		loop.torusRotationNinety = this.tubeMeshParams['Torus 90 Rotations'];
+		fIndex = tubeMeshParams['Face Index'];
+		loop.faceIndexIncrementor = tubeMeshParams['Face Index Incrementor'];
+		loop.torusRotation = tubeMeshParams['Torus Rotation'];
+		loop.torusRotationNinety = tubeMeshParams['Torus 90 Rotations'];
 		
-		if (this.tubeMeshParams['Description'] !== '')
+		if (tubeMeshParams['Description'] !== '')
 		{
 			var nameParser = '';
-			for (var i = this.tubeMeshParams['Description'].indexOf('in ') + 3; i < this.tubeMeshParams['Description'].length; i++)
+			for (var i = tubeMeshParams['Description'].indexOf('in ') + 3; i < tubeMeshParams['Description'].length; i++)
 			{
-				nameParser += this.tubeMeshParams['Description'][i];
+				nameParser += tubeMeshParams['Description'][i];
 			}
-			this.tubeMeshBuilder.officialName = nameParser;
+			tubeMeshBuilder.officialName = nameParser;
 		}
 	
-		this.addMesh( this.tubeMeshBuilder.build() );
+		this.addMesh( tubeMeshBuilder.build() );
 		if (fIndex != -1)
 		{
 			loop.torusDefined = true;
 			loop.fIndex = fIndex;
-			loop.torusMesh = loop.createTorus(this.tubeMeshParams['Material']);
+			loop.torusMesh = loop.createTorus(tubeMeshParams['Material']);
 			this.redrawTorus();
 		}
 	};
@@ -119,7 +118,7 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 		}
 		var scale = currentMesh['Scale'];
         this.scene.remove( currentMesh.figure );
-		currentMesh = this.tubeMeshBuilder.build();
+		currentMesh = tubeMeshBuilder.build();
 
 		currentMesh.figure.rotation.x = xRotation;
 		currentMesh.figure.rotation.y = yRotation;	
@@ -148,4 +147,9 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
         currentMesh.figure.scale.set(newVal, newVal, newVal);
 		currentMesh['Scale'] = newVal;
     };
+	
+	this.setOfficialName = function(name)
+	{
+		tubeMeshBuilder.officialName = name;
+	}
 }

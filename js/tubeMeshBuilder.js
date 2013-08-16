@@ -9,9 +9,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.yDim = 0; 
 	this.zDim = 0; 
 	this.matLib = materialsLibrary;
-	
-	//Scoping out of functions
-	var segments = 600, radiusSegments = 6;
 
     this.build = function() {
 		updateHash(this);
@@ -34,6 +31,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		geometry.computeVertexNormals();
 		
 		//this.m = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } ); //Makes the frame wirey.
+		//this.m = new THREE.MeshLambertMaterial( { color: 0x6F6F6F } );
 		if (typeof screenShot !== 'undefined')
 		{
 			this.m.opacity = 1;
@@ -53,6 +51,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		figure.radius = radius;
 		loop.update(figure, 'tubeMeshBuilder');
+		currentMesh.figure.startingShape = currentMesh['Starting Shape'];
         return currentMesh;
     }
 	
@@ -79,7 +78,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		var yInches = (currentMesh.yDim*inchConversion).toFixed(2);
 		var zInches = (currentMesh.zDim*inchConversion).toFixed(2);
 		
-		currentMesh['Description'] = xInches +' by '+ yInches +' by '+ zInches +' inch piece in ' +tubeMeshBuilder.officialName +'.';
+		currentMesh['Description'] = xInches +' by '+ yInches +' by '+ zInches +' inch piece in ' +currentMesh.officialName +'.';
 		
 		var keys = Object.keys(currentMesh);
 		if (typeof currentMesh.figure != 'undefined')
