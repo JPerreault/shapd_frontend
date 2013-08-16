@@ -24,7 +24,6 @@ var TubeMeshParams = function(){
 	this.zDim = 0;
 	this.officialName = 'Gold-Plated Solid Brass';
 	
-	//Initializing the parameters for the spline
 	this.create = function()
 	{
 		try

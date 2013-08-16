@@ -10,7 +10,6 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 	this.camera.position.z = 1000;
 
 	var ambient = new THREE.AmbientLight( 0x050505 );
-	//this.scene.add( ambient );
 
 	directionalLight1 = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	directionalLight1.position.set( 2, 1.2, 10 ).normalize();

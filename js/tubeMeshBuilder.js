@@ -9,9 +9,6 @@ var TubeMeshBuilder = function(materialsLibrary) {
 	this.yDim = 0; 
 	this.zDim = 0; 
 	this.matLib = materialsLibrary;
-	
-	//Scoping out of functions
-	var segments = 600, radiusSegments = 8;
 
     this.build = function() {
 		updateHash(this);
@@ -54,6 +51,7 @@ var TubeMeshBuilder = function(materialsLibrary) {
 		
 		figure.radius = radius;
 		loop.update(figure, 'tubeMeshBuilder');
+		currentMesh.figure.startingShape = currentMesh['Starting Shape'];
         return currentMesh;
     }
 	

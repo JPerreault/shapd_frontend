@@ -52,7 +52,7 @@ var Loop = function(materialLib)
 			scale = .5;
 		}
 		
-		var torus = new THREE.TorusGeometry( 4, thickness, segments/10, 50 );
+		var torus = new THREE.TorusGeometry( 4, thickness, segments/20, 50 );
 		this.fIndex = this.calculateFaceIndex();
 		var faceNormal = currentMesh.figure.geometry.faces[this.fIndex].normal;
 		faceNormal.normalize();
@@ -80,6 +80,7 @@ var Loop = function(materialLib)
 		var alignMatrix = new THREE.Matrix4().lookAt( midpoint, faceCentroid, faceNormal );
 		torus.applyMatrix(alignMatrix);
 		alignMatrix = new THREE.Matrix4().makeRotationAxis( faceNormal, this.torusRotationNinety );
+
 		torus.applyMatrix(alignMatrix);
 		alignMatrix = new THREE.Matrix4().makeRotationAxis( forwardVector, this.torusRotation );
 		torus.applyMatrix(alignMatrix);
