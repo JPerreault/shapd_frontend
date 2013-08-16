@@ -2,11 +2,12 @@ var changedModify = 0;
 var count = 0;
 var sceneWrapper, view, tutorial, state, printable, currentMesh, loop;
 
-if (typeof printingUser === 'undefined')
-	var segments = 600, radiusSegments = 8;
-else
+var segments = 600, radiusSegments = 8;
+
+if (typeof printingUser !== 'undefined')
 {
-	var segments = 1800, radiusSegments = 56;
+	document.getElementById('t').className = 'buttonVerySmall';
+	document.getElementById('t').setAttribute( "onClick", "javascript: dothing();" );
 }
 
 window.onload = function() {
@@ -369,10 +370,7 @@ function loadFromLib(hash)
 	if (currentMesh['Face Index'] != -1)
 	{
 		loop.torusDefined = true;
-		if (typeof printingUser === 'undefined')
-			loop.fIndex = currentMesh['Face Index'];
-		else
-			loop.fIndex = currentMesh['Face Index'] * 7;
+		loop.fIndex = currentMesh['Face Index'];
 	}
 	else
 	{

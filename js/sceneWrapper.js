@@ -106,6 +106,18 @@ var SceneWrapper = function(tMB, textureCube, tMP) {
 			this.scene.add(outlineMesh2);
 		}
 	};
+	
+	this.redrawFigureOnly = function()
+	{
+		var scale = currentMesh['Scale'];
+        this.scene.remove( currentMesh.figure );
+		segments = 1800;
+		radiusSegments = 56;
+		currentMesh = tubeMeshBuilder.build();
+        this.scene.add( currentMesh.figure );
+
+		this.updateScale(scale);
+	}
 
 	this.redrawMesh = function(newParams, isFromLib){
 		if (isFromLib){

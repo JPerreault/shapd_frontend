@@ -10,10 +10,8 @@ var Loop = function(materialLib)
 	this.fIndex = -1;
 	
 	var that = this;
-	
-	var segments = 600;
-	var radiusSegments = 8;
 	var matLib = materialLib;
+	var beenScaled = false;
 	
 	this.update = function(newType){
 		this.type = newType;
@@ -53,7 +51,9 @@ var Loop = function(materialLib)
 		}
 		
 		var torus = new THREE.TorusGeometry( 4, thickness, segments/20, 50 );
-		this.fIndex = this.calculateFaceIndex();
+		if (typeof printingUser === 'undefined')
+			this.fIndex = this.calculateFaceIndex();
+		
 		var faceNormal = currentMesh.figure.geometry.faces[this.fIndex].normal;
 		faceNormal.normalize();
 		
