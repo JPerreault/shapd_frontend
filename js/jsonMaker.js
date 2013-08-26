@@ -371,11 +371,16 @@ function calculateMaterial(figure)
 		websiteName = 'shapeways';
 		return 66;
 	}	
-		
-	else if (figure.material.name.indexOf('Brass') !== -1){
+	
+	else if (figure.material.name == 'Brass regular'){
 		websiteName = 'iMaterialise';
 		return '170d6e35-8f0d-4f92-8408-2d3e095c256e';
 	}	
+	
+	else if (figure.material.name == 'Brass gold plated polished'){
+		websiteName = 'shapeways';
+		return 83;
+	}
 			
 	else if (figure.material.name == 'Stainless steel regular'){
 		websiteName = 'shapeways';
@@ -452,10 +457,6 @@ function calculateFinishId(figure)
 	else if (figure.material.name == 'Brass regular'){
 		return '9c31bfc6-dba0-40c1-8cc0-048d9df487af';
 	}	
-	
-	else if (figure.material.name == 'Brass gold plated polished'){
-		return '53248ecd-b95e-43f4-9c6f-74fa9ba9f9a4';
-	}
 	
 	else if (figure.material.name == 'Titanium unpolished'){
 		return 'c9c27ce3-eee4-47e4-a896-a9010a7971fd';
