@@ -72,6 +72,7 @@ function saveShape()
         var shape = {};
         shape.hash = hashend;
         location.hash = "id="+shapeLib.length;
+        shapeID = shapeLib.length;
         shapeLib.push(shape);
         saveLib();
         loadScreenshotStage();

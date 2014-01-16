@@ -9,7 +9,7 @@ if (location.hash.indexOf("meta") > 0)
     var screenShot = true;
 }
 
-if (location.hash.indexOf("id") > 0)
+if (location.hash.indexOf("id=") > 0)
 {
     var a = location.hash.indexOf("id=");
     var b = location.hash.indexOf("&");
@@ -19,6 +19,17 @@ if (location.hash.indexOf("id") > 0)
     shapeID = parseInt(location.hash.substring(a+3, b));
     shapeLib = JSON.parse(localStorage['shapes']).array;
     trueHash = shapeLib[shapeID].hash;
+}
+
+if (location.hash.indexOf("shape=") > 0)
+{
+    var a = location.hash.indexOf("shape=");
+    var b = location.hash.indexOf("&");
+    if (b == -1)
+        b = location.hash.length;
+    
+    trueHash = decodeURI(location.hash.substring(a+6, b));
+    location.hash = "";
 }
 
 if (typeof printingUser !== 'undefined')

@@ -155,7 +155,7 @@
                 <script>
                     function saveLib()
                     {
-                        localStorage['shapes'] = JSON.stringify(shapeLib);
+                        localStorage['shapes'] = JSON.stringify({'array': shapeLib});
                         location.reload();
                     }
                     function delete_shape(integer)
@@ -233,7 +233,7 @@
                             if (shape.name)
                             document.write(shape.name);
                             else
-                            document.write('<font size=1>Untitled '+i+'</font>');
+                            document.write('<font size=1>click to title</font>');
                             document.write('</a></div><div id="title'+i+'box" style="display:none"><input type="text" placeholder="'+shape.name +'"></input></div></div><div style="display:none;" class="box" id="shape'+i+'conf"><br><br><br>Are you sure?<br><a href="javascript:delete_shape('+i+')">Yes</a> - <a href="javascript:wuss_out('+i+')">No</a></div>');
                         }
                         </script>
