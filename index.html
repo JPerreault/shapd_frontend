@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>Shapd - Your Library</title>
+            
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                
+                <link rel="stylesheet" href="css/library/flexslider.css">
+                    <link rel="stylesheet" href="css/library/style.css">
+                        <link rel="stylesheet" href="css/library/prettyPhoto.css">
+                            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+                            
+                            <script type="text/javascript">
+                                
+                                // ----------------------------------------------
+                                // CUSTOM GOOGLE FONT
+                                // ----------------------------------------------
+                                
+                                WebFontConfig = { google: { families: [ 'Noto Sans:100,300,400,700',  'Finger Paint:700'] } };
+                                (function() {
+                                 var wf = document.createElement('script');
+                                 wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                                 '://ajax.googleapis.com/ajax/libs/webfont/1.3.0/webfont.js';
+                                 wf.type = 'text/javascript';
+                                 wf.async = 'true';
+                                 var s = document.getElementsByTagName('script')[0];
+                                 s.parentNode.insertBefore(wf, s);
+                                 })();
+                                 
+                                </script>
+                            
+                            <style>
+                                #lib
+                                {
+                                    display: table;
+                                }
+                            
+                            
+                            
+                            .box
+                            {
+                                width:150px;
+                                height:160px;
+                                float:left;
+                                display: table-cell; vertical-align: middle;
+                                padding: 30px;
+                                text-align: center;
+                                
+                                
+                            }
+                            </style>
+                            
+                            <!-- Google Analytics Tracking Code   -->
+                            
+                            <script>
+                                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                                 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                                 
+                                 ga('create', 'UA-41465220-1', 'shapd.co');
+                                 ga('send', 'pageview');
+                                 
+                                </script>
+                            
+                            <!-- ================================================= -->
+                            <!-- STYLE TYPE : Choose either flat or skeuo design   -->
+                            <!-- ================================================= -->
+                            
+                            
+                            <link rel="stylesheet" href="css/library/skeuobootstrap.css">
+                                <link rel="stylesheet" href="css/library/skeuo.css">
+                                    
+                                    
+                                    <!--
+                                     UNCOMMENT and comment out other to toggle between two different styles
+                                     
+                                     <link rel="stylesheet" href="css/library/flatbootstrap.css">
+                                     <link rel="stylesheet" href="css/library/flat.css">
+                                     -->
+                                    
+                                    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+                                    <!--[if lt IE 9]>
+                                     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                                     <![endif]-->
+                                    
+                                    <link rel="stylesheet" href="css/library/font-awesome.css">
+                                      <!--  <script src="js/modernizr.js"></script>
+                                        -->
+                                        <!-- Setting Facebook OpenGraph Default Values  -->
+                                        
+                                        <html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
+                                            <meta property="og:image" content="assets/shapd_logo.jpg"/>
+                                            
+                                            
+    </head>
+    <body>
+        
+        <!-- ============================================= -->
+        <!-- LAYOUT TYPE : Add boxed class for Boxed style -->
+        <!-- ============================================= -->
+        
+        <!--
+         UNCOMMENT out and Comment "wrapper" to toggle between two layout choices - boxed or wrapper
+         <div class="wrapper boxed">
+         -->
+        
+        <div class="wrapper">
+            
+            <!-- HEADER -->
+            <header>
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="span4 logo clearfix">
+                            <div class="pull-left brand">
+                                
+                                <!-- FONT BASED LOGO -->
+                                <!--<h1><a href="index.html">HUMBLER</a></h1> -->
+                                
+                                <!-- IMAGE BASED LOGO -->
+                                <a href="#"><img src="assets/shapd_logo.jpg" alt=""></a>
+                            </div>
+                            <div class="pull-right visible-phone phonemenu"><a href="#"><i class="icon-reorder"></i></a></div>
+                        </div>
+                        
+                        <!-- MENUS -->
+                        <div class="span8">
+                            
+                            <nav class="pull-right" id="navbar">
+                                
+                                <ul class="nav nav-pills">
+                                    
+                                    
+                                    <li class="hidden-phone"><a href="/">About</a></li>
+                                    
+                                   <!-- <li class="hidden-phone"><a href="#library">View Creations</a></li>
+                                    <li class="hidden-phone"><a href="/gallery">Gallery</a></li>-->
+                                    
+                                    <li class="hidden-phone"><a href="/darkroom">Gallery</a></li>
+                                    
+                                    <li class="hidden-phone"><a href="#">More</a></li><br>
+                                    <!--
+                                    <li class="hidden-phone"><a href="/logout">Logout</a></li>
+                                    
+                                    -->
+                                    
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function saveLib()
+                    {
+                        localStorage['shapes'] = JSON.stringify(shapeLib);
+                        location.reload();
+                    }
+                    function delete_shape(integer)
+                    {
+                        $('#shape'+integer+'conf').fadeOut(400);
+                        shapeLib.splice(integer, 1);
+                        saveLib();
+                    }
+                function confirm_del(integer)
+                {
+                    $('#shape'+integer).fadeOut(400);
+                    $('#shape'+integer+"conf").delay(400).fadeIn(400);
+                }
+                function wuss_out(integer)
+                {
+                    $('#shape'+integer+'conf').fadeOut(400);
+                    $('#shape'+integer).delay(400).fadeIn(400);
+                }
+                function rename(id)
+                {
+                    //$('.swoop').animate({top:0}, 300);
+                    //$('#title'+id+'box').delay(400).fadeIn(400);
+                    var a = prompt("Enter the new name: ");
+                    if (a != null)
+                    {
+                        shapeLib[id].name = a;
+                        saveLib();
+                    }
+
+                }
+                
+                function tellShareURL(url, id)
+                {
+                    alert(url);
+                }
+                
+                function getShortURL(url, imgid)
+                {
+                    return jQuery.ajax({
+                                       'type': 'POST',
+                                       'url': "https://www.googleapis.com/urlshortener/v1/url",
+                                       'contentType': 'application/json',
+                                       'data': JSON.stringify({"longUrl" : url}),
+                                       'success': function(data){tellShareURL(data.id, imgid)}
+                                       });
+                }
+                
+                    </script>
+            </header>
+            <div id='renameme' class='swoop'></div>
+            
+            <section class="library" id="library">
+                <div class="container"><br><br>
+                    <div style="float:left"><h1>Local Shapes</h1></div> <div style="float:right;padding:15px;display:inline-block;">
+                        
+                        <!-- <a href=/demo/><font size="6"><i class="icon-plus-sign"></i></font><span style="display:inline-block;vertical-align:middle">Create New Object </span></a> --></div>
+                    <br>
+                    <!-- <iframe src="/demo/" width=100% height=500></iframe> -->
+                    <div class="container" id="lib">
+                    <script>
+                        if (typeof localStorage["shapes"] !== 'undefined')
+                        {
+                            var shapeLib = JSON.parse(localStorage["shapes"]).array;
+                            if (typeof shapeLib === 'undefined')
+                                shapeLib = [];
+                        }
+                        else
+                        var shapeLib = [];
+                        
+                        for (var i=0; i<shapeLib.length; i++)
+                        {
+                            var shape = shapeLib[i];
+                            
+                            document.write('<div class="box" id="shape'+i+'"><img src="'+shape.image+'" height="150" width="150"><br><a href="/create.html#id='+ i +'">Edit</a> - <a href="javascript:getShortURL(\''+location.href+'create.html#shape='+shape.hash+'\','+i+')">Share</a> - <a href="javascript:confirm_del('+i +')">Trash</a><br><div id="title'+i +'"><a style="text-decoration: none" href="javascript:rename('+i +')">');
+                            if (shape.name)
+                            document.write(shape.name);
+                            else
+                            document.write('<font size=1>Untitled '+i+'</font>');
+                            document.write('</a></div><div id="title'+i+'box" style="display:none"><input type="text" placeholder="'+shape.name +'"></input></div></div><div style="display:none;" class="box" id="shape'+i+'conf"><br><br><br>Are you sure?<br><a href="javascript:delete_shape('+i+')">Yes</a> - <a href="javascript:wuss_out('+i+')">No</a></div>');
+                        }
+                        </script>
+                        <div class="box"><a href="create.html"><br><br><h2><i class="icon-plus-sign"></i></h2><span style="display:inline-block">Add New Shape</span></a></div>
+                    </div>
+                </div>
+            </section>
+            <br><br><br>
+            
+            <!-- FOOTER -->
+            <footer>
+                <div class="container" data-bgcolor="#555">
+                    <div class="row">
+                        
+                        <div class="span6">&copy; 2013 Shapd, Inc. | all rights reserved</div>
+                        
+                        <div class="span6 social">
+                            <a href="#">twitter</a> <a href="#">facebook</a> <a href="#">instagram</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </footer>
+            
+            <div class="dotted"></div>
+            
+        </div> <!-- Wrapper end -->
+        
+        <!-- Scripts --><!--
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+        <script src="js/app.js"></script>
+        <script src="js/init.js"></script>-->
+          </body>
+</html>

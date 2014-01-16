@@ -6,5 +6,5 @@ function loadBlank()
 function loadScreenshotStage()
 {
     loadBlank();
-    setTimeout("document.getElementById('shape_stage').src = '/demo/'+shapeID+\"?meta=1\";", 300);
+    setTimeout("document.getElementById('shape_stage').src = 'create.html#id='+shapeID+\"&meta=1\";", 300);
 }

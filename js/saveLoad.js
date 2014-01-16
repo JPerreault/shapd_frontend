@@ -49,4 +49,31 @@ var SaveLoad = function(progState)
 			}
 		}
 	}
+};
+
+function saveLib()
+{
+    
+    localStorage['shapes'] = JSON.stringify({'array' : shapeLib});
+}
+
+function saveShape()
+{
+    if (typeof shapeID == 'undefined')
+    {
+        if (typeof localStorage['shapes'] !== 'undefined')
+        {
+            shapeLib = JSON.parse(localStorage['shapes']).array;
+            if (typeof shapeLib === 'undefined')
+                shapeLib = [];
+        }
+        else
+            shapeLib = [];
+        var shape = {};
+        shape.hash = hashend;
+        location.hash = "id="+shapeLib.length;
+        shapeLib.push(shape);
+        saveLib();
+        loadScreenshotStage();
+    }
 }

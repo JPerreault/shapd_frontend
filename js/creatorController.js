@@ -4,6 +4,23 @@ var sceneWrapper, view, tutorial, state, printable, currentMesh, loop;
 
 var segments = 600, radiusSegments = 8;
 
+if (location.hash.indexOf("meta") > 0)
+{
+    var screenShot = true;
+}
+
+if (location.hash.indexOf("id") > 0)
+{
+    var a = location.hash.indexOf("id=");
+    var b = location.hash.indexOf("&");
+    if (b == -1)
+        b = location.hash.length;
+    
+    shapeID = parseInt(location.hash.substring(a+3, b));
+    shapeLib = JSON.parse(localStorage['shapes']).array;
+    trueHash = shapeLib[shapeID].hash;
+}
+
 if (typeof printingUser !== 'undefined')
 {
 	document.getElementById('t').className = 'buttonVerySmall';
@@ -14,11 +31,7 @@ window.onload = function() {
 	var renderer, materialsLibrary;
 	var tubeMeshBuilder, matListener, progState;
 	var projector, fout, saveLoad, figure;
-
-    if (typeof notSignedIn === 'undefined')
-        var doTutorial = false;
-    else
-        var doTutorial = true;
+    var doTutorial = true;
 	
 	init();
 	animate();
@@ -70,6 +83,9 @@ window.onload = function() {
 		if (typeof screenShot === 'undefined')
 			document.getElementById(currentMesh['Material']).click();	//For initializing material	
 		addSliders(tutorial, sceneWrapper);
+        
+        if (typeof trueHash !== 'undefined')
+            loadFromLib(trueHash);
 	}
 	   
     function killSelf()
@@ -82,7 +98,10 @@ window.onload = function() {
     {
         var metaData = renderer.domElement.toDataURL("image/png");
         
-        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData}, function(data){killSelf()});
+//        $.post("/meta", {id: shapeID, authenticity_token: authToken, meta: metaData}, function(data){killSelf()});
+        shapeLib[shapeID].image = metaData;
+        saveLib();
+        killSelf();
         
     }
     
@@ -339,11 +358,11 @@ function publishCreation()
 
     var timestamp = new Date().getTime();
     
-    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='/shapes/"+shapeID+".png' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
+    var publishCSS = "<br><span style='font-size: 3em; font-weight: bold; color:#2fa1d7;'>Congratulations!</span><br><span style='font-size: 1.5em; font-weight: bold; color:#000; opacity: 0.8;'>You've made a pendant!</span><br><span class='verdana' style='color:#000; opacity: 0.8;'>(and it's awesome)</span><br><br><div class='publishImg'><div style='height:155px;width:155px;margin-left:auto;margin-right:auto'><img src='"+shapeLib[shapeID].image+"' id='shapepreview' style='width:250px; height:250px; margin-top:-55px; margin-left:-55px'></img></div><div style='font-size:18px'>Now, you can either:</div></div><div id='publishActionContainer' width='100%'><button class='publishButtonCSS buttonImg verdana' onclick='makePublish()'>Publish</button><button class='publishButtonCSS buttonImg' onclick='makeProduct()'>Order</button></div><div style='text-align:center;'><div class='publishDesc buttonImg'>Share your design by publishing it. It will appear in the group gallery so that others can see what you've made. Other people could give you kudos, use it themselves, or make a copy and alter it themselves.</div><div class='publishDesc buttonImg'>Buy it! You can order it and we will have it made for you and ship it to your house! The next time someone says \'Wow, what a nice necklace! Where did you get it?' you will have a heck of a story :). </div></div></div></div>";
     var d1 = generateWhiteDropDown(700, 700, publishCSS );
     
-    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png?'+timestamp+'";', 500);
-    setTimeout('document.getElementById("shapepreview").src ="/shapes/'+shapeID+'.png?'+(timestamp+12)+'";', 1000);
+    setTimeout('document.getElementById("shapepreview").src ="'+shapeLib[shapeID].image+'";', 500);
+    setTimeout('document.getElementById("shapepreview").src ="'+shapeLib[shapeID].image+'";', 1000);
 
     fout = d1;
     fadeIn(d1);
