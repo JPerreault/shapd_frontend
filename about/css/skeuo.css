@@ -1,0 +1,116 @@
+/* ----------------------------------------------------------------------------------
+
+THINGS TO CHANGE
+****************
+1) Initial Setup : place where you change initial styling
+2) Font Colors : place to change font colors
+3) Background Colors : place to change background colors
+4) Border Colors : place to change border colors and size;
+
+---------------------------------------------------------------------------------- */
+
+
+/* INITIAL SETUP ----------------------------------------------------------------- */
+
+body {font-family: 'Noto Sans', sans-serif}
+h1, h2, h3, h4, h5, h6 { font-family: "Noto Sans", sans-serif; font-weight: 500; }
+header .logo a {font-family: 'Noto Sans', sans-serif}
+
+
+/* FONT COLORS ------------------------------------------------------------------- */
+
+.btn-custom { color: white }
+.btn.btn-custom:hover {color: white}
+
+header .logo a, header .logo a:hover {color: white;}
+header a, header .nav > li > a {color: #999;}
+header .nav>li>a:hover, header .nav>li>a:focus, header .nav>li.active>a {color: white;}
+
+section.dark, section.dark .title span {color : #999;}
+.flexslider.wide nav .box a { color: #999;}
+.flexslider.wide nav .box a:hover {color: white;}
+
+
+/* BACKGROUND COLORS -------------------------------------------------------------- */
+
+.btn-custom {
+	background: rgb(105,110,152);
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzY5NmU5OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1MDUyNzIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  rgba(105,110,152,1) 0%, rgba(80,82,114,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(105,110,152,1)), color-stop(100%,rgba(80,82,114,1)));
+	background: -webkit-linear-gradient(top,  rgba(105,110,152,1) 0%,rgba(80,82,114,1) 100%);
+	background: -o-linear-gradient(top,  rgba(105,110,152,1) 0%,rgba(80,82,114,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(105,110,152,1) 0%,rgba(80,82,114,1) 100%);
+	background: linear-gradient(to bottom,  rgba(105,110,152,1) 0%,rgba(80,82,114,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#696e98', endColorstr='#505272',GradientType=0 );
+}
+.btn.btn-custom:hover {
+	background: rgb(80,82,114);
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzUwNTI3MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2OTZlOTgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  rgba(80,82,114,1) 0%, rgba(105,110,152,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(80,82,114,1)), color-stop(100%,rgba(105,110,152,1)));
+	background: -webkit-linear-gradient(top,  rgba(80,82,114,1) 0%,rgba(105,110,152,1) 100%);
+	background: -o-linear-gradient(top,  rgba(80,82,114,1) 0%,rgba(105,110,152,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(80,82,114,1) 0%,rgba(105,110,152,1) 100%);
+	background: linear-gradient(to bottom,  rgba(80,82,114,1) 0%,rgba(105,110,152,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#505272', endColorstr='#696e98',GradientType=0 );
+}
+header {
+	background-image: -ms-linear-gradient(bottom, #ffffff 0%, #ffffff 100%);
+	background-image: -moz-linear-gradient(bottom, #ffffff 0%, #ffffff 100%);
+	background-image: -o-linear-gradient(bottom, #ffffff 0%, #ffffff 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #ffffff));
+	background-image: linear-gradient(to top, #ffffff 0%, #ffffff 100%);
+}
+header .nav>li>a:hover, header .nav>li>a:focus, header .nav>li.active>a, header .nav-pills>.active>a, header .nav-pills>.active>a:hover, header .nav-pills>.active>a:focus {background-color: #777}
+.flexslider.wide nav .box { background: #111; }
+
+
+/* BORDER COLORS ------------------------------------------------------------------- */
+
+header { padding-top:3px; padding-bottom:7px; border-bottom: 1px solid #333; }
+section .title:after  { border: 0; border-top: 1px solid #ccc; border-bottom: 1px solid #fff; }
+section.dark .title:after {border-top: 1px solid #333; border-bottom: 1px solid #777;}
+.flexslider.wide {border-bottom: 1px solid #ccc;}
+.flexslider.wide nav {bottom:10px; border-bottom: 0;}
+.btn.btn-custom {border: 1px solid #4D4E6D;}
+
+/* ---------------------------------------------------------------------------------- */
+/* BASIC CUSTOMIZATION STOP HERE, PROCEED ONLY IF YOU NEED FURTHER CUSTOMIZATION */
+/* ---------------------------------------------------------------------------------- */
+
+.btn.btn-custom {text-shadow:0 1px 1px #4D4E6D;}
+.btn.btn-custom:hover {text-shadow:0 -1px 1px #4D4E6D;}
+
+/* header */
+header .logo .brand {padding-top: 10px;}
+header .logo a, header .logo a:hover {font-weight: 900; letter-spacing: -3px}
+header a, header .nav > li > a {text-shadow: 0 1px 1px #333;}
+header .nav>li>a:hover, header .nav>li>a:focus, header .nav>li.active>a {box-shadow: inset 0 1px 1px #000; text-shadow: 0 1px 1px #000;}
+
+/* section */
+section {text-shadow: 0 1px 1px #fff;}
+section .flexslider {text-shadow: 0 1px 1px #333;}
+section .title span {padding: 0 20px; font-size: 1em; letter-spacing: 2px}
+section .title:after  { content: " "; display: block; width: 100%; height: 0; margin-top: -20px; margin-bottom: 18px; }
+section.dark {text-shadow: 0 1px 1px #333; box-shadow: inset 0 0 10px #333}
+section.cta {text-shadow: 0 1px 1px #333;}
+
+/* features */
+address.well {box-shadow: none; background: none; border:none;}
+
+/* flexslider */
+.flexslider.wide { height: 600px; }
+.flexslider.wide nav {background: none;	bottom:10px; }
+.flexslider.wide nav .box {width: 55px; opacity: .4}
+.flexslider.wide nav .box:hover {opacity: 1}
+.flexslider.wide nav .box.pull-right, .flexslider.wide nav .box.pull-left {-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+.flexslider.wide nav .box.pull-right {margin-right: 10px} 
+.flexslider.wide nav .box.pull-left {margin-left: 10px}
+.flexslider.wide nav .box a { text-shadow: 0 1px 1px #333;}
+.flexslider.wide nav .next, .flexslider.wide nav .previous {text-shadow: 0 1px 1px #fff;}
+.flex-control-paging li a {margin-top: 25px; box-shadow: inset 0 1px 1px #333;}
+
+@media (max-width: 767px) {
+	.nav-tabs>li, .nav-pills>li {float:none;}
+}
