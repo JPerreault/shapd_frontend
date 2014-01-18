@@ -19,6 +19,7 @@ if (location.hash.indexOf("id=") > 0)
     shapeID = parseInt(location.hash.substring(a+3, b));
     shapeLib = JSON.parse(localStorage['shapes']).array;
     trueHash = shapeLib[shapeID].hash;
+    savedShape = trueHash;
 }
 
 if (location.hash.indexOf("shape=") > 0)
@@ -28,7 +29,10 @@ if (location.hash.indexOf("shape=") > 0)
     if (b == -1)
         b = location.hash.length;
     
-    trueHash = decodeURI(location.hash.substring(a+6, b));
+    var datHash = location.hash.substring(a+6, b);
+    
+    trueHash = decodeURI(datHash);
+    savedShape = trueHash;
     location.hash = "";
 }
 
@@ -42,13 +46,25 @@ window.onload = function() {
 	var renderer, materialsLibrary;
 	var tubeMeshBuilder, matListener, progState;
 	var projector, fout, saveLoad, figure;
-    var doTutorial = true;
+    
+    var doTutorial;
+    
+    if (!localStorage["do_tut"] || eval(localStorage["do_tut"]) == false)
+    {
+        doTutorial = true;
+    }
+    else
+    {
+        doTutorial = false;
+    }
 	
 	init();
 	animate();
 
 	function init() {
 		var guiInit = new GuiInit();
+
+
 
 		materialsLibrary = new MaterialsLibrary();
 		tubeMeshBuilder = new TubeMeshBuilder(materialsLibrary);
@@ -57,6 +73,8 @@ window.onload = function() {
 		loop = new Loop(materialsLibrary);
 
 		sceneWrapper = new SceneWrapper(tubeMeshBuilder, materialsLibrary.textureCube, currentMesh);
+
+
 		
 		if (!!window.WebGLRenderingContext  || document.createElement( 'canvas' ).getContext( 'experimental-webgl' ))
         {
@@ -75,6 +93,8 @@ window.onload = function() {
 		else
             alert ('WebGL check failed.');
 		view = new InputView(sceneWrapper, renderer, currentMesh);
+
+
 		
 		renderer.setSize( view.currentWindowX, view.currentWindowY );
 		renderer.setFaceCulling( THREE.CullFaceNone );
@@ -85,6 +105,8 @@ window.onload = function() {
 		scene = sceneWrapper;
 		
 		tutorial = new Tutorial(view, doTutorial);
+        localStorage["do_tut"] = true;
+
 		
 		matListener = new materialListener(sceneWrapper, tutorial);
 		progState = new ProgressState(tubeMeshBuilder, matListener);
@@ -94,14 +116,15 @@ window.onload = function() {
 		if (typeof screenShot === 'undefined')
 			document.getElementById(currentMesh['Material']).click();	//For initializing material	
 		addSliders(tutorial, sceneWrapper);
+
+		//if (typeof trueHash !== 'undefined')
+		//    loadFromLib(trueHash);
         
-        if (typeof trueHash !== 'undefined')
-            loadFromLib(trueHash);
 	}
 	   
     function killSelf()
     {
-        parent.hideTheBeast(parent.state);
+        //parent.hideTheBeast(parent.state);
         location.href="blank.html";
     }
     

@@ -133,14 +133,14 @@
                                 <ul class="nav nav-pills">
                                     
                                     
-                                    <li class="hidden-phone"><a href="/">About</a></li>
+                                    <li class="hidden-phone"><a href="./about.html">About</a></li>
                                     
                                    <!-- <li class="hidden-phone"><a href="#library">View Creations</a></li>
                                     <li class="hidden-phone"><a href="/gallery">Gallery</a></li>-->
                                     
-                                    <li class="hidden-phone"><a href="/darkroom">Gallery</a></li>
+                                    <li class="hidden-phone"><a href="./">Gallery</a></li>
                                     
-                                    <li class="hidden-phone"><a href="#">More</a></li><br>
+                                    <li class="hidden-phone"><a href="http://jonoshaughnessy.org" target="_blank">More</a></li><br>
                                     <!--
                                     <li class="hidden-phone"><a href="/logout">Logout</a></li>
                                     
@@ -189,7 +189,7 @@
                 
                 function tellShareURL(url, id)
                 {
-                    alert(url);
+                    prompt("Below is your shape's custom URL! Copy and paste it to share it everywhere!", url);
                 }
                 
                 function getShortURL(url, imgid)
@@ -251,7 +251,7 @@
                         <div class="span6">&copy; 2013 Shapd, Inc. | all rights reserved</div>
                         
                         <div class="span6 social">
-                            <a href="#">twitter</a> <a href="#">facebook</a> <a href="#">instagram</a>
+                            tutorial: <a href="javascript:localStorage['do_tut']=false">on</a>/<a href="javascript:localStorage['do_tut']=true">off</a> - data: <a href="javascript:var a=confirm('Delete ALL data? This will destroy every single shape!');if (a){var b = confirm('Are you sure? Like, everything will be gone. Seriously.');if(b){var c=confirm('Asking ONCE more for clarity. Delete EVERY SINGLE shape so that they can no longer be accessible?');if(c){localStorage.clear();alert('The deed is done.');location.reload()}}}">clear all</a>
                         </div>
                         
                     </div>
