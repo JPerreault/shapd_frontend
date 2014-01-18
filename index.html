@@ -229,7 +229,7 @@
                         {
                             var shape = shapeLib[i];
                             
-                            document.write('<div class="box" id="shape'+i+'"><img src="'+shape.image+'" height="150" width="150"><br><a href="/create.html#id='+ i +'">Edit</a> - <a href="javascript:getShortURL(\''+location.href+'create.html#shape='+shape.hash+'\','+i+')">Share</a> - <a href="javascript:confirm_del('+i +')">Trash</a><br><div id="title'+i +'"><a style="text-decoration: none" href="javascript:rename('+i +')">');
+                            document.write('<div class="box" id="shape'+i+'"><img src="'+shape.image+'" height="150" width="150"><br><a href="create.html#id='+ i +'">Edit</a> - <a href="javascript:getShortURL(\''+location.href+'create.html#shape='+shape.hash+'\','+i+')">Share</a> - <a href="javascript:confirm_del('+i +')">Trash</a><br><div id="title'+i +'"><a style="text-decoration: none" href="javascript:rename('+i +')">');
                             if (shape.name)
                             document.write(shape.name);
                             else
