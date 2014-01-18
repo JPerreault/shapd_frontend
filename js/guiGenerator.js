@@ -639,7 +639,7 @@ var GuiInit = function(){
 			var savedShapeLibrary = document.createElement('div');
 			savedShapeLibrary.id = 'idSavedShapeLibrary';
 			savedShapeLibrary.className = 'antiscroll-inner';
-			savedShapeLibrary.innerHTML = shapeLib;
+			savedShapeLibrary.innerHTML = generateLibraryHTML();
 			savedShapeLibrary.style.height = '300px';
 			savedShapeLibrary.style.width = '217px';
 			savedShapeLibrary.style.overflow = 'hidden';
@@ -647,6 +647,18 @@ var GuiInit = function(){
 			scrollWrapper.appendChild(savedShapeLibrary);
 		}
 	}
+    
+    function generateLibraryHTML()
+    {
+        var output = "";
+        for (var x=0; x<shapeLib.length; x++)
+        {
+            var shape = shapeLib[x];
+            output += "<a href='javascript:loadFromLib(\""+shape.hash+"\")'><img src='"+shape.image+"' height=100 width=100></a>";
+        }
+        
+        return output;
+    }
 
 	function addStartingShapes() {
 		var shapeContainer = document.createElement('div');

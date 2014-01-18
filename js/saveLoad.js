@@ -59,21 +59,31 @@ function saveLib()
 
 function saveShape()
 {
+    if (typeof localStorage['shapes'] !== 'undefined')
+    {
+        shapeLib = JSON.parse(localStorage['shapes']).array;
+        if (typeof shapeLib === 'undefined')
+            shapeLib = [];
+    }
+    else
+        shapeLib = [];
+    
+    var shape = {};
+    shape.hash = hashend;
+    
     if (typeof shapeID == 'undefined')
     {
-        if (typeof localStorage['shapes'] !== 'undefined')
-        {
-            shapeLib = JSON.parse(localStorage['shapes']).array;
-            if (typeof shapeLib === 'undefined')
-                shapeLib = [];
-        }
-        else
-            shapeLib = [];
-        var shape = {};
-        shape.hash = hashend;
         location.hash = "id="+shapeLib.length;
         shapeID = shapeLib.length;
         shapeLib.push(shape);
+        saveLib();
+        loadScreenshotStage();
+    }
+    else
+    {
+        shape.name = shapeLib[shapeID].name;
+        shape.image = shapeLib[shapeID].image;
+        shapeLib[shapeID] = shape;
         saveLib();
         loadScreenshotStage();
     }
