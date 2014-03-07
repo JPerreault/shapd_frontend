@@ -42,8 +42,7 @@ var SaveLoad = function(progState)
 			{
                 if (typeof givenFeedback !== 'undefined' && !givenFeedback)
                     promptForFeedback()
-				progState.changeState('publish');
-				progState.setupInterface();
+				saveSTL(currentMesh.figure);
 				saveShape();
 				
 			}
