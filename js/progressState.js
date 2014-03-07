@@ -61,6 +61,7 @@ var ProgressState = function(tubeMeshBuilder, matListener)
 			$('#idLoopRotContainer').fadeOut(450);
 			document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
 			saveButtonClick(true);
+            document.getElementById('idSaveButton').innerHTML = "Save &amp;<br>Continue";
 		}
 		else if (this.state == 'loops')
 		{
@@ -91,7 +92,8 @@ var ProgressState = function(tubeMeshBuilder, matListener)
 				document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 			tutorial.tut5();
 			saveButtonClick(true);
-			document.getElementById('idlockLoop').innerHTML = 'Lock<br>Loop'
+			document.getElementById('idlockLoop').innerHTML = 'Lock<br>Loop';
+            document.getElementById('idSaveButton').innerHTML = "Save &amp;<br>Continue";
 		}
 		else if (this.state == 'finalize')
 		{
@@ -122,11 +124,10 @@ var ProgressState = function(tubeMeshBuilder, matListener)
 			tutorial.tut7();
 			currentMesh.calculateDimensions('xyz', loop.torusDefined);
 			matListener.panelUpdate();
-			getNewPrice();
 			$( "#thickslider" ).slider( "value", currentMesh['Thickness'] );
 			$( "#depthslider" ).slider( "value", currentMesh['Depth'] );
 			updateThickness();
-			saveButtonClick(false);
+            document.getElementById('idSaveButton').innerHTML = "Save STL<br>File";
 		}
 		else if (this.state == 'publish')
 		{
