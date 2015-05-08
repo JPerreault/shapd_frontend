@@ -25,8 +25,7 @@ var InputView = function(sW, rend, tMP) {
 	var that = this;
 
 	document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+    document.addEventListener( 'touchstart', onDocumentMouseDown, false );
 	document.addEventListener( 'mousewheel', onDocumentMouseWheel, false);
 	document.addEventListener( 'DOMMouseScroll', onDocumentMouseWheel, false);
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -87,27 +86,58 @@ var InputView = function(sW, rend, tMP) {
 		if (typeof freeze !== 'undefined' && freeze)
             return;
         
-        event.preventDefault();
+        if ( typeof(event.touches) !== 'undefined' && event.touches.length == 1 )
+        {
+            event.clientX = event.touches[0].pageX;
+            event.clientY = event.touches[0].pageY;
+        }
+        
+//        else if ( event.touches )
+//            return true;
+        
+        
+//        event.preventDefault();
 
 		if (event.target.id.indexOf('slider') === -1 && event.target.parentElement.id.indexOf('slider') === -1 && event.target.className.indexOf('slider') === -1 && event.target.className.indexOf('scrollbar') === -1)
 		{
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+            document.addEventListener( 'touchmove', onDocumentMouseMove, false );
+			document.addEventListener( 'touchend', onDocumentMouseUp, false );
 
 			mouseXOnMouseDown = event.clientX - that.currentWindowX;
 			mouseYOnMouseDown = event.clientY - that.currentWindowY;
 			targetYRotationOnMouseDown = that.targetY;
 			targetXRotationOnMouseDown = that.targetX;
 		}
+        
+        return false;
+        
 	}
 
 	function onDocumentMouseMove( event ) {
 
+        var sensitivity = 0.025;
+        
+        if ( typeof(event.touches) !== 'undefined' && event.touches.length == 1 )
+        {
+            event.clientX = event.touches[0].pageX;
+            event.clientY = event.touches[0].pageY;
+            sensitivity = 0.0125;
+        }
+        
+        else if ( event.touches )
+            return true;
+        
+        event.preventDefault();
+        
+        
 		mouseX = event.clientX - that.currentWindowX;
 		mouseY = event.clientY - that.currentWindowY;
 
-        that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.025;
-        that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.025; 	
+        that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * sensitivity;
+        that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * sensitivity; 	
+        
 	}
 
 	function onDocumentMouseUp( event ) {
@@ -116,29 +146,6 @@ var InputView = function(sW, rend, tMP) {
 		document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	}
 
-	function onDocumentTouchStart( event ) {
-
-		if ( event.touches.length == 1 ) {
-
-			event.preventDefault();
-
-			mouseXOnMouseDown = event.touches[ 0 ].pageX - windowHalfX;
-			targetRotationOnMouseDown = targetRotation;
-
-		}
-	}
-
-	function onDocumentTouchMove( event ) {
-
-		if ( event.touches.length == 1 ) {
-
-			event.preventDefault();
-
-			mouseX = event.touches[ 0 ].pageX - windowHalfX;
-			targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.05;
-
-		}
-	}
 	
 	this.resetRotation = function()
 	{
